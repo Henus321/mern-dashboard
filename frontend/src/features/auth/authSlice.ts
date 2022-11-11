@@ -11,9 +11,10 @@ const initialState = {
   message: "",
 };
 
+// TYPES!
 export const register = createAsyncThunk(
   "auth/register",
-  async (user, thunkAPI) => {
+  async (user: any, thunkAPI) => {
     try {
       return await authService.register(user);
 
@@ -31,18 +32,24 @@ export const register = createAsyncThunk(
   }
 );
 
-export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
-  try {
-    return await authService.login(user);
-  } catch (error: any) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
+// TYPES!
+export const login = createAsyncThunk(
+  "auth/login",
+  async (user: any, thunkAPI) => {
+    try {
+      return await authService.login(user);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
 
-    return thunkAPI.rejectWithValue(message);
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 
 export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout();
