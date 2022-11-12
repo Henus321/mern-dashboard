@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { setupStore } from "./store";
 
+import "./less/index.less";
+
 const store = setupStore();
 
 const root = ReactDOM.createRoot(

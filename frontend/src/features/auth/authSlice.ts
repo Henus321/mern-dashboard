@@ -1,9 +1,11 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { IAuth } from "../../models/IAuth";
+import { IUser } from "../../models/IUser";
 import authService from "./authService";
 
 const user = JSON.parse(localStorage.getItem("user")!);
 
-const initialState = {
+const initialState: IAuth = {
   user: user ? user : null,
   isError: false,
   isSuccess: false,
@@ -11,14 +13,11 @@ const initialState = {
   message: "",
 };
 
-// TYPES!
 export const register = createAsyncThunk(
   "auth/register",
-  async (user: any, thunkAPI) => {
+  async (user: IUser, thunkAPI) => {
     try {
       return await authService.register(user);
-
-      // TYPE??!
     } catch (error: any) {
       const message =
         (error.response &&
@@ -32,10 +31,9 @@ export const register = createAsyncThunk(
   }
 );
 
-// TYPES!
 export const login = createAsyncThunk(
   "auth/login",
-  async (user: any, thunkAPI) => {
+  async (user: IUser, thunkAPI) => {
     try {
       return await authService.login(user);
     } catch (error: any) {
@@ -55,15 +53,14 @@ export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout();
 });
 
-// TYPES FOR MESSAGE
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     reset: (state) => {
+      state.isLoading = false;
       state.isError = false;
       state.isSuccess = false;
-      state.isLoading = false;
       state.message = "";
     },
   },
@@ -72,32 +69,38 @@ export const authSlice = createSlice({
       .addCase(register.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(register.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.user = action.payload;
-      })
-      .addCase(register.rejected, (state, action: any) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-        state.user = null;
-      })
+      .addCase(
+        register.fulfilled.type,
+        (state, action: PayloadAction<IUser>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.user = action.payload;
+        }
+      )
+      .addCase(
+        register.rejected.type,
+        (state, action: PayloadAction<string>) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+          state.user = null;
+        }
+      )
       .addCase(login.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(login.fulfilled, (state, action) => {
+      .addCase(login.fulfilled.type, (state, action: PayloadAction<IUser>) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload;
       })
-      .addCase(login.rejected, (state, action: any) => {
+      .addCase(login.rejected.type, (state, action: PayloadAction<string>) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
         state.user = null;
       })
-      .addCase(logout.fulfilled, (state) => {
+      .addCase(logout.pending, (state) => {
         state.user = null;
       });
   },

@@ -1,9 +1,9 @@
 import axios from "axios";
+import { IUser } from "../../models/IUser";
 
 const API_URL = "/api/v1/users/";
 
-// TYPE?!?
-const register = async (userData: any) => {
+const register = async (userData: IUser) => {
   const response = await axios.post(API_URL, userData);
 
   if (response.data) {
@@ -12,10 +12,8 @@ const register = async (userData: any) => {
   return response.data;
 };
 
-// TYPE?!?
-const login = async (userData: any) => {
+const login = async (userData: IUser) => {
   const response = await axios.post(API_URL + "login", userData);
-
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
