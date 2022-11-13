@@ -40,13 +40,14 @@ app.use(mongoSanitize());
 app.use(xss());
 
 // ADD PARAMETER POLLUTION PREVENTER hpp later
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-// Test middleware
-app.use((req, res, next) => {
-  req.requestTime = new Date().toISOString();
-  console.log(req.cookies);
-  next();
-});
+// Cookie test middleware
+// app.use((req, res, next) => {
+//   req.requestTime = new Date().toISOString();
+//   console.log(req.cookies);
+//   next();
+// });
 
 // Routes
 app.use("/api/v1/users", userRouter);

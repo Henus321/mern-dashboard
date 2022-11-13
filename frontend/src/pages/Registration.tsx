@@ -24,10 +24,10 @@ const Login = () => {
     name: "",
     email: "",
     password: "",
-    password2: "",
+    passwordConfirm: "",
   });
 
-  const { name, email, password, password2 } = formData;
+  const { name, email, password, passwordConfirm } = formData;
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const Login = () => {
     if (isError) {
       notification.open({
         message: "Registration Error!",
-        description: "Woops! Something went wrong, try again later...",
+        description: message,
         duration: 2,
       });
     }
@@ -56,7 +56,7 @@ const Login = () => {
   };
 
   const onSubmit = () => {
-    if (password !== password2) {
+    if (password !== passwordConfirm) {
       notification.open({
         message: "Registration Error!",
         description: "Passwords do not match...",
@@ -67,6 +67,7 @@ const Login = () => {
         name,
         email,
         password,
+        passwordConfirm,
       };
 
       dispatch(register(userData));
@@ -133,7 +134,7 @@ const Login = () => {
               />
             </Form.Item>
             <Form.Item
-              name="password2"
+              name="passwordConfirm"
               label="Confirm Password"
               rules={[
                 { required: true, message: "Please confirm your password" },
@@ -141,9 +142,9 @@ const Login = () => {
             >
               <Input.Password
                 className="rounded"
-                name="password2"
+                name="passwordConfirm"
                 size="large"
-                value={password2}
+                value={passwordConfirm}
                 onChange={onChange}
                 prefix={<LockOutlined />}
               />

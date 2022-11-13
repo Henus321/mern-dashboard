@@ -36,9 +36,8 @@ const Login = () => {
   useEffect(() => {
     if (isError) {
       notification.open({
-        message: "Notification Title",
-        description:
-          "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+        message: "Login Error!",
+        description: message,
         duration: 2,
       });
     }
@@ -65,8 +64,6 @@ const Login = () => {
 
     dispatch(login(userData));
   };
-
-  console.log(message);
 
   return (
     <>
