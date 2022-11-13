@@ -66,6 +66,8 @@ const Login = () => {
     dispatch(login(userData));
   };
 
+  console.log(message);
+
   return (
     <>
       <Row justify="center" className="margin-y-auto">

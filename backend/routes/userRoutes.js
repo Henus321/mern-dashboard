@@ -1,15 +1,19 @@
 const express = require("express");
+const { getMe } = require("../controllers/userController");
 const {
-  registerUser,
-  loginUser,
-  getMe,
-} = require("../controllers/userController");
-const { protect } = require("../middleware/authMiddleware");
+  protect,
+  registration,
+  login,
+  logout,
+} = require("../controllers/authController");
 
 const router = express.Router();
 
-router.post("/", registerUser);
-router.post("/login", loginUser);
+router.post("/registraion", registration);
+router.post("/login", login);
+router.get("/logout", logout);
+
+// Protect all routes after this middleware
 router.get("/me", protect, getMe);
 
 module.exports = router;
