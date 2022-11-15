@@ -1,8 +1,14 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "private": true,
   "proxy": "http://localhost:5000",
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "lint": "eslint --ext .ts,.tsx src --fix",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@craco/craco": "^7.0.0",
     "@reduxjs/toolkit": "^1.9.0",
@@ -23,19 +29,6 @@
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "lint": "eslint --ext .ts,.tsx src --fix",
-    "test": "craco test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
