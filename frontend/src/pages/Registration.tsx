@@ -42,7 +42,7 @@ const Login = () => {
     }
 
     if (isSuccess || user) {
-      navigate("/home");
+      navigate("/dashboard");
     }
 
     dispatch(reset());
