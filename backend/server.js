@@ -1,6 +1,9 @@
+// eslint-disable-next-line
 const colors = require("colors");
+// eslint-disable-next-line
 const dotenv = require("dotenv").config();
 const connectDB = require("./config/db");
+
 const PORT = process.env.PORT || 5000;
 
 process.on("uncaughtException", (err) => {

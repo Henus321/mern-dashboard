@@ -15,6 +15,7 @@ const login = async (userData: IUser) => {
   return response.data;
 };
 
+// eslint-disable-next-line
 const logout = async (_: any) => {
   const response = await axios(API_URL + "logout");
 

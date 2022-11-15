@@ -16,7 +16,7 @@ const Home = () => {
     LaptopOutlined,
     NotificationOutlined,
   ].map((icon, index) => {
-    const key: string = String(index + 1);
+    const key = String(index + 1);
 
     return {
       key: `sub${key}`,

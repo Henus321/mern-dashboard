@@ -128,7 +128,7 @@ const Login = () => {
             </Form.Item>
           </Form>
           <Typography.Paragraph>
-            Don't have an account?
+            Don&rsquo;t have an account?
             <Typography.Text underline>
               {" "}
               <Link to="/registration">Sign up and get started!</Link>
