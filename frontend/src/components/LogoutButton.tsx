@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { reset, logout } from "../features/auth/authSlice";
 import { Avatar, Button, Col, notification } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../constants/Constants";
 
 const LogoutButton = () => {
   const { user, isError, isSuccess, isLoading, message } = useAppSelector(
@@ -23,7 +24,7 @@ const LogoutButton = () => {
     }
 
     if (isSuccess && !user) {
-      navigate("/");
+      navigate(DEFAULT_UNAUTHORIZED_USER_ROUTE);
     }
 
     dispatch(reset());

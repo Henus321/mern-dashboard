@@ -22,19 +22,19 @@ const navSideMenu = [
   },
   {
     key: "notes",
-    path: "/dashboard/notes",
+    path: "/dashboard/notes-1",
     title: "Notes",
     icon: CarryOutOutlined,
     submenu: [
       {
         key: "notes-1",
-        path: "/dashboard/notes/notes-1",
+        path: "/dashboard/notes-1",
         title: "Notes 1",
         icon: null,
       },
       {
         key: "notes-2",
-        path: "/dashboard/notes/notes-2",
+        path: "/dashboard/notes-2",
         title: "Notes 2",
         icon: null,
       },

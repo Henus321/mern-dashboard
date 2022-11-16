@@ -1,14 +1,13 @@
 import React from "react";
 import AppHeader from "../components/AppHeader";
 import AppFooter from "../components/AppFooter";
-// import {
-//   UserOutlined,
-//   LaptopOutlined,
-//   NotificationOutlined,
-// } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, MenuProps } from "antd";
 import navigationConfig from "../configs/NavigationConfig";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
+import {
+  breadcrumbRouteCreator,
+  capitalizeFirstLetter,
+} from "../helpers/Helpers";
 
 const { Content, Sider } = Layout;
 
@@ -40,6 +39,13 @@ const Dashboard = () => {
     }
   );
 
+  const location = useLocation();
+  const currentMenuItemKey = location.pathname.split("/").slice(2)[0];
+
+  const breadcrumbItems: string[] = location.pathname
+    .split("/")
+    .filter((item) => item !== "");
+
   return (
     <>
       <AppHeader />
@@ -47,17 +53,24 @@ const Dashboard = () => {
         <Sider width={200} className="site-layout-background">
           <Menu
             mode="inline"
-            defaultSelectedKeys={["1"]}
-            defaultOpenKeys={["sub1"]}
+            defaultSelectedKeys={[currentMenuItemKey]}
             style={{ height: "100%", borderRight: 0 }}
             items={menuItems}
           ></Menu>
         </Sider>
         <Layout style={{ padding: "0 24px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
+            {breadcrumbItems.map((item, index) => (
+              <Breadcrumb.Item key={`${item}`}>
+                {index > 0 ? (
+                  <Link to={breadcrumbRouteCreator(breadcrumbItems, index)}>
+                    {capitalizeFirstLetter(item)}
+                  </Link>
+                ) : (
+                  capitalizeFirstLetter(item)
+                )}
+              </Breadcrumb.Item>
+            ))}
           </Breadcrumb>
           <Content
             className="site-layout-background rounded"

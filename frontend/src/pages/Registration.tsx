@@ -15,6 +15,7 @@ import {
 import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import AppFooter from "../components/AppFooter";
 import { IUser } from "../models/IUser";
+import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../constants/Constants";
 
 const Login = () => {
   const { user, isError, isSuccess, isLoading, message } = useAppSelector(
@@ -42,7 +43,7 @@ const Login = () => {
     }
 
     if (isSuccess || user) {
-      navigate("/dashboard");
+      navigate(DEFAULT_AUTHORIZED_USER_ROUTE);
     }
 
     dispatch(reset());
