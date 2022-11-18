@@ -81,6 +81,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
   }
 
   if (!token) {
+    console.log(32);
     return next(
       new AppError("You are not logged in! Please log in to get access.", 401)
     );

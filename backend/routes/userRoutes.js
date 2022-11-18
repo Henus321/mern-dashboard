@@ -14,6 +14,8 @@ router.post("/login", login);
 router.get("/logout", logout);
 
 // Protect all routes after this middleware
-router.get("/me", protect, getMe);
+router.use(protect);
+
+router.get("/me", getMe);
 
 module.exports = router;
