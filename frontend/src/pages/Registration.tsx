@@ -15,7 +15,7 @@ import {
 import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import AppFooter from "../components/AppFooter";
 import { IUser } from "../models/IUser";
-import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../constants/Constants";
+import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../constants/Routes";
 
 const Login = () => {
   const { user, isError, isSuccess, isLoading, message } = useAppSelector(
@@ -77,7 +77,7 @@ const Login = () => {
 
   return (
     <>
-      <Row justify="center" className="margin-y-auto">
+      <Row justify="center" className="m-auto">
         <Col className="colored-container">
           <Typography.Title level={1} className="flex justify-center">
             Mern Dashboard
@@ -163,9 +163,8 @@ const Login = () => {
             </Form.Item>
           </Form>
           <Typography.Paragraph>
-            Already have an account?
+            Already have an account?{" "}
             <Typography.Text underline>
-              {" "}
               <Link to="/">Log in and get started!</Link>
             </Typography.Text>
           </Typography.Paragraph>

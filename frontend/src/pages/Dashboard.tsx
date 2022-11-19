@@ -72,15 +72,7 @@ const Dashboard = () => {
               </Breadcrumb.Item>
             ))}
           </Breadcrumb>
-          <Content
-            className="site-layout-background rounded"
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-            }}
-          >
-            <span>Default Content</span>
+          <Content className="site-layout-background transparent">
             <Outlet />
           </Content>
           <AppFooter />
