@@ -3,9 +3,7 @@ const { Footer } = Layout;
 
 const AppFooter = () => {
   return (
-    <Footer className="text-center" style={{ marginTop: "auto" }}>
-      Ant Design ©2018 Created by Ant UED
-    </Footer>
+    <Footer className="text-center">Ant Design ©2018 Created by Ant UED</Footer>
   );
 };
 

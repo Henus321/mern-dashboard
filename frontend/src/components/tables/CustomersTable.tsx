@@ -6,14 +6,18 @@ import {
   CheckSquareOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import EditableCell from "./EditableCell";
 import { customers } from "../../dev-data/MockCutomers";
 import { ICustomer } from "../../models/ICustomer";
+import { v4 as uuid } from "uuid";
+
+import EditableCell from "./EditableCell";
 
 const CustomersTable: React.FC = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState(customers);
   const [editingKey, setEditingKey] = useState<string | number>("");
+
+  // const navigate = useNavigate();
 
   const isEditing = (record: ICustomer) => record.key === editingKey;
 
@@ -32,7 +36,16 @@ const CustomersTable: React.FC = () => {
   };
 
   const onCreate = () => {
-    console.log("New Customer Created!");
+    const newCustomer: ICustomer = {
+      key: uuid(),
+      name: " ",
+      phone: " ",
+      email: " ",
+      social: " ",
+      city: " ",
+    };
+    setData((prevData) => [newCustomer, ...prevData]);
+    onEdit(newCustomer);
   };
 
   const onSave = async (key: React.Key) => {

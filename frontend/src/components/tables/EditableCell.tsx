@@ -31,7 +31,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
             },
           ]}
         >
-          <Input />
+          <Input autoFocus={dataIndex === "name" ? true : false} />
         </Form.Item>
       ) : (
         children
