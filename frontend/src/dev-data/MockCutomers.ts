@@ -8,6 +8,7 @@ export const customers: ICustomer[] = [
     email: "test@test.ru",
     social: "https://www.instagram.com/",
     city: "New York",
+    id: " ",
   },
   {
     key: "slug-2",
@@ -15,6 +16,7 @@ export const customers: ICustomer[] = [
     phone: "8(922)123-456-78",
     email: "test@test.ru",
     social: "https://www.facebook.com/",
+    id: " ",
     city: "London",
   },
   {
@@ -23,6 +25,7 @@ export const customers: ICustomer[] = [
     phone: "8(937)123-456-78",
     email: "test@test.ru",
     social: "https://vk.com/",
+    id: " ",
     city: "Sidney",
   },
   {
@@ -31,6 +34,7 @@ export const customers: ICustomer[] = [
     phone: "8(945)123-456-78",
     email: "test@test.ru",
     social: "https://www.instagram.com/",
+    id: " ",
     city: "New York",
   },
   {
@@ -39,6 +43,7 @@ export const customers: ICustomer[] = [
     phone: "8(945)123-456-78",
     email: "test@test.ru",
     social: "https://ru.linkedin.com/",
+    id: " ",
     city: "New York",
   },
   {
@@ -47,6 +52,7 @@ export const customers: ICustomer[] = [
     phone: "8(966)123-456-78",
     email: "test@test.ru",
     social: "https://www.facebook.com/",
+    id: " ",
     city: "New York",
   },
   {
@@ -55,6 +61,7 @@ export const customers: ICustomer[] = [
     phone: "8(922)123-456-78",
     email: "test@test.ru",
     social: "https://www.facebook.com/",
+    id: " ",
     city: "London",
   },
   {
@@ -63,6 +70,7 @@ export const customers: ICustomer[] = [
     phone: "8(937)123-456-78",
     email: "test@test.ru",
     social: "https://vk.com/",
+    id: " ",
     city: "Sidney",
   },
   {
@@ -71,6 +79,7 @@ export const customers: ICustomer[] = [
     phone: "8(945)123-456-78",
     email: "test@test.ru",
     social: "https://www.instagram.com/",
+    id: " ",
     city: "New York",
   },
   {
@@ -79,6 +88,7 @@ export const customers: ICustomer[] = [
     phone: "8(945)123-456-78",
     email: "test@test.ru",
     social: "https://vk.com/",
+    id: " ",
     city: "New York",
   },
   {
@@ -87,6 +97,7 @@ export const customers: ICustomer[] = [
     phone: "8(945)123-456-78",
     email: "test@test.ru",
     social: "https://ru.linkedin.com/",
+    id: " ",
     city: "New York",
   },
 ];

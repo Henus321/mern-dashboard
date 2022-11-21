@@ -15,15 +15,18 @@ exports.getAllCustomers = asyncHandler(async (req, res, next) => {
 });
 
 exports.createCustomer = asyncHandler(async (req, res, next) => {
-  // add fields later
-  const { name } = req.body;
+  const { name, phone, email, social, city } = req.body;
 
-  if (!name) {
-    return next(new AppError("Please add a name", 400));
+  if (!name || !phone || !email || !city) {
+    return next(new AppError("Please add a name, phone, email and city", 400));
   }
 
   const customer = await Customer.create({
     name,
+    phone,
+    email,
+    social,
+    city,
   });
 
   res.status(201).json({
@@ -31,5 +34,36 @@ exports.createCustomer = asyncHandler(async (req, res, next) => {
     data: {
       data: customer,
     },
+  });
+});
+
+exports.updateCustomer = asyncHandler(async (req, res, next) => {
+  const customer = await Customer.findByIdAndUpdate(req.body.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!customer) {
+    return next(new AppError("No customer found with that ID", 404));
+  }
+
+  res.status(201).json({
+    status: "success",
+    data: {
+      data: customer,
+    },
+  });
+});
+
+exports.deleteCustomer = asyncHandler(async (req, res, next) => {
+  const doc = await Customer.findByIdAndDelete(req.body.id);
+
+  if (!doc) {
+    return next(new AppError("No customer found with that ID", 404));
+  }
+
+  res.status(204).json({
+    status: "success",
+    data: null,
   });
 });

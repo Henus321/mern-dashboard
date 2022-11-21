@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
-const slugify = require("slugify");
+const { v4: uuid } = require("uuid");
 
 const customerSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: [true, "A customer must have a name"],
-      unique: true,
       trim: true,
       maxlength: [
         40,
@@ -14,10 +13,43 @@ const customerSchema = new mongoose.Schema(
       ],
       minlength: [
         6,
-        "An customer name must have less or equal then 40 characters!",
+        "An customer name must have more or equal then 6 characters!",
       ],
     },
-    slug: String,
+    phone: {
+      type: Number,
+      required: [true, "A customer must have a phone"],
+      trim: true,
+      min: 1,
+      max: 9999999999999,
+    },
+    email: {
+      type: String,
+      required: [true, "A customer must have an email"],
+      unique: true,
+      trim: true,
+      maxlength: [40, "An email must have less or equal then 40 characters!"],
+      minlength: [6, "An email must have more or equal then 6 characters!"],
+    },
+    social: {
+      type: String,
+      default: null,
+      maxlength: [
+        100,
+        "A social network link must have less or equal then 100 characters!",
+      ],
+    },
+    city: {
+      type: String,
+      required: [true, "A customer must have a city"],
+      default: " ",
+      maxlength: [
+        100,
+        "A city name must have less or equal then 100 characters!",
+      ],
+      minlength: [6, "A city name must have more or equal then 6 characters!"],
+    },
+    key: String,
   },
   {
     toJSON: { virtuals: true },
@@ -26,7 +58,7 @@ const customerSchema = new mongoose.Schema(
 );
 
 customerSchema.pre("save", function (next) {
-  this.slug = slugify(this.name, { lower: true });
+  this.key = uuid();
   next();
 });
 
