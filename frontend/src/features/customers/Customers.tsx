@@ -7,21 +7,35 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 import { ICustomer } from "../../models/ICustomer";
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
 
 import EditableCell from "../../components/EditableCell";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import {
   fetchCustomers,
   deleteCustomer,
+  createCustomer,
   updateCustomer,
 } from "./customersSlice";
+
+const emptyCustomer: ICustomer = {
+  name: "",
+  phone: "",
+  email: "",
+  social: "",
+  city: "",
+  id: "default-id",
+  key: "default-key",
+};
 
 const Customers: React.FC = () => {
   const { customers } = useAppSelector((state) => state.customers);
   const [render, setRender] = useState(false);
-  const [form] = Form.useForm();
+  const [isCreating, setIsCreating] = useState(false);
   const [editingKey, setEditingKey] = useState<string | number>("");
+  const [form] = Form.useForm();
+  const customersPlusEmptyCell: ICustomer[] = [emptyCustomer, ...customers];
+  const tableDataSource = isCreating ? customersPlusEmptyCell : customers;
 
   const dispatch = useAppDispatch();
 
@@ -37,6 +51,7 @@ const Customers: React.FC = () => {
   };
 
   const onCancel = () => {
+    setIsCreating(false);
     setEditingKey("");
   };
 
@@ -46,22 +61,19 @@ const Customers: React.FC = () => {
   };
 
   const onCreate = () => {
-    const newCustomer: ICustomer = {
-      key: uuid(),
-      name: " ",
-      phone: " ",
-      email: " ",
-      social: " ",
-      city: " ",
-      id: " ",
-    };
-    // setData((prevData) => [newCustomer, ...prevData]);
-    onEdit(newCustomer);
+    setIsCreating(true);
+    form.setFieldsValue({ ...emptyCustomer });
+    setEditingKey(emptyCustomer.key);
   };
 
   const onSave = async (record: ICustomer) => {
     const newData = { ...form.getFieldsValue(), id: record.id };
-    dispatch(updateCustomer(newData));
+    if (isCreating) {
+      dispatch(createCustomer(newData));
+      setIsCreating(false);
+    } else {
+      dispatch(updateCustomer(newData));
+    }
     setEditingKey("");
     setRender(!render);
   };
@@ -250,7 +262,7 @@ const Customers: React.FC = () => {
               },
             }}
             bordered
-            dataSource={customers}
+            dataSource={tableDataSource}
             columns={mergedColumns}
             rowClassName="editable-row"
             pagination={{
@@ -259,6 +271,7 @@ const Customers: React.FC = () => {
           />
         )}
         <Button
+          disabled={isCreating}
           type="primary"
           size="large"
           className="rounded right-side-button"

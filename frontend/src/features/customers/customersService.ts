@@ -5,7 +5,7 @@ import { CUSTOMERS_URL } from "../../constants/Routes";
 const fetchCustomers = async () => {
   const response = await axios.get(CUSTOMERS_URL + "/");
 
-  return response.data.data.data;
+  return response.data.data.data?.reverse();
 };
 
 const createCustomer = async (userData: ICustomer) => {

@@ -111,14 +111,11 @@ export const customersSlice = createSlice({
       .addCase(createCustomer.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(
-        createCustomer.fulfilled.type,
-        (state, action: PayloadAction<ICustomer>) => {
-          state.isLoading = false;
-          state.isSuccess = true;
-          state.customers = [action.payload, ...state.customers];
-        }
-      )
+      .addCase(createCustomer.fulfilled.type, (state) => {
+        state.isLoading = false;
+        // payload: success here
+        state.isSuccess = true;
+      })
       .addCase(
         createCustomer.rejected.type,
         (state, action: PayloadAction<string>) => {
