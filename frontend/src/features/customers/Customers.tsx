@@ -116,9 +116,7 @@ const Customers: React.FC = () => {
       className="rounded-card"
     >
       <Form form={form} component={false}>
-        {customers.length > 0 && (
-          <CustomersTable handlers={handlers} tableData={tableData} />
-        )}
+        <CustomersTable handlers={handlers} tableData={tableData} />
       </Form>
     </Card>
   );
