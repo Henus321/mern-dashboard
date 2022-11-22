@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Form, Table, Tag, Tooltip } from "antd";
-import {
-  EditOutlined,
-  CloseSquareOutlined,
-  CheckSquareOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
-import { ICustomer } from "../../models/ICustomer";
-// import { v4 as uuid } from "uuid";
-
-import EditableCell from "../../components/EditableCell";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { Card, Form, notification } from "antd";
+
 import {
   fetchCustomers,
   deleteCustomer,
   createCustomer,
   updateCustomer,
+  reset,
 } from "./customersSlice";
+import { ICustomer } from "../../models/ICustomer";
+import CustomersTable from "./CustomersTable";
+import Spinner from "../../components/Spinner";
 
 const emptyCustomer: ICustomer = {
   name: "",
@@ -24,13 +19,14 @@ const emptyCustomer: ICustomer = {
   email: "",
   social: "",
   city: "",
-  id: "default-id",
+  id: "",
   key: "default-key",
 };
 
 const Customers: React.FC = () => {
-  const { customers } = useAppSelector((state) => state.customers);
-  const [render, setRender] = useState(false);
+  const { customers, message, isError, isLoading, isSuccess } = useAppSelector(
+    (state) => state.customers
+  );
   const [isCreating, setIsCreating] = useState(false);
   const [editingKey, setEditingKey] = useState<string | number>("");
   const [form] = Form.useForm();
@@ -40,8 +36,20 @@ const Customers: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCustomers());
-  }, [dispatch, render]);
+    if (isError) {
+      notification.error({
+        message: "Error!",
+        description: message,
+        duration: 2,
+      });
+    }
+  }, [dispatch, isError, message]);
+
+  useEffect(() => {
+    if (!isSuccess) {
+      dispatch(fetchCustomers());
+    }
+  }, [dispatch, isSuccess]);
 
   const isEditing = (record: ICustomer) => record.key === editingKey;
 
@@ -57,7 +65,7 @@ const Customers: React.FC = () => {
 
   const onDelete = (id: string) => {
     dispatch(deleteCustomer(id));
-    setRender(!render);
+    dispatch(reset());
   };
 
   const onCreate = () => {
@@ -66,7 +74,7 @@ const Customers: React.FC = () => {
     setEditingKey(emptyCustomer.key);
   };
 
-  const onSave = async (record: ICustomer) => {
+  const onSave = (record: ICustomer) => {
     const newData = { ...form.getFieldsValue(), id: record.id };
     if (isCreating) {
       dispatch(createCustomer(newData));
@@ -75,173 +83,27 @@ const Customers: React.FC = () => {
       dispatch(updateCustomer(newData));
     }
     setEditingKey("");
-    setRender(!render);
+    dispatch(reset());
   };
 
-  const columns = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      editable: true,
-      width: "15%",
-      sorter: {
-        compare: (a: ICustomer, b: ICustomer) => a.name.localeCompare(b.name),
-      },
-    },
-    {
-      title: "Phone",
-      dataIndex: "phone",
-      editable: true,
-      width: "20%",
-    },
-    {
-      title: "E-mail",
-      dataIndex: "email",
-      editable: true,
-      width: "20%",
-    },
-    {
-      title: "Social Network",
-      dataIndex: "social",
-      editable: true,
-      width: "20%",
-      render: (link: string | null, record: ICustomer) => {
-        const editable = isEditing(record);
-        let color = "orange";
-        let tag = "unknown";
-        if (link?.includes("facebook")) {
-          color = "geekblue";
-          tag = "facebook";
-        }
-        if (link?.includes("instagram")) {
-          color = "pink";
-          tag = "instagram";
-        }
-        if (link?.includes("vk")) {
-          color = "blue";
-          tag = "vk";
-        }
-        if (link?.includes("linkedin")) {
-          color = "green";
-          tag = "linkedin";
-        }
-        return (
-          !editable && (
-            <Tooltip title={link}>
-              {link ? (
-                <Tag color={color} key={link} className="m-3">
-                  <a href={link} target="_blank" rel="noreferrer">
-                    {tag.toUpperCase()}
-                  </a>
-                </Tag>
-              ) : (
-                <Tag color="#dbdbdb" key={link} className="m-3">
-                  <span>NONE</span>
-                </Tag>
-              )}
-            </Tooltip>
-          )
-        );
-      },
-    },
-    {
-      title: "City",
-      dataIndex: "city",
-      editable: true,
-      width: "15%",
-      // get filters programmar
-      filters: [
-        {
-          text: "London",
-          value: "London",
-        },
-        {
-          text: "New York",
-          value: "New York",
-        },
-        {
-          text: "Sidney",
-          value: "Sidney",
-        },
-      ],
-      onFilter: (value: any, record: ICustomer) =>
-        record.city.startsWith(value),
-      filterSearch: true,
-    },
-    {
-      title: "",
-      dataIndex: "operation",
-      width: "10%",
-      render: (_: any, record: ICustomer) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <div className="flex align-center justify-end">
-            <Button
-              type="primary"
-              ghost
-              className="mr-2"
-              icon={<CheckSquareOutlined />}
-              onClick={() => onSave(record)}
-            />
-            <Button
-              danger
-              className="mr-2"
-              icon={<CloseSquareOutlined />}
-              onClick={() => onCancel()}
-            />
-            <Button
-              disabled
-              danger
-              icon={<DeleteOutlined />}
-              onClick={() => {
-                onDelete(record.id);
-              }}
-            />
-          </div>
-        ) : (
-          <div className="flex align-center justify-end">
-            <Button
-              disabled={editingKey !== ""}
-              type="primary"
-              ghost
-              className="mr-2"
-              icon={<EditOutlined />}
-              onClick={() => onEdit(record)}
-            />
-            <Button
-              disabled
-              danger
-              className="mr-2"
-              icon={<CloseSquareOutlined />}
-              onClick={() => onEdit(record)}
-            />
-            <Button
-              danger
-              icon={<DeleteOutlined />}
-              onClick={() => {
-                onDelete(record.id);
-              }}
-            />
-          </div>
-        );
-      },
-    },
-  ];
+  const handlers = {
+    isEditing,
+    onEdit,
+    onCancel,
+    onDelete,
+    onCreate,
+    onSave,
+  };
 
-  const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record: ICustomer) => ({
-        record,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
+  const tableData = {
+    tableDataSource,
+    editingKey,
+    isCreating,
+  };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <Card
@@ -255,30 +117,8 @@ const Customers: React.FC = () => {
     >
       <Form form={form} component={false}>
         {customers.length > 0 && (
-          <Table
-            components={{
-              body: {
-                cell: EditableCell,
-              },
-            }}
-            bordered
-            dataSource={tableDataSource}
-            columns={mergedColumns}
-            rowClassName="editable-row"
-            pagination={{
-              onChange: onCancel,
-            }}
-          />
+          <CustomersTable handlers={handlers} tableData={tableData} />
         )}
-        <Button
-          disabled={isCreating}
-          type="primary"
-          size="large"
-          className="rounded right-side-button"
-          onClick={() => onCreate()}
-        >
-          Create New Customer
-        </Button>
       </Form>
     </Card>
   );

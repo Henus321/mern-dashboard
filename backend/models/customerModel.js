@@ -12,8 +12,8 @@ const customerSchema = new mongoose.Schema(
         "An customer name must have less or equal then 40 characters!",
       ],
       minlength: [
-        6,
-        "An customer name must have more or equal then 6 characters!",
+        4,
+        "An customer name must have more or equal then 4 characters!",
       ],
     },
     phone: {
@@ -34,6 +34,7 @@ const customerSchema = new mongoose.Schema(
     social: {
       type: String,
       default: null,
+      trim: true,
       maxlength: [
         100,
         "A social network link must have less or equal then 100 characters!",
@@ -42,14 +43,14 @@ const customerSchema = new mongoose.Schema(
     city: {
       type: String,
       required: [true, "A customer must have a city"],
-      default: " ",
+      trim: true,
       maxlength: [
-        100,
-        "A city name must have less or equal then 100 characters!",
+        50,
+        "A city name must have less or equal then 50 characters!",
       ],
-      minlength: [6, "A city name must have more or equal then 6 characters!"],
+      minlength: [4, "A city name must have more or equal then 4 characters!"],
     },
-    key: String,
+    key: String | Number,
   },
   {
     toJSON: { virtuals: true },

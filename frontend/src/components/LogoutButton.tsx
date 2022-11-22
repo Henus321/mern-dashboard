@@ -16,7 +16,7 @@ const LogoutButton = () => {
 
   useEffect(() => {
     if (isError) {
-      notification.open({
+      notification.error({
         message: "Logout Error!",
         description: message,
         duration: 2,

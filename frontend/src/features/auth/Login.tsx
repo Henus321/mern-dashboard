@@ -26,7 +26,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isError) {
-      notification.open({
+      notification.error({
         message: "Login Error!",
         description: message,
         duration: 2,

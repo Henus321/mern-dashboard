@@ -25,7 +25,7 @@ const Registration = () => {
 
   useEffect(() => {
     if (isError) {
-      notification.open({
+      notification.error({
         message: "Registration Error!",
         description: message,
         duration: 2,
@@ -48,7 +48,7 @@ const Registration = () => {
 
   const onSubmit = () => {
     if (password !== passwordConfirm) {
-      notification.open({
+      notification.error({
         message: "Registration Error!",
         description: "Passwords do not match...",
         duration: 2,

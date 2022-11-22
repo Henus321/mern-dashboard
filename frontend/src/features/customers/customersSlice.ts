@@ -85,7 +85,14 @@ export const deleteCustomer = createAsyncThunk(
 export const customersSlice = createSlice({
   name: "customers",
   initialState,
-  reducers: {},
+  reducers: {
+    reset: (state) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.isSuccess = false;
+      state.message = "";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCustomers.pending, (state) => {
@@ -113,7 +120,6 @@ export const customersSlice = createSlice({
       })
       .addCase(createCustomer.fulfilled.type, (state) => {
         state.isLoading = false;
-        // payload: success here
         state.isSuccess = true;
       })
       .addCase(
@@ -157,4 +163,5 @@ export const customersSlice = createSlice({
   },
 });
 
+export const { reset } = customersSlice.actions;
 export default customersSlice.reducer;
