@@ -3,6 +3,7 @@ import {
   CarryOutOutlined,
   IdcardOutlined,
   UserOutlined,
+  CarOutlined,
 } from "@ant-design/icons";
 
 const navSideMenu = [
@@ -11,6 +12,13 @@ const navSideMenu = [
     path: "/dashboard/orders",
     title: "Orders",
     icon: IdcardOutlined,
+    submenu: null,
+  },
+  {
+    key: "products",
+    path: "/dashboard/products",
+    title: "Products",
+    icon: CarOutlined,
     submenu: null,
   },
   {
