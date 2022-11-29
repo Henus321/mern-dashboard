@@ -10,6 +10,7 @@ const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
 const userRouter = require("./routes/userRoutes");
 const orderRouter = require("./routes/orderRoutes");
+const productRouter = require("./routes/productRoutes");
 const customerRouter = require("./routes/customerRoutes");
 const noteRouter = require("./routes/noteRoutes");
 
@@ -55,6 +56,7 @@ app.use(xss());
 // Routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/orders", orderRouter);
+app.use("/api/v1/products", productRouter);
 app.use("/api/v1/customers", customerRouter);
 app.use("/api/v1/notes", noteRouter);
 
