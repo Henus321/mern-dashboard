@@ -48,6 +48,7 @@ const productSchema = new mongoose.Schema({
       "A product description must have less or equal then 1000 characters!",
     ],
   },
+  name: String,
   slug: String,
 });
 

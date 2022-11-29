@@ -20,8 +20,7 @@ const orderSchema = new mongoose.Schema(
     slug: String,
   },
   {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
+    timestamps: true,
   }
 );
 
