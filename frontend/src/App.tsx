@@ -11,6 +11,7 @@ import Profile from "./features/profile/Profile";
 import Notes2 from "./features/notes/Notes2";
 import Notes1 from "./features/notes/Notes1";
 import EditProfile from "./features/profile/EditProfile";
+import Products from "./features/products/Products";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         </Route>
         <Route path="/dashboard/" element={<Dashboard />}>
           <Route path="orders" element={<Orders />} />
+          <Route path="products/" element={<Products />} />
           <Route path="customers/" element={<Customers />} />
           <Route path="notes-1" element={<Notes1 />} />
           <Route path="notes-2" element={<Notes2 />} />

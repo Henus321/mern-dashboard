@@ -4,7 +4,7 @@ import App from "./App";
 
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { setupStore } from "./store";
+import { setupStore } from "./store/store";
 
 import "./less/index.less";
 
