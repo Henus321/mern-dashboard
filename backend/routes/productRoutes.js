@@ -3,6 +3,7 @@ const { protect } = require("../controllers/authController");
 const {
   createProduct,
   getAllProducts,
+  getProductsByBrand,
 } = require("../controllers/productController");
 
 const router = express.Router();
@@ -11,5 +12,6 @@ const router = express.Router();
 router.use(protect);
 
 router.route("/").get(getAllProducts).post(createProduct);
+router.route("/:brand").get(getProductsByBrand);
 
 module.exports = router;

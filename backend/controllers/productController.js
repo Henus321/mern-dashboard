@@ -14,6 +14,21 @@ exports.getAllProducts = asyncHandler(async (req, res, next) => {
   });
 });
 
+exports.getProductsByBrand = asyncHandler(async (req, res, next) => {
+  const query = {
+    brand: req.params.brand,
+  };
+  const products = await Product.find(query);
+
+  res.status(200).json({
+    status: "success",
+    results: products.length,
+    data: {
+      data: products,
+    },
+  });
+});
+
 exports.createProduct = asyncHandler(async (req, res, next) => {
   const { brand, model, photoUrl, cost, description } = req.body;
 

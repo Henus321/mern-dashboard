@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Image, Carousel, Typography } from "antd";
 import { IdcardOutlined } from "@ant-design/icons";
 import Spinner from "../../components/Spinner";
-import Wrapper from "../../components/Wrapper";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchProducts } from "./productsSlice";
 import { beautifyCost } from "../../helpers/helpers";
+import { productTabs } from "../../configs/TabsConfig";
 
 const gridStyle: React.CSSProperties = {
   width: "33.33333%",
@@ -15,20 +15,33 @@ const gridStyle: React.CSSProperties = {
 
 const Products = () => {
   const { products, isLoading } = useAppSelector((state) => state.products);
+  const [brand, setBrand] = useState("");
+
+  const onTabChange = (brand: string) => {
+    setBrand(brand);
+  };
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
+    dispatch(fetchProducts(brand));
+  }, [dispatch, brand]);
 
   return (
-    <Wrapper>
-      {products &&
+    <Card
+      bodyStyle={{
+        padding: "0px",
+        minHeight: "50vh",
+        display: "flex",
+      }}
+      className="rounded-card"
+      activeTabKey={brand}
+      tabList={productTabs}
+      onTabChange={(brand) => onTabChange(brand)}
+    >
+      {isLoading && <Spinner />}
+      {!isLoading &&
+        products &&
         products.map((product) => (
           <Card.Grid hoverable key={product.name} style={gridStyle}>
             <Typography.Title
@@ -68,12 +81,15 @@ const Products = () => {
               {product.description}
             </Typography.Paragraph>
 
-            <Button className="mt-auto">
+            <Button
+              className="mt-auto"
+              onClick={() => console.log(product.slug)}
+            >
               Make an Order <IdcardOutlined />
             </Button>
           </Card.Grid>
         ))}
-    </Wrapper>
+    </Card>
   );
 };
 

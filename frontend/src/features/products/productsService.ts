@@ -2,8 +2,8 @@ import axios from "axios";
 import { IProduct } from "../../models/IProduct";
 import { PRODUCTS_URL } from "../../constants/Routes";
 
-const fetchProducts = async () => {
-  const response = await axios.get(PRODUCTS_URL + "/");
+const fetchProducts = async (brand: string) => {
+  const response = await axios.get(PRODUCTS_URL + `/${brand}`);
 
   return response.data.data.data?.reverse();
 };

@@ -12,9 +12,9 @@ const initialState: IProductState = {
 
 export const fetchProducts = createAsyncThunk(
   "products/fetch",
-  async (_, thunkAPI) => {
+  async (brand: string, thunkAPI) => {
     try {
-      return await productsService.fetchProducts();
+      return await productsService.fetchProducts(brand);
     } catch (error: any) {
       const message =
         (error.response &&
