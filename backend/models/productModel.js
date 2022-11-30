@@ -22,13 +22,8 @@ const productSchema = new mongoose.Schema({
     ],
   },
   photoUrl: {
-    type: String,
+    type: [String],
     required: [true, "A product must have a photo"],
-    trim: true,
-    maxlength: [
-      200,
-      "A product photoUrl must have less or equal then 200 characters!",
-    ],
   },
   cost: {
     type: Number,
