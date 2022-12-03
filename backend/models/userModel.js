@@ -31,11 +31,57 @@ const userSchema = new mongoose.Schema(
         message: "Passwords are not the same!",
       },
     },
+    avatarUrl: {
+      type: String,
+    },
+    username: {
+      type: String,
+      maxlength: [
+        40,
+        "An username must have less or equal then 40 characters!",
+      ],
+    },
+    company: {
+      type: String,
+      maxlength: [40, "A company must have less or equal then 40 characters!"],
+    },
+    phone: {
+      type: Number,
+      maxlength: [
+        40,
+        "An phone number must have less or equal then 40 characters!",
+      ],
+      minlength: [
+        10,
+        "An phone number must have greater or equal then 10 characters!",
+      ],
+    },
+    website: {
+      type: String,
+      maxlength: [40, "A website must have less or equal then 40 characters!"],
+    },
+    address: {
+      type: String,
+      maxlength: [
+        100,
+        "An address must have less or equal then 100 characters!",
+      ],
+    },
+    about: {
+      type: String,
+      maxlength: [200, "An about must have less or equal then 200 characters!"],
+    },
+    portfolio: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Portfolio",
+    },
   },
   {
     timestamps: true,
   }
 );
+
+userSchema.index({ portfolio: 1 }, { unique: true });
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
