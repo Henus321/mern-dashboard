@@ -53,7 +53,7 @@ const Portfolio = () => {
             <Form.Item name="description" label="Description">
               <TextArea
                 className="rounded"
-                rows={6}
+                rows={8}
                 placeholder="Maximum of 200 characters"
                 maxLength={200}
               />

@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Row, Form, Input, Col } from "antd";
 import { SaveOutlined, CloseOutlined } from "@ant-design/icons";
 import ProfileHeader from "./ProfileHeader";
+import { fetchUser } from "./profileSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
 const { TextArea } = Input;
 
 const EditProfile = () => {
+  const { user } = useAppSelector((state) => state.profile);
+  console.log(user);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+
   return (
     <>
       <ProfileHeader />
@@ -63,7 +73,7 @@ const EditProfile = () => {
         </Row>
         <Row gutter={12}>
           <Col span={12}>
-            <Form.Item name="description" label="Description">
+            <Form.Item name="about" label="About">
               <TextArea
                 className="rounded"
                 rows={6}
