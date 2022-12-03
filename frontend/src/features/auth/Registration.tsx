@@ -37,7 +37,7 @@ const Registration = () => {
     }
 
     dispatch(reset());
-  }, [user, isError, isSuccess, isLoading, message, dispatch, navigate]);
+  }, [user, isError, isSuccess, message, dispatch, navigate]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
@@ -131,6 +131,7 @@ const Registration = () => {
       </Form.Item>
       <Form.Item>
         <Button
+          loading={isLoading}
           className="rounded"
           size="large"
           type="primary"

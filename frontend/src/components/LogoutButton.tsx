@@ -28,7 +28,7 @@ const LogoutButton = () => {
     }
 
     dispatch(reset());
-  }, [user, isError, isSuccess, isLoading, message, dispatch, navigate]);
+  }, [user, isError, isSuccess, message, dispatch, navigate]);
 
   const onLogout = () => {
     dispatch(logout(""));
@@ -37,7 +37,12 @@ const LogoutButton = () => {
   return (
     <Col className="flex align-center">
       <Avatar className="mr-12" icon={<UserOutlined />} />
-      <Button onClick={onLogout} type="primary" className="rounded">
+      <Button
+        loading={isLoading}
+        onClick={onLogout}
+        type="primary"
+        className="rounded"
+      >
         Logout
       </Button>
     </Col>
