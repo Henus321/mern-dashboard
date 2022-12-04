@@ -8,14 +8,16 @@ const Profile = () => {
     <Card
       bodyStyle={{
         padding: "0",
+        height: "100%",
       }}
       className="rounded-card"
+      style={{ height: "100%" }}
     >
-      <Row>
+      <Row style={{ height: "100%" }}>
         <Col span={4}>
           <ProfileMenu />
         </Col>
-        <Col span={20} style={{ padding: "25px", marginBottom: "25px" }}>
+        <Col span={20} style={{ padding: "25px" }}>
           <Outlet />
         </Col>
       </Row>

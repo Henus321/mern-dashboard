@@ -10,7 +10,13 @@ export interface IUser {
   website?: string;
   address?: string;
   about?: string;
-  portfolio?: string;
+  portfolio?: IPortfolio;
+}
+
+export interface IPortfolio {
+  description?: string;
+  profession?: string;
+  examples?: string[];
 }
 
 export interface IUserState {

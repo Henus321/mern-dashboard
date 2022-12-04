@@ -29,7 +29,7 @@ const ProfileMenu = () => {
         borderRight: "1px solid rgba(0,0,0,0.07)",
       }}
       items={menuItems}
-    ></Menu>
+    />
   );
 };
 
