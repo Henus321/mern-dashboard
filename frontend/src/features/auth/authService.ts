@@ -5,18 +5,18 @@ import { USERS_URL } from "../../constants/Routes";
 const register = async (userData: IUser) => {
   const response = await axios.post(USERS_URL + "/registration", userData);
 
-  return response.data;
+  return response.data.data.data;
 };
 
 const login = async (userData: IUser) => {
   const response = await axios.post(USERS_URL + "/login", userData);
 
-  return response.data;
+  return response.data.data.data;
 };
 
 // eslint-disable-next-line
 const logout = async (_: any) => {
-  const response = await axios(USERS_URL + "/logout");
+  const response = await axios.get(USERS_URL + "/logout");
 
   return response.data;
 };
