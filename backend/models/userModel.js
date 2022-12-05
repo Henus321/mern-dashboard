@@ -31,9 +31,7 @@ const userSchema = new mongoose.Schema(
         message: "Passwords are not the same!",
       },
     },
-    avatarUrl: {
-      type: String,
-    },
+    photo: String,
     username: {
       type: String,
       maxlength: [

@@ -16,6 +16,9 @@ const noteRouter = require("./routes/noteRoutes");
 
 const app = express();
 
+// Serving static files
+app.use("/uploads", express.static("uploads"));
+
 // Security HTTP headers
 app.use(helmet());
 
@@ -33,8 +36,8 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 // Body parser, reading data from body into req.body
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: "10kb" }));
+app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection

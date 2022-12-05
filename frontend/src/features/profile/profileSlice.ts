@@ -30,7 +30,7 @@ export const fetchUser = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   "profile/update",
-  async (userData: IUser | Partial<IUser>, thunkAPI) => {
+  async (userData: Partial<IUser> | FormData, thunkAPI) => {
     try {
       return await profileService.updateUser(userData);
     } catch (error: any) {

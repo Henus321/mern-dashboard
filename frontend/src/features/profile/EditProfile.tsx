@@ -14,7 +14,6 @@ const EditProfile = () => {
     (state) => state.profile
   );
   const [form] = Form.useForm();
-
   const dispatch = useAppDispatch();
 
   const initialValues = useMemo(() => {
@@ -25,7 +24,6 @@ const EditProfile = () => {
 
   useEffect(() => {
     if (!isSuccess) {
-      console.log("fetch");
       dispatch(fetchUser());
     }
   }, [dispatch, isSuccess]);

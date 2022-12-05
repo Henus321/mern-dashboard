@@ -14,9 +14,11 @@ import { IPortfolio } from "../../models/IUser";
 const { TextArea } = Input;
 
 const Portfolio = () => {
-  const { user, isLoading, isSuccess, isError } = useAppSelector(
+  const { user, isLoading, isSuccess, isError, message } = useAppSelector(
     (state) => state.profile
   );
+
+  console.log(message);
   const [form] = Form.useForm();
 
   const dispatch = useAppDispatch();

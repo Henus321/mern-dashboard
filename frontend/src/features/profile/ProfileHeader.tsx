@@ -1,17 +1,39 @@
 import React from "react";
-import { Row, Col, Typography, Avatar, Button } from "antd";
+import { Row, Col, Typography, Avatar, Button, Upload } from "antd";
+import { RcFile } from "antd/lib/upload";
 import { IUser } from "../../models/IUser";
-import { EditOutlined } from "@ant-design/icons";
+import { UploadOutlined, UserOutlined } from "@ant-design/icons";
+import { PHOTO_URL } from "../../constants/Routes";
+import { useAppDispatch } from "../../hooks/redux";
+import { reset, updateUser } from "./profileSlice";
 
 interface ProfileHeaderProps {
   user: IUser;
 }
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({ user }) => {
+  const dispatch = useAppDispatch();
+
+  const onSave = (file: RcFile) => {
+    const formData = new FormData();
+    formData.append("photo", file);
+
+    dispatch(updateUser(formData));
+    dispatch(reset());
+  };
+
+  const dummyRequest = ({ onSuccess }: any) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
+
+  const photo = user.photo ? `${PHOTO_URL}${user.photo}` : false;
+
   return (
     <Row gutter={12} style={{ marginBottom: "15px" }}>
       <Col>
-        <Avatar size={150} src={user.avatarUrl} />
+        <Avatar size={150} src={photo} icon={<UserOutlined />} />
       </Col>
       <Col>
         <Typography.Title level={3} style={{ margin: 0 }}>
@@ -19,10 +41,16 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ user }) => {
         </Typography.Title>
         <Typography.Text>{user.email}</Typography.Text>
         <br />
-        <Button type="dashed" className="rounded mt-5">
-          Change Avatar
-          <EditOutlined />
-        </Button>
+        <Upload
+          maxCount={1}
+          customRequest={dummyRequest}
+          beforeUpload={(file) => onSave(file)}
+        >
+          <Button type="dashed" className="rounded mt-5">
+            Change Avatar
+            <UploadOutlined />
+          </Button>
+        </Upload>
       </Col>
     </Row>
   );

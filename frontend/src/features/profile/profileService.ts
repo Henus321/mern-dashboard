@@ -8,7 +8,7 @@ const fetchUser = async () => {
   return response.data.data.data;
 };
 
-const updateUser = async (userData: IUser | Partial<IUser>) => {
+const updateUser = async (userData: Partial<IUser> | FormData) => {
   const response = await axios.patch(USERS_URL + "/me", userData);
 
   return response.data.data.data;
