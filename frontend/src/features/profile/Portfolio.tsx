@@ -3,38 +3,15 @@ import { Button, Row, Form, Input, Col } from "antd";
 import {
   SaveOutlined,
   CloseOutlined,
-  PlusOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
 import ProfileHeader from "./ProfileHeader";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import Spinner from "../../components/Spinner";
-import {
-  fetchUser,
-  updatePortfolio,
-  createPortfolio,
-  reset,
-} from "./profileSlice";
+import { fetchUser, reset, updateUser } from "./profileSlice";
 import { IPortfolio } from "../../models/IUser";
 
 const { TextArea } = Input;
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 4 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 20 },
-  },
-};
-const formItemLayoutWithOutLabel = {
-  wrapperCol: {
-    xs: { span: 24, offset: 0 },
-    sm: { span: 20, offset: 0 },
-  },
-};
 
 const Portfolio = () => {
   const { user, isLoading, isSuccess, isError } = useAppSelector(
@@ -49,10 +26,9 @@ const Portfolio = () => {
       ...user?.portfolio,
     };
   }, [user]);
-  console.log(user);
+
   useEffect(() => {
     if (!isSuccess) {
-      console.log("fetch");
       dispatch(fetchUser());
     }
   }, [dispatch, isSuccess]);
@@ -65,8 +41,7 @@ const Portfolio = () => {
   }, [dispatch, user, isError, form, initialValues]);
 
   const onSave = (values: IPortfolio) => {
-    if (user && user.portfolio) dispatch(updatePortfolio(values));
-    if (user && !user.portfolio) dispatch(createPortfolio(values));
+    dispatch(updateUser({ portfolio: values }));
 
     dispatch(reset());
   };
@@ -84,8 +59,6 @@ const Portfolio = () => {
           <Form
             form={form}
             layout="vertical"
-            name="dynamic_form_item"
-            {...formItemLayoutWithOutLabel}
             onFinish={onSave}
             initialValues={initialValues}
           >
@@ -115,9 +88,6 @@ const Portfolio = () => {
                     <>
                       {fields.map((field, index) => (
                         <Form.Item
-                          {...(index === 0
-                            ? formItemLayout
-                            : formItemLayoutWithOutLabel)}
                           label={index === 0 ? "Example" : ""}
                           required={false}
                           key={field.key}
@@ -155,7 +125,7 @@ const Portfolio = () => {
                           onClick={() => add()}
                           style={{ width: "100%" }}
                         >
-                          Add Example <PlusOutlined />
+                          Add Example <strong>+</strong>
                         </Button>
                         <Form.ErrorList errors={errors} />
                       </Form.Item>

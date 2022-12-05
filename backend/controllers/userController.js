@@ -39,7 +39,8 @@ exports.updateMe = asyncHandler(async (req, res) => {
     "phone",
     "website",
     "address",
-    "about"
+    "about",
+    "portfolio"
   );
 
   const updatedUser = await User.findByIdAndUpdate(req.user._id, filteredBody, {

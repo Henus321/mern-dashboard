@@ -72,8 +72,23 @@ const userSchema = new mongoose.Schema(
       maxlength: [200, "An about must have less or equal then 200 characters!"],
     },
     portfolio: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Portfolio",
+      profession: {
+        type: String,
+        maxlength: [
+          40,
+          "A profession must have less or equal then 40 characters!",
+        ],
+      },
+      description: {
+        type: String,
+        maxlength: [
+          200,
+          "A description must have less or equal then 200 characters!",
+        ],
+      },
+      examples: {
+        type: [String],
+      },
     },
   },
   {
@@ -91,14 +106,6 @@ userSchema.pre("save", async function (next) {
 
   // Delete passwordConfirm field
   this.passwordConfirm = undefined;
-  next();
-});
-
-userSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: "portfolio",
-    select: "description profession examples",
-  });
   next();
 });
 
