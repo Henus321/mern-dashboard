@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { IAuth } from "../../models/IAuth";
-import { IUser } from "../../models/IUser";
-import authService from "./authService";
+import { IUserState, IUser } from "../../models/IUser";
+import userService from "./userService";
 
-const initialState: IAuth = {
+const initialState: IUserState = {
   user: null,
   isError: false,
   isSuccess: false,
@@ -12,10 +11,10 @@ const initialState: IAuth = {
 };
 
 export const register = createAsyncThunk(
-  "auth/register",
+  "user/register",
   async (user: IUser, thunkAPI) => {
     try {
-      return await authService.register(user);
+      return await userService.register(user);
     } catch (error: any) {
       const message =
         (error.response &&
@@ -30,10 +29,10 @@ export const register = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  "auth/login",
+  "user/login",
   async (user: IUser, thunkAPI) => {
     try {
-      return await authService.login(user);
+      return await userService.login(user);
     } catch (error: any) {
       const message =
         (error.response &&
@@ -48,10 +47,10 @@ export const login = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk(
-  "auth/logout",
+  "user/logout",
   async (_: any, thunkAPI) => {
     try {
-      return await authService.logout("");
+      return await userService.logout("");
     } catch (error: any) {
       const message =
         (error.response &&
@@ -65,8 +64,39 @@ export const logout = createAsyncThunk(
   }
 );
 
-export const authSlice = createSlice({
-  name: "auth",
+export const fetchUser = createAsyncThunk("user/fetch", async (_, thunkAPI) => {
+  try {
+    return await userService.fetchUser();
+  } catch (error: any) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+export const updateUser = createAsyncThunk(
+  "user/update",
+  async (userData: Partial<IUser> | FormData, thunkAPI) => {
+    try {
+      return await userService.updateUser(userData);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const userSlice = createSlice({
+  name: "user",
   initialState,
   reducers: {
     reset: (state) => {
@@ -124,9 +154,47 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-      });
+      })
+      .addCase(fetchUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        fetchUser.fulfilled.type,
+        (state, action: PayloadAction<IUser>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.user = action.payload;
+        }
+      )
+      .addCase(
+        fetchUser.rejected.type,
+        (state, action: PayloadAction<string>) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+        }
+      )
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        updateUser.fulfilled.type,
+        (state, action: PayloadAction<IUser>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.user = action.payload;
+        }
+      )
+      .addCase(
+        updateUser.rejected.type,
+        (state, action: PayloadAction<string>) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+        }
+      );
   },
 });
 
-export const { reset } = authSlice.actions;
-export default authSlice.reducer;
+export const { reset } = userSlice.actions;
+export default userSlice.reducer;

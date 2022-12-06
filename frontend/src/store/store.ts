@@ -1,14 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import authSlice from "../features/auth/authSlice";
+import userSlice from "../features/user/userSlice";
 import productsSlice from "../features/products/productsSlice";
 import customersSlice from "../features/customers/customersSlice";
-import profileSlice from "../features/profile/profileSlice";
 
 const rootReducer = combineReducers({
-  auth: authSlice,
+  user: userSlice,
   customers: customersSlice,
   products: productsSlice,
-  profile: profileSlice,
 });
 
 export const setupStore = () => {

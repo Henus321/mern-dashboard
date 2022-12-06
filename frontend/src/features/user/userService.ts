@@ -21,10 +21,24 @@ const logout = async (_: any) => {
   return response.data;
 };
 
-const authService = {
+const fetchUser = async () => {
+  const response = await axios.get(USERS_URL + "/me");
+
+  return response.data.data.data;
+};
+
+const updateUser = async (userData: Partial<IUser> | FormData) => {
+  const response = await axios.patch(USERS_URL + "/me", userData);
+
+  return response.data.data.data;
+};
+
+const userService = {
   register,
   logout,
   login,
+  fetchUser,
+  updateUser,
 };
 
-export default authService;
+export default userService;

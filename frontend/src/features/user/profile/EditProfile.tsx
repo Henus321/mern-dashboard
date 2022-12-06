@@ -1,20 +1,24 @@
 import React, { useEffect, useMemo } from "react";
 import { Button, Row, Form, Input, Col } from "antd";
 import { SaveOutlined, CloseOutlined } from "@ant-design/icons";
+import { fetchUser, updateUser, reset } from "../userSlice";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { IUser } from "../../../models/IUser";
+import { useNavigate } from "react-router-dom";
+import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../../../constants/Routes";
 import ProfileHeader from "./ProfileHeader";
-import { fetchUser, updateUser, reset } from "./profileSlice";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import Spinner from "../../components/Spinner";
-import { IUser } from "../../models/IUser";
+import Spinner from "../../../components/Spinner";
 
 const { TextArea } = Input;
 
 const EditProfile = () => {
   const { user, isLoading, isSuccess, isError } = useAppSelector(
-    (state) => state.profile
+    (state) => state.user
   );
   const [form] = Form.useForm();
+
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const initialValues = useMemo(() => {
     return {
@@ -23,10 +27,14 @@ const EditProfile = () => {
   }, [user]);
 
   useEffect(() => {
+    if (isSuccess && !user) {
+      navigate(DEFAULT_UNAUTHORIZED_USER_ROUTE);
+    }
+
     if (!isSuccess) {
       dispatch(fetchUser());
     }
-  }, [dispatch, isSuccess]);
+  }, [dispatch, navigate, isSuccess, user]);
 
   useEffect(() => {
     if (user && isError) {
@@ -37,7 +45,6 @@ const EditProfile = () => {
 
   const onSave = (formFields: IUser) => {
     dispatch(updateUser(formFields));
-    dispatch(reset());
   };
 
   const onCancel = () => {

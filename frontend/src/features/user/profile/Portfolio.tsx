@@ -5,21 +5,24 @@ import {
   CloseOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { fetchUser, reset, updateUser } from "../userSlice";
+import { IPortfolio } from "../../../models/IUser";
+import { useNavigate } from "react-router-dom";
+import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../../../constants/Routes";
 import ProfileHeader from "./ProfileHeader";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import Spinner from "../../components/Spinner";
-import { fetchUser, reset, updateUser } from "./profileSlice";
-import { IPortfolio } from "../../models/IUser";
+import Spinner from "../../../components/Spinner";
 
 const { TextArea } = Input;
 
 const Portfolio = () => {
   const { user, isLoading, isSuccess, isError } = useAppSelector(
-    (state) => state.profile
+    (state) => state.user
   );
   const [form] = Form.useForm();
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const initialValues = useMemo(() => {
     return {
@@ -28,10 +31,14 @@ const Portfolio = () => {
   }, [user]);
 
   useEffect(() => {
+    if (isSuccess && !user) {
+      navigate(DEFAULT_UNAUTHORIZED_USER_ROUTE);
+    }
+
     if (!isSuccess) {
       dispatch(fetchUser());
     }
-  }, [dispatch, isSuccess]);
+  }, [dispatch, navigate, isSuccess, user]);
 
   useEffect(() => {
     if (user && isError) {
@@ -42,8 +49,6 @@ const Portfolio = () => {
 
   const onSave = (values: IPortfolio) => {
     dispatch(updateUser({ portfolio: values }));
-
-    dispatch(reset());
   };
 
   const onCancel = () => {

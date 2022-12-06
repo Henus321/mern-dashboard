@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { login, reset } from "./authSlice";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { login, reset } from "../userSlice";
 import { Form, Button, Input, notification } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import { IUser } from "../../models/IUser";
-import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../../constants/Routes";
+import { IUser } from "../../../models/IUser";
+import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../../../constants/Routes";
 
 const Login = () => {
   const { user, isError, isSuccess, isLoading, message } = useAppSelector(
-    (state) => state.auth
+    (state) => state.user
   );
 
   const initialCredential: IUser = {
@@ -33,7 +33,7 @@ const Login = () => {
       });
     }
 
-    if (isSuccess || user) {
+    if (isSuccess && user) {
       navigate(DEFAULT_AUTHORIZED_USER_ROUTE);
     }
 

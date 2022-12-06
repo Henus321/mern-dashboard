@@ -3,16 +3,16 @@ import { Route, Routes } from "react-router-dom";
 
 import Authorization from "./pages/Authorization";
 import Dashboard from "./pages/Dashboard";
-import Login from "./features/auth/Login";
-import Registration from "./features/auth/Registration";
+import Login from "./features/user/auth/Login";
+import Registration from "./features/user/auth/Registration";
 import Customers from "./features/customers/Customers";
 import Orders from "./features/orders/Orders";
-import Profile from "./features/profile/Profile";
+import Profile from "./features/user/profile/Profile";
 import Notes2 from "./features/notes/Notes2";
 import Notes1 from "./features/notes/Notes1";
 import Products from "./features/products/Products";
-import EditProfile from "./features/profile/EditProfile";
-import Portfolio from "./features/profile/Portfolio";
+import EditProfile from "./features/user/profile/EditProfile";
+import Portfolio from "./features/user/profile/Portfolio";
 
 const App = () => {
   return (

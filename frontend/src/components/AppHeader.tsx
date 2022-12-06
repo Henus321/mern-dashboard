@@ -1,5 +1,4 @@
 import { Layout, Typography, Col, Row } from "antd";
-import LogoutButton from "./LogoutButton";
 
 const { Header } = Layout;
 
@@ -12,7 +11,6 @@ const AppHeader = () => {
             Mern Dashboard
           </Typography.Title>
         </Col>
-        <LogoutButton />
       </Row>
     </Header>
   );
