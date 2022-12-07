@@ -105,26 +105,3 @@ exports.protect = asyncHandler(async (req, res, next) => {
   res.locals.user = currentUser;
   next();
 });
-
-exports.isRedirect = asyncHandler(async (req, res) => {
-  let currentUser = null;
-  if (req.cookies.jwt && req.cookies.jwt !== "loggedout") {
-    // 1) verify token
-    const decoded = await promisify(jwt.verify)(
-      req.cookies.jwt,
-      process.env.JWT_SECRET
-    );
-
-    // 2) Check if user exists
-    currentUser = await User.findById(decoded.id);
-  }
-
-  const redirect = currentUser ? false : true;
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      data: redirect,
-    },
-  });
-});

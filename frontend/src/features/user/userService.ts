@@ -2,14 +2,12 @@ import axios from "axios";
 import { IUser } from "../../models/IUser";
 import { USERS_URL } from "../../constants/Routes";
 
-const isRedirect = async () => {
-  const response = await axios.get(USERS_URL + "/is-redirect");
-
-  return response.data.data.data;
-};
-
 const register = async (userData: IUser) => {
   const response = await axios.post(USERS_URL + "/registration", userData);
+
+  if (response.data.data.data) {
+    localStorage.setItem("user", JSON.stringify(response.data.data.data));
+  }
 
   return response.data.data.data;
 };
@@ -17,12 +15,19 @@ const register = async (userData: IUser) => {
 const login = async (userData: IUser) => {
   const response = await axios.post(USERS_URL + "/login", userData);
 
+  if (response.data.data.data) {
+    localStorage.setItem("user", JSON.stringify(response.data.data.data));
+  }
+
   return response.data.data.data;
 };
 
-// eslint-disable-next-line
-const logout = async (_: any) => {
+const logout = async () => {
   const response = await axios.get(USERS_URL + "/logout");
+
+  if (response.data) {
+    localStorage.removeItem("user");
+  }
 
   return response.data;
 };
@@ -30,17 +35,24 @@ const logout = async (_: any) => {
 const fetchUser = async () => {
   const response = await axios.get(USERS_URL + "/me");
 
+  if (response.data.data.data) {
+    localStorage.setItem("user", JSON.stringify(response.data.data.data));
+  }
+
   return response.data.data.data;
 };
 
 const updateUser = async (userData: Partial<IUser> | FormData) => {
   const response = await axios.patch(USERS_URL + "/me", userData);
 
+  if (response.data.data.data) {
+    localStorage.setItem("user", JSON.stringify(response.data.data.data));
+  }
+
   return response.data.data.data;
 };
 
 const userService = {
-  isRedirect,
   register,
   logout,
   login,

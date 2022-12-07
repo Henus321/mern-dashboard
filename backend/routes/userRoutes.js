@@ -10,7 +10,6 @@ const {
   registration,
   login,
   logout,
-  isRedirect,
 } = require("../controllers/authController");
 
 const router = express.Router();
@@ -18,7 +17,6 @@ const router = express.Router();
 router.post("/registration", registration);
 router.post("/login", login);
 router.get("/logout", logout);
-router.get("/is-redirect", isRedirect);
 
 // Protect all routes after this middleware
 router.use(protect);

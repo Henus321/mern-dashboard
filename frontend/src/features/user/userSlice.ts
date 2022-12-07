@@ -2,32 +2,18 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { IUserState, IUser } from "../../models/IUser";
 import userService from "./userService";
 
+const getInitialUser = () => {
+  const user = localStorage.getItem("user");
+  return user ? JSON.parse(user) : null;
+};
+
 const initialState: IUserState = {
-  user: null,
+  user: getInitialUser(),
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
-  redirect: false,
 };
-
-export const isRedirect = createAsyncThunk(
-  "user/isRedirect",
-  async (_: any, thunkAPI) => {
-    try {
-      return await userService.isRedirect();
-    } catch (error: any) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
 
 export const register = createAsyncThunk(
   "user/register",
@@ -69,7 +55,7 @@ export const logout = createAsyncThunk(
   "user/logout",
   async (_: any, thunkAPI) => {
     try {
-      return await userService.logout("");
+      return await userService.logout();
     } catch (error: any) {
       const message =
         (error.response &&
@@ -123,29 +109,10 @@ export const userSlice = createSlice({
       state.isError = false;
       state.isSuccess = false;
       state.message = "";
-      state.redirect = false;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(isRedirect.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(
-        isRedirect.fulfilled.type,
-        (state, action: PayloadAction<boolean>) => {
-          state.isLoading = false;
-          state.redirect = action.payload;
-        }
-      )
-      .addCase(
-        isRedirect.rejected.type,
-        (state, action: PayloadAction<string>) => {
-          state.isLoading = false;
-          state.isError = true;
-          state.message = action.payload;
-        }
-      )
       .addCase(register.pending, (state) => {
         state.isLoading = true;
       })
