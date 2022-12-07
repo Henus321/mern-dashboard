@@ -25,4 +25,5 @@ export interface IUserState {
   isSuccess: boolean;
   isLoading: boolean;
   message: string;
+  redirect: boolean;
 }
