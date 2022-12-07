@@ -5,6 +5,7 @@ import { login, reset } from "../userSlice";
 import { Form, Button, Input, notification } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { IUser } from "../../../models/IUser";
+import { ERROR_DURATION } from "../../../constants/Errors";
 import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../../../constants/Routes";
 
 const Login = () => {
@@ -29,7 +30,7 @@ const Login = () => {
       notification.error({
         message: "Login Error!",
         description: message,
-        duration: 2,
+        duration: ERROR_DURATION,
       });
     }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { Button, Row, Form, Input, Col } from "antd";
+import { Button, Row, Form, Input, Col, notification } from "antd";
 import {
   SaveOutlined,
   CloseOutlined,
@@ -10,13 +10,14 @@ import { fetchUser, reset, updateUser } from "../userSlice";
 import { IPortfolio } from "../../../models/IUser";
 import { useNavigate } from "react-router-dom";
 import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../../../constants/Routes";
+import { ERROR_DURATION } from "../../../constants/Errors";
 import ProfileHeader from "./ProfileHeader";
 import Spinner from "../../../components/Spinner";
 
 const { TextArea } = Input;
 
 const Portfolio = () => {
-  const { user, isLoading, isSuccess, isError } = useAppSelector(
+  const { user, isLoading, isSuccess, isError, message } = useAppSelector(
     (state) => state.user
   );
   const [form] = Form.useForm();
@@ -41,11 +42,19 @@ const Portfolio = () => {
   }, [dispatch, navigate, isSuccess, user]);
 
   useEffect(() => {
+    if (isError) {
+      notification.error({
+        message: "Error!",
+        description: message,
+        duration: ERROR_DURATION,
+      });
+    }
+
     if (user && isError) {
       form.setFieldsValue(initialValues);
       dispatch(reset());
     }
-  }, [dispatch, user, isError, form, initialValues]);
+  }, [dispatch, user, isError, form, message, initialValues]);
 
   const onSave = (values: IPortfolio) => {
     dispatch(updateUser({ portfolio: values }));

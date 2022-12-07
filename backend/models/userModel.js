@@ -94,8 +94,6 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.index({ portfolio: 1 }, { unique: true });
-
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
