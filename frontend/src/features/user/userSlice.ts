@@ -2,13 +2,8 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { IUserState, IUser } from "../../models/IUser";
 import userService from "./userService";
 
-const getInitialUser = () => {
-  const user = localStorage.getItem("user");
-  return user ? JSON.parse(user) : null;
-};
-
 const initialState: IUserState = {
-  user: getInitialUser(),
+  user: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
