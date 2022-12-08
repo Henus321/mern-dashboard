@@ -13,24 +13,21 @@ import userSlice from "../features/user/userSlice";
 import productsSlice from "../features/products/productsSlice";
 import customersSlice from "../features/customers/customersSlice";
 
-const rootReducer = combineReducers({
-  user: userSlice,
-  customers: customersSlice,
-  products: productsSlice,
-});
-
 const persistConfig = {
-  key: "root",
+  key: "user",
   storage,
   whitelist: ["user"],
 };
 
-/* eslint-disable-next-line */
-let persistedReducer = persistReducer(persistConfig, rootReducer);
+const rootReducer = combineReducers({
+  user: persistReducer(persistConfig, userSlice),
+  customers: customersSlice,
+  products: productsSlice,
+});
 
 export const setupStore = () => {
   return configureStore({
-    reducer: persistedReducer,
+    reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: {
