@@ -28,6 +28,10 @@ const Orders: React.FC = () => {
     dispatch(fetchOrders());
   }, [dispatch]);
 
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <Card
       bodyStyle={{
@@ -39,8 +43,7 @@ const Orders: React.FC = () => {
       className="rounded-card"
       style={{ height: "100%" }}
     >
-      {isLoading && <Spinner />}
-      {!isLoading && orders && <OrdersTable orders={orders} />}
+      <OrdersTable orders={orders} />
     </Card>
   );
 };

@@ -1,7 +1,6 @@
 import { Moment } from "moment";
 import { ICustomer } from "./ICustomer";
 import { IProduct } from "./IProduct";
-import { IUser } from "./IUser";
 
 export interface IOrder {
   customer: ICustomer;
@@ -12,7 +11,6 @@ export interface IOrder {
   payment: string[];
   product: IProduct;
   registration: Moment;
-  manager: IUser;
 }
 
 export interface IOrdersState {
@@ -24,18 +22,18 @@ export interface IOrdersState {
 }
 
 export interface IOrdersTable {
-  customer?: string;
+  key: string;
+  customer: string;
   photoUrl: string;
   brand: string;
-  product?: string;
+  model: string;
   id: string;
   number: number;
   assembly: string;
   payment: string;
-  cost: string;
+  cost: number;
   registration: string;
   delivery: string;
-  manager?: string;
 }
 
 export interface IOrdersTableProps {

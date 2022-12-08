@@ -1,12 +1,8 @@
 import { brands } from "../constants/Brands";
 import { capitalizeText } from "../helpers/helpers";
 
-export const brandTabs = [
-  {
-    key: "",
-    tab: "No Filter",
-  },
+export const brandFilters = [
   ...brands.map((brand) => {
-    return { key: brand, tab: capitalizeText(brand) };
+    return { text: capitalizeText(brand), value: capitalizeText(brand) };
   }),
 ];

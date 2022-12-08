@@ -5,7 +5,8 @@ import type { ColumnsType } from "antd/es/table";
 import { IOrder, IOrdersTable, IOrdersTableProps } from "../../models/IOrder";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
-import { beautifyCost, capitalizeFirstLetter } from "../../helpers/helpers";
+import { beautifyCost, capitalizeText } from "../../helpers/helpers";
+import { brandFilters } from "../../configs/FiltersConfig";
 
 const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
   const navigate = useNavigate();
@@ -22,10 +23,11 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       title: "Customer",
       dataIndex: "customer",
       key: "customer",
+      sorter: (a, b) => a.customer.localeCompare(b.customer),
       render: (text: string) => <a>{text}</a>,
     },
     {
-      title: "Model",
+      title: "Product",
       children: [
         {
           title: "Photo",
@@ -40,6 +42,8 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
           title: "Brand",
           dataIndex: "brand",
           key: "brand",
+          filters: brandFilters,
+          onFilter: (value: any, record) => record.brand.includes(value),
           render: (text: string) => <a>{text}</a>,
         },
         {
@@ -52,6 +56,8 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
           title: "Cost",
           dataIndex: "cost",
           key: "cost",
+          sorter: (a, b) => a.cost - b.cost,
+          render: (cost: number) => <span>{beautifyCost(cost)}</span>,
         },
       ],
     },
@@ -66,20 +72,17 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       key: "payment",
     },
     {
-      title: "Manager",
-      dataIndex: "manager",
-      key: "manager",
-      render: (text: string) => <a>{text}</a>,
-    },
-    {
       title: "Registration",
       dataIndex: "registration",
       key: "registration",
+      sorter: (a, b) =>
+        moment(a.registration).unix() - moment(b.registration).unix(),
     },
     {
       title: "Delivery",
       dataIndex: "delivery",
       key: "delivery",
+      sorter: (a, b) => moment(a.delivery).unix() - moment(b.delivery).unix(),
     },
     {
       title: "",
@@ -105,21 +108,30 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
   ];
 
   const convertToDataSource = (ordersArray: IOrder[]): IOrdersTable[] =>
-    ordersArray.map((order) => {
+    ordersArray.map((item) => {
+      const customer = {
+        customer: item.customer.name,
+      };
+      const product = {
+        photoUrl: item.product.photoUrl[0],
+        brand: capitalizeText(item.product.brand),
+        model: item.product.model,
+        cost: item.product.cost,
+      };
+      const order = {
+        key: item._id,
+        id: item._id,
+        number: item.number,
+        assembly: capitalizeText(item.assembly),
+        payment: item.payment.join("/"),
+        registration: moment(item.registration).format("DD/MM/YYYY"),
+        delivery: moment(item.delivery).format("DD/MM/YYYY"),
+      };
+
       return {
-        key: order._id,
-        customer: order.customer.name,
-        photoUrl: order.product.photoUrl[0],
-        brand: capitalizeFirstLetter(order.product.brand),
-        model: order.product.model,
-        number: order.number,
-        id: order._id,
-        assembly: capitalizeFirstLetter(order.assembly),
-        manager: order.manager.name,
-        payment: order.payment.join("/"),
-        cost: beautifyCost(order.product.cost),
-        registration: moment(order.registration).format("DD/MM/YYYY"),
-        delivery: moment(order.delivery).format("DD/MM/YYYY"),
+        ...customer,
+        ...product,
+        ...order,
       };
     });
 
