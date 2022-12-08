@@ -12,6 +12,7 @@ import storage from "redux-persist/lib/storage";
 import userSlice from "../features/user/userSlice";
 import productsSlice from "../features/products/productsSlice";
 import customersSlice from "../features/customers/customersSlice";
+import ordersSlice from "../features/orders/ordersSlice";
 
 const persistConfig = {
   key: "user",
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   user: persistReducer(persistConfig, userSlice),
   customers: customersSlice,
   products: productsSlice,
+  orders: ordersSlice,
 });
 
 export const setupStore = () => {
