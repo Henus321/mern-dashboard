@@ -30,7 +30,7 @@ const Products = () => {
   return (
     <Card
       bodyStyle={{
-        padding: "0px",
+        padding: "0",
         minHeight: "50vh",
         display: "flex",
       }}

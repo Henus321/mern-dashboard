@@ -9,7 +9,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
   return (
     <Card
       bodyStyle={{
-        padding: "0px",
+        padding: "25px",
       }}
       className="rounded-card"
     >

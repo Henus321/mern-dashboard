@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { register, reset } from "./authSlice";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { register, reset } from "../userSlice";
 import { Form, Button, Input, notification } from "antd";
 import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
-import { IUser } from "../../models/IUser";
-import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../../constants/Routes";
+import { IUser } from "../../../models/IUser";
+import { ERROR_DURATION } from "../../../constants/Errors";
+import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../../../constants/Routes";
 
 const Registration = () => {
   const { user, isError, isSuccess, isLoading, message } = useAppSelector(
-    (state) => state.auth
+    (state) => state.user
   );
   const [formData, setFormData] = useState<IUser>({
     name: "",
@@ -28,16 +29,16 @@ const Registration = () => {
       notification.error({
         message: "Registration Error!",
         description: message,
-        duration: 2,
+        duration: ERROR_DURATION,
       });
     }
 
-    if (isSuccess || user) {
+    if (isSuccess && user) {
       navigate(DEFAULT_AUTHORIZED_USER_ROUTE);
     }
 
     dispatch(reset());
-  }, [user, isError, isSuccess, isLoading, message, dispatch, navigate]);
+  }, [user, isError, isSuccess, message, dispatch, navigate]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
@@ -51,7 +52,7 @@ const Registration = () => {
       notification.error({
         message: "Registration Error!",
         description: "Passwords do not match...",
-        duration: 2,
+        duration: ERROR_DURATION,
       });
     } else {
       const userData: IUser = {
@@ -131,6 +132,7 @@ const Registration = () => {
       </Form.Item>
       <Form.Item>
         <Button
+          loading={isLoading}
           className="rounded"
           size="large"
           type="primary"

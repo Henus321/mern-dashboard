@@ -1,37 +1,35 @@
 import { Layout, Menu, MenuProps } from "antd";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import navigationConfig from "../configs/NavigationConfig";
+import { sideMenu } from "../configs/NavigationConfig";
 
 const { Sider } = Layout;
 
 const SideMenu = () => {
-  const menuItems: MenuProps["items"] = [...navigationConfig].map(
-    (menuItem) => {
-      return {
-        key: menuItem.key,
-        path: menuItem.path,
-        label: menuItem.submenu ? (
-          menuItem.title
-        ) : (
-          <Link to={menuItem.path}>{menuItem.title}</Link>
-        ),
-        icon: React.createElement(menuItem.icon),
-        children: menuItem.submenu
-          ? menuItem.submenu.map((menuSubItem) => {
-              return {
-                key: menuSubItem.key,
-                path: menuSubItem.path,
-                label: <Link to={menuSubItem.path}>{menuSubItem.title}</Link>,
-                icon: menuSubItem.icon
-                  ? React.createElement(menuSubItem.icon)
-                  : null,
-              };
-            })
-          : null,
-      };
-    }
-  );
+  const menuItems: MenuProps["items"] = [...sideMenu].map((menuItem) => {
+    return {
+      key: menuItem.key,
+      path: menuItem.path,
+      label: menuItem.submenu ? (
+        menuItem.title
+      ) : (
+        <Link to={menuItem.path}>{menuItem.title}</Link>
+      ),
+      icon: React.createElement(menuItem.icon),
+      children: menuItem.submenu
+        ? menuItem.submenu.map((menuSubItem) => {
+            return {
+              key: menuSubItem.key,
+              path: menuSubItem.path,
+              label: <Link to={menuSubItem.path}>{menuSubItem.title}</Link>,
+              icon: menuSubItem.icon
+                ? React.createElement(menuSubItem.icon)
+                : null,
+            };
+          })
+        : null,
+    };
+  });
 
   const location = useLocation();
   const currentMenuItemKey = location.pathname.split("/").slice(2)[0];

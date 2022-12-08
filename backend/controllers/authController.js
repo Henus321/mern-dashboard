@@ -28,7 +28,7 @@ const createSendToken = (user, statusCode, res) => {
     status: "success",
     token,
     data: {
-      user,
+      data: user,
     },
   });
 };
@@ -81,7 +81,6 @@ exports.protect = asyncHandler(async (req, res, next) => {
   }
 
   if (!token) {
-    console.log(32);
     return next(
       new AppError("You are not logged in! Please log in to get access.", 401)
     );
@@ -106,29 +105,3 @@ exports.protect = asyncHandler(async (req, res, next) => {
   res.locals.user = currentUser;
   next();
 });
-
-// Only for rendered pages, no errors!
-exports.isLoggedIn = async (req, res, next) => {
-  if (req.cookies.jwt) {
-    try {
-      // Verify token
-      const decoded = await promisify(jwt.verify)(
-        req.cookies.jwt,
-        process.env.JWT_SECRET
-      );
-
-      // Check if user exists
-      const currentUser = await User.findById(decoded.id);
-      if (!currentUser) {
-        return next();
-      }
-
-      // There is a logged in user
-      res.locals.user = currentUser;
-      return next();
-    } catch (error) {
-      return next();
-    }
-  }
-  next();
-};

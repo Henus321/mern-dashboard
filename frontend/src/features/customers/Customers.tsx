@@ -10,6 +10,7 @@ import {
   reset,
 } from "./customersSlice";
 import { ICustomer } from "../../models/ICustomer";
+import { ERROR_DURATION } from "../../constants/Errors";
 import CustomersTable from "./CustomersTable";
 import Spinner from "../../components/Spinner";
 
@@ -40,7 +41,7 @@ const Customers: React.FC = () => {
       notification.error({
         message: "Error!",
         description: message,
-        duration: 2,
+        duration: ERROR_DURATION,
       });
     }
   }, [dispatch, isError, message]);

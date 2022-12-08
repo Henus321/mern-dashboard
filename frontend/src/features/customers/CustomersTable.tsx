@@ -109,13 +109,13 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
             <Button
               type="primary"
               ghost
-              className="mr-2"
+              className="mr-8"
               icon={<CheckSquareOutlined />}
               onClick={() => onSave(record)}
             />
             <Button
               danger
-              className="mr-2"
+              className="mr-8"
               icon={<CloseSquareOutlined />}
               onClick={() => onCancel()}
             />
@@ -134,14 +134,14 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
               disabled={editingKey !== ""}
               type="primary"
               ghost
-              className="mr-2"
+              className="mr-8"
               icon={<EditOutlined />}
               onClick={() => onEdit(record)}
             />
             <Button
               disabled
               danger
-              className="mr-2"
+              className="mr-8"
               icon={<CloseSquareOutlined />}
               onClick={() => onEdit(record)}
             />

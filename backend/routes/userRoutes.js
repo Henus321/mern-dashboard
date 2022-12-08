@@ -1,5 +1,10 @@
 const express = require("express");
-const { getMe } = require("../controllers/userController");
+const {
+  getMe,
+  updateMe,
+  uploadUserPhoto,
+  resizeUserPhoto,
+} = require("../controllers/userController");
 const {
   protect,
   registration,
@@ -16,6 +21,9 @@ router.get("/logout", logout);
 // Protect all routes after this middleware
 router.use(protect);
 
-router.get("/me", getMe);
+router
+  .route("/me")
+  .get(getMe)
+  .patch(uploadUserPhoto, resizeUserPhoto, updateMe);
 
 module.exports = router;

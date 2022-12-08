@@ -4,9 +4,11 @@ import {
   IdcardOutlined,
   UserOutlined,
   CarOutlined,
+  UserSwitchOutlined,
+  FileOutlined,
 } from "@ant-design/icons";
 
-const navSideMenu = [
+export const sideMenu = [
   {
     key: "orders",
     path: "/dashboard/orders",
@@ -50,13 +52,26 @@ const navSideMenu = [
   },
   {
     key: "profile",
-    path: "/dashboard/profile",
+    path: "/dashboard/profile/edit-profile",
     title: "Profile",
     icon: UserOutlined,
     submenu: null,
   },
 ];
 
-const navigationConfig = [...navSideMenu];
-
-export default navigationConfig;
+export const profileMenu = [
+  {
+    key: "edit-profile",
+    path: "/dashboard/profile/edit-profile",
+    title: "Edit Profile",
+    icon: UserSwitchOutlined,
+    submenu: null,
+  },
+  {
+    key: "portfolio",
+    path: "/dashboard/profile/portfolio",
+    title: "Portfolio",
+    icon: FileOutlined,
+    submenu: null,
+  },
+];
