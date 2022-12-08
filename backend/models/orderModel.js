@@ -29,11 +29,6 @@ const orderSchema = new mongoose.Schema(
       type: Date,
       required: [true, "An order must have a delivery date"],
     },
-    manager: {
-      type: mongoose.Schema.ObjectId,
-      ref: "User",
-      required: [true, "An order must contain a manager"],
-    },
     slug: String,
     number: Number,
   },
@@ -56,15 +51,10 @@ orderSchema.pre(/^find/, function (next) {
   this.populate({
     path: "customer",
     select: "name",
-  })
-    .populate({
-      path: "product",
-      select: "brand model name photoUrl cost description",
-    })
-    .populate({
-      path: "manager",
-      select: "name",
-    });
+  }).populate({
+    path: "product",
+    select: "brand model name photoUrl cost description",
+  });
   next();
 });
 
