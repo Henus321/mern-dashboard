@@ -5,7 +5,7 @@ import Spinner from "../../components/Spinner";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchProducts } from "./productsSlice";
 import { beautifyCost } from "../../helpers/helpers";
-import { brandTabs } from "../../configs/TabsConfig";
+import { brandTabsWithNoFilter } from "../../configs/TabsConfig";
 
 const gridStyle: React.CSSProperties = {
   width: "33.33333%",
@@ -36,7 +36,7 @@ const Products = () => {
       }}
       className="rounded-card"
       activeTabKey={brand}
-      tabList={brandTabs}
+      tabList={brandTabsWithNoFilter}
       onTabChange={(brand) => onTabChange(brand)}
     >
       {isLoading && <Spinner />}

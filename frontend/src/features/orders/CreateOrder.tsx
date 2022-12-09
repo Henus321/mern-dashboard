@@ -1,5 +1,6 @@
-import { Card, Divider } from "antd";
-import ProductTabs from "./ProductTabs";
+import { Card } from "antd";
+import OrderSettings from "./OrderSettings";
+import OrderProducts from "./OrderProducts";
 
 const CreateOrder = () => {
   return (
@@ -10,13 +11,8 @@ const CreateOrder = () => {
       className="rounded-card"
       style={{ height: "100%" }}
     >
-      <ProductTabs />
-      <Divider style={{ fontSize: "20px", textAlign: "center" }}>
-        Pick a Customer
-      </Divider>
-      <Divider style={{ fontSize: "20px", textAlign: "center" }}>
-        Specify the Options
-      </Divider>
+      <OrderProducts />
+      <OrderSettings />
     </Card>
   );
 };
