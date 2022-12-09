@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Divider, Tabs } from "antd";
-import Spinner from "../../components/Spinner";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { fetchProducts } from "../products/productsSlice";
-import { brandTabs } from "../../configs/TabsConfig";
-import OrderModel from "./OrderModel";
+import Spinner from "../../../components/Spinner";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { fetchProducts } from "../../products/productsSlice";
+import { brandTabs } from "../../../configs/TabsConfig";
+import ProductItem from "./ProductItem";
 
 const gridStyle: React.CSSProperties = {
   width: "25%",
@@ -13,11 +13,11 @@ const gridStyle: React.CSSProperties = {
   cursor: "pointer",
 };
 
-const OrderProducts = () => {
+const Product = () => {
   const { products, isLoading } = useAppSelector((state) => state.products);
   const [brand, setBrand] = useState(brandTabs[0].key);
   const [pick, setPick] = useState("");
-
+  console.log(pick);
   const onTabChange = (brand: string) => {
     setBrand(brand);
   };
@@ -55,7 +55,7 @@ const OrderProducts = () => {
               label: brandTab.tab,
               key: brandTab.key,
               style: { display: "flex", flexWrap: "wrap" },
-              children: <OrderModel props={{ isHovered, setPick }} />,
+              children: <ProductItem props={{ isHovered, setPick }} />,
             };
           })}
         />
@@ -64,4 +64,4 @@ const OrderProducts = () => {
   );
 };
 
-export default OrderProducts;
+export default Product;

@@ -1,6 +1,6 @@
 import { Card, Typography, Image } from "antd";
-import { beautifyCost, capitalizeText } from "../../helpers/helpers";
-import { useAppSelector } from "../../hooks/redux";
+import { beautifyCost, capitalizeText } from "../../../helpers/helpers";
+import { useAppSelector } from "../../../hooks/redux";
 
 interface Props {
   props: {
@@ -9,7 +9,7 @@ interface Props {
   };
 }
 
-const TabItem: React.FC<Props> = ({ props }) => {
+const OrderModel: React.FC<Props> = ({ props }) => {
   const { isHovered, setPick } = props;
   const { products } = useAppSelector((state) => state.products);
 
@@ -17,10 +17,10 @@ const TabItem: React.FC<Props> = ({ props }) => {
     <>
       {products.map((product) => (
         <Card.Grid
-          onClick={() => setPick(product.model)}
+          onClick={() => setPick(product._id)}
           hoverable
           key={product.name}
-          style={isHovered(product.model)}
+          style={isHovered(product._id)}
         >
           <Typography.Title
             level={5}
@@ -55,4 +55,4 @@ const TabItem: React.FC<Props> = ({ props }) => {
   );
 };
 
-export default TabItem;
+export default OrderModel;

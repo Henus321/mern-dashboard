@@ -124,7 +124,7 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
               danger
               icon={<DeleteOutlined />}
               onClick={() => {
-                onDelete(record.id);
+                onDelete(record._id);
               }}
             />
           </div>
@@ -149,7 +149,7 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
               danger
               icon={<DeleteOutlined />}
               onClick={() => {
-                onDelete(record.id);
+                onDelete(record._id);
               }}
             />
           </div>

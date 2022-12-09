@@ -1,4 +1,4 @@
-import { brands } from "../constants/Brands";
+import { brands } from "../constants/Options";
 import { capitalizeText } from "../helpers/helpers";
 
 export const brandTabs = [

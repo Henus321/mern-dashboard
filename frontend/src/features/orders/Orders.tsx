@@ -49,7 +49,6 @@ const Orders: React.FC = () => {
         flexDirection: "column",
       }}
       className="rounded-card"
-      style={{ height: "100%" }}
     >
       <OrdersTable orders={orders} />
       <Button

@@ -7,6 +7,7 @@ export interface IProduct {
   name?: string;
   slug?: string;
   type: string;
+  _id: string;
 }
 
 export interface IProductState {

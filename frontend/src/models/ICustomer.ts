@@ -5,7 +5,7 @@ export interface ICustomer {
   email: string;
   social: string | null;
   city: string;
-  id: string;
+  _id: string;
 }
 
 export interface ICustomerState {
