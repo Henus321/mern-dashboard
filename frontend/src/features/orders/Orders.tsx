@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
-import { Card, notification } from "antd";
+import { Card, notification, Button } from "antd";
+import { UsergroupAddOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchOrders } from "./ordersSlice";
 import { ERROR_DURATION } from "../../constants/Errors";
+import { useNavigate } from "react-router-dom";
+import { CREATE_ORDER_ROUTE } from "../../constants/Routes";
 
 import OrdersTable from "./OrdersTable";
 import Spinner from "../../components/Spinner";
@@ -13,6 +16,7 @@ const Orders: React.FC = () => {
   );
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isError) {
@@ -27,6 +31,10 @@ const Orders: React.FC = () => {
   useEffect(() => {
     dispatch(fetchOrders());
   }, [dispatch]);
+
+  const onCreate = () => {
+    navigate(CREATE_ORDER_ROUTE);
+  };
 
   if (isLoading) {
     return <Spinner />;
@@ -44,6 +52,14 @@ const Orders: React.FC = () => {
       style={{ height: "100%" }}
     >
       <OrdersTable orders={orders} />
+      <Button
+        type="primary"
+        size="large"
+        className="rounded right-side-button"
+        onClick={onCreate}
+      >
+        Create New Order <UsergroupAddOutlined />
+      </Button>
     </Card>
   );
 };

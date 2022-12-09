@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Button, Image } from "antd";
-import { UsergroupAddOutlined, EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 import { IOrder, IOrdersTable, IOrdersTableProps } from "../../models/IOrder";
 import { useNavigate } from "react-router-dom";
@@ -136,22 +136,12 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
     });
 
   return (
-    <>
-      <Table
-        columns={columns}
-        dataSource={convertToDataSource(orders)}
-        pagination={{ pageSize: 5 }}
-        bordered
-      />
-      <Button
-        type="primary"
-        size="large"
-        className="rounded right-side-button"
-        onClick={() => console.log("Create")}
-      >
-        Create New Order <UsergroupAddOutlined />
-      </Button>
-    </>
+    <Table
+      columns={columns}
+      dataSource={convertToDataSource(orders)}
+      pagination={{ pageSize: 5 }}
+      bordered
+    />
   );
 };
 
