@@ -1,6 +1,6 @@
 import { Card, Typography } from "antd";
-import Settings from "./Settings";
-import Product from "./Product";
+import OrderSettings from "./OrderSettings";
+import OrderProducts from "./OrderProducts";
 
 const CreateOrder = () => {
   return (
@@ -13,8 +13,8 @@ const CreateOrder = () => {
       <Typography.Title className="mt-15 text-center" level={2}>
         Create an Order
       </Typography.Title>
-      <Product />
-      <Settings />
+      <OrderProducts />
+      <OrderSettings />
     </Card>
   );
 };

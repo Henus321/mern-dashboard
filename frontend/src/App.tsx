@@ -13,7 +13,7 @@ import Notes1 from "./features/notes/Notes1";
 import Products from "./features/products/Products";
 import EditProfile from "./features/user/profile/EditProfile";
 import Portfolio from "./features/user/profile/Portfolio";
-import CreateOrder from "./features/orders/create/CreateOrder";
+import CreateOrder from "./features/orders/CreateOrder";
 import PrivateRoute from "./components/PrivateRoute";
 
 const App = () => {

@@ -12,6 +12,7 @@ export interface IProduct {
 
 export interface IProductState {
   products: IProduct[];
+  product: string;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;

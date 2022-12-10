@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Image, Carousel, Typography } from "antd";
-import { IdcardOutlined } from "@ant-design/icons";
+import { Card } from "antd";
 import Spinner from "../../components/Spinner";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchProducts } from "./productsSlice";
-import { beautifyCost } from "../../helpers/helpers";
 import { brandTabsWithNoFilter } from "../../configs/TabsConfig";
-
-const gridStyle: React.CSSProperties = {
-  width: "33.33333%",
-  display: "flex",
-  flexDirection: "column",
-};
+import ProductItem from "./ProductItem";
 
 const Products = () => {
   const { products, isLoading } = useAppSelector((state) => state.products);
@@ -33,6 +26,7 @@ const Products = () => {
         padding: "0",
         minHeight: "50vh",
         display: "flex",
+        flexWrap: "wrap",
       }}
       className="rounded-card"
       activeTabKey={brand}
@@ -43,51 +37,7 @@ const Products = () => {
       {!isLoading &&
         products &&
         products.map((product) => (
-          <Card.Grid hoverable key={product.name} style={gridStyle}>
-            <Typography.Title
-              level={4}
-              className="text-center"
-              style={{ marginBottom: 0 }}
-            >
-              {product.name}
-            </Typography.Title>
-            <Typography.Paragraph
-              className="text-center"
-              style={{ marginBottom: "5px" }}
-            >
-              {product.type}
-            </Typography.Paragraph>
-            <Carousel style={{ marginBottom: "10px" }}>
-              {product.photoUrl.map((photo) => (
-                <Image
-                  key={photo}
-                  width="100%"
-                  style={{ objectFit: "cover" }}
-                  src={photo}
-                />
-              ))}
-            </Carousel>
-            <Typography.Title
-              level={5}
-              className="text-center"
-              style={{ marginBottom: 0 }}
-            >
-              {beautifyCost(product.cost)}
-            </Typography.Title>
-            <Typography.Paragraph
-              className="text-justify"
-              style={{ marginBottom: "10px" }}
-            >
-              {product.description}
-            </Typography.Paragraph>
-
-            <Button
-              className="mt-auto"
-              onClick={() => console.log(product.slug)}
-            >
-              Make an Order <IdcardOutlined />
-            </Button>
-          </Card.Grid>
+          <ProductItem key={product.name} product={product} />
         ))}
     </Card>
   );

@@ -1,23 +1,39 @@
 import { Card, Typography, Image } from "antd";
-import { beautifyCost, capitalizeText } from "../../../helpers/helpers";
-import { useAppSelector } from "../../../hooks/redux";
+import { beautifyCost, capitalizeText } from "../../helpers/helpers";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { setProduct } from "../products/productsSlice";
 
-interface Props {
-  props: {
-    isHovered: (arg0: string) => React.CSSProperties;
-    setPick: (arg0: string) => void;
+const gridStyle: React.CSSProperties = {
+  width: "25%",
+  display: "flex",
+  flexDirection: "column",
+  cursor: "pointer",
+};
+
+const OrderProductItem = () => {
+  const { product, products } = useAppSelector((state) => state.products);
+
+  const dispatch = useAppDispatch();
+
+  const isHovered = (curProduct: string) => {
+    return curProduct === product
+      ? {
+          ...gridStyle,
+          boxShadow:
+            "0 1px 2px -2px rgb(0 0 0 / 22%), 0 3px 6px 0 rgb(0 0 0 / 30%)",
+        }
+      : { ...gridStyle };
   };
-}
 
-const OrderModel: React.FC<Props> = ({ props }) => {
-  const { isHovered, setPick } = props;
-  const { products } = useAppSelector((state) => state.products);
+  const onClick = (product: string) => {
+    dispatch(setProduct(product));
+  };
 
   return (
     <>
       {products.map((product) => (
         <Card.Grid
-          onClick={() => setPick(product._id)}
+          onClick={() => onClick(product._id)}
           hoverable
           key={product.name}
           style={isHovered(product._id)}
@@ -55,4 +71,4 @@ const OrderModel: React.FC<Props> = ({ props }) => {
   );
 };
 
-export default OrderModel;
+export default OrderProductItem;
