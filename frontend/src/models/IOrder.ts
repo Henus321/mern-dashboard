@@ -15,6 +15,7 @@ export interface IOrder {
 
 export interface IOrdersState {
   orders: IOrder[];
+  order: IOrder | null;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;

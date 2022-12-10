@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Form,
   Select,
@@ -16,14 +17,25 @@ import { ICustomer } from "../../models/ICustomer";
 import moment from "moment";
 import { RangePickerProps } from "antd/lib/date-picker";
 import dayjs from "dayjs";
-import { ERROR_DURATION } from "../../constants/Errors";
+import { SUCCESS_DURATION, ERROR_DURATION } from "../../constants/Errors";
+import { createOrder, reset } from "./ordersSlice";
+import { useNavigate } from "react-router-dom";
+import { ORDERS_ROUTE } from "../../constants/Routes";
 
 const OrderSettings = () => {
-  const { customers, isLoading } = useAppSelector((state) => state.customers);
+  const { customers, isLoading: customersIsLoading } = useAppSelector(
+    (state) => state.customers
+  );
   const { product } = useAppSelector((state) => state.products);
+  const {
+    isSuccess,
+    isLoading: ordersIsLoading,
+    order,
+  } = useAppSelector((state) => state.orders);
   const [form] = Form.useForm();
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onSelect = (e: React.SyntheticEvent<HTMLFormElement, Event>) => {
     const target = e.target as HTMLFormElement;
@@ -31,6 +43,20 @@ const OrderSettings = () => {
       dispatch(fetchCustomers());
     }
   };
+
+  useEffect(() => {
+    if (isSuccess && order) {
+      notification.success({
+        message: "Success!",
+        description: "The order was created successfully.",
+        duration: SUCCESS_DURATION,
+      });
+      setTimeout(() => {
+        navigate(ORDERS_ROUTE);
+        dispatch(reset());
+      }, SUCCESS_DURATION);
+    }
+  }, [dispatch, navigate, order, isSuccess]);
 
   const setOptions = (values: ICustomer[]) => {
     return values.map((value) => {
@@ -55,7 +81,9 @@ const OrderSettings = () => {
       });
       return;
     }
-    console.log({ ...values, product });
+
+    const newOrder = { ...values, product };
+    dispatch(createOrder(newOrder));
   };
 
   return (
@@ -71,6 +99,7 @@ const OrderSettings = () => {
         }}
       >
         <Form
+          disabled={ordersIsLoading}
           form={form}
           labelCol={{ span: 7 }}
           wrapperCol={{ span: 14 }}
@@ -83,7 +112,10 @@ const OrderSettings = () => {
             name="customer"
             label="Customer"
           >
-            <Select loading={isLoading} options={setOptions(customers)} />
+            <Select
+              loading={customersIsLoading}
+              options={setOptions(customers)}
+            />
           </Form.Item>
           <Form.Item
             rules={[{ required: true, message: "Please select an assembly!" }]}
@@ -124,6 +156,7 @@ const OrderSettings = () => {
             <DatePicker disabledDate={disabledDate} format={"DD/MM/YYYY"} />
           </Form.Item>
           <Button
+            loading={ordersIsLoading}
             htmlType="submit"
             size="large"
             type="primary"

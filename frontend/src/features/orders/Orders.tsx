@@ -11,7 +11,7 @@ import OrdersTable from "./OrdersTable";
 import Spinner from "../../components/Spinner";
 
 const Orders: React.FC = () => {
-  const { orders, isLoading, isError, message } = useAppSelector(
+  const { orders, isLoading, isError, isSuccess, message } = useAppSelector(
     (state) => state.orders
   );
 
@@ -29,8 +29,10 @@ const Orders: React.FC = () => {
   }, [dispatch, isError, message]);
 
   useEffect(() => {
-    dispatch(fetchOrders());
-  }, [dispatch]);
+    if (!isSuccess) {
+      dispatch(fetchOrders());
+    }
+  }, [dispatch, isSuccess]);
 
   const onCreate = () => {
     navigate(CREATE_ORDER_ROUTE);

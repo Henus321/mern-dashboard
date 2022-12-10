@@ -1,15 +1,27 @@
 import React from "react";
 import { Table, Button, Image } from "antd";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 import { IOrder, IOrdersTable, IOrdersTableProps } from "../../models/IOrder";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { beautifyCost, capitalizeText } from "../../helpers/helpers";
 import { brandFilters } from "../../configs/FiltersConfig";
+import { useAppDispatch } from "../../hooks/redux";
+import { deleteOrder, reset } from "./ordersSlice";
 
 const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const onEdit = (id: string) => {
+    navigate(id);
+  };
+
+  const onDelete = (id: string) => {
+    dispatch(deleteOrder(id));
+    dispatch(reset());
+  };
 
   const columns: ColumnsType<IOrdersTable> = [
     {
@@ -91,15 +103,25 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       width: "8%",
       render: (_: any, record) => {
         return (
-          <div className="flex align-center justify-end">
+          <div className="flex flex-column align-center justify-end">
             <Button
               size="large"
               type="primary"
               ghost
-              className="mr-2"
-              onClick={() => navigate(`${record.id}`)}
+              className="rounded mr-2 w-full mb-5"
+              onClick={() => onEdit(record.id)}
             >
-              Details {<EditOutlined />}
+              Edit <EditOutlined />
+            </Button>
+            <Button
+              size="large"
+              type="primary"
+              ghost
+              danger
+              className="rounded mr-2 w-full"
+              onClick={() => onDelete(record.id)}
+            >
+              Delete <DeleteOutlined />
             </Button>
           </div>
         );
@@ -108,7 +130,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
   ];
 
   const convertToDataSource = (ordersArray: IOrder[]): IOrdersTable[] =>
-    ordersArray.map((item) => {
+    ordersArray.map((item, index) => {
       const customer = {
         customer: item.customer.name,
       };
@@ -121,7 +143,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       const order = {
         key: item._id,
         id: item._id,
-        number: item.number,
+        number: index + 1,
         assembly: capitalizeText(item.assembly),
         payment: item.payment.join("/"),
         registration: moment(item.registration).format("DD/MM/YYYY"),
