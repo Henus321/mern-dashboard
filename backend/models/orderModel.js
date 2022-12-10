@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const slugify = require("slugify");
 
 const orderSchema = new mongoose.Schema(
   {
@@ -29,23 +28,11 @@ const orderSchema = new mongoose.Schema(
       type: Date,
       required: [true, "An order must have a delivery date"],
     },
-    slug: String,
-    number: Number,
   },
   {
     timestamps: true,
   }
 );
-
-orderSchema.pre("save", function (next) {
-  this.slug = slugify(this.name, { lower: true });
-  next();
-});
-
-orderSchema.pre("save", async function (next) {
-  this.number = (await this.find().length) + 1;
-  next();
-});
 
 orderSchema.pre(/^find/, function (next) {
   this.populate({
