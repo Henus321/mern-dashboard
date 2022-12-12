@@ -1,25 +1,36 @@
 import { useState, useEffect } from "react";
-import { Divider, Tabs } from "antd";
-import Spinner from "../../components/Spinner";
+import { Divider, notification, Tabs } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { clearProduct, fetchProducts } from "../products/productsSlice";
+import { reset, fetchProducts } from "../products/productsSlice";
 import { brandTabs } from "../../configs/TabsConfig";
-import ProductItem from "./OrderProductItem";
+import { ERROR_DURATION } from "../../constants/Notifications";
 
-const OrderProducts = () => {
-  const { products, isLoading } = useAppSelector((state) => state.products);
+import OrderProductItem from "./OrderProductItem";
+import Spinner from "../../components/Spinner";
+
+const CreateProducts = () => {
+  const { products, isLoading, isError, message } = useAppSelector(
+    (state) => state.products
+  );
   const [brand, setBrand] = useState(brandTabs[0].key);
 
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (isError) {
+      notification.error({
+        message: "Error!",
+        description: message,
+        duration: ERROR_DURATION,
+      });
+    }
+
+    dispatch(fetchProducts(brand));
+  }, [dispatch, brand, isError, message]);
+
   const onTabChange = (brand: string) => {
+    dispatch(reset());
     setBrand(brand);
   };
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchProducts(brand));
-    dispatch(clearProduct());
-  }, [dispatch, brand]);
 
   return (
     <>
@@ -37,7 +48,7 @@ const OrderProducts = () => {
               label: brandTab.tab,
               key: brandTab.key,
               style: { display: "flex", flexWrap: "wrap" },
-              children: <ProductItem />,
+              children: <OrderProductItem />,
             };
           })}
         />
@@ -46,4 +57,4 @@ const OrderProducts = () => {
   );
 };
 
-export default OrderProducts;
+export default CreateProducts;

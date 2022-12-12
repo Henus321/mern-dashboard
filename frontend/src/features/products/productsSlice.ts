@@ -51,17 +51,9 @@ export const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    reset: (state) => {
-      state.isLoading = false;
-      state.isError = false;
-      state.isSuccess = false;
-      state.message = "";
-    },
+    reset: () => initialState,
     setProduct: (state, action: PayloadAction<string>) => {
       state.product = action.payload;
-    },
-    clearProduct: (state) => {
-      state.product = "";
     },
   },
   extraReducers: (builder) => {
@@ -104,5 +96,5 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { reset, setProduct, clearProduct } = productsSlice.actions;
+export const { reset, setProduct } = productsSlice.actions;
 export default productsSlice.reducer;

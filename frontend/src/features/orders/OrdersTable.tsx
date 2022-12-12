@@ -4,23 +4,25 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 import { IOrder, IOrdersTable, IOrdersTableProps } from "../../models/IOrder";
 import { useNavigate } from "react-router-dom";
-import moment from "moment";
 import { beautifyCost, capitalizeText } from "../../helpers/helpers";
 import { brandFilters } from "../../configs/FiltersConfig";
 import { useAppDispatch } from "../../hooks/redux";
-import { deleteOrder, reset } from "./ordersSlice";
+import { deleteOrder } from "./ordersSlice";
+import { EDIT_ORDER_ROUTE } from "../../constants/Routes";
+import { reset } from "../products/productsSlice";
+import moment from "moment";
 
 const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const onEdit = (id: string) => {
-    navigate(id);
+    navigate(`${EDIT_ORDER_ROUTE}/${id}`);
+    dispatch(reset());
   };
 
   const onDelete = (id: string) => {
     dispatch(deleteOrder(id));
-    dispatch(reset());
   };
 
   const columns: ColumnsType<IOrdersTable> = [

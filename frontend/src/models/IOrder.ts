@@ -14,11 +14,12 @@ export interface IOrder {
 }
 
 export interface IOrdersState {
-  orders: IOrder[];
+  orders: IOrder[] | null;
   order: IOrder | null;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
+  isModified: boolean;
   message: string;
 }
 

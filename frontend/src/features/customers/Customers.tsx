@@ -10,7 +10,7 @@ import {
   reset,
 } from "./customersSlice";
 import { ICustomer } from "../../models/ICustomer";
-import { ERROR_DURATION } from "../../constants/Errors";
+import { ERROR_DURATION } from "../../constants/Notifications";
 import CustomersTable from "./CustomersTable";
 import Spinner from "../../components/Spinner";
 

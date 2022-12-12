@@ -3,11 +3,12 @@ import { IOrder, IOrdersState } from "../../models/IOrder";
 import ordersService from "./ordersService";
 
 const initialState: IOrdersState = {
-  orders: [],
+  orders: null,
   order: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
+  isModified: false,
   message: "",
 };
 
@@ -30,7 +31,7 @@ export const fetchOrders = createAsyncThunk(
 );
 
 export const createOrder = createAsyncThunk(
-  "orders/fetch",
+  "orders/create",
   async (orderData: IOrder, thunkAPI) => {
     try {
       return await ordersService.createOrder(orderData);
@@ -48,7 +49,7 @@ export const createOrder = createAsyncThunk(
 );
 
 export const fetchOrder = createAsyncThunk(
-  "orders/create",
+  "orders/fetch",
   async (id: string, thunkAPI) => {
     try {
       return await ordersService.fetchOrder(id);
@@ -105,13 +106,7 @@ export const ordersSlice = createSlice({
   name: "orders",
   initialState,
   reducers: {
-    reset: (state) => {
-      state.isLoading = false;
-      state.isError = false;
-      state.isSuccess = false;
-      state.message = "";
-      state.order = null;
-    },
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -122,6 +117,7 @@ export const ordersSlice = createSlice({
         fetchOrders.fulfilled.type,
         (state, action: PayloadAction<IOrder[]>) => {
           state.isLoading = false;
+          state.isModified = false;
           state.isSuccess = true;
           state.orders = action.payload;
         }
@@ -132,7 +128,6 @@ export const ordersSlice = createSlice({
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
-          state.orders = [];
         }
       )
       .addCase(createOrder.pending, (state) => {
@@ -161,6 +156,7 @@ export const ordersSlice = createSlice({
         fetchOrder.fulfilled.type,
         (state, action: PayloadAction<IOrder>) => {
           state.isLoading = false;
+          state.isModified = false;
           state.isSuccess = true;
           state.order = action.payload;
         }
@@ -181,6 +177,7 @@ export const ordersSlice = createSlice({
         (state, action: PayloadAction<IOrder>) => {
           state.isLoading = false;
           state.isSuccess = true;
+          state.isModified = true;
           state.order = action.payload;
         }
       )
@@ -195,11 +192,15 @@ export const ordersSlice = createSlice({
       .addCase(deleteOrder.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteOrder.fulfilled, (state) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.order = null;
-      })
+      .addCase(
+        deleteOrder.fulfilled.type,
+        (state, action: PayloadAction<null>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.isModified = true;
+          state.order = action.payload;
+        }
+      )
       .addCase(
         deleteOrder.rejected.type,
         (state, action: PayloadAction<string>) => {

@@ -10,7 +10,7 @@ import { fetchUser, reset, updateUser } from "../userSlice";
 import { IPortfolio } from "../../../models/IUser";
 import { useNavigate } from "react-router-dom";
 import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../../../constants/Routes";
-import { ERROR_DURATION } from "../../../constants/Errors";
+import { ERROR_DURATION } from "../../../constants/Notifications";
 import ProfileHeader from "./ProfileHeader";
 import Spinner from "../../../components/Spinner";
 
