@@ -1,10 +1,9 @@
 import { Layout } from "antd";
 import { Route, Routes } from "react-router-dom";
 
-import Authorization from "./pages/Authorization";
 import Dashboard from "./pages/Dashboard";
-import Login from "./features/user/auth/Login";
-import Registration from "./features/user/auth/Registration";
+import Login from "./pages/Login";
+import Registration from "./pages/Registration";
 import Customers from "./features/customers/Customers";
 import Orders from "./features/orders/Orders";
 import Profile from "./features/user/profile/Profile";
@@ -21,10 +20,8 @@ const App = () => {
   return (
     <Layout className="app-container">
       <Routes>
-        <Route path="/" element={<Authorization />}>
-          <Route path="/" element={<Login />} />
-          <Route path="/registration" element={<Registration />} />
-        </Route>
+        <Route path="/" element={<Login />} />
+        <Route path="/registration" element={<Registration />} />
         <Route path="/dashboard/" element={<PrivateRoute />}>
           <Route path="/dashboard/" element={<Dashboard />}>
             <Route path="orders" element={<Orders />} />
