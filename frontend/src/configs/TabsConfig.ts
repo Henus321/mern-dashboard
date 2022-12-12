@@ -1,26 +1,16 @@
-export const productTabs = [
+import { brands } from "../constants/Options";
+import { capitalizeText } from "../helpers/helpers";
+
+export const brandTabs = [
+  ...brands.map((brand) => {
+    return { key: brand, tab: capitalizeText(brand) };
+  }),
+];
+
+export const brandTabsWithNoFilter = [
   {
     key: "",
     tab: "No Filter",
   },
-  {
-    key: "ferrari",
-    tab: "Ferrari",
-  },
-  {
-    key: "ford",
-    tab: "Ford",
-  },
-  {
-    key: "lamborghini",
-    tab: "Lamborghini",
-  },
-  {
-    key: "porsche",
-    tab: "Porsche ",
-  },
-  {
-    key: "bmw",
-    tab: "BMW",
-  },
+  ...brandTabs,
 ];

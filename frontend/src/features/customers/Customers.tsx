@@ -10,7 +10,7 @@ import {
   reset,
 } from "./customersSlice";
 import { ICustomer } from "../../models/ICustomer";
-import { ERROR_DURATION } from "../../constants/Errors";
+import { ERROR_DURATION } from "../../constants/Notifications";
 import CustomersTable from "./CustomersTable";
 import Spinner from "../../components/Spinner";
 
@@ -20,7 +20,7 @@ const emptyCustomer: ICustomer = {
   email: "",
   social: "",
   city: "",
-  id: "",
+  _id: "",
   key: "default-key",
 };
 
@@ -76,7 +76,7 @@ const Customers: React.FC = () => {
   };
 
   const onSave = (record: ICustomer) => {
-    const newData = { ...form.getFieldsValue(), id: record.id };
+    const newData = { ...form.getFieldsValue(), id: record._id };
     if (isCreating) {
       dispatch(createCustomer(newData));
       setIsCreating(false);

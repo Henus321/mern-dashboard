@@ -5,7 +5,7 @@ import { register, reset } from "../userSlice";
 import { Form, Button, Input, notification } from "antd";
 import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import { IUser } from "../../../models/IUser";
-import { ERROR_DURATION } from "../../../constants/Errors";
+import { ERROR_DURATION } from "../../../constants/Notifications";
 import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../../../constants/Routes";
 
 const Registration = () => {

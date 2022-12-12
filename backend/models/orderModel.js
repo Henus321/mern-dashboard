@@ -1,33 +1,47 @@
 const mongoose = require("mongoose");
-const slugify = require("slugify");
 
 const orderSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: [true, "An order must have a name"],
-      unique: true,
-      trim: true,
-      maxlength: [
-        40,
-        "An order name must have less or equal then 40 characters!",
-      ],
-      minlength: [
-        6,
-        "An order name must have less or equal then 40 characters!",
-      ],
+    customer: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Customer",
+      required: [true, "An order must contain a customer"],
     },
-    slug: String,
+    product: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Product",
+      required: [true, "An order must contain a product"],
+    },
+    assembly: {
+      type: String,
+      required: [true, "An order must have an assembly"],
+    },
+    payment: {
+      type: [String],
+      required: [true, "An order must have a payment type"],
+    },
+    registration: {
+      type: Date,
+      required: [true, "An order must have a registration date"],
+    },
+    delivery: {
+      type: Date,
+      required: [true, "An order must have a delivery date"],
+    },
   },
   {
     timestamps: true,
   }
 );
 
-// Virtual populate for customers late!!!11
-
-orderSchema.pre("save", function (next) {
-  this.slug = slugify(this.name, { lower: true });
+orderSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "customer",
+    select: "name",
+  }).populate({
+    path: "product",
+    select: "brand model name photoUrl cost description",
+  });
   next();
 });
 

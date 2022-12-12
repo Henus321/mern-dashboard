@@ -13,6 +13,8 @@ import Notes1 from "./features/notes/Notes1";
 import Products from "./features/products/Products";
 import EditProfile from "./features/user/profile/EditProfile";
 import Portfolio from "./features/user/profile/Portfolio";
+import CreateOrder from "./features/orders/CreateOrder";
+import EditOrder from "./features/orders/EditOrder";
 import PrivateRoute from "./components/PrivateRoute";
 
 const App = () => {
@@ -26,6 +28,8 @@ const App = () => {
         <Route path="/dashboard/" element={<PrivateRoute />}>
           <Route path="/dashboard/" element={<Dashboard />}>
             <Route path="orders" element={<Orders />} />
+            <Route path="orders/create-order" element={<CreateOrder />} />
+            <Route path="orders/edit-order/:orderId" element={<EditOrder />} />
             <Route path="products/" element={<Products />} />
             <Route path="customers/" element={<Customers />} />
             <Route path="notes-1" element={<Notes1 />} />
