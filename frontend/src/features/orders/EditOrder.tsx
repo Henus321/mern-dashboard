@@ -8,7 +8,7 @@ import {
   ERROR_DURATION,
   SUCCESS_DURATION,
 } from "../../constants/Notifications";
-import { ORDERS_ROUTE } from "../../constants/Routes";
+import { ORDERS_ROUTE, ORDER_NOT_FOUND } from "../../constants/Routes";
 
 import EditProducts from "./EditProducts";
 import EditSettings from "./EditSettings";
@@ -24,12 +24,22 @@ const EditOrder = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isError) {
+    if (isError && !order) {
       notification.error({
         message: "Error!",
         description: message,
         duration: ERROR_DURATION,
       });
+      navigate(ORDER_NOT_FOUND);
+    }
+
+    if (isError && order) {
+      notification.error({
+        message: "Error!",
+        description: message,
+        duration: ERROR_DURATION,
+      });
+      dispatch(reset());
     }
 
     if (isModified) {
@@ -38,16 +48,23 @@ const EditOrder = () => {
         description: EDIT_MESSAGE,
         duration: SUCCESS_DURATION,
       });
-      dispatch(reset());
       navigate(ORDERS_ROUTE);
+      dispatch(reset());
     }
+
+    return () => {
+      if (isError) {
+        dispatch(reset());
+      }
+    };
+    // eslint-disable-next-line
   }, [dispatch, navigate, isModified, isError, message]);
 
   useEffect(() => {
-    if (orderId) {
+    if (orderId && !order) {
       dispatch(fetchOrder(orderId));
     }
-  }, [dispatch, orderId]);
+  }, [dispatch, orderId, order]);
 
   return (
     <>

@@ -17,6 +17,7 @@ import EditProfile from "./features/profile/EditProfile";
 import Portfolio from "./features/profile/Portfolio";
 import CreateOrder from "./features/orders/CreateOrder";
 import EditOrder from "./features/orders/EditOrder";
+import NotFound from "./components/NotFound";
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
             <Route path="/orders" element={<Orders />} />
             <Route path="/orders/create-order" element={<CreateOrder />} />
             <Route path="/orders/edit-order/:orderId" element={<EditOrder />} />
+            <Route path="/orders/not-found" element={<NotFound />} />
             <Route path="/products" element={<Products />} />
             <Route path="/customers" element={<Customers />} />
             <Route path="/notes-1" element={<Notes1 />} />

@@ -68,8 +68,6 @@ const EditSettings: React.FC<Props> = ({ order }) => {
     });
   };
 
-  // const getCurrentTime = () => moment(new Date());
-
   const disabledDate: RangePickerProps["disabledDate"] = (current) =>
     current && current < dayjs().endOf("day");
 

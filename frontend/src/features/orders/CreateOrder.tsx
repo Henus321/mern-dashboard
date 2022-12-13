@@ -28,6 +28,7 @@ const CreateOrder = () => {
         description: message,
         duration: ERROR_DURATION,
       });
+      dispatch(reset());
     }
 
     if (isSuccess) {
@@ -36,8 +37,8 @@ const CreateOrder = () => {
         description: CREATE_MESSAGE,
         duration: SUCCESS_DURATION,
       });
-      dispatch(reset());
       navigate(ORDERS_ROUTE);
+      dispatch(reset());
     }
   }, [dispatch, navigate, isSuccess, isError, message]);
 

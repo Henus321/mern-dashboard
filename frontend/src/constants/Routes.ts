@@ -2,6 +2,7 @@ export const DEFAULT_UNAUTHORIZED_USER_ROUTE = "/";
 export const DEFAULT_AUTHORIZED_USER_ROUTE = "/orders";
 
 export const ORDERS_ROUTE = "/orders";
+export const ORDER_NOT_FOUND = "/orders/not-found";
 export const CREATE_ORDER_ROUTE = "/orders/create-order";
 export const EDIT_ORDER_ROUTE = "/orders/edit-order";
 
