@@ -10,8 +10,7 @@ import Login from "./features/auth/Login";
 import Registration from "./features/auth/Registration";
 import Customers from "./features/customers/Customers";
 import Orders from "./features/orders/Orders";
-import Notes2 from "./features/notes/Notes2";
-import Notes1 from "./features/notes/Notes1";
+import Notes from "./features/notes/Notes";
 import Products from "./features/products/Products";
 import EditProfile from "./features/profile/EditProfile";
 import Portfolio from "./features/profile/Portfolio";
@@ -35,8 +34,7 @@ const App = () => {
             <Route path="/orders/not-found" element={<NotFound />} />
             <Route path="/products" element={<Products />} />
             <Route path="/customers" element={<Customers />} />
-            <Route path="/notes-1" element={<Notes1 />} />
-            <Route path="/notes-2" element={<Notes2 />} />
+            <Route path="/notes" element={<Notes />} />
             <Route element={<ProfileLayout />}>
               <Route path="profile/edit-profile" element={<EditProfile />} />
               <Route path="profile/portfolio" element={<Portfolio />} />

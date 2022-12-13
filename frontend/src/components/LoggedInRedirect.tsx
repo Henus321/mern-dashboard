@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuthStatus } from "../hooks/auth";
 import Spinner from "./Spinner";
 
@@ -9,7 +9,7 @@ const LoggedInRedirect = () => {
     return <Spinner />;
   }
 
-  return loggedIn ? <Navigate to="/orders" /> : <></>;
+  return loggedIn ? <Navigate to="/orders" /> : <Outlet />;
 };
 
 export default LoggedInRedirect;
