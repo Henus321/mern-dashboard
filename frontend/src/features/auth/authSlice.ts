@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { IUserState, IUser } from "../../models/IUser";
-import userService from "./userService";
+import authService from "./authService";
 
 const initialState: IUserState = {
   user: null,
@@ -11,10 +11,10 @@ const initialState: IUserState = {
 };
 
 export const register = createAsyncThunk(
-  "user/register",
+  "auth/register",
   async (user: IUser, thunkAPI) => {
     try {
-      return await userService.register(user);
+      return await authService.register(user);
     } catch (error: any) {
       const message =
         (error.response &&
@@ -29,10 +29,10 @@ export const register = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  "user/login",
+  "auth/login",
   async (user: IUser, thunkAPI) => {
     try {
-      return await userService.login(user);
+      return await authService.login(user);
     } catch (error: any) {
       const message =
         (error.response &&
@@ -47,10 +47,10 @@ export const login = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk(
-  "user/logout",
+  "auth/logout",
   async (_: any, thunkAPI) => {
     try {
-      return await userService.logout();
+      return await authService.logout();
     } catch (error: any) {
       const message =
         (error.response &&
@@ -64,9 +64,9 @@ export const logout = createAsyncThunk(
   }
 );
 
-export const fetchUser = createAsyncThunk("user/fetch", async (_, thunkAPI) => {
+export const fetchUser = createAsyncThunk("auth/fetch", async (_, thunkAPI) => {
   try {
-    return await userService.fetchUser();
+    return await authService.fetchUser();
   } catch (error: any) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -78,10 +78,10 @@ export const fetchUser = createAsyncThunk("user/fetch", async (_, thunkAPI) => {
 });
 
 export const updateUser = createAsyncThunk(
-  "user/update",
+  "auth/update",
   async (userData: Partial<IUser> | FormData, thunkAPI) => {
     try {
-      return await userService.updateUser(userData);
+      return await authService.updateUser(userData);
     } catch (error: any) {
       const message =
         (error.response &&
@@ -95,8 +95,8 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-export const userSlice = createSlice({
-  name: "user",
+export const authSlice = createSlice({
+  name: "auth",
   initialState,
   reducers: {
     reset: (state) => {
@@ -196,5 +196,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { reset } = userSlice.actions;
-export default userSlice.reducer;
+export const { reset } = authSlice.actions;
+export default authSlice.reducer;

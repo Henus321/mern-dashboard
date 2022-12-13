@@ -1,7 +1,7 @@
-import { Menu, MenuProps } from "antd";
 import React from "react";
+import { Menu, MenuProps } from "antd";
 import { Link, useLocation } from "react-router-dom";
-import { profileMenu } from "../../../configs/NavigationConfig";
+import { profileMenu } from "../../configs/NavigationConfig";
 
 const ProfileMenu = () => {
   const menuItems: MenuProps["items"] = [...profileMenu].map((menuItem) => {
@@ -18,7 +18,7 @@ const ProfileMenu = () => {
   });
 
   const location = useLocation();
-  const currentMenuItemKey = location.pathname.split("/").slice(3)[0];
+  const currentMenuItemKey = location.pathname.split("/").slice(2)[0];
 
   return (
     <Menu

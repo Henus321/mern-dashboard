@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input } from "antd";
-import { ICustomer } from "../models/ICustomer";
+import { ICustomer } from "../../models/ICustomer";
 
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   editing: boolean;

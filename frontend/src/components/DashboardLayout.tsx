@@ -1,13 +1,13 @@
-import AppHeader from "../components/AppHeader";
-import AppFooter from "../components/AppFooter";
+import AppHeader from "./AppHeader";
+import AppFooter from "./AppFooter";
 import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
-import SideMenu from "../components/SideMenu";
-import BreadcrumbMenu from "../components/BreadcrumbMenu";
+import SideMenu from "./SideMenu";
+import BreadcrumbMenu from "./BreadcrumbMenu";
 
 const { Content } = Layout;
 
-const Dashboard = () => {
+const DashboardLayout = () => {
   return (
     <>
       <AppHeader />
@@ -25,4 +25,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardLayout;

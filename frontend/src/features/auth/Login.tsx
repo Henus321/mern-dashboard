@@ -10,27 +10,28 @@ import {
   Typography,
 } from "antd";
 import { useNavigate, Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { register, reset } from "../features/user/userSlice";
-import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
-import { IUser } from "../models/IUser";
-import { ERROR_DURATION } from "../constants/Notifications";
-import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../constants/Routes";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { login, reset } from "./authSlice";
+import { MailOutlined, LockOutlined } from "@ant-design/icons";
+import { IUser } from "../../models/IUser";
+import { ERROR_DURATION } from "../../constants/Notifications";
+import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../../constants/Routes";
 
-import AppFooter from "../components/AppFooter";
+import AppFooter from "../../components/AppFooter";
 
-const Registration = () => {
+const Login = () => {
   const { user, isError, isSuccess, isLoading, message } = useAppSelector(
-    (state) => state.user
+    (state) => state.auth
   );
-  const [formData, setFormData] = useState<IUser>({
-    name: "",
-    email: "",
-    password: "",
-    passwordConfirm: "",
-  });
 
-  const { name, email, password, passwordConfirm } = formData;
+  const initialCredential: IUser = {
+    email: "test@yandex.ru",
+    password: "123456",
+  };
+
+  const [formData, setFormData] = useState<IUser>(initialCredential);
+
+  const { email, password } = formData;
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const Registration = () => {
   useEffect(() => {
     if (isError) {
       notification.error({
-        message: "Registration Error!",
+        message: "Login Error!",
         description: message,
         duration: ERROR_DURATION,
       });
@@ -59,22 +60,12 @@ const Registration = () => {
   };
 
   const onSubmit = () => {
-    if (password !== passwordConfirm) {
-      notification.error({
-        message: "Registration Error!",
-        description: "Passwords do not match...",
-        duration: ERROR_DURATION,
-      });
-    } else {
-      const userData: IUser = {
-        name,
-        email,
-        password,
-        passwordConfirm,
-      };
+    const userData: IUser = {
+      email,
+      password,
+    };
 
-      dispatch(register(userData));
-    }
+    dispatch(login(userData));
   };
 
   return (
@@ -84,23 +75,13 @@ const Registration = () => {
           <Typography.Title level={1} className="flex justify-center">
             Mern Dashboard
           </Typography.Title>
-
-          <Divider style={{ fontSize: "24px" }}>Registration</Divider>
-          <Form layout="vertical" name="login-form" onFinish={onSubmit}>
-            <Form.Item
-              name="name"
-              label="Name"
-              rules={[{ required: true, message: "Please input your name" }]}
-            >
-              <Input
-                className="rounded"
-                name="name"
-                size="large"
-                value={name}
-                onChange={onChange}
-                prefix={<UserOutlined />}
-              />
-            </Form.Item>
+          <Divider style={{ fontSize: "24px" }}>Login</Divider>
+          <Form
+            initialValues={initialCredential}
+            layout="vertical"
+            name="login-form"
+            onFinish={onSubmit}
+          >
             <Form.Item
               name="email"
               label="Email"
@@ -137,22 +118,6 @@ const Registration = () => {
                 prefix={<LockOutlined />}
               />
             </Form.Item>
-            <Form.Item
-              name="passwordConfirm"
-              label="Confirm Password"
-              rules={[
-                { required: true, message: "Please confirm your password" },
-              ]}
-            >
-              <Input.Password
-                className="rounded"
-                name="passwordConfirm"
-                size="large"
-                value={passwordConfirm}
-                onChange={onChange}
-                prefix={<LockOutlined />}
-              />
-            </Form.Item>
             <Form.Item>
               <Button
                 loading={isLoading}
@@ -167,9 +132,9 @@ const Registration = () => {
             </Form.Item>
           </Form>
           <Typography.Paragraph>
-            Already have an account?{" "}
+            Don&rsquo;t have an account?{" "}
             <Typography.Text underline>
-              <Link to="/">Log in and get started!</Link>
+              <Link to="/registration">Sign up and get started!</Link>
             </Typography.Text>
           </Typography.Paragraph>
         </Col>
@@ -179,4 +144,4 @@ const Registration = () => {
   );
 };
 
-export default Registration;
+export default Login;

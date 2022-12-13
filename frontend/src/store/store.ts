@@ -9,7 +9,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import userSlice from "../features/user/userSlice";
+import authSlice from "../features/auth/authSlice";
 import productsSlice from "../features/products/productsSlice";
 import customersSlice from "../features/customers/customersSlice";
 import ordersSlice from "../features/orders/ordersSlice";
@@ -21,7 +21,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  user: persistReducer(persistConfig, userSlice),
+  auth: persistReducer(persistConfig, authSlice),
   customers: customersSlice,
   products: productsSlice,
   orders: ordersSlice,

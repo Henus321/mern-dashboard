@@ -1,9 +1,10 @@
 import React from "react";
 import { Row, Col, Card } from "antd";
-import ProfileMenu from "./ProfileMenu";
 import { Outlet } from "react-router-dom";
 
-const Profile = () => {
+import ProfileMenu from "./ProfileMenu";
+
+const ProfileLayout = () => {
   return (
     <Card
       bodyStyle={{
@@ -25,4 +26,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileLayout;

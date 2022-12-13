@@ -6,7 +6,7 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 import React from "react";
-import EditableCell from "../../components/EditableCell";
+import EditableCell from "./EditableCell";
 import { ICustomer, ICustomerTable } from "../../models/ICustomer";
 
 const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {

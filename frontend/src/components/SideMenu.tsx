@@ -32,7 +32,7 @@ const SideMenu = () => {
   });
 
   const location = useLocation();
-  const currentMenuItemKey = location.pathname.split("/").slice(2)[0];
+  const currentMenuItemKey = location.pathname.split("/").slice(1)[0];
 
   return (
     <Sider width={200} className="site-layout-background">

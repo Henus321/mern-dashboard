@@ -32,7 +32,7 @@ const updateUser = async (userData: Partial<IUser> | FormData) => {
   return response.data.data.data;
 };
 
-const userService = {
+const authService = {
   register,
   logout,
   login,
@@ -40,4 +40,4 @@ const userService = {
   updateUser,
 };
 
-export default userService;
+export default authService;

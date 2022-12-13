@@ -1,9 +1,9 @@
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { logout } from "../userSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { logout } from "./authSlice";
 import { Button } from "antd";
 
 const Logout = () => {
-  const { isLoading } = useAppSelector((state) => state.user);
+  const { isLoading } = useAppSelector((state) => state.auth);
 
   const dispatch = useAppDispatch();
 

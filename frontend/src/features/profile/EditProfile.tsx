@@ -1,20 +1,21 @@
 import React, { useEffect, useMemo } from "react";
 import { Button, Row, Form, Input, Col, notification } from "antd";
 import { SaveOutlined, CloseOutlined } from "@ant-design/icons";
-import { fetchUser, updateUser, reset } from "../userSlice";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { IUser } from "../../../models/IUser";
+import { fetchUser, updateUser, reset } from "../auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { IUser } from "../../models/IUser";
 import { useNavigate } from "react-router-dom";
-import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../../../constants/Routes";
-import { ERROR_DURATION } from "../../../constants/Notifications";
+import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../../constants/Routes";
+import { ERROR_DURATION } from "../../constants/Notifications";
+
 import ProfileHeader from "./ProfileHeader";
-import Spinner from "../../../components/Spinner";
+import Spinner from "../../components/Spinner";
 
 const { TextArea } = Input;
 
 const EditProfile = () => {
   const { user, isLoading, isSuccess, isError, message } = useAppSelector(
-    (state) => state.user
+    (state) => state.auth
   );
   const [form] = Form.useForm();
 
