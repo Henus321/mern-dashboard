@@ -1,12 +1,13 @@
 import { Breadcrumb } from "antd";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 const BreadcrumbMenu = () => {
   const location = useLocation();
+  const params = useParams();
 
   const breadcrumbItems: string[] = location.pathname
     .split("/")
-    .filter((item) => item !== "");
+    .filter((item) => item !== "" && !Object.values(params).includes(item));
 
   const formatBreadcrumbTitle = (string: string) =>
     string
