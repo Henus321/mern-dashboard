@@ -1,5 +1,6 @@
 import { Layout } from "antd";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { PREFIX } from "./constants/Routes";
 
 import DashboardLayout from "./components/DashboardLayout";
 import ProfileLayout from "./features/profile/ProfileLayout";
@@ -28,16 +29,28 @@ const App = () => {
         </Route>
         <Route element={<PrivateRoute />}>
           <Route element={<DashboardLayout />}>
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/orders/create-order" element={<CreateOrder />} />
-            <Route path="/orders/edit-order/:orderId" element={<EditOrder />} />
-            <Route path="/orders/not-found" element={<NotFound />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/customers" element={<Customers />} />
-            <Route path="/notes" element={<Notes />} />
+            <Route path={`${PREFIX}/orders`} element={<Orders />} />
+            <Route
+              path={`${PREFIX}/orders/create-order`}
+              element={<CreateOrder />}
+            />
+            <Route
+              path={`${PREFIX}/orders/edit-order/:orderId`}
+              element={<EditOrder />}
+            />
+            <Route path={`${PREFIX}/orders/not-found`} element={<NotFound />} />
+            <Route path={`${PREFIX}/products`} element={<Products />} />
+            <Route path={`${PREFIX}/customers`} element={<Customers />} />
+            <Route path={`${PREFIX}/notes`} element={<Notes />} />
             <Route element={<ProfileLayout />}>
-              <Route path="profile/edit-profile" element={<EditProfile />} />
-              <Route path="profile/portfolio" element={<Portfolio />} />
+              <Route
+                path={`${PREFIX}/profile/edit-profile`}
+                element={<EditProfile />}
+              />
+              <Route
+                path={`${PREFIX}/profile/portfolio`}
+                element={<Portfolio />}
+              />
             </Route>
           </Route>
         </Route>

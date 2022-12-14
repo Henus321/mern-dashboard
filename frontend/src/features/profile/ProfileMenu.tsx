@@ -18,7 +18,7 @@ const ProfileMenu = () => {
   });
 
   const location = useLocation();
-  const currentMenuItemKey = location.pathname.split("/").slice(2)[0];
+  const currentMenuItemKey = location.pathname.split("/").slice(3)[0];
 
   return (
     <Menu

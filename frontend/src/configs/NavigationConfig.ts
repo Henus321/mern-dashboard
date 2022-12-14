@@ -8,38 +8,39 @@ import {
   UserSwitchOutlined,
   FileOutlined,
 } from "@ant-design/icons";
+import { PREFIX } from "../constants/Routes";
 
 export const sideMenu = [
   {
     key: "menu",
-    path: "/",
+    path: `${PREFIX}`,
     title: "Menu",
     icon: UnorderedListOutlined,
     submenu: [
       {
         key: "orders",
-        path: "/orders",
+        path: `${PREFIX}/orders`,
         title: "Orders",
         icon: IdcardOutlined,
         submenu: null,
       },
       {
         key: "products",
-        path: "/products",
+        path: `${PREFIX}/products`,
         title: "Products",
         icon: CarOutlined,
         submenu: null,
       },
       {
         key: "customers",
-        path: "/customers",
+        path: `${PREFIX}/customers`,
         title: "Customers",
         icon: UsergroupAddOutlined,
         submenu: null,
       },
       {
         key: "notes",
-        path: "/notes",
+        path: `${PREFIX}/notes`,
         title: "Notes",
         type: "group",
         icon: CarryOutOutlined,
@@ -47,7 +48,7 @@ export const sideMenu = [
       },
       {
         key: "profile",
-        path: "/profile/edit-profile",
+        path: `${PREFIX}/profile/edit-profile`,
         title: "Profile",
         icon: UserOutlined,
         submenu: null,
@@ -59,14 +60,14 @@ export const sideMenu = [
 export const profileMenu = [
   {
     key: "edit-profile",
-    path: "/profile/edit-profile",
+    path: `${PREFIX}/profile/edit-profile`,
     title: "Edit Profile",
     icon: UserSwitchOutlined,
     submenu: null,
   },
   {
     key: "portfolio",
-    path: "/profile/portfolio",
+    path: `${PREFIX}/profile/portfolio`,
     title: "Portfolio",
     icon: FileOutlined,
     submenu: null,
