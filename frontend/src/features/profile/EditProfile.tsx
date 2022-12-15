@@ -7,6 +7,7 @@ import { IUser } from "../../models/auth";
 import { useNavigate } from "react-router-dom";
 import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../../constants/Routes";
 import { ERROR_DURATION } from "../../constants/Notifications";
+import { max100, max40 } from "../../constants/Validation";
 
 import ProfileHeader from "./ProfileHeader";
 import Spinner from "../../components/Spinner";
@@ -79,41 +80,57 @@ const EditProfile = () => {
                   name="name"
                   label="Name"
                   rules={[
-                    { required: true, message: "Please input your name" },
+                    {
+                      required: true,
+                      message: "Please input your name",
+                    },
+                    max40,
                   ]}
                 >
-                  <Input className="rounded" />
+                  <Input placeholder="Enter name" className="rounded" />
                 </Form.Item>
               </Col>
               <Col span={6}>
-                <Form.Item name="username" label="Username">
-                  <Input className="rounded" />
+                <Form.Item name="username" label="Username" rules={[max40]}>
+                  <Input placeholder="Enter username" className="rounded" />
                 </Form.Item>
               </Col>
             </Row>
             <Row gutter={12}>
               <Col span={6}>
-                <Form.Item name="phone" label="Phone Number">
-                  <Input className="rounded" />
+                <Form.Item
+                  name="phone"
+                  label="Phone Number"
+                  rules={[{ len: 10 }]}
+                >
+                  <Input
+                    placeholder="1234567890"
+                    addonBefore={"+7"}
+                    className="rounded"
+                  />
                 </Form.Item>
               </Col>
               <Col span={6}>
-                <Form.Item name="website" label="Website">
-                  <Input className="rounded" />
+                <Form.Item
+                  name="website"
+                  label="Website"
+                  rules={[{ type: "url" }, { type: "string", max: 40 }]}
+                >
+                  <Input placeholder="www.website.com" className="rounded" />
                 </Form.Item>
               </Col>
             </Row>
             <Row gutter={12}>
               <Col span={12}>
-                <Form.Item name="company" label="Company">
-                  <Input className="rounded" />
+                <Form.Item name="company" label="Company" rules={[max40]}>
+                  <Input placeholder="Enter company name" className="rounded" />
                 </Form.Item>
               </Col>
             </Row>
             <Row gutter={12}>
               <Col span={12}>
-                <Form.Item name="address" label="Address">
-                  <Input className="rounded" />
+                <Form.Item name="address" label="Address" rules={[max100]}>
+                  <Input placeholder="Enter your address" className="rounded" />
                 </Form.Item>
               </Col>
             </Row>

@@ -11,6 +11,7 @@ import { fetchUser, reset, updateUser } from "../auth/authSlice";
 import { IPortfolio } from "../../models/auth";
 import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../../constants/Routes";
 import { ERROR_DURATION } from "../../constants/Notifications";
+import { max40 } from "../../constants/Validation";
 
 import ProfileHeader from "./ProfileHeader";
 import Spinner from "../../components/Spinner";
@@ -79,8 +80,11 @@ const Portfolio = () => {
           >
             <Row gutter={12}>
               <Col span={12}>
-                <Form.Item name="profession" label="Profession">
-                  <Input className="rounded" />
+                <Form.Item name="profession" label="Profession" rules={[max40]}>
+                  <Input
+                    placeholder="Enter your profession"
+                    className="rounded"
+                  />
                 </Form.Item>
               </Col>
             </Row>
@@ -117,6 +121,11 @@ const Portfolio = () => {
                                 message:
                                   "Please input example or delete this field.",
                               },
+                              {
+                                type: "url",
+                                message: "Please enter valid url.",
+                              },
+                              { type: "string", max: 100 },
                             ]}
                             noStyle
                           >
@@ -128,22 +137,24 @@ const Portfolio = () => {
                                   onClick={() => remove(field.name)}
                                 />
                               }
-                              placeholder="example"
+                              placeholder="www.website.com"
                             />
                           </Form.Item>
                         </Form.Item>
                       ))}
-                      <Form.Item>
-                        <Button
-                          className="rounded"
-                          type="dashed"
-                          onClick={() => add()}
-                          style={{ width: "100%" }}
-                        >
-                          Add Example <strong>+</strong>
-                        </Button>
-                        <Form.ErrorList errors={errors} />
-                      </Form.Item>
+                      {fields.length <= 9 && (
+                        <Form.Item>
+                          <Button
+                            className="rounded"
+                            type="dashed"
+                            onClick={() => add()}
+                            style={{ width: "100%" }}
+                          >
+                            Add Example <strong>+</strong>
+                          </Button>
+                          <Form.ErrorList errors={errors} />
+                        </Form.Item>
+                      )}
                     </>
                   )}
                 </Form.List>
