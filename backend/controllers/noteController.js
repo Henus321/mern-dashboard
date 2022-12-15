@@ -1,35 +1,8 @@
 const Note = require("../models/noteModel");
-const asyncHandler = require("express-async-handler");
-const AppError = require("../utils/appError");
+const factory = require("../utils/handlerFactory");
 
-exports.getAllNotes = asyncHandler(async (req, res, next) => {
-  const notes = await Note.find();
-
-  res.status(200).json({
-    status: "success",
-    results: notes.length,
-    data: {
-      data: notes,
-    },
-  });
-});
-
-exports.createNote = asyncHandler(async (req, res, next) => {
-  // add fields later
-  const { name } = req.body;
-
-  if (!name) {
-    return next(new AppError("Please add a name", 400));
-  }
-
-  const note = await Note.create({
-    name,
-  });
-
-  res.status(201).json({
-    status: "success",
-    data: {
-      data: note,
-    },
-  });
-});
+exports.getAllNotes = factory.getAll(Note);
+exports.getNote = factory.getOne(Note);
+exports.createNote = factory.createOne(Note);
+exports.updateNote = factory.updateOne(Note);
+exports.deleteNote = factory.deleteOne(Note);
