@@ -16,6 +16,7 @@ import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { IUser } from "../../models/auth";
 import { ERROR_DURATION } from "../../constants/Notifications";
 import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../../constants/Routes";
+import { max40 } from "../../constants/Validation";
 
 import AppFooter from "../../components/AppFooter";
 
@@ -91,6 +92,7 @@ const Login = () => {
                   type: "email",
                   message: "Please enter a validate email!",
                 },
+                max40,
               ]}
             >
               <Input
@@ -107,6 +109,7 @@ const Login = () => {
               label="Password"
               rules={[
                 { required: true, message: "Please input your password" },
+                max40,
               ]}
             >
               <Input.Password

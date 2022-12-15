@@ -16,6 +16,7 @@ import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import { IUser } from "../../models/auth";
 import { ERROR_DURATION } from "../../constants/Notifications";
 import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../../constants/Routes";
+import { max40 } from "../../constants/Validation";
 
 import AppFooter from "../../components/AppFooter";
 
@@ -90,7 +91,10 @@ const Registration = () => {
             <Form.Item
               name="name"
               label="Name"
-              rules={[{ required: true, message: "Please input your name" }]}
+              rules={[
+                { required: true, message: "Please input your name" },
+                max40,
+              ]}
             >
               <Input
                 className="rounded"
@@ -110,6 +114,7 @@ const Registration = () => {
                   type: "email",
                   message: "Please enter a validate email!",
                 },
+                max40,
               ]}
             >
               <Input
@@ -126,6 +131,7 @@ const Registration = () => {
               label="Password"
               rules={[
                 { required: true, message: "Please input your password" },
+                max40,
               ]}
             >
               <Input.Password
@@ -142,6 +148,7 @@ const Registration = () => {
               label="Confirm Password"
               rules={[
                 { required: true, message: "Please confirm your password" },
+                max40,
               ]}
             >
               <Input.Password
