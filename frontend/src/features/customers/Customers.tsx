@@ -76,11 +76,12 @@ const Customers = () => {
   };
 
   const onSave = (record: ICustomer) => {
-    const newData = { ...form.getFieldsValue(), id: record._id };
     if (isCreating) {
+      const newData = { ...form.getFieldsValue() };
       dispatch(createCustomer(newData));
       setIsCreating(false);
     } else {
+      const newData = { ...form.getFieldsValue(), _id: record._id };
       dispatch(updateCustomer(newData));
     }
     setEditingKey("");
