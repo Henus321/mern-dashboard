@@ -1,7 +1,7 @@
 import { Layout, Menu, MenuProps } from "antd";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { sideMenu } from "../configs/NavigationConfig";
+import { sideMenu, defaultOpenSideMenuKeys } from "../configs/NavigationConfig";
 
 const { Sider } = Layout;
 
@@ -25,13 +25,12 @@ const SideMenu = () => {
 
   const location = useLocation();
   const currentMenuItemKey = location.pathname.split("/").slice(2)[0];
-  const defaultOpenKey = "menu";
 
   return (
     <Sider width={200} className="site-layout-background">
       <Menu
         mode="inline"
-        defaultOpenKeys={[defaultOpenKey]}
+        defaultOpenKeys={defaultOpenSideMenuKeys}
         defaultSelectedKeys={[currentMenuItemKey]}
         style={{ height: "100%", borderRight: 0 }}
         items={menuItems}

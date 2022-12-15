@@ -10,11 +10,13 @@ import {
 } from "@ant-design/icons";
 import { PREFIX } from "../constants/Routes";
 
+export const defaultOpenSideMenuKeys = ["dashboard"];
+
 export const sideMenu = [
   {
-    key: "menu",
+    key: "dashboard",
     path: `${PREFIX}`,
-    title: "Menu",
+    title: "Dashboard",
     icon: UnorderedListOutlined,
     submenu: [
       {
