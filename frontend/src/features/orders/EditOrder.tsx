@@ -61,10 +61,10 @@ const EditOrder = () => {
   }, [dispatch, navigate, isModified, isError, message]);
 
   useEffect(() => {
-    if (orderId && !order) {
+    if (orderId) {
       dispatch(fetchOrder(orderId));
     }
-  }, [dispatch, orderId, order]);
+  }, [dispatch, orderId]);
 
   return (
     <>
