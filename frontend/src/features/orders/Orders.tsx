@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Card, Button, notification } from "antd";
-import { UsergroupAddOutlined } from "@ant-design/icons";
+import { AppstoreAddOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchOrders, reset } from "./ordersSlice";
 import { useNavigate } from "react-router-dom";
@@ -71,10 +71,10 @@ const Orders = () => {
           <Button
             type="primary"
             size="large"
-            className="rounded right-side-button"
+            className="rounded align-self-end m-submit-button"
             onClick={onCreate}
           >
-            Create New Order <UsergroupAddOutlined />
+            Create Order <AppstoreAddOutlined />
           </Button>
         </Card>
       )}

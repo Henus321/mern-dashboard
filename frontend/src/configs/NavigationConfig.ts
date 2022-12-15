@@ -2,7 +2,7 @@ import {
   UsergroupAddOutlined,
   CarryOutOutlined,
   UnorderedListOutlined,
-  IdcardOutlined,
+  AppstoreOutlined,
   UserOutlined,
   CarOutlined,
   UserSwitchOutlined,
@@ -21,7 +21,7 @@ export const sideMenu = [
         key: "orders",
         path: `${PREFIX}/orders`,
         title: "Orders",
-        icon: IdcardOutlined,
+        icon: AppstoreOutlined,
         submenu: null,
       },
       {

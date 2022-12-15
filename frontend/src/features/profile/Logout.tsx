@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { logout } from "./authSlice";
 import { Button } from "antd";
+import { LogoutOutlined } from "@ant-design/icons";
+import { logout } from "../auth/authSlice";
 
 const Logout = () => {
   const { isLoading } = useAppSelector((state) => state.auth);
@@ -19,7 +20,7 @@ const Logout = () => {
       danger
       className="rounded w-full mt-5"
     >
-      Logout
+      Logout <LogoutOutlined />
     </Button>
   );
 };

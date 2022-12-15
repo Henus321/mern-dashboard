@@ -7,7 +7,7 @@ import { PHOTO_URL } from "../../constants/Routes";
 import { useAppDispatch } from "../../hooks/redux";
 import { reset, updateUser } from "../auth/authSlice";
 
-import Logout from "../auth/Logout";
+import Logout from "./Logout";
 
 const ProfileHeader: React.FC<IProfileHeaderProps> = ({ user }) => {
   const dispatch = useAppDispatch();

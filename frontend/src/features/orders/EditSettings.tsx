@@ -10,12 +10,14 @@ import {
   Card,
   notification,
 } from "antd";
+import { ArrowLeftOutlined, CheckOutlined } from "@ant-design/icons";
 import { RangePickerProps } from "antd/lib/date-picker";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { paymentOptions, assemblyOptions } from "../../constants/Options";
 import { ICustomer } from "../../models/customers";
 import { IOrderProps } from "../../models/orders";
-import { ERROR_DURATION } from "../../constants/Notifications";
+import { ERROR_DURATION, PICK_MESSAGE } from "../../constants/Notifications";
 import { updateOrder } from "./ordersSlice";
 import { fetchCustomers } from "../customers/customersSlice";
 import { setProduct } from "../products/productsSlice";
@@ -40,6 +42,7 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
   };
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const initialProduct = order.product._id;
@@ -71,7 +74,7 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
     if (!product) {
       notification.error({
         message: "Error!",
-        description: "Please pick a Product.",
+        description: PICK_MESSAGE,
         duration: ERROR_DURATION,
       });
       return;
@@ -82,6 +85,10 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
     const newOrder = { ...values, product, customer, _id: order._id };
 
     dispatch(updateOrder(newOrder));
+  };
+
+  const onPageBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -151,15 +158,27 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
           >
             <DatePicker disabledDate={disabledDate} format={"DD/MM/YYYY"} />
           </Form.Item>
-          <Button
-            loading={ordersIsLoading}
-            htmlType="submit"
-            size="large"
-            type="primary"
-            className="rounded w-full mt-30"
-          >
-            Submit
-          </Button>
+          <div className="flex justify-between">
+            <Button
+              loading={ordersIsLoading}
+              size="large"
+              danger
+              ghost
+              className="rounded mt-30"
+              onClick={onPageBack}
+            >
+              <ArrowLeftOutlined /> Back to Orders
+            </Button>
+            <Button
+              loading={ordersIsLoading}
+              htmlType="submit"
+              size="large"
+              type="primary"
+              className="rounded mt-30"
+            >
+              Submit <CheckOutlined />
+            </Button>
+          </div>
         </Form>
       </Card>
     </>

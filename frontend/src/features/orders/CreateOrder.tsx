@@ -10,8 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { ORDERS_ROUTE } from "../../constants/Routes";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
-import OrderSettings from "./CreateSettings";
-import OrderProducts from "./CreateProducts";
+import CreateProducts from "./CreateProducts";
+import CreateSettings from "./CreateSettings";
 
 const CreateOrder = () => {
   const { isSuccess, isError, message } = useAppSelector(
@@ -52,8 +52,8 @@ const CreateOrder = () => {
       <Typography.Title className="mt-15 text-center" level={2}>
         Create an Order
       </Typography.Title>
-      <OrderProducts />
-      <OrderSettings />
+      <CreateProducts />
+      <CreateSettings />
     </Card>
   );
 };

@@ -4,6 +4,7 @@ import {
   CloseSquareOutlined,
   CheckSquareOutlined,
   DeleteOutlined,
+  UserAddOutlined,
 } from "@ant-design/icons";
 import React from "react";
 import EditableCell from "./EditableCell";
@@ -193,10 +194,10 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
         disabled={isCreating}
         type="primary"
         size="large"
-        className="rounded right-side-button"
+        className="rounded align-self-end m-submit-button"
         onClick={() => onCreate()}
       >
-        Create New Customer
+        Create New Customer <UserAddOutlined />
       </Button>
     </>
   );

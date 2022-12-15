@@ -9,12 +9,14 @@ import {
   Card,
   notification,
 } from "antd";
+import { CheckOutlined, ArrowLeftOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchCustomers } from "../customers/customersSlice";
 import { paymentOptions, assemblyOptions } from "../../constants/Options";
 import { ICustomer } from "../../models/customers";
 import { RangePickerProps } from "antd/lib/date-picker";
-import { ERROR_DURATION } from "../../constants/Notifications";
+import { ERROR_DURATION, PICK_MESSAGE } from "../../constants/Notifications";
 import { createOrder } from "./ordersSlice";
 import moment from "moment";
 import dayjs from "dayjs";
@@ -28,6 +30,7 @@ const CreateSettings = () => {
   const [form] = Form.useForm();
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onSelect = (e: React.SyntheticEvent<HTMLFormElement, Event>) => {
     const target = e.target as HTMLFormElement;
@@ -54,7 +57,7 @@ const CreateSettings = () => {
     if (!product) {
       notification.error({
         message: "Error!",
-        description: "Please pick a Product.",
+        description: PICK_MESSAGE,
         duration: ERROR_DURATION,
       });
       return;
@@ -62,6 +65,10 @@ const CreateSettings = () => {
 
     const newOrder = { ...values, product };
     dispatch(createOrder(newOrder));
+  };
+
+  const onPageBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -130,15 +137,27 @@ const CreateSettings = () => {
           >
             <DatePicker disabledDate={disabledDate} format={"DD/MM/YYYY"} />
           </Form.Item>
-          <Button
-            loading={ordersIsLoading}
-            htmlType="submit"
-            size="large"
-            type="primary"
-            className="rounded w-full mt-30"
-          >
-            Submit
-          </Button>
+          <div className="flex justify-between">
+            <Button
+              loading={ordersIsLoading}
+              size="large"
+              danger
+              ghost
+              className="rounded mt-30"
+              onClick={onPageBack}
+            >
+              <ArrowLeftOutlined /> Back to Orders
+            </Button>
+            <Button
+              loading={ordersIsLoading}
+              htmlType="submit"
+              size="large"
+              type="primary"
+              className="rounded mt-30"
+            >
+              Submit <CheckOutlined />
+            </Button>
+          </div>
         </Form>
       </Card>
     </>

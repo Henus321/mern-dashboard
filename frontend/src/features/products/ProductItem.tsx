@@ -50,7 +50,10 @@ const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
         {product.description}
       </Typography.Paragraph>
 
-      <Button className="mt-auto" onClick={() => console.log(product.slug)}>
+      <Button
+        className="rounded mt-auto"
+        onClick={() => console.log(product.slug)}
+      >
         Make an Order <IdcardOutlined />
       </Button>
     </Card.Grid>
