@@ -3,7 +3,7 @@ import { Button, Row, Form, Input, Col, notification } from "antd";
 import { SaveOutlined, CloseOutlined } from "@ant-design/icons";
 import { fetchUser, updateUser, reset } from "../auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { IUser } from "../../models/IUser";
+import { IUser } from "../../models/auth";
 import { useNavigate } from "react-router-dom";
 import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../../constants/Routes";
 import { ERROR_DURATION } from "../../constants/Notifications";

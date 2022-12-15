@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IUser } from "../../models/IUser";
+import { IUser } from "../../models/auth";
 import { USERS_URL } from "../../constants/Routes";
 
 const register = async (userData: IUser) => {

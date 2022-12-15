@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { IUserState, IUser } from "../../models/IUser";
+import { IUserState, IUser } from "../../models/auth";
 import authService from "./authService";
 
 const initialState: IUserState = {

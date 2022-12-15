@@ -3,16 +3,12 @@ import { Divider, notification, Tabs } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchProducts, reset } from "../products/productsSlice";
 import { brandTabs } from "../../configs/TabsConfig";
-import { IOrder } from "../../models/IOrder";
+import { IOrderProps } from "../../models/orders";
 import { ERROR_DURATION } from "../../constants/Notifications";
 
 import OrderProductItem from "./OrderProductItem";
 
-interface Props {
-  order: IOrder;
-}
-
-const EditProducts: React.FC<Props> = ({ order }) => {
+const EditProducts: React.FC<IOrderProps> = ({ order }) => {
   const { products, isSuccess, isError, message } = useAppSelector(
     (state) => state.products
   );

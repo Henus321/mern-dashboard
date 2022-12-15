@@ -9,7 +9,7 @@ import {
   updateCustomer,
   reset,
 } from "./customersSlice";
-import { ICustomer } from "../../models/ICustomer";
+import { ICustomer } from "../../models/customers";
 import { ERROR_DURATION } from "../../constants/Notifications";
 import CustomersTable from "./CustomersTable";
 import Spinner from "../../components/Spinner";
@@ -24,7 +24,7 @@ const emptyCustomer: ICustomer = {
   key: "default-key",
 };
 
-const Customers: React.FC = () => {
+const Customers = () => {
   const { customers, message, isError, isLoading, isSuccess } = useAppSelector(
     (state) => state.customers
   );

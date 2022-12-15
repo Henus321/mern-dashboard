@@ -12,7 +12,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchCustomers } from "../customers/customersSlice";
 import { paymentOptions, assemblyOptions } from "../../constants/Options";
-import { ICustomer } from "../../models/ICustomer";
+import { ICustomer } from "../../models/customers";
 import { RangePickerProps } from "antd/lib/date-picker";
 import { ERROR_DURATION } from "../../constants/Notifications";
 import { createOrder } from "./ordersSlice";

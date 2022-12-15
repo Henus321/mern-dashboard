@@ -13,8 +13,8 @@ import {
 import { RangePickerProps } from "antd/lib/date-picker";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { paymentOptions, assemblyOptions } from "../../constants/Options";
-import { ICustomer } from "../../models/ICustomer";
-import { IOrder } from "../../models/IOrder";
+import { ICustomer } from "../../models/customers";
+import { IOrderProps } from "../../models/orders";
 import { ERROR_DURATION } from "../../constants/Notifications";
 import { updateOrder } from "./ordersSlice";
 import { fetchCustomers } from "../customers/customersSlice";
@@ -22,11 +22,7 @@ import { setProduct } from "../products/productsSlice";
 import dayjs from "dayjs";
 import moment from "moment";
 
-interface Props {
-  order: IOrder;
-}
-
-const EditSettings: React.FC<Props> = ({ order }) => {
+const EditSettings: React.FC<IOrderProps> = ({ order }) => {
   const { isLoading: ordersIsLoading } = useAppSelector(
     (state) => state.orders
   );

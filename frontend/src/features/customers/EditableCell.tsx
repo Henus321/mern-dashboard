@@ -1,17 +1,8 @@
 import React from "react";
 import { Form, Input } from "antd";
-import { ICustomer } from "../../models/ICustomer";
+import { IEditableCellProps } from "../../models/customers";
 
-interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
-  editing: boolean;
-  dataIndex: string;
-  title: any;
-  record: ICustomer;
-  index: number;
-  children: React.ReactNode;
-}
-
-const EditableCell: React.FC<EditableCellProps> = ({
+const EditableCell: React.FC<IEditableCellProps> = ({
   editing,
   dataIndex,
   title,

@@ -13,16 +13,20 @@ export interface IUser {
   portfolio?: IPortfolio;
 }
 
-export interface IPortfolio {
-  description?: string;
-  profession?: string;
-  examples?: string[];
-}
-
 export interface IUserState {
   user: IUser | null;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
   message: string;
+}
+
+export interface IPortfolio {
+  description?: string;
+  profession?: string;
+  examples?: string[];
+}
+
+export interface IProfileHeaderProps {
+  user: IUser;
 }

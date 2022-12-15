@@ -31,3 +31,12 @@ export interface ICustomerTable {
     isCreating: boolean;
   };
 }
+
+export interface IEditableCellProps extends React.HTMLAttributes<HTMLElement> {
+  editing: boolean;
+  dataIndex: string;
+  title: any;
+  record: ICustomer;
+  index: number;
+  children: React.ReactNode;
+}

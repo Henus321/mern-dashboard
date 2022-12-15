@@ -2,7 +2,7 @@ import React from "react";
 import { Table, Button, Image } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
-import { IOrder, IOrdersTable, IOrdersTableProps } from "../../models/IOrder";
+import { IOrder, IOrdersTable, IOrdersTableProps } from "../../models/orders";
 import { useNavigate } from "react-router-dom";
 import { beautifyCost, capitalizeText } from "../../helpers/helpers";
 import { brandFilters } from "../../configs/FiltersConfig";

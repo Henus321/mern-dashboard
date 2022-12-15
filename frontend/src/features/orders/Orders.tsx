@@ -14,7 +14,7 @@ import {
 import OrdersTable from "./OrdersTable";
 import Spinner from "../../components/Spinner";
 
-const Orders: React.FC = () => {
+const Orders = () => {
   const { orders, isLoading, isSuccess, isError, isModified, message } =
     useAppSelector((state) => state.orders);
 

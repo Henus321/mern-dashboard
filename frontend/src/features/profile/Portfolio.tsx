@@ -8,7 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchUser, reset, updateUser } from "../auth/authSlice";
-import { IPortfolio } from "../../models/IUser";
+import { IPortfolio } from "../../models/auth";
 import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../../constants/Routes";
 import { ERROR_DURATION } from "../../constants/Notifications";
 

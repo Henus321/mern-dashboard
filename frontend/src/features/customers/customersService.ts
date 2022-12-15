@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ICustomer } from "../../models/ICustomer";
+import { ICustomer } from "../../models/customers";
 import { CUSTOMERS_URL } from "../../constants/Routes";
 
 const fetchCustomers = async () => {

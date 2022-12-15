@@ -13,7 +13,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { login, reset } from "./authSlice";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import { IUser } from "../../models/IUser";
+import { IUser } from "../../models/auth";
 import { ERROR_DURATION } from "../../constants/Notifications";
 import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../../constants/Routes";
 

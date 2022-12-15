@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import React from "react";
 import EditableCell from "./EditableCell";
-import { ICustomer, ICustomerTable } from "../../models/ICustomer";
+import { ICustomer, ICustomerTable } from "../../models/customers";
 
 const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
   const { isEditing, onEdit, onCancel, onDelete, onCreate, onSave } = handlers;

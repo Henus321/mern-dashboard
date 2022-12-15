@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IProduct } from "../../models/IProduct";
+import { IProduct } from "../../models/products";
 import { PRODUCTS_URL } from "../../constants/Routes";
 
 const fetchProducts = async (brand: string) => {

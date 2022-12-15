@@ -1,6 +1,6 @@
 import { Moment } from "moment";
-import { ICustomer } from "./ICustomer";
-import { IProduct } from "./IProduct";
+import { ICustomer } from "./customers";
+import { IProduct } from "./products";
 
 export interface IOrder {
   customer: ICustomer;
@@ -40,4 +40,8 @@ export interface IOrdersTable {
 
 export interface IOrdersTableProps {
   orders: IOrder[];
+}
+
+export interface IOrderProps {
+  order: IOrder;
 }

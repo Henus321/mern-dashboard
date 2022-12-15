@@ -18,3 +18,7 @@ export interface IProductState {
   isLoading: boolean;
   message: string;
 }
+
+export interface IProductItemProps {
+  product: IProduct;
+}
