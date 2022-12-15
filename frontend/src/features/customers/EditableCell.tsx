@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Input } from "antd";
 import { IEditableCellProps } from "../../models/customers";
+import { max100, max40 } from "../../constants/Validation";
 
 const EditableCell: React.FC<IEditableCellProps> = ({
   editing,
@@ -20,9 +21,20 @@ const EditableCell: React.FC<IEditableCellProps> = ({
               required: true,
               message: `Please Input ${title}!`,
             },
+            dataIndex === "social" ? max100 : max40,
+            dataIndex === "phone" ? { len: 11 } : {},
+            dataIndex === "email"
+              ? {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                }
+              : {},
           ]}
         >
-          <Input autoFocus={dataIndex === "name" ? true : false} />
+          <Input
+            placeholder={`Enter ${title.toLowerCase()}`}
+            autoFocus={dataIndex === "name" ? true : false}
+          />
         </Form.Item>
       ) : (
         children

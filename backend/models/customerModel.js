@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { v4: uuid } = require("uuid");
+const validator = require("validator");
 
 const customerSchema = new mongoose.Schema({
   name: {
@@ -18,17 +19,17 @@ const customerSchema = new mongoose.Schema({
   phone: {
     type: Number,
     required: [true, "A customer must have a phone"],
+    length: [11, "A phone number must be exactly 11 characters!"],
     trim: true,
-    min: 1,
-    max: 9999999999999,
   },
   email: {
     type: String,
     required: [true, "A customer must have an email"],
     unique: true,
     trim: true,
+    lowercase: true,
     maxlength: [40, "An email must have less or equal then 40 characters!"],
-    minlength: [6, "An email must have more or equal then 6 characters!"],
+    validate: [validator.isEmail, "Please provide a valid email"],
   },
   social: {
     type: String,
@@ -43,8 +44,7 @@ const customerSchema = new mongoose.Schema({
     type: String,
     required: [true, "A customer must have a city"],
     trim: true,
-    maxlength: [50, "A city name must have less or equal then 50 characters!"],
-    minlength: [4, "A city name must have more or equal then 4 characters!"],
+    maxlength: [40, "A city name must have less or equal then 40 characters!"],
   },
   key: String | Number,
 });
