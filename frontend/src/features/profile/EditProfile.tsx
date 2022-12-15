@@ -93,30 +93,19 @@ const EditProfile = () => {
             </Row>
             <Row gutter={12}>
               <Col span={6}>
-                <Form.Item
-                  name="email"
-                  label="Email"
-                  rules={[
-                    { required: true, message: "Please input your email" },
-                  ]}
-                >
-                  <Input className="rounded" />
-                </Form.Item>
-              </Col>
-              <Col span={6}>
-                <Form.Item name="company" label="Company">
-                  <Input className="rounded" />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row gutter={12}>
-              <Col span={6}>
                 <Form.Item name="phone" label="Phone Number">
                   <Input className="rounded" />
                 </Form.Item>
               </Col>
               <Col span={6}>
                 <Form.Item name="website" label="Website">
+                  <Input className="rounded" />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row gutter={12}>
+              <Col span={12}>
+                <Form.Item name="company" label="Company">
                   <Input className="rounded" />
                 </Form.Item>
               </Col>
