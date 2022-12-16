@@ -43,7 +43,7 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
-exports.getMe = asyncHandler(async (req, res) => {
+exports.getMe = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user._id);
   if (!user) {
     return next(new AppError("Wooops! Cant find current user.", 404));
@@ -57,14 +57,15 @@ exports.getMe = asyncHandler(async (req, res) => {
   });
 });
 
-exports.updateMe = asyncHandler(async (req, res) => {
-  if (req.body.password || req.body.passwordConfirm) {
-    return next(new AppError("This route is not for password updates.", 400));
+exports.updateMe = asyncHandler(async (req, res, next) => {
+  if (req.body.password || req.body.passwordConfirm || req.body.email) {
+    return next(
+      new AppError("This route is not for password or email updates.", 400)
+    );
   }
   const filteredBody = filterObj(
     req.body,
     "name",
-    "email",
     "photo",
     "username",
     "company",

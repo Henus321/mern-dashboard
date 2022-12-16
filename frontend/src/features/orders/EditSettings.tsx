@@ -10,23 +10,24 @@ import {
   Card,
   notification,
 } from "antd";
+import { ArrowLeftOutlined, CheckOutlined } from "@ant-design/icons";
 import { RangePickerProps } from "antd/lib/date-picker";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { paymentOptions, assemblyOptions } from "../../constants/Options";
-import { ICustomer } from "../../models/ICustomer";
-import { IOrder } from "../../models/IOrder";
-import { ERROR_DURATION } from "../../constants/Notifications";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { ICustomer, IOrderProps } from "../../models";
+import {
+  PAYMENT_OPTIONS,
+  ASSEMBLY_OPTIONS,
+  ERROR_DURATION,
+  PICK_MESSAGE,
+} from "../../constants";
 import { updateOrder } from "./ordersSlice";
 import { fetchCustomers } from "../customers/customersSlice";
 import { setProduct } from "../products/productsSlice";
 import dayjs from "dayjs";
 import moment from "moment";
 
-interface Props {
-  order: IOrder;
-}
-
-const EditSettings: React.FC<Props> = ({ order }) => {
+const EditSettings: React.FC<IOrderProps> = ({ order }) => {
   const { isLoading: ordersIsLoading } = useAppSelector(
     (state) => state.orders
   );
@@ -44,6 +45,7 @@ const EditSettings: React.FC<Props> = ({ order }) => {
   };
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const initialProduct = order.product._id;
@@ -68,8 +70,6 @@ const EditSettings: React.FC<Props> = ({ order }) => {
     });
   };
 
-  // const getCurrentTime = () => moment(new Date());
-
   const disabledDate: RangePickerProps["disabledDate"] = (current) =>
     current && current < dayjs().endOf("day");
 
@@ -77,7 +77,7 @@ const EditSettings: React.FC<Props> = ({ order }) => {
     if (!product) {
       notification.error({
         message: "Error!",
-        description: "Please pick a Product.",
+        description: PICK_MESSAGE,
         duration: ERROR_DURATION,
       });
       return;
@@ -88,6 +88,10 @@ const EditSettings: React.FC<Props> = ({ order }) => {
     const newOrder = { ...values, product, customer, _id: order._id };
 
     dispatch(updateOrder(newOrder));
+  };
+
+  const onPageBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -124,7 +128,7 @@ const EditSettings: React.FC<Props> = ({ order }) => {
             name="assembly"
             label="Assembly"
           >
-            <Radio.Group options={assemblyOptions} name="assembly" />
+            <Radio.Group options={ASSEMBLY_OPTIONS} name="assembly" />
           </Form.Item>
           <Form.Item
             rules={[
@@ -133,7 +137,7 @@ const EditSettings: React.FC<Props> = ({ order }) => {
             name="payment"
             label="Payment"
           >
-            <Cascader options={paymentOptions} />
+            <Cascader options={PAYMENT_OPTIONS} />
           </Form.Item>
           <Form.Item
             rules={[
@@ -142,7 +146,6 @@ const EditSettings: React.FC<Props> = ({ order }) => {
                 message: "Please choose the registration date!",
               },
             ]}
-            // initialValue={getCurrentTime()}
             name="registration"
             label="Registration"
           >
@@ -157,15 +160,27 @@ const EditSettings: React.FC<Props> = ({ order }) => {
           >
             <DatePicker disabledDate={disabledDate} format={"DD/MM/YYYY"} />
           </Form.Item>
-          <Button
-            loading={ordersIsLoading}
-            htmlType="submit"
-            size="large"
-            type="primary"
-            className="rounded w-full mt-30"
-          >
-            Submit
-          </Button>
+          <div className="flex justify-between">
+            <Button
+              loading={ordersIsLoading}
+              size="large"
+              danger
+              ghost
+              className="rounded mt-30"
+              onClick={onPageBack}
+            >
+              <ArrowLeftOutlined /> Back to Orders
+            </Button>
+            <Button
+              loading={ordersIsLoading}
+              htmlType="submit"
+              size="large"
+              type="primary"
+              className="rounded mt-30"
+            >
+              Submit <CheckOutlined />
+            </Button>
+          </div>
         </Form>
       </Card>
     </>

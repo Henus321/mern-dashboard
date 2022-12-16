@@ -2,6 +2,7 @@ const express = require("express");
 const { protect } = require("../controllers/authController");
 const {
   getAllCustomers,
+  getCustomer,
   createCustomer,
   updateCustomer,
   deleteCustomer,
@@ -12,10 +13,10 @@ const router = express.Router();
 // Protect all routes after this middleware
 router.use(protect);
 
+router.route("/").get(getAllCustomers).post(createCustomer);
 router
-  .route("/")
-  .get(getAllCustomers)
-  .post(createCustomer)
+  .route("/:id")
+  .get(getCustomer)
   .patch(updateCustomer)
   .delete(deleteCustomer);
 

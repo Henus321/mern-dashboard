@@ -1,6 +1,6 @@
 import axios from "axios";
-import { IProduct } from "../../models/IProduct";
-import { PRODUCTS_URL } from "../../constants/Routes";
+import { IProduct } from "../../models";
+import { PRODUCTS_URL } from "../../constants";
 
 const fetchProducts = async (brand: string) => {
   const response = await axios.get(PRODUCTS_URL + `/${brand}`);

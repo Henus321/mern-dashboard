@@ -1,12 +1,8 @@
 import React from "react";
 import { Button, Card, Image, Carousel, Typography } from "antd";
 import { IdcardOutlined } from "@ant-design/icons";
-import { IProduct } from "../../models/IProduct";
-import { beautifyCost } from "../../helpers/helpers";
-
-interface Props {
-  product: IProduct;
-}
+import { IProductItemProps } from "../../models";
+import { beautifyCost } from "../../helpers";
 
 const gridStyle: React.CSSProperties = {
   width: "33.33333%",
@@ -14,7 +10,7 @@ const gridStyle: React.CSSProperties = {
   flexDirection: "column",
 };
 
-const ProductItem: React.FC<Props> = ({ product }) => {
+const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
   return (
     <Card.Grid hoverable style={gridStyle}>
       <Typography.Title
@@ -54,7 +50,10 @@ const ProductItem: React.FC<Props> = ({ product }) => {
         {product.description}
       </Typography.Paragraph>
 
-      <Button className="mt-auto" onClick={() => console.log(product.slug)}>
+      <Button
+        className="rounded mt-auto"
+        onClick={() => console.log(product.slug)}
+      >
         Make an Order <IdcardOutlined />
       </Button>
     </Card.Grid>

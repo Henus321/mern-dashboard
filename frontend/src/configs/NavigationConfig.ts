@@ -1,75 +1,75 @@
 import {
   UsergroupAddOutlined,
   CarryOutOutlined,
-  IdcardOutlined,
+  UnorderedListOutlined,
+  AppstoreOutlined,
   UserOutlined,
   CarOutlined,
   UserSwitchOutlined,
   FileOutlined,
 } from "@ant-design/icons";
+import { PREFIX } from "../constants";
+
+export const defaultOpenSideMenuKeys = ["dashboard"];
 
 export const sideMenu = [
   {
-    key: "orders",
-    path: "/dashboard/orders",
-    title: "Orders",
-    icon: IdcardOutlined,
-    submenu: null,
-  },
-  {
-    key: "products",
-    path: "/dashboard/products",
-    title: "Products",
-    icon: CarOutlined,
-    submenu: null,
-  },
-  {
-    key: "customers",
-    path: "/dashboard/customers",
-    title: "Customers",
-    icon: UsergroupAddOutlined,
-    submenu: null,
-  },
-  {
-    key: "notes",
-    path: "/dashboard/notes-1",
-    title: "Notes",
-    icon: CarryOutOutlined,
+    key: "dashboard",
+    path: `${PREFIX}`,
+    title: "Dashboard",
+    icon: UnorderedListOutlined,
     submenu: [
       {
-        key: "notes-1",
-        path: "/dashboard/notes-1",
-        title: "Notes 1",
-        icon: null,
+        key: "orders",
+        path: `${PREFIX}/orders`,
+        title: "Orders",
+        icon: AppstoreOutlined,
+        submenu: null,
       },
       {
-        key: "notes-2",
-        path: "/dashboard/notes-2",
-        title: "Notes 2",
-        icon: null,
+        key: "products",
+        path: `${PREFIX}/products`,
+        title: "Products",
+        icon: CarOutlined,
+        submenu: null,
+      },
+      {
+        key: "customers",
+        path: `${PREFIX}/customers`,
+        title: "Customers",
+        icon: UsergroupAddOutlined,
+        submenu: null,
+      },
+      {
+        key: "notes",
+        path: `${PREFIX}/notes`,
+        title: "Notes",
+        type: "group",
+        icon: CarryOutOutlined,
+        submenu: null,
+      },
+      {
+        key: "profile",
+        path: `${PREFIX}/profile/edit-profile`,
+        title: "Profile",
+        icon: UserOutlined,
+        submenu: null,
       },
     ],
-  },
-  {
-    key: "profile",
-    path: "/dashboard/profile/edit-profile",
-    title: "Profile",
-    icon: UserOutlined,
-    submenu: null,
   },
 ];
 
 export const profileMenu = [
   {
     key: "edit-profile",
-    path: "/dashboard/profile/edit-profile",
+    path: `${PREFIX}/profile/edit-profile`,
     title: "Edit Profile",
     icon: UserSwitchOutlined,
     submenu: null,
   },
   {
     key: "portfolio",
-    path: "/dashboard/profile/portfolio",
+    path: `${PREFIX}/profile/portfolio`,
     title: "Portfolio",
     icon: FileOutlined,
     submenu: null,

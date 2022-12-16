@@ -1,6 +1,6 @@
 import { Card, Typography, Image } from "antd";
-import { beautifyCost, capitalizeText } from "../../helpers/helpers";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { beautifyCost, capitalizeText } from "../../helpers";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setProduct } from "../products/productsSlice";
 
 const gridStyle: React.CSSProperties = {

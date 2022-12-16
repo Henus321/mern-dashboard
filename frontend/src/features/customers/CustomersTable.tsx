@@ -1,13 +1,15 @@
+import React from "react";
 import { Button, Table, Tag, Tooltip } from "antd";
 import {
   EditOutlined,
   CloseSquareOutlined,
   CheckSquareOutlined,
   DeleteOutlined,
+  UserAddOutlined,
 } from "@ant-design/icons";
-import React from "react";
+import { ICustomer, ICustomerTable } from "../../models";
+
 import EditableCell from "../../components/EditableCell";
-import { ICustomer, ICustomerTable } from "../../models/ICustomer";
 
 const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
   const { isEditing, onEdit, onCancel, onDelete, onCreate, onSave } = handlers;
@@ -109,19 +111,20 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
             <Button
               type="primary"
               ghost
-              className="mr-8"
+              className="rounded mr-8"
               icon={<CheckSquareOutlined />}
               onClick={() => onSave(record)}
             />
             <Button
               danger
-              className="mr-8"
+              className="rounded mr-8"
               icon={<CloseSquareOutlined />}
               onClick={() => onCancel()}
             />
             <Button
               disabled
               danger
+              className="rounded"
               icon={<DeleteOutlined />}
               onClick={() => {
                 onDelete(record._id);
@@ -134,19 +137,20 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
               disabled={editingKey !== ""}
               type="primary"
               ghost
-              className="mr-8"
+              className="rounded mr-8"
               icon={<EditOutlined />}
               onClick={() => onEdit(record)}
             />
             <Button
               disabled
               danger
-              className="mr-8"
+              className="rounded mr-8"
               icon={<CloseSquareOutlined />}
               onClick={() => onEdit(record)}
             />
             <Button
               danger
+              className="rounded"
               icon={<DeleteOutlined />}
               onClick={() => {
                 onDelete(record._id);
@@ -193,10 +197,10 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
         disabled={isCreating}
         type="primary"
         size="large"
-        className="rounded right-side-button"
+        className="rounded align-self-end m-submit-button"
         onClick={() => onCreate()}
       >
-        Create New Customer
+        Create New Customer <UserAddOutlined />
       </Button>
     </>
   );

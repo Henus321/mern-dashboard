@@ -1,6 +1,6 @@
 import axios from "axios";
-import { ORDERS_URL } from "../../constants/Routes";
-import { IOrder } from "../../models/IOrder";
+import { ORDERS_URL } from "../../constants";
+import { IOrder } from "../../models";
 
 const fetchOrders = async () => {
   const response = await axios.get(ORDERS_URL + "/");

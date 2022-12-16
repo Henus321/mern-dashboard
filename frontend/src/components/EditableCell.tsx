@@ -1,17 +1,9 @@
 import React from "react";
 import { Form, Input } from "antd";
-import { ICustomer } from "../models/ICustomer";
+import { IEditableCellProps } from "../models";
+import { MAX_100, MAX_40 } from "../constants";
 
-interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
-  editing: boolean;
-  dataIndex: string;
-  title: any;
-  record: ICustomer;
-  index: number;
-  children: React.ReactNode;
-}
-
-const EditableCell: React.FC<EditableCellProps> = ({
+const EditableCell: React.FC<IEditableCellProps> = ({
   editing,
   dataIndex,
   title,
@@ -29,9 +21,20 @@ const EditableCell: React.FC<EditableCellProps> = ({
               required: true,
               message: `Please Input ${title}!`,
             },
+            dataIndex === "social" ? MAX_100 : MAX_40,
+            dataIndex === "phone" ? { len: 11 } : {},
+            dataIndex === "email"
+              ? {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                }
+              : {},
           ]}
         >
-          <Input autoFocus={dataIndex === "name" ? true : false} />
+          <Input
+            placeholder={`Enter ${title.toLowerCase()}`}
+            autoFocus={dataIndex === "name" ? true : false}
+          />
         </Form.Item>
       ) : (
         children

@@ -1,6 +1,6 @@
-export const brands = ["ferrari", "ford", "lamborghini", "porsche", "bmw"];
+export const BRANDS = ["ferrari", "ford", "lamborghini", "porsche", "bmw"];
 
-export const assemblyOptions = [
+export const ASSEMBLY_OPTIONS = [
   {
     value: "sport",
     label: " Sport ",
@@ -15,7 +15,7 @@ export const assemblyOptions = [
   },
 ];
 
-export const paymentOptions = [
+export const PAYMENT_OPTIONS = [
   {
     value: "leasing",
     label: "Leasing",

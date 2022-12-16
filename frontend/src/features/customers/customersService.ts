@@ -1,6 +1,6 @@
 import axios from "axios";
-import { ICustomer } from "../../models/ICustomer";
-import { CUSTOMERS_URL } from "../../constants/Routes";
+import { ICustomer } from "../../models";
+import { CUSTOMERS_URL } from "../../constants";
 
 const fetchCustomers = async () => {
   const response = await axios.get(CUSTOMERS_URL + "/");
@@ -8,25 +8,23 @@ const fetchCustomers = async () => {
   return response.data.data.data?.reverse();
 };
 
-const createCustomer = async (userData: ICustomer) => {
-  const response = await axios.post(CUSTOMERS_URL + "/", userData);
+const createCustomer = async (customerData: ICustomer) => {
+  const response = await axios.post(CUSTOMERS_URL + "/", customerData);
 
   return response.data;
 };
 
-const updateCustomer = async (userData: ICustomer) => {
-  const response = await axios.patch(CUSTOMERS_URL + "/", userData);
+const updateCustomer = async (customerData: ICustomer) => {
+  const response = await axios.patch(
+    CUSTOMERS_URL + `/${customerData._id}`,
+    customerData
+  );
 
   return response.data;
 };
 
 const deleteCustomer = async (id: string) => {
-  const config = {
-    data: {
-      id,
-    },
-  };
-  const response = await axios.delete(CUSTOMERS_URL + "/", config);
+  const response = await axios.delete(CUSTOMERS_URL + `/${id}`);
 
   return response.data;
 };

@@ -1,9 +1,12 @@
-export const DEFAULT_UNAUTHORIZED_USER_ROUTE = "/";
-export const DEFAULT_AUTHORIZED_USER_ROUTE = "/dashboard/orders";
+export const PREFIX = "/dashboard";
 
-export const ORDERS_ROUTE = "/dashboard/orders";
-export const CREATE_ORDER_ROUTE = "/dashboard/orders/create-order";
-export const EDIT_ORDER_ROUTE = "/dashboard/orders/edit-order";
+export const DEFAULT_UNAUTHORIZED_USER_ROUTE = "/";
+export const DEFAULT_AUTHORIZED_USER_ROUTE = `${PREFIX}/orders`;
+
+export const ORDERS_ROUTE = `${PREFIX}/orders`;
+export const ORDER_NOT_FOUND = `${PREFIX}/orders/not-found`;
+export const CREATE_ORDER_ROUTE = `${PREFIX}/orders/create-order`;
+export const EDIT_ORDER_ROUTE = `${PREFIX}/orders/edit-order`;
 
 export const PHOTO_URL = "/uploads/";
 export const USERS_URL = "/api/v1/users";

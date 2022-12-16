@@ -7,10 +7,12 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, "Please tell us your name!"],
+      maxlength: [40, "A name must have less or equal then 40 characters!"],
     },
     email: {
       type: String,
       required: [true, "Please provide your email"],
+      maxlength: [40, "An email must have less or equal then 40 characters!"],
       unique: true,
       lowercase: true,
       validate: [validator.isEmail, "Please provide a valid email"],
@@ -19,6 +21,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please provide a password"],
       minlength: 6,
+      maxlength: [40, "A password must have less or equal then 40 characters!"],
       select: false,
     },
     passwordConfirm: {
@@ -45,14 +48,7 @@ const userSchema = new mongoose.Schema(
     },
     phone: {
       type: Number,
-      maxlength: [
-        40,
-        "An phone number must have less or equal then 40 characters!",
-      ],
-      minlength: [
-        10,
-        "An phone number must have greater or equal then 10 characters!",
-      ],
+      length: [10, "A phone number must be exactly 10 characters!"],
     },
     website: {
       type: String,
@@ -85,7 +81,16 @@ const userSchema = new mongoose.Schema(
         ],
       },
       examples: {
-        type: [String],
+        type: [
+          {
+            type: String,
+            maxlength: [
+              100,
+              "An example must have less or equal then 100 characters!",
+            ],
+          },
+        ],
+        validate: [ExamplesLimit, "Examples exceeds the limit of 10"],
       },
     },
   },
@@ -93,6 +98,10 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+function ExamplesLimit(val) {
+  return val.length <= 10;
+}
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
