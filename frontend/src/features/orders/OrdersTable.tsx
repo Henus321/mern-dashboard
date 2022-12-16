@@ -2,13 +2,13 @@ import React from "react";
 import { Table, Button, Image } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
-import { IOrder, IOrdersTable, IOrdersTableProps } from "../../models/orders";
+import { IOrder, IOrdersTable, IOrdersTableProps } from "../../models";
 import { useNavigate } from "react-router-dom";
-import { beautifyCost, capitalizeText } from "../../helpers/helpers";
-import { brandFilters } from "../../configs/FiltersConfig";
-import { useAppDispatch } from "../../hooks/redux";
+import { beautifyCost, capitalizeText } from "../../helpers";
+import { brandFilters } from "../../configs";
+import { useAppDispatch } from "../../hooks";
 import { deleteOrder } from "./ordersSlice";
-import { EDIT_ORDER_ROUTE } from "../../constants/Routes";
+import { EDIT_ORDER_ROUTE } from "../../constants";
 import { reset } from "../products/productsSlice";
 import moment from "moment";
 

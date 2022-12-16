@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { IUserState, IUser } from "../../models/auth";
-import authService from "./authService";
+import { IUserState, IUser } from "../../models";
+import profileAuthService from "./profileAuthService";
 
 const initialState: IUserState = {
   user: null,
@@ -11,10 +11,10 @@ const initialState: IUserState = {
 };
 
 export const register = createAsyncThunk(
-  "auth/register",
+  "profile-auth/register",
   async (user: IUser, thunkAPI) => {
     try {
-      return await authService.register(user);
+      return await profileAuthService.register(user);
     } catch (error: any) {
       const message =
         (error.response &&
@@ -29,10 +29,10 @@ export const register = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  "auth/login",
+  "profile-auth/login",
   async (user: IUser, thunkAPI) => {
     try {
-      return await authService.login(user);
+      return await profileAuthService.login(user);
     } catch (error: any) {
       const message =
         (error.response &&
@@ -47,10 +47,10 @@ export const login = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk(
-  "auth/logout",
+  "profile-auth/logout",
   async (_: any, thunkAPI) => {
     try {
-      return await authService.logout();
+      return await profileAuthService.logout();
     } catch (error: any) {
       const message =
         (error.response &&
@@ -66,7 +66,7 @@ export const logout = createAsyncThunk(
 
 export const fetchUser = createAsyncThunk("auth/fetch", async (_, thunkAPI) => {
   try {
-    return await authService.fetchUser();
+    return await profileAuthService.fetchUser();
   } catch (error: any) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -78,10 +78,10 @@ export const fetchUser = createAsyncThunk("auth/fetch", async (_, thunkAPI) => {
 });
 
 export const updateUser = createAsyncThunk(
-  "auth/update",
+  "profile-auth/update",
   async (userData: Partial<IUser> | FormData, thunkAPI) => {
     try {
-      return await authService.updateUser(userData);
+      return await profileAuthService.updateUser(userData);
     } catch (error: any) {
       const message =
         (error.response &&
@@ -95,8 +95,8 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-export const authSlice = createSlice({
-  name: "auth",
+export const profileAuthSlice = createSlice({
+  name: "profile-auth",
   initialState,
   reducers: {
     reset: (state) => {
@@ -196,5 +196,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { reset } = authSlice.actions;
-export default authSlice.reducer;
+export const { reset } = profileAuthSlice.actions;
+export default profileAuthSlice.reducer;

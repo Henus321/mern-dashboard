@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, MenuProps } from "antd";
 import { Link, useLocation } from "react-router-dom";
-import { profileMenu } from "../../configs/NavigationConfig";
+import { profileMenu } from "../../configs";
 
 const ProfileMenu = () => {
   const menuItems: MenuProps["items"] = [...profileMenu].map((menuItem) => {

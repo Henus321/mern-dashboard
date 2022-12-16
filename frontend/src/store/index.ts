@@ -9,7 +9,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import authSlice from "../features/auth/authSlice";
+import authSlice from "../features/profile-auth/profileAuthSlice";
 import productsSlice from "../features/products/productsSlice";
 import customersSlice from "../features/customers/customersSlice";
 import ordersSlice from "../features/orders/ordersSlice";

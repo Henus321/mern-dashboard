@@ -1,6 +1,6 @@
 import axios from "axios";
-import { ICustomer } from "../../models/customers";
-import { CUSTOMERS_URL } from "../../constants/Routes";
+import { ICustomer } from "../../models";
+import { CUSTOMERS_URL } from "../../constants";
 
 const fetchCustomers = async () => {
   const response = await axios.get(CUSTOMERS_URL + "/");

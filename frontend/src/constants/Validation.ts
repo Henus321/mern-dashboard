@@ -1,9 +1,9 @@
-export const max40 = {
+export const MAX_40 = {
   max: 40,
   message: "Maximum of 40 characters",
 };
 
-export const max100 = {
+export const MAX_100 = {
   max: 100,
   message: "Maximum of 100 characters",
 };

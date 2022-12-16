@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { Card, Form, notification } from "antd";
-
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
   fetchCustomers,
   deleteCustomer,
@@ -9,8 +8,9 @@ import {
   updateCustomer,
   reset,
 } from "./customersSlice";
-import { ICustomer } from "../../models/customers";
-import { ERROR_DURATION } from "../../constants/Notifications";
+import { ICustomer } from "../../models";
+import { ERROR_DURATION } from "../../constants";
+
 import CustomersTable from "./CustomersTable";
 import Spinner from "../../components/Spinner";
 

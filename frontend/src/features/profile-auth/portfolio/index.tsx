@@ -6,15 +6,17 @@ import {
   MinusCircleOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { fetchUser, reset, updateUser } from "../auth/authSlice";
-import { IPortfolio } from "../../models/auth";
-import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../../constants/Routes";
-import { ERROR_DURATION } from "../../constants/Notifications";
-import { max40 } from "../../constants/Validation";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { fetchUser, reset, updateUser } from "../profileAuthSlice";
+import { IPortfolio } from "../../../models";
+import {
+  DEFAULT_UNAUTHORIZED_USER_ROUTE,
+  ERROR_DURATION,
+  MAX_40,
+} from "../../../constants";
 
-import ProfileHeader from "./ProfileHeader";
-import Spinner from "../../components/Spinner";
+import ProfileHeader from "../ProfileHeader";
+import Spinner from "../../../components/Spinner";
 
 const { TextArea } = Input;
 
@@ -80,7 +82,11 @@ const Portfolio = () => {
           >
             <Row gutter={12}>
               <Col span={12}>
-                <Form.Item name="profession" label="Profession" rules={[max40]}>
+                <Form.Item
+                  name="profession"
+                  label="Profession"
+                  rules={[MAX_40]}
+                >
                   <Input
                     placeholder="Enter your profession"
                     className="rounded"

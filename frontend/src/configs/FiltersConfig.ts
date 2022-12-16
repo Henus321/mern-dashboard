@@ -1,8 +1,8 @@
-import { brands } from "../constants/Options";
-import { capitalizeText } from "../helpers/helpers";
+import { BRANDS } from "../constants";
+import { capitalizeText } from "../helpers";
 
 export const brandFilters = [
-  ...brands.map((brand) => {
+  ...BRANDS.map((brand) => {
     return { text: capitalizeText(brand), value: capitalizeText(brand) };
   }),
 ];

@@ -9,16 +9,18 @@ import {
   Divider,
   Typography,
 } from "antd";
-import { useNavigate, Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { login, reset } from "./authSlice";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import { IUser } from "../../models/auth";
-import { ERROR_DURATION } from "../../constants/Notifications";
-import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../../constants/Routes";
-import { max40 } from "../../constants/Validation";
+import { useNavigate, Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { login, reset } from "../profileAuthSlice";
+import { IUser } from "../../../models";
+import {
+  ERROR_DURATION,
+  DEFAULT_AUTHORIZED_USER_ROUTE,
+  MAX_40,
+} from "../../../constants";
 
-import AppFooter from "../../components/AppFooter";
+import AppFooter from "../../../components/AppFooter";
 
 const Login = () => {
   const { user, isError, isSuccess, isLoading, message } = useAppSelector(
@@ -92,7 +94,7 @@ const Login = () => {
                   type: "email",
                   message: "Please enter a validate email!",
                 },
-                max40,
+                MAX_40,
               ]}
             >
               <Input
@@ -109,7 +111,7 @@ const Login = () => {
               label="Password"
               rules={[
                 { required: true, message: "Please input your password" },
-                max40,
+                MAX_40,
               ]}
             >
               <Input.Password

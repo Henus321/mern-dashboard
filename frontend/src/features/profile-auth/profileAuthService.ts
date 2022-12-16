@@ -1,6 +1,6 @@
 import axios from "axios";
-import { IUser } from "../../models/auth";
-import { USERS_URL } from "../../constants/Routes";
+import { IUser } from "../../models";
+import { USERS_URL } from "../../constants";
 
 const register = async (userData: IUser) => {
   const response = await axios.post(USERS_URL + "/registration", userData);

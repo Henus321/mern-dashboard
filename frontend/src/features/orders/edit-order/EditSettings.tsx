@@ -13,14 +13,17 @@ import {
 import { ArrowLeftOutlined, CheckOutlined } from "@ant-design/icons";
 import { RangePickerProps } from "antd/lib/date-picker";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { paymentOptions, assemblyOptions } from "../../constants/Options";
-import { ICustomer } from "../../models/customers";
-import { IOrderProps } from "../../models/orders";
-import { ERROR_DURATION, PICK_MESSAGE } from "../../constants/Notifications";
-import { updateOrder } from "./ordersSlice";
-import { fetchCustomers } from "../customers/customersSlice";
-import { setProduct } from "../products/productsSlice";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { ICustomer, IOrderProps } from "../../../models";
+import {
+  PAYMENT_OPTIONS,
+  ASSEMBLY_OPTIONS,
+  ERROR_DURATION,
+  PICK_MESSAGE,
+} from "../../../constants";
+import { updateOrder } from "../ordersSlice";
+import { fetchCustomers } from "../../customers/customersSlice";
+import { setProduct } from "../../products/productsSlice";
 import dayjs from "dayjs";
 import moment from "moment";
 
@@ -125,7 +128,7 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
             name="assembly"
             label="Assembly"
           >
-            <Radio.Group options={assemblyOptions} name="assembly" />
+            <Radio.Group options={ASSEMBLY_OPTIONS} name="assembly" />
           </Form.Item>
           <Form.Item
             rules={[
@@ -134,7 +137,7 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
             name="payment"
             label="Payment"
           >
-            <Cascader options={paymentOptions} />
+            <Cascader options={PAYMENT_OPTIONS} />
           </Form.Item>
           <Form.Item
             rules={[
@@ -143,7 +146,6 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
                 message: "Please choose the registration date!",
               },
             ]}
-            // initialValue={getCurrentTime()}
             name="registration"
             label="Registration"
           >

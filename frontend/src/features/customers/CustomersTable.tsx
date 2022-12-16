@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, Table, Tag, Tooltip } from "antd";
 import {
   EditOutlined,
@@ -6,9 +7,9 @@ import {
   DeleteOutlined,
   UserAddOutlined,
 } from "@ant-design/icons";
-import React from "react";
-import EditableCell from "./EditableCell";
-import { ICustomer, ICustomerTable } from "../../models/customers";
+import { ICustomer, ICustomerTable } from "../../models";
+
+import EditableCell from "../../components/EditableCell";
 
 const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
   const { isEditing, onEdit, onCancel, onDelete, onCreate, onSave } = handlers;

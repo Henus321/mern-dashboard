@@ -8,7 +8,7 @@ import {
   UserSwitchOutlined,
   FileOutlined,
 } from "@ant-design/icons";
-import { PREFIX } from "../constants/Routes";
+import { PREFIX } from "../constants";
 
 export const defaultOpenSideMenuKeys = ["dashboard"];
 

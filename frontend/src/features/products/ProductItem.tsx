@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Card, Image, Carousel, Typography } from "antd";
 import { IdcardOutlined } from "@ant-design/icons";
-import { IProductItemProps } from "../../models/products";
-import { beautifyCost } from "../../helpers/helpers";
+import { IProductItemProps } from "../../models";
+import { beautifyCost } from "../../helpers";
 
 const gridStyle: React.CSSProperties = {
   width: "33.33333%",

@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { Card, notification, Typography } from "antd";
+import { reset } from "../ordersSlice";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
 import {
+  ORDERS_ROUTE,
   CREATE_MESSAGE,
   ERROR_DURATION,
   SUCCESS_DURATION,
-} from "../../constants/Notifications";
-import { reset } from "./ordersSlice";
-import { useNavigate } from "react-router-dom";
-import { ORDERS_ROUTE } from "../../constants/Routes";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+} from "../../../constants";
 
 import CreateProducts from "./CreateProducts";
 import CreateSettings from "./CreateSettings";

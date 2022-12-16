@@ -1,23 +1,23 @@
 import { Layout } from "antd";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { PREFIX } from "./constants/Routes";
+import { PREFIX } from "./constants";
 
 import DashboardLayout from "./components/DashboardLayout";
-import ProfileLayout from "./features/profile/ProfileLayout";
 import PrivateRoute from "./components/PrivateRoute";
 import LoggedInRedirect from "./components/LoggedInRedirect";
-
-import Login from "./features/auth/Login";
-import Registration from "./features/auth/Registration";
-import Customers from "./features/customers/Customers";
-import Orders from "./features/orders/Orders";
-import Notes from "./features/notes/Notes";
-import Products from "./features/products/Products";
-import EditProfile from "./features/profile/EditProfile";
-import Portfolio from "./features/profile/Portfolio";
-import CreateOrder from "./features/orders/CreateOrder";
-import EditOrder from "./features/orders/EditOrder";
 import NotFound from "./components/NotFound";
+
+import Orders from "./features/orders";
+import CreateOrder from "./features/orders/create-order";
+import EditOrder from "./features/orders/edit-order";
+import Products from "./features/products";
+import Customers from "./features/customers";
+import Notes from "./features/notes";
+import Profile from "./features/profile-auth";
+import Login from "./features/profile-auth/login";
+import Registration from "./features/profile-auth/registration";
+import EditProfile from "./features/profile-auth/edit-profile";
+import Portfolio from "./features/profile-auth/portfolio";
 
 const App = () => {
   return (
@@ -42,7 +42,7 @@ const App = () => {
             <Route path={`${PREFIX}/products`} element={<Products />} />
             <Route path={`${PREFIX}/customers`} element={<Customers />} />
             <Route path={`${PREFIX}/notes`} element={<Notes />} />
-            <Route element={<ProfileLayout />}>
+            <Route element={<Profile />}>
               <Route
                 path={`${PREFIX}/profile/edit-profile`}
                 element={<EditProfile />}

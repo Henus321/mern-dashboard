@@ -1,7 +1,7 @@
 import { Layout, Menu, MenuProps } from "antd";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { sideMenu, defaultOpenSideMenuKeys } from "../configs/NavigationConfig";
+import { sideMenu, defaultOpenSideMenuKeys } from "../configs";
 
 const { Sider } = Layout;
 

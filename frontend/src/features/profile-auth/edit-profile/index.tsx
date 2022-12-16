@@ -1,16 +1,19 @@
 import React, { useEffect, useMemo } from "react";
 import { Button, Row, Form, Input, Col, notification } from "antd";
 import { SaveOutlined, CloseOutlined } from "@ant-design/icons";
-import { fetchUser, updateUser, reset } from "../auth/authSlice";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { IUser } from "../../models/auth";
+import { fetchUser, updateUser, reset } from "../profileAuthSlice";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { IUser } from "../../../models";
 import { useNavigate } from "react-router-dom";
-import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../../constants/Routes";
-import { ERROR_DURATION } from "../../constants/Notifications";
-import { max100, max40 } from "../../constants/Validation";
+import {
+  DEFAULT_UNAUTHORIZED_USER_ROUTE,
+  ERROR_DURATION,
+  MAX_100,
+  MAX_40,
+} from "../../../constants";
 
-import ProfileHeader from "./ProfileHeader";
-import Spinner from "../../components/Spinner";
+import ProfileHeader from "../ProfileHeader";
+import Spinner from "../../../components/Spinner";
 
 const { TextArea } = Input;
 
@@ -84,14 +87,14 @@ const EditProfile = () => {
                       required: true,
                       message: "Please input your name",
                     },
-                    max40,
+                    MAX_40,
                   ]}
                 >
                   <Input placeholder="Enter name" className="rounded" />
                 </Form.Item>
               </Col>
               <Col span={6}>
-                <Form.Item name="username" label="Username" rules={[max40]}>
+                <Form.Item name="username" label="Username" rules={[MAX_40]}>
                   <Input placeholder="Enter username" className="rounded" />
                 </Form.Item>
               </Col>
@@ -122,14 +125,14 @@ const EditProfile = () => {
             </Row>
             <Row gutter={12}>
               <Col span={12}>
-                <Form.Item name="company" label="Company" rules={[max40]}>
+                <Form.Item name="company" label="Company" rules={[MAX_40]}>
                   <Input placeholder="Enter company name" className="rounded" />
                 </Form.Item>
               </Col>
             </Row>
             <Row gutter={12}>
               <Col span={12}>
-                <Form.Item name="address" label="Address" rules={[max100]}>
+                <Form.Item name="address" label="Address" rules={[MAX_100]}>
                   <Input placeholder="Enter your address" className="rounded" />
                 </Form.Item>
               </Col>

@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
-import { logout } from "../auth/authSlice";
+import { logout } from "../features/profile-auth/profileAuthSlice";
 
 const Logout = () => {
   const { isLoading } = useAppSelector((state) => state.auth);

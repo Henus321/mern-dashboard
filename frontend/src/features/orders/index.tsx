@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { Card, Button, notification } from "antd";
 import { AppstoreAddOutlined } from "@ant-design/icons";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchOrders, reset } from "./ordersSlice";
 import { useNavigate } from "react-router-dom";
-import { CREATE_ORDER_ROUTE } from "../../constants/Routes";
 import {
+  CREATE_ORDER_ROUTE,
   DELETE_MESSAGE,
   ERROR_DURATION,
   SUCCESS_DURATION,
-} from "../../constants/Notifications";
+} from "../../constants";
 
 import OrdersTable from "./OrdersTable";
 import Spinner from "../../components/Spinner";

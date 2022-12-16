@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "antd";
 import Spinner from "../../components/Spinner";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchProducts } from "./productsSlice";
-import { brandTabsWithNoFilter } from "../../configs/TabsConfig";
+import { brandTabsWithNoFilter } from "../../configs";
 import ProductItem from "./ProductItem";
 
 const Products = () => {

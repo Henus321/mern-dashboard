@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Divider, notification, Tabs } from "antd";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { reset, fetchProducts } from "../products/productsSlice";
-import { brandTabs } from "../../configs/TabsConfig";
-import { ERROR_DURATION } from "../../constants/Notifications";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { reset, fetchProducts } from "../../products/productsSlice";
+import { brandTabs } from "../../../configs";
+import { ERROR_DURATION } from "../../../constants";
 
-import OrderProductItem from "./OrderProductItem";
-import Spinner from "../../components/Spinner";
+import OrderProductItem from "../OrderProductItem";
+import Spinner from "../../../components/Spinner";
 
 const CreateProducts = () => {
   const { products, isLoading, isError, message } = useAppSelector(

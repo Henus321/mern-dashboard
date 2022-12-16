@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
 import { Card, notification, Typography } from "antd";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { fetchOrder, reset } from "./ordersSlice";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { fetchOrder, reset } from "../ordersSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   EDIT_MESSAGE,
   ERROR_DURATION,
   SUCCESS_DURATION,
-} from "../../constants/Notifications";
-import { ORDERS_ROUTE, ORDER_NOT_FOUND } from "../../constants/Routes";
+  ORDERS_ROUTE,
+  ORDER_NOT_FOUND,
+} from "../../../constants";
 
 import EditProducts from "./EditProducts";
 import EditSettings from "./EditSettings";
-import Spinner from "../../components/Spinner";
+import Spinner from "../../../components/Spinner";
 
 const EditOrder = () => {
   const { order, isLoading, isError, isModified, message } = useAppSelector(

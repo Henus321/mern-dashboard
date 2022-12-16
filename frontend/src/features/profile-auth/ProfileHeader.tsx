@@ -1,13 +1,13 @@
 import React from "react";
 import { Row, Col, Typography, Avatar, Button, Upload } from "antd";
 import { RcFile } from "antd/lib/upload";
-import { IProfileHeaderProps } from "../../models/auth";
+import { IProfileHeaderProps } from "../../models";
 import { UploadOutlined, UserOutlined } from "@ant-design/icons";
-import { PHOTO_URL } from "../../constants/Routes";
-import { useAppDispatch } from "../../hooks/redux";
-import { reset, updateUser } from "../auth/authSlice";
+import { PHOTO_URL } from "../../constants";
+import { useAppDispatch } from "../../hooks";
+import { reset, updateUser } from "./profileAuthSlice";
 
-import Logout from "./Logout";
+import LogoutButton from "../../components/LogoutButton";
 
 const ProfileHeader: React.FC<IProfileHeaderProps> = ({ user }) => {
   const dispatch = useAppDispatch();
@@ -49,7 +49,7 @@ const ProfileHeader: React.FC<IProfileHeaderProps> = ({ user }) => {
             <UploadOutlined />
           </Button>
         </Upload>
-        <Logout />
+        <LogoutButton />
       </Col>
     </Row>
   );
