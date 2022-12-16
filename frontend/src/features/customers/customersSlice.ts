@@ -6,6 +6,7 @@ const initialState: ICustomerState = {
   customers: [],
   isError: false,
   isSuccess: false,
+  isModified: false,
   isLoading: false,
   message: "",
 };
@@ -86,12 +87,7 @@ export const customersSlice = createSlice({
   name: "customers",
   initialState,
   reducers: {
-    reset: (state) => {
-      state.isLoading = false;
-      state.isError = false;
-      state.isSuccess = false;
-      state.message = "";
-    },
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -102,6 +98,8 @@ export const customersSlice = createSlice({
         fetchCustomers.fulfilled.type,
         (state, action: PayloadAction<ICustomer[]>) => {
           state.isLoading = false;
+          state.isModified = false;
+          state.isError = false;
           state.isSuccess = true;
           state.customers = action.payload;
         }
@@ -120,6 +118,7 @@ export const customersSlice = createSlice({
       })
       .addCase(createCustomer.fulfilled.type, (state) => {
         state.isLoading = false;
+        state.isModified = true;
         state.isSuccess = true;
       })
       .addCase(
@@ -135,6 +134,7 @@ export const customersSlice = createSlice({
       })
       .addCase(updateCustomer.fulfilled.type, (state) => {
         state.isLoading = false;
+        state.isModified = true;
         state.isSuccess = true;
       })
       .addCase(
@@ -150,6 +150,7 @@ export const customersSlice = createSlice({
       })
       .addCase(deleteCustomer.fulfilled.type, (state) => {
         state.isLoading = false;
+        state.isModified = true;
         state.isSuccess = true;
       })
       .addCase(

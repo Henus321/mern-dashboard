@@ -1,5 +1,5 @@
 const express = require("express");
-const { protect } = require("../controllers/authController");
+const { protect, restrictTo } = require("../controllers/authController");
 const {
   getAllCustomers,
   getCustomer,
@@ -14,10 +14,11 @@ const router = express.Router();
 router.use(protect);
 
 router.route("/").get(getAllCustomers).post(createCustomer);
-router
-  .route("/:id")
-  .get(getCustomer)
-  .patch(updateCustomer)
-  .delete(deleteCustomer);
+router.route("/:id").get(getCustomer).patch(updateCustomer);
+
+// Only allowed to users with role type "admin"
+router.use(restrictTo("admin"));
+
+router.route("/:id").delete(deleteCustomer);
 
 module.exports = router;

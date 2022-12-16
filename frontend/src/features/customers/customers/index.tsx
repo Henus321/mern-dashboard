@@ -9,7 +9,11 @@ import {
   reset,
 } from "../customersSlice";
 import { ICustomer } from "../../../models";
-import { ERROR_DURATION } from "../../../constants";
+import {
+  COMMON_SUCCESS_MESSAGE,
+  ERROR_DURATION,
+  SUCCESS_DURATION,
+} from "../../../constants";
 
 import CustomersTable from "../CustomersTable";
 import Spinner from "../../../components/Spinner";
@@ -25,9 +29,8 @@ const emptyCustomer: ICustomer = {
 };
 
 const Customers = () => {
-  const { customers, message, isError, isLoading, isSuccess } = useAppSelector(
-    (state) => state.customers
-  );
+  const { customers, message, isError, isSuccess, isModified, isLoading } =
+    useAppSelector((state) => state.customers);
   const [isCreating, setIsCreating] = useState(false);
   const [editingKey, setEditingKey] = useState<string | number>("");
   const [form] = Form.useForm();
@@ -44,12 +47,24 @@ const Customers = () => {
         duration: ERROR_DURATION,
       });
     }
-  }, [dispatch, isError, message]);
+
+    if (isModified) {
+      notification.success({
+        message: "Success!",
+        description: COMMON_SUCCESS_MESSAGE,
+        duration: SUCCESS_DURATION,
+      });
+    }
+
+    dispatch(fetchCustomers());
+  }, [dispatch, isError, isModified, message]);
 
   useEffect(() => {
-    if (!isSuccess) {
-      dispatch(fetchCustomers());
-    }
+    return () => {
+      if (isSuccess) {
+        dispatch(reset());
+      }
+    };
   }, [dispatch, isSuccess]);
 
   const isEditing = (record: ICustomer) => record.key === editingKey;
@@ -66,7 +81,6 @@ const Customers = () => {
 
   const onDelete = (id: string) => {
     dispatch(deleteCustomer(id));
-    dispatch(reset());
   };
 
   const onCreate = () => {
@@ -85,7 +99,6 @@ const Customers = () => {
       dispatch(updateCustomer(newData));
     }
     setEditingKey("");
-    dispatch(reset());
   };
 
   const handlers = {
@@ -108,19 +121,24 @@ const Customers = () => {
   }
 
   return (
-    <Card
-      bodyStyle={{
-        padding: "0px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-end",
-      }}
-      className="rounded-card"
-    >
-      <Form form={form} component={false}>
-        <CustomersTable handlers={handlers} tableData={tableData} />
-      </Form>
-    </Card>
+    <>
+      {isLoading && <Spinner />}
+      {customers.length > 0 && (
+        <Card
+          bodyStyle={{
+            padding: "0px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end",
+          }}
+          className="rounded-card"
+        >
+          <Form form={form} component={false}>
+            <CustomersTable handlers={handlers} tableData={tableData} />
+          </Form>
+        </Card>
+      )}
+    </>
   );
 };
 

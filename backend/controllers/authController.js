@@ -105,3 +105,19 @@ exports.protect = asyncHandler(async (req, res, next) => {
   res.locals.user = currentUser;
   next();
 });
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    // roles ["user", "admin"]
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError(
+          "Only the administrator has permission to perform this action",
+          403
+        )
+      );
+    }
+
+    next();
+  };
+};
