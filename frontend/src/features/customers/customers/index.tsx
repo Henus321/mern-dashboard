@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Card, Form, notification } from "antd";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
 import {
   fetchCustomers,
   deleteCustomer,
   createCustomer,
   updateCustomer,
   reset,
-} from "./customersSlice";
-import { ICustomer } from "../../models";
-import { ERROR_DURATION } from "../../constants";
+} from "../customersSlice";
+import { ICustomer } from "../../../models";
+import { ERROR_DURATION } from "../../../constants";
 
-import CustomersTable from "./CustomersTable";
-import Spinner from "../../components/Spinner";
+import CustomersTable from "../CustomersTable";
+import Spinner from "../../../components/Spinner";
 
 const emptyCustomer: ICustomer = {
   name: "",

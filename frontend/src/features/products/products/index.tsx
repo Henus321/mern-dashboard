@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "antd";
-import Spinner from "../../components/Spinner";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { fetchProducts } from "./productsSlice";
-import { brandTabsWithNoFilter } from "../../configs";
-import ProductItem from "./ProductItem";
+import Spinner from "../../../components/Spinner";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { fetchProducts } from "../productsSlice";
+import { brandTabsWithNoFilter } from "../../../configs";
+import ProductItem from "../ProductItem";
 
 const Products = () => {
   const { products, isLoading } = useAppSelector((state) => state.products);

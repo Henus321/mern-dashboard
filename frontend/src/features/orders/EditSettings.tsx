@@ -13,17 +13,17 @@ import {
 import { ArrowLeftOutlined, CheckOutlined } from "@ant-design/icons";
 import { RangePickerProps } from "antd/lib/date-picker";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { ICustomer, IOrderProps } from "../../../models";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { ICustomer, IOrderProps } from "../../models";
 import {
   PAYMENT_OPTIONS,
   ASSEMBLY_OPTIONS,
   ERROR_DURATION,
   PICK_MESSAGE,
-} from "../../../constants";
-import { updateOrder } from "../ordersSlice";
-import { fetchCustomers } from "../../customers/customersSlice";
-import { setProduct } from "../../products/productsSlice";
+} from "../../constants";
+import { updateOrder } from "./ordersSlice";
+import { fetchCustomers } from "../customers/customersSlice";
+import { setProduct } from "../products/productsSlice";
 import dayjs from "dayjs";
 import moment from "moment";
 

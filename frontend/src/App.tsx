@@ -7,13 +7,12 @@ import PrivateRoute from "./components/PrivateRoute";
 import LoggedInRedirect from "./components/LoggedInRedirect";
 import NotFound from "./components/NotFound";
 
-import Orders from "./features/orders";
+import Orders from "./features/orders/orders";
 import CreateOrder from "./features/orders/create-order";
 import EditOrder from "./features/orders/edit-order";
-import Products from "./features/products";
-import Customers from "./features/customers";
-import Notes from "./features/notes";
-import Profile from "./features/profile-auth";
+import Products from "./features/products/products";
+import Customers from "./features/customers/customers";
+import Notes from "./features/notes/notes";
 import Login from "./features/profile-auth/login";
 import Registration from "./features/profile-auth/registration";
 import EditProfile from "./features/profile-auth/edit-profile";
@@ -42,16 +41,14 @@ const App = () => {
             <Route path={`${PREFIX}/products`} element={<Products />} />
             <Route path={`${PREFIX}/customers`} element={<Customers />} />
             <Route path={`${PREFIX}/notes`} element={<Notes />} />
-            <Route element={<Profile />}>
-              <Route
-                path={`${PREFIX}/profile/edit-profile`}
-                element={<EditProfile />}
-              />
-              <Route
-                path={`${PREFIX}/profile/portfolio`}
-                element={<Portfolio />}
-              />
-            </Route>
+            <Route
+              path={`${PREFIX}/profile/edit-profile`}
+              element={<EditProfile />}
+            />
+            <Route
+              path={`${PREFIX}/profile/portfolio`}
+              element={<Portfolio />}
+            />
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />

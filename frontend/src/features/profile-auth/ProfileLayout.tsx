@@ -1,10 +1,13 @@
 import React from "react";
 import { Row, Col, Card } from "antd";
-import { Outlet } from "react-router-dom";
 
 import ProfileMenu from "./ProfileMenu";
 
-const ProfileLayout = () => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const ProfileLayout: React.FC<Props> = ({ children }) => {
   return (
     <Card
       bodyStyle={{
@@ -19,7 +22,7 @@ const ProfileLayout = () => {
           <ProfileMenu />
         </Col>
         <Col span={20} style={{ padding: "25px" }}>
-          <Outlet />
+          {children}
         </Col>
       </Row>
     </Card>

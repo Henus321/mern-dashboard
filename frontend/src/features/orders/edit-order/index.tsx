@@ -11,8 +11,8 @@ import {
   ORDER_NOT_FOUND,
 } from "../../../constants";
 
-import EditProducts from "./EditProducts";
-import EditSettings from "./EditSettings";
+import EditProducts from "../EditProducts";
+import EditSettings from "../EditSettings";
 import Spinner from "../../../components/Spinner";
 
 const EditOrder = () => {

@@ -10,8 +10,8 @@ import {
   SUCCESS_DURATION,
 } from "../../../constants";
 
-import CreateProducts from "./CreateProducts";
-import CreateSettings from "./CreateSettings";
+import CreateProducts from "../CreateProducts";
+import CreateSettings from "../CreateSettings";
 
 const CreateOrder = () => {
   const { isSuccess, isError, message } = useAppSelector(

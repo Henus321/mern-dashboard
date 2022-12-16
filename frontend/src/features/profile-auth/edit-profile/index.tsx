@@ -12,6 +12,7 @@ import {
   MAX_40,
 } from "../../../constants";
 
+import ProfileLayout from "../ProfileLayout";
 import ProfileHeader from "../ProfileHeader";
 import Spinner from "../../../components/Spinner";
 
@@ -69,7 +70,7 @@ const EditProfile = () => {
     <>
       {isLoading && <Spinner />}
       {!isLoading && user && (
-        <>
+        <ProfileLayout>
           <ProfileHeader user={user} />
           <Form
             form={form}
@@ -171,7 +172,7 @@ const EditProfile = () => {
               </Col>
             </Row>
           </Form>
-        </>
+        </ProfileLayout>
       )}
     </>
   );

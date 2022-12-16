@@ -1,20 +1,30 @@
 import { useState, useEffect } from "react";
 import { Divider, notification, Tabs } from "antd";
-import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { reset, fetchProducts } from "../../products/productsSlice";
-import { brandTabs } from "../../../configs";
-import { ERROR_DURATION } from "../../../constants";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { fetchProducts, reset } from "../products/productsSlice";
+import { brandTabs } from "../../configs";
+import { IOrderProps } from "../../models";
+import { ERROR_DURATION } from "../../constants";
 
-import OrderProductItem from "../OrderProductItem";
-import Spinner from "../../../components/Spinner";
+import OrderProductItem from "./OrderProductItem";
+import Spinner from "../../components/Spinner";
 
-const CreateProducts = () => {
-  const { products, isLoading, isError, message } = useAppSelector(
+const EditProducts: React.FC<IOrderProps> = ({ order }) => {
+  const { products, isSuccess, isLoading, isError, message } = useAppSelector(
     (state) => state.products
   );
-  const [brand, setBrand] = useState(brandTabs[0].key);
+  const [brand, setBrand] = useState(order.product.brand);
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    return () => {
+      if (isSuccess) {
+        dispatch(reset());
+      }
+    };
+  }, [dispatch, isSuccess]);
+
   useEffect(() => {
     if (isError) {
       notification.error({
@@ -38,7 +48,7 @@ const CreateProducts = () => {
         Pick a Product
       </Divider>
       {isLoading && <Spinner />}
-      {!isLoading && products && (
+      {products.length > 0 && (
         <Tabs
           activeKey={brand}
           tabPosition={"left"}
@@ -57,4 +67,4 @@ const CreateProducts = () => {
   );
 };
 
-export default CreateProducts;
+export default EditProducts;
