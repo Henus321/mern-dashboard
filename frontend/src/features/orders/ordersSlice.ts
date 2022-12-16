@@ -118,6 +118,7 @@ export const ordersSlice = createSlice({
         (state, action: PayloadAction<IOrder[]>) => {
           state.isLoading = false;
           state.isModified = false;
+          state.isError = false;
           state.isSuccess = true;
           state.orders = action.payload;
         }

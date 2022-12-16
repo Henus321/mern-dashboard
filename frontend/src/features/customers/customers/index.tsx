@@ -9,7 +9,11 @@ import {
   reset,
 } from "../customersSlice";
 import { ICustomer } from "../../../models";
-import { ERROR_DURATION, SUCCESS_DURATION } from "../../../constants";
+import {
+  COMMON_SUCCESS_MESSAGE,
+  ERROR_DURATION,
+  SUCCESS_DURATION,
+} from "../../../constants";
 
 import CustomersTable from "../CustomersTable";
 import Spinner from "../../../components/Spinner";
@@ -47,6 +51,7 @@ const Customers = () => {
     if (isModified) {
       notification.success({
         message: "Success!",
+        description: COMMON_SUCCESS_MESSAGE,
         duration: SUCCESS_DURATION,
       });
     }

@@ -99,6 +99,7 @@ export const customersSlice = createSlice({
         (state, action: PayloadAction<ICustomer[]>) => {
           state.isLoading = false;
           state.isModified = false;
+          state.isError = false;
           state.isSuccess = true;
           state.customers = action.payload;
         }
