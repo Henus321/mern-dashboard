@@ -194,7 +194,7 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
         }}
       />
       <Button
-        disabled={isCreating}
+        disabled={isCreating || !!editingKey}
         type="primary"
         size="large"
         className="rounded align-self-end m-submit-button"
