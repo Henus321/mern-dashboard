@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { Divider, notification, Tabs } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { fetchProducts, reset } from "../products/productsSlice";
+import {
+  fetchProducts,
+  reset as resetProduct,
+} from "../products/productsSlice";
+import { reset as resetOrder } from "./ordersSlice";
 import { brandTabs } from "../../configs";
 import { IOrderProps } from "../../models";
 import { ERROR_DURATION } from "../../constants";
@@ -20,7 +24,8 @@ const EditProducts: React.FC<IOrderProps> = ({ order }) => {
   useEffect(() => {
     return () => {
       if (isSuccess) {
-        dispatch(reset());
+        dispatch(resetProduct());
+        dispatch(resetOrder());
       }
     };
   }, [dispatch, isSuccess]);
@@ -38,7 +43,7 @@ const EditProducts: React.FC<IOrderProps> = ({ order }) => {
   }, [dispatch, brand, isError, message]);
 
   const onTabChange = (brand: string) => {
-    dispatch(reset());
+    dispatch(resetProduct());
     setBrand(brand);
   };
 

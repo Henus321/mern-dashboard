@@ -1,20 +1,36 @@
 import { useState, useEffect } from "react";
 import { Divider, notification, Tabs } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { reset, fetchProducts } from "../products/productsSlice";
+import { reset, fetchProducts, setProduct } from "../products/productsSlice";
 import { brandTabs } from "../../configs";
-import { ERROR_DURATION } from "../../constants";
+import { ERROR_DURATION, BRANDS } from "../../constants";
+import { useSearchParams } from "react-router-dom";
 
 import OrderProductItem from "./OrderProductItem";
 import Spinner from "../../components/Spinner";
 
 const CreateProducts = () => {
-  const { products, isLoading, isError, message } = useAppSelector(
+  const { products, isLoading, isError, isSuccess, message } = useAppSelector(
     (state) => state.products
   );
-  const [brand, setBrand] = useState(brandTabs[0].key);
 
   const dispatch = useAppDispatch();
+  const [searchParams] = useSearchParams();
+
+  const brandParams = searchParams.get("brand") && searchParams.get("brand");
+  const initialBrand = brandParams ? brandParams : BRANDS[0];
+  const [brand, setBrand] = useState(initialBrand);
+
+  const initialProduct = searchParams.get("product");
+
+  useEffect(() => {
+    return () => {
+      if (isSuccess) {
+        dispatch(reset());
+      }
+    };
+  }, [dispatch, isSuccess]);
+
   useEffect(() => {
     if (isError) {
       notification.error({
@@ -24,8 +40,12 @@ const CreateProducts = () => {
       });
     }
 
+    if (initialProduct) {
+      dispatch(setProduct(initialProduct));
+    }
+
     dispatch(fetchProducts(brand));
-  }, [dispatch, brand, isError, message]);
+  }, [dispatch, brand, initialProduct, isError, message]);
 
   const onTabChange = (brand: string) => {
     dispatch(reset());

@@ -23,10 +23,11 @@ const Orders = () => {
 
   useEffect(() => {
     return () => {
-      if (isSuccess) {
+      if (orders && isSuccess) {
         dispatch(reset());
       }
     };
+    // eslint-disable-next-line
   }, [dispatch, isSuccess]);
 
   useEffect(() => {

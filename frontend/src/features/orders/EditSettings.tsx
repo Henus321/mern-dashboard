@@ -20,6 +20,7 @@ import {
   ASSEMBLY_OPTIONS,
   ERROR_DURATION,
   PICK_MESSAGE,
+  ORDERS_ROUTE,
 } from "../../constants";
 import { updateOrder } from "./ordersSlice";
 import { fetchCustomers } from "../customers/customersSlice";
@@ -90,8 +91,8 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
     dispatch(updateOrder(newOrder));
   };
 
-  const onPageBack = () => {
-    navigate(-1);
+  const onClick = () => {
+    navigate(ORDERS_ROUTE);
   };
 
   return (
@@ -167,7 +168,7 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
               danger
               ghost
               className="rounded mt-30"
-              onClick={onPageBack}
+              onClick={onClick}
             >
               <ArrowLeftOutlined /> Back to Orders
             </Button>

@@ -31,7 +31,7 @@ const SideMenu = () => {
       <Menu
         mode="inline"
         defaultOpenKeys={defaultOpenSideMenuKeys}
-        defaultSelectedKeys={[currentMenuItemKey]}
+        selectedKeys={[currentMenuItemKey]}
         style={{ height: "100%", borderRight: 0 }}
         items={menuItems}
       ></Menu>

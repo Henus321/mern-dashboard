@@ -18,6 +18,7 @@ import {
   ASSEMBLY_OPTIONS,
   ERROR_DURATION,
   PICK_MESSAGE,
+  ORDERS_ROUTE,
 } from "../../constants";
 import { ICustomer } from "../../models";
 import { RangePickerProps } from "antd/lib/date-picker";
@@ -71,8 +72,8 @@ const CreateSettings = () => {
     dispatch(createOrder(newOrder));
   };
 
-  const onPageBack = () => {
-    navigate(-1);
+  const onClick = () => {
+    navigate(ORDERS_ROUTE);
   };
 
   return (
@@ -148,7 +149,7 @@ const CreateSettings = () => {
               danger
               ghost
               className="rounded mt-30"
-              onClick={onPageBack}
+              onClick={onClick}
             >
               <ArrowLeftOutlined /> Back to Orders
             </Button>

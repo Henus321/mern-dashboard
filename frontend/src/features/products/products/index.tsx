@@ -10,15 +10,15 @@ const Products = () => {
   const { products, isLoading } = useAppSelector((state) => state.products);
   const [brand, setBrand] = useState("");
 
-  const onTabChange = (brand: string) => {
-    setBrand(brand);
-  };
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchProducts(brand));
   }, [dispatch, brand]);
+
+  const onTabChange = (brand: string) => {
+    setBrand(brand);
+  };
 
   return (
     <Card
