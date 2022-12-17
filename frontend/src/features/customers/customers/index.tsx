@@ -116,14 +116,10 @@ const Customers = () => {
     isCreating,
   };
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-
   return (
     <>
       {isLoading && <Spinner />}
-      {customers.length > 0 && (
+      {!isLoading && customers.length > 0 && (
         <Card
           bodyStyle={{
             padding: "0px",

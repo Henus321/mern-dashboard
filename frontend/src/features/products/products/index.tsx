@@ -27,23 +27,25 @@ const Products = () => {
   return (
     <>
       {isLoading && <Spinner />}
-      <Card
-        bodyStyle={{
-          padding: "0",
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-        className="rounded-card"
-        activeTabKey={brand}
-        tabList={brandTabsWithNoFilter}
-        onTabChange={(brand) => onTabChange(brand)}
-      >
-        {!isLoading &&
-          products &&
-          products.map((product) => (
-            <ProductItem key={product.name} product={product} />
-          ))}
-      </Card>
+      {!isLoading && (
+        <Card
+          bodyStyle={{
+            padding: "0",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+          className="rounded-card"
+          activeTabKey={brand}
+          tabList={brandTabsWithNoFilter}
+          onTabChange={(brand) => onTabChange(brand)}
+        >
+          {!isLoading &&
+            products &&
+            products.map((product) => (
+              <ProductItem key={product.name} product={product} />
+            ))}
+        </Card>
+      )}
     </>
   );
 };
