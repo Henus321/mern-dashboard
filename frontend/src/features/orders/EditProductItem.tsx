@@ -10,7 +10,7 @@ const gridStyle: React.CSSProperties = {
   cursor: "pointer",
 };
 
-const OrderProductItem = () => {
+const EditProductItem = () => {
   const { product, products } = useAppSelector((state) => state.products);
 
   const dispatch = useAppDispatch();
@@ -71,4 +71,4 @@ const OrderProductItem = () => {
   );
 };
 
-export default OrderProductItem;
+export default EditProductItem;

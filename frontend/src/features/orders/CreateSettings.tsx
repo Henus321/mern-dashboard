@@ -10,7 +10,7 @@ import {
   notification,
 } from "antd";
 import { CheckOutlined, ArrowLeftOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchCustomers } from "../customers/customersSlice";
 import {
@@ -31,7 +31,10 @@ const CreateSettings = () => {
     (state) => state.orders
   );
   const { customers, isLoading } = useAppSelector((state) => state.customers);
-  const { product } = useAppSelector((state) => state.products);
+
+  const [searchParams] = useSearchParams();
+  const product = searchParams.get("product");
+
   const [form] = Form.useForm();
 
   const dispatch = useAppDispatch();
@@ -58,7 +61,7 @@ const CreateSettings = () => {
   const disabledDate: RangePickerProps["disabledDate"] = (current) =>
     current && current < dayjs().endOf("day");
 
-  const onFinish = (values: any, product: string) => {
+  const onFinish = (values: any, product: string | null) => {
     if (!product) {
       notification.error({
         message: "Error!",

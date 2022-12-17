@@ -10,7 +10,7 @@ import {
   SUCCESS_DURATION,
 } from "../../../constants";
 
-import CreateProducts from "../CreateProducts";
+import CreateProduct from "../CreateProduct";
 import CreateSettings from "../CreateSettings";
 
 const CreateOrder = () => {
@@ -52,7 +52,7 @@ const CreateOrder = () => {
       <Typography.Title className="mt-15 text-center" level={2}>
         Create an Order
       </Typography.Title>
-      <CreateProducts />
+      <CreateProduct />
       <CreateSettings />
     </Card>
   );

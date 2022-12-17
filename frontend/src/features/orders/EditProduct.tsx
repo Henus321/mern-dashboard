@@ -1,19 +1,15 @@
 import { useState, useEffect } from "react";
 import { Divider, notification, Tabs } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import {
-  fetchProducts,
-  reset as resetProduct,
-} from "../products/productsSlice";
-import { reset as resetOrder } from "./ordersSlice";
+import { fetchProducts, reset } from "../products/productsSlice";
 import { brandTabs } from "../../configs";
 import { IOrderProps } from "../../models";
 import { ERROR_DURATION } from "../../constants";
 
-import OrderProductItem from "./OrderProductItem";
+import EditProductItem from "./EditProductItem";
 import Spinner from "../../components/Spinner";
 
-const EditProducts: React.FC<IOrderProps> = ({ order }) => {
+const EditProduct: React.FC<IOrderProps> = ({ order }) => {
   const { products, isSuccess, isLoading, isError, message } = useAppSelector(
     (state) => state.products
   );
@@ -24,8 +20,7 @@ const EditProducts: React.FC<IOrderProps> = ({ order }) => {
   useEffect(() => {
     return () => {
       if (isSuccess) {
-        dispatch(resetProduct());
-        dispatch(resetOrder());
+        dispatch(reset());
       }
     };
   }, [dispatch, isSuccess]);
@@ -43,8 +38,8 @@ const EditProducts: React.FC<IOrderProps> = ({ order }) => {
   }, [dispatch, brand, isError, message]);
 
   const onTabChange = (brand: string) => {
-    dispatch(resetProduct());
     setBrand(brand);
+    dispatch(reset());
   };
 
   return (
@@ -53,7 +48,7 @@ const EditProducts: React.FC<IOrderProps> = ({ order }) => {
         Pick a Product
       </Divider>
       {isLoading && <Spinner />}
-      {products.length > 0 && (
+      {!isLoading && products.length > 0 && (
         <Tabs
           activeKey={brand}
           tabPosition={"left"}
@@ -63,7 +58,7 @@ const EditProducts: React.FC<IOrderProps> = ({ order }) => {
               label: brandTab.tab,
               key: brandTab.key,
               style: { display: "flex", flexWrap: "wrap" },
-              children: <OrderProductItem />,
+              children: <EditProductItem />,
             };
           })}
         />
@@ -72,4 +67,4 @@ const EditProducts: React.FC<IOrderProps> = ({ order }) => {
   );
 };
 
-export default EditProducts;
+export default EditProduct;

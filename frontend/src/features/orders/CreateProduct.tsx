@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Divider, notification, Tabs } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { reset, fetchProducts, setProduct } from "../products/productsSlice";
@@ -6,20 +6,19 @@ import { brandTabs } from "../../configs";
 import { ERROR_DURATION, BRANDS } from "../../constants";
 import { useSearchParams } from "react-router-dom";
 
-import OrderProductItem from "./OrderProductItem";
+import CreateProductItem from "./CreateProductItem";
 import Spinner from "../../components/Spinner";
 
-const CreateProducts = () => {
+const CreateProduct = () => {
   const { products, isLoading, isError, isSuccess, message } = useAppSelector(
     (state) => state.products
   );
 
   const dispatch = useAppDispatch();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const brandParams = searchParams.get("brand") && searchParams.get("brand");
-  const initialBrand = brandParams ? brandParams : BRANDS[0];
-  const [brand, setBrand] = useState(initialBrand);
+  const brand = brandParams ? brandParams : BRANDS[0];
 
   const initialProduct = searchParams.get("product");
 
@@ -44,12 +43,17 @@ const CreateProducts = () => {
       dispatch(setProduct(initialProduct));
     }
 
+    const params = { brand };
+    setSearchParams(params);
     dispatch(fetchProducts(brand));
-  }, [dispatch, brand, initialProduct, isError, message]);
+    // eslint-disable-next-line
+  }, [dispatch, brand, isError, message]);
 
-  const onTabChange = (brand: string) => {
+  const onTabChange = (brandTab: string) => {
     dispatch(reset());
-    setBrand(brand);
+
+    const params = brandTab ? { brand: brandTab } : "";
+    setSearchParams(params);
   };
 
   return (
@@ -62,13 +66,13 @@ const CreateProducts = () => {
         <Tabs
           activeKey={brand}
           tabPosition={"left"}
-          onChange={(brand) => onTabChange(brand)}
+          onChange={(brandTab) => onTabChange(brandTab)}
           items={brandTabs.map((brandTab) => {
             return {
               label: brandTab.tab,
               key: brandTab.key,
               style: { display: "flex", flexWrap: "wrap" },
-              children: <OrderProductItem />,
+              children: <CreateProductItem />,
             };
           })}
         />
@@ -77,4 +81,4 @@ const CreateProducts = () => {
   );
 };
 
-export default CreateProducts;
+export default CreateProduct;

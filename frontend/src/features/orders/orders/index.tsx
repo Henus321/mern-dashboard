@@ -58,7 +58,7 @@ const Orders = () => {
   return (
     <>
       {isLoading && <Spinner />}
-      {orders && (
+      {!isLoading && orders && (
         <Card
           bodyStyle={{
             padding: "0",
