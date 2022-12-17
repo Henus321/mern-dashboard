@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Divider, notification, Tabs } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { reset, fetchProducts, setProduct } from "../products/productsSlice";
+import { reset, fetchProducts } from "../products/productsSlice";
 import { brandTabs } from "../../configs";
 import { ERROR_DURATION, BRANDS } from "../../constants";
 import { useSearchParams } from "react-router-dom";
@@ -20,7 +20,8 @@ const CreateProduct = () => {
   const brandParams = searchParams.get("brand") && searchParams.get("brand");
   const brand = brandParams ? brandParams : BRANDS[0];
 
-  const initialProduct = searchParams.get("product");
+  const productParams = searchParams.get("product");
+  const initialProduct = productParams && { product: productParams };
 
   useEffect(() => {
     return () => {
@@ -39,12 +40,9 @@ const CreateProduct = () => {
       });
     }
 
-    if (initialProduct) {
-      dispatch(setProduct(initialProduct));
-    }
-
-    const params = { brand };
+    const params = initialProduct ? { brand, ...initialProduct } : { brand };
     setSearchParams(params);
+
     dispatch(fetchProducts(brand));
     // eslint-disable-next-line
   }, [dispatch, brand, isError, message]);
