@@ -149,7 +149,7 @@ const CreateSettings = () => {
               danger
               ghost
               className="rounded mt-30"
-              onClick={onClick}
+              onClick={() => onClick()}
             >
               <ArrowLeftOutlined /> Back to Orders
             </Button>

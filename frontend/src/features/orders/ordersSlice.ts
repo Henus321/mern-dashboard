@@ -129,6 +129,7 @@ export const ordersSlice = createSlice({
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
+          state.orders = [];
         }
       )
       .addCase(createOrder.pending, (state) => {
