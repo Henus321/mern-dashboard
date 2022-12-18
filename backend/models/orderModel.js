@@ -31,7 +31,6 @@ const orderSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
-      // select: true;
     },
   },
   {
