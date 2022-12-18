@@ -28,6 +28,10 @@ const orderSchema = new mongoose.Schema(
       type: Date,
       required: [true, "An order must have a delivery date"],
     },
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+    },
   },
   {
     timestamps: true,
