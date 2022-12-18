@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Card, notification, Typography } from "antd";
-import { reset } from "../ordersSlice";
+import { reset } from "../orderSlice";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import {
@@ -15,7 +15,7 @@ import CreateSettings from "../CreateSettings";
 
 const CreateOrder = () => {
   const { isSuccess, isError, message } = useAppSelector(
-    (state) => state.orders
+    (state) => state.order
   );
 
   const dispatch = useAppDispatch();
@@ -38,8 +38,13 @@ const CreateOrder = () => {
         duration: SUCCESS_DURATION,
       });
       navigate(ORDERS_ROUTE);
-      dispatch(reset());
     }
+
+    return () => {
+      if (isSuccess || isError) {
+        dispatch(reset());
+      }
+    };
   }, [dispatch, navigate, isSuccess, isError, message]);
 
   return (

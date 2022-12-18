@@ -23,7 +23,7 @@ const EditProduct: React.FC<IOrderProps> = ({ order }) => {
         dispatch(reset());
       }
     };
-  }, [dispatch, isSuccess]);
+  }, [dispatch, isSuccess, brand]);
 
   useEffect(() => {
     if (isError) {
@@ -32,6 +32,7 @@ const EditProduct: React.FC<IOrderProps> = ({ order }) => {
         description: message,
         duration: ERROR_DURATION,
       });
+      dispatch(reset());
     }
 
     dispatch(fetchProducts(brand));

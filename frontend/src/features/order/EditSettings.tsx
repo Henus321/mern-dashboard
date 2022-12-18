@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Form,
   Select,
@@ -9,10 +10,11 @@ import {
   Card,
   notification,
 } from "antd";
-import { CheckOutlined, ArrowLeftOutlined } from "@ant-design/icons";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { ArrowLeftOutlined, CheckOutlined } from "@ant-design/icons";
+import { RangePickerProps } from "antd/lib/date-picker";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { fetchCustomers } from "../customers/customersSlice";
+import { ICustomer, IOrderProps } from "../../models";
 import {
   PAYMENT_OPTIONS,
   ASSEMBLY_OPTIONS,
@@ -20,25 +22,36 @@ import {
   PICK_MESSAGE,
   ORDERS_ROUTE,
 } from "../../constants";
-import { ICustomer } from "../../models";
-import { RangePickerProps } from "antd/lib/date-picker";
-import { createOrder } from "./ordersSlice";
-import moment from "moment";
+import { updateOrder } from "./orderSlice";
+import { fetchCustomers } from "../customers/customersSlice";
+import { setProduct } from "../products/productsSlice";
 import dayjs from "dayjs";
+import moment from "moment";
 
-const CreateSettings = () => {
-  const { isLoading: ordersIsLoading } = useAppSelector(
-    (state) => state.orders
-  );
+const EditSettings: React.FC<IOrderProps> = ({ order }) => {
+  const { isLoading: orderIsLoading } = useAppSelector((state) => state.order);
   const { customers, isLoading } = useAppSelector((state) => state.customers);
-
-  const [searchParams] = useSearchParams();
-  const product = searchParams.get("product");
-
+  const { product } = useAppSelector((state) => state.products);
   const [form] = Form.useForm();
+  const initialFormValues = {
+    ...order,
+    customer: {
+      value: order.customer._id,
+      label: order.customer.name,
+    },
+    registration: moment(order.registration),
+    delivery: moment(order.delivery),
+  };
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const initialProduct = order.product._id;
+
+    dispatch(setProduct(initialProduct));
+    // eslint-disable-next-line
+  }, [dispatch]);
 
   const onSelect = (e: React.SyntheticEvent<HTMLFormElement, Event>) => {
     const target = e.target as HTMLFormElement;
@@ -56,12 +69,10 @@ const CreateSettings = () => {
     });
   };
 
-  const getCurrentTime = () => moment(new Date());
-
   const disabledDate: RangePickerProps["disabledDate"] = (current) =>
     current && current < dayjs().endOf("day");
 
-  const onFinish = (values: any, product: string | null) => {
+  const onFinish = (values: any, product: string) => {
     if (!product) {
       notification.error({
         message: "Error!",
@@ -70,9 +81,12 @@ const CreateSettings = () => {
       });
       return;
     }
+    const customer = values.customer.value
+      ? values.customer.value
+      : values.customer;
+    const newOrder = { ...values, product, customer, _id: order._id };
 
-    const newOrder = { ...values, product };
-    dispatch(createOrder(newOrder));
+    dispatch(updateOrder(newOrder));
   };
 
   const onClick = () => {
@@ -92,7 +106,8 @@ const CreateSettings = () => {
         }}
       >
         <Form
-          disabled={ordersIsLoading}
+          disabled={orderIsLoading}
+          initialValues={initialFormValues}
           form={form}
           labelCol={{ span: 7 }}
           wrapperCol={{ span: 14 }}
@@ -130,7 +145,6 @@ const CreateSettings = () => {
                 message: "Please choose the registration date!",
               },
             ]}
-            initialValue={getCurrentTime()}
             name="registration"
             label="Registration"
           >
@@ -147,7 +161,7 @@ const CreateSettings = () => {
           </Form.Item>
           <div className="flex justify-between">
             <Button
-              loading={ordersIsLoading}
+              loading={orderIsLoading}
               size="large"
               danger
               ghost
@@ -157,7 +171,7 @@ const CreateSettings = () => {
               <ArrowLeftOutlined /> Back to Orders
             </Button>
             <Button
-              loading={ordersIsLoading}
+              loading={orderIsLoading}
               htmlType="submit"
               size="large"
               type="primary"
@@ -172,4 +186,4 @@ const CreateSettings = () => {
   );
 };
 
-export default CreateSettings;
+export default EditSettings;

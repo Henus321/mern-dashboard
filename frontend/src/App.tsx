@@ -5,11 +5,10 @@ import { PREFIX } from "./constants";
 import DashboardLayout from "./components/DashboardLayout";
 import PrivateRoute from "./components/PrivateRoute";
 import LoggedInRedirect from "./components/LoggedInRedirect";
-import NotFound from "./components/NotFound";
 
 import Orders from "./features/orders/orders";
-import CreateOrder from "./features/orders/create-order";
-import EditOrder from "./features/orders/edit-order";
+import CreateOrder from "./features/order/create-order";
+import EditOrder from "./features/order/edit-order";
 import Products from "./features/products/products";
 import Customers from "./features/customers/customers";
 import Notes from "./features/notes/notes";
@@ -36,10 +35,6 @@ const App = () => {
             <Route
               path={`${PREFIX}/orders/edit-order/:orderId`}
               element={<EditOrder />}
-            />
-            <Route
-              path={`${PREFIX}/orders/not-found`}
-              element={<NotFound type="Order" />}
             />
             <Route path={`${PREFIX}/products`} element={<Products />} />
             <Route path={`${PREFIX}/customers`} element={<Customers />} />
