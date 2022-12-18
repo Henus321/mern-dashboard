@@ -23,10 +23,11 @@ const Orders = () => {
 
   useEffect(() => {
     return () => {
-      if (isSuccess) {
+      if (orders && isSuccess) {
         dispatch(reset());
       }
     };
+    // eslint-disable-next-line
   }, [dispatch, isSuccess]);
 
   useEffect(() => {
@@ -57,7 +58,7 @@ const Orders = () => {
   return (
     <>
       {isLoading && <Spinner />}
-      {orders && (
+      {!isLoading && orders && (
         <Card
           bodyStyle={{
             padding: "0",

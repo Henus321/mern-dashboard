@@ -10,7 +10,7 @@ import {
   notification,
 } from "antd";
 import { CheckOutlined, ArrowLeftOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchCustomers } from "../customers/customersSlice";
 import {
@@ -18,6 +18,7 @@ import {
   ASSEMBLY_OPTIONS,
   ERROR_DURATION,
   PICK_MESSAGE,
+  ORDERS_ROUTE,
 } from "../../constants";
 import { ICustomer } from "../../models";
 import { RangePickerProps } from "antd/lib/date-picker";
@@ -30,7 +31,10 @@ const CreateSettings = () => {
     (state) => state.orders
   );
   const { customers, isLoading } = useAppSelector((state) => state.customers);
-  const { product } = useAppSelector((state) => state.products);
+
+  const [searchParams] = useSearchParams();
+  const product = searchParams.get("product");
+
   const [form] = Form.useForm();
 
   const dispatch = useAppDispatch();
@@ -57,7 +61,7 @@ const CreateSettings = () => {
   const disabledDate: RangePickerProps["disabledDate"] = (current) =>
     current && current < dayjs().endOf("day");
 
-  const onFinish = (values: any, product: string) => {
+  const onFinish = (values: any, product: string | null) => {
     if (!product) {
       notification.error({
         message: "Error!",
@@ -71,8 +75,8 @@ const CreateSettings = () => {
     dispatch(createOrder(newOrder));
   };
 
-  const onPageBack = () => {
-    navigate(-1);
+  const onClick = () => {
+    navigate(ORDERS_ROUTE);
   };
 
   return (
@@ -148,7 +152,7 @@ const CreateSettings = () => {
               danger
               ghost
               className="rounded mt-30"
-              onClick={onPageBack}
+              onClick={() => onClick()}
             >
               <ArrowLeftOutlined /> Back to Orders
             </Button>

@@ -11,18 +11,26 @@ import {
   ORDER_NOT_FOUND,
 } from "../../../constants";
 
-import EditProducts from "../EditProducts";
+import EditProduct from "../EditProduct";
 import EditSettings from "../EditSettings";
 import Spinner from "../../../components/Spinner";
 
 const EditOrder = () => {
-  const { order, isLoading, isError, isModified, message } = useAppSelector(
-    (state) => state.orders
-  );
+  const { order, isLoading, isError, isSuccess, isModified, message } =
+    useAppSelector((state) => state.orders);
   const { orderId } = useParams();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    return () => {
+      if (order && isSuccess) {
+        dispatch(reset());
+      }
+    };
+    // eslint-disable-next-line
+  }, [dispatch, isSuccess]);
 
   useEffect(() => {
     if (isError && !order) {
@@ -70,7 +78,7 @@ const EditOrder = () => {
   return (
     <>
       {isLoading && <Spinner />}
-      {order && (
+      {!isLoading && order && (
         <Card
           bodyStyle={{
             padding: "0",
@@ -80,7 +88,7 @@ const EditOrder = () => {
           <Typography.Title className="mt-15 text-center" level={2}>
             Edit the Order
           </Typography.Title>
-          <EditProducts order={order} />
+          <EditProduct order={order} />
           <EditSettings order={order} />
         </Card>
       )}

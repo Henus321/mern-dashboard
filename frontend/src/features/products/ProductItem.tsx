@@ -1,8 +1,12 @@
 import React from "react";
 import { Button, Card, Image, Carousel, Typography } from "antd";
 import { IdcardOutlined } from "@ant-design/icons";
-import { IProductItemProps } from "../../models";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import { IProduct, IProductItemProps } from "../../models";
 import { beautifyCost } from "../../helpers";
+import { useAppDispatch } from "../../hooks";
+import { CREATE_ORDER_ROUTE } from "../../constants";
+import { reset } from "./productsSlice";
 
 const gridStyle: React.CSSProperties = {
   width: "33.33333%",
@@ -11,6 +15,18 @@ const gridStyle: React.CSSProperties = {
 };
 
 const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const onCreate = (product: IProduct) => {
+    const params = { brand: product.brand, product: product._id };
+    dispatch(reset());
+    navigate({
+      pathname: CREATE_ORDER_ROUTE,
+      search: `?${createSearchParams(params)}`,
+    });
+  };
+
   return (
     <Card.Grid hoverable style={gridStyle}>
       <Typography.Title
@@ -50,10 +66,7 @@ const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
         {product.description}
       </Typography.Paragraph>
 
-      <Button
-        className="rounded mt-auto"
-        onClick={() => console.log(product.slug)}
-      >
+      <Button className="rounded mt-auto" onClick={() => onCreate(product)}>
         Make an Order <IdcardOutlined />
       </Button>
     </Card.Grid>

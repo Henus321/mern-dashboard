@@ -37,7 +37,10 @@ const App = () => {
               path={`${PREFIX}/orders/edit-order/:orderId`}
               element={<EditOrder />}
             />
-            <Route path={`${PREFIX}/orders/not-found`} element={<NotFound />} />
+            <Route
+              path={`${PREFIX}/orders/not-found`}
+              element={<NotFound type="Order" />}
+            />
             <Route path={`${PREFIX}/products`} element={<Products />} />
             <Route path={`${PREFIX}/customers`} element={<Customers />} />
             <Route path={`${PREFIX}/notes`} element={<Notes />} />
