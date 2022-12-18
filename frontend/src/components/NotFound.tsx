@@ -3,7 +3,11 @@ import { Card, Divider, Image } from "antd";
 
 import pageNotFound from "../assets/page-not-found.png";
 
-const NotFound = () => {
+interface Props {
+  type: string;
+}
+
+const NotFound: React.FC<Props> = ({ type }) => {
   return (
     <Card
       bodyStyle={{
@@ -26,7 +30,7 @@ const NotFound = () => {
           className="text-center"
           style={{ fontSize: "24px", padding: "0 25px" }}
         >
-          Order not Found
+          {type} not Found
         </Divider>
       </div>
     </Card>
