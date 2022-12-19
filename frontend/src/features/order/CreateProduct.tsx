@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Divider, notification, Tabs } from "antd";
+import { Divider, notification, Tabs, Typography } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { reset, fetchProducts } from "../products/productsSlice";
 import { brandTabs } from "../../configs";
@@ -32,20 +32,25 @@ const CreateProduct = () => {
   }, [dispatch, isSuccess]);
 
   useEffect(() => {
+    if (!isSuccess) {
+      const params = initialProduct ? { brand, ...initialProduct } : { brand };
+      setSearchParams(params);
+
+      dispatch(fetchProducts(brand));
+    }
+    // eslint-disable-next-line
+  }, [dispatch, brand, isSuccess]);
+
+  useEffect(() => {
     if (isError) {
       notification.error({
         message: "Error!",
         description: message,
         duration: ERROR_DURATION,
       });
+      dispatch(reset());
     }
-
-    const params = initialProduct ? { brand, ...initialProduct } : { brand };
-    setSearchParams(params);
-
-    dispatch(fetchProducts(brand));
-    // eslint-disable-next-line
-  }, [dispatch, brand, isError, message]);
+  }, [dispatch, isError, message]);
 
   const onTabChange = (brandTab: string) => {
     dispatch(reset());
@@ -59,8 +64,9 @@ const CreateProduct = () => {
       <Divider className="text-center" style={{ fontSize: "20px" }}>
         Pick a Product
       </Divider>
-      {isLoading && <Spinner />}
-      {!isLoading && products && (
+      {isLoading ? (
+        <Spinner />
+      ) : (
         <Tabs
           activeKey={brand}
           tabPosition={"left"}
@@ -69,8 +75,21 @@ const CreateProduct = () => {
             return {
               label: brandTab.tab,
               key: brandTab.key,
-              style: { display: "flex", flexWrap: "wrap" },
-              children: <CreateProductItem />,
+              style: {
+                display: "flex",
+                flexWrap: "wrap",
+                height: "100%",
+              },
+              children:
+                products.length > 0 ? (
+                  <CreateProductItem />
+                ) : (
+                  <div className="m-auto">
+                    <Typography.Paragraph className="text-center">
+                      Woops! No Products Found...
+                    </Typography.Paragraph>
+                  </div>
+                ),
             };
           })}
         />
