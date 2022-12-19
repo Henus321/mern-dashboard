@@ -23,12 +23,11 @@ const Orders = () => {
 
   useEffect(() => {
     return () => {
-      if (orders && isSuccess) {
+      if (isSuccess || isError) {
         dispatch(reset());
       }
     };
-    // eslint-disable-next-line
-  }, [dispatch, isSuccess]);
+  }, [dispatch, isSuccess, isError]);
 
   useEffect(() => {
     if (isError) {
@@ -47,12 +46,13 @@ const Orders = () => {
       });
     }
 
-    dispatch(fetchOrders());
+    if (!isError) {
+      dispatch(fetchOrders());
+    }
   }, [dispatch, isError, isModified, message]);
 
   const onCreate = () => {
     navigate(CREATE_ORDER_ROUTE);
-    dispatch(reset());
   };
 
   return (

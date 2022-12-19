@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   Form,
   Select,
@@ -10,11 +9,9 @@ import {
   Card,
   notification,
 } from "antd";
-import { ArrowLeftOutlined, CheckOutlined } from "@ant-design/icons";
-import { RangePickerProps } from "antd/lib/date-picker";
-import { useNavigate } from "react-router-dom";
+import { CheckOutlined, ArrowLeftOutlined } from "@ant-design/icons";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { ICustomer, IOrderProps } from "../../models";
 import {
   PAYMENT_OPTIONS,
   ASSEMBLY_OPTIONS,
@@ -22,38 +19,24 @@ import {
   PICK_MESSAGE,
   ORDERS_ROUTE,
 } from "../../constants";
-import { updateOrder } from "./ordersSlice";
 import { fetchCustomers } from "../customers/customersSlice";
-import { setProduct } from "../products/productsSlice";
-import dayjs from "dayjs";
+import { ICustomer } from "../../models";
+import { RangePickerProps } from "antd/lib/date-picker";
+import { createOrder } from "./orderSlice";
 import moment from "moment";
+import dayjs from "dayjs";
 
-const EditSettings: React.FC<IOrderProps> = ({ order }) => {
-  const { isLoading: ordersIsLoading } = useAppSelector(
-    (state) => state.orders
-  );
+const CreateSettings = () => {
+  const { isLoading: orderIsLoading } = useAppSelector((state) => state.order);
   const { customers, isLoading } = useAppSelector((state) => state.customers);
-  const { product } = useAppSelector((state) => state.products);
+
+  const [searchParams] = useSearchParams();
+  const product = searchParams.get("product");
+
   const [form] = Form.useForm();
-  const initialFormValues = {
-    ...order,
-    customer: {
-      value: order.customer._id,
-      label: order.customer.name,
-    },
-    registration: moment(order.registration),
-    delivery: moment(order.delivery),
-  };
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const initialProduct = order.product._id;
-
-    dispatch(setProduct(initialProduct));
-    // eslint-disable-next-line
-  }, [dispatch]);
 
   const onSelect = (e: React.SyntheticEvent<HTMLFormElement, Event>) => {
     const target = e.target as HTMLFormElement;
@@ -71,10 +54,12 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
     });
   };
 
+  const getCurrentTime = () => moment(new Date());
+
   const disabledDate: RangePickerProps["disabledDate"] = (current) =>
     current && current < dayjs().endOf("day");
 
-  const onFinish = (values: any, product: string) => {
+  const onFinish = (values: any, product: string | null) => {
     if (!product) {
       notification.error({
         message: "Error!",
@@ -83,12 +68,9 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
       });
       return;
     }
-    const customer = values.customer.value
-      ? values.customer.value
-      : values.customer;
-    const newOrder = { ...values, product, customer, _id: order._id };
 
-    dispatch(updateOrder(newOrder));
+    const newOrder = { ...values, product };
+    dispatch(createOrder(newOrder));
   };
 
   const onClick = () => {
@@ -108,8 +90,7 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
         }}
       >
         <Form
-          disabled={ordersIsLoading}
-          initialValues={initialFormValues}
+          disabled={orderIsLoading}
           form={form}
           labelCol={{ span: 7 }}
           wrapperCol={{ span: 14 }}
@@ -147,6 +128,7 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
                 message: "Please choose the registration date!",
               },
             ]}
+            initialValue={getCurrentTime()}
             name="registration"
             label="Registration"
           >
@@ -163,7 +145,7 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
           </Form.Item>
           <div className="flex justify-between">
             <Button
-              loading={ordersIsLoading}
+              loading={orderIsLoading}
               size="large"
               danger
               ghost
@@ -173,7 +155,7 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
               <ArrowLeftOutlined /> Back to Orders
             </Button>
             <Button
-              loading={ordersIsLoading}
+              loading={orderIsLoading}
               htmlType="submit"
               size="large"
               type="primary"
@@ -188,4 +170,4 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
   );
 };
 
-export default EditSettings;
+export default CreateSettings;

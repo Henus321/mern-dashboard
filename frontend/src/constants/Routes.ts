@@ -4,7 +4,6 @@ export const DEFAULT_UNAUTHORIZED_USER_ROUTE = "/";
 export const DEFAULT_AUTHORIZED_USER_ROUTE = `${PREFIX}/orders`;
 
 export const ORDERS_ROUTE = `${PREFIX}/orders`;
-export const ORDER_NOT_FOUND = `${PREFIX}/orders/not-found`;
 export const CREATE_ORDER_ROUTE = `${PREFIX}/orders/create-order`;
 export const EDIT_ORDER_ROUTE = `${PREFIX}/orders/edit-order`;
 

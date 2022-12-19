@@ -1,54 +1,48 @@
 import React, { useEffect } from "react";
 import { Card, notification, Typography } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { fetchOrder, reset } from "../ordersSlice";
+import { fetchOrder, reset } from "../orderSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   EDIT_MESSAGE,
   ERROR_DURATION,
   SUCCESS_DURATION,
   ORDERS_ROUTE,
-  ORDER_NOT_FOUND,
 } from "../../../constants";
 
-import EditProduct from "../EditProduct";
-import EditSettings from "../EditSettings";
+import EditProduct from "..//EditProduct";
+import EditSettings from "..//EditSettings";
+import NotFound from "../../../components/NotFound";
 import Spinner from "../../../components/Spinner";
 
 const EditOrder = () => {
   const { order, isLoading, isError, isSuccess, isModified, message } =
-    useAppSelector((state) => state.orders);
+    useAppSelector((state) => state.order);
   const { orderId } = useParams();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (orderId && !isSuccess) {
+      dispatch(fetchOrder(orderId));
+    }
+
     return () => {
-      if (order && isSuccess) {
+      if (isSuccess) {
         dispatch(reset());
       }
     };
-    // eslint-disable-next-line
-  }, [dispatch, isSuccess]);
+  }, [dispatch, orderId, isSuccess]);
 
   useEffect(() => {
-    if (isError && !order) {
+    if (isError) {
       notification.error({
         message: "Error!",
         description: message,
         duration: ERROR_DURATION,
       });
-      navigate(ORDER_NOT_FOUND);
-    }
-
-    if (isError && order) {
-      notification.error({
-        message: "Error!",
-        description: message,
-        duration: ERROR_DURATION,
-      });
-      dispatch(reset());
+      if (order) dispatch(reset());
     }
 
     if (isModified) {
@@ -58,27 +52,21 @@ const EditOrder = () => {
         duration: SUCCESS_DURATION,
       });
       navigate(ORDERS_ROUTE);
-      dispatch(reset());
     }
 
     return () => {
-      if (isError) {
+      if (isError && !order) {
+        console.log("reset");
         dispatch(reset());
       }
     };
-    // eslint-disable-next-line
-  }, [dispatch, navigate, isModified, isError, message]);
-
-  useEffect(() => {
-    if (orderId) {
-      dispatch(fetchOrder(orderId));
-    }
-  }, [dispatch, orderId]);
+  }, [dispatch, navigate, order, isModified, isError, message]);
 
   return (
     <>
       {isLoading && <Spinner />}
-      {!isLoading && order && (
+      {!isLoading && isError && !order && <NotFound type="Order" />}
+      {!isLoading && !isModified && !isError && order && (
         <Card
           bodyStyle={{
             padding: "0",
