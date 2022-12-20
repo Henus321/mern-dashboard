@@ -56,7 +56,6 @@ const EditOrder = () => {
 
     return () => {
       if (isError && !order) {
-        console.log("reset");
         dispatch(reset());
       }
     };
