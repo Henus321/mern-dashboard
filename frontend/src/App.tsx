@@ -11,7 +11,6 @@ import CreateOrder from "./features/order/create-order";
 import EditOrder from "./features/order/edit-order";
 import Products from "./features/products/products";
 import Customers from "./features/customers/customers";
-import Notes from "./features/notes/notes";
 import Login from "./features/profile-auth/login";
 import Registration from "./features/profile-auth/registration";
 import EditProfile from "./features/profile-auth/edit-profile";
@@ -39,7 +38,6 @@ const App = () => {
             />
             <Route path={`${PREFIX}/products`} element={<Products />} />
             <Route path={`${PREFIX}/customers`} element={<Customers />} />
-            <Route path={`${PREFIX}/notes`} element={<Notes />} />
             <Route
               path={`${PREFIX}/profile/edit-profile`}
               element={<EditProfile />}

@@ -33,7 +33,6 @@ const updateUser = async (userData: Partial<IUser> | FormData) => {
 };
 
 const passwordChange = async (userData: Partial<IUser>) => {
-  console.log(userData);
   const response = await axios.patch(USERS_URL + "/password-change", userData);
 
   return response.data.data.data;
