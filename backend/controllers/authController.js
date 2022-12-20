@@ -121,3 +121,23 @@ exports.restrictTo = (...roles) => {
     next();
   };
 };
+
+exports.passwordChange = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id).select("+password");
+
+  if (user.email === "test@yandex.ru") {
+    return next(
+      new AppError("It is forbidden to change the mail of the test user", 400)
+    );
+  }
+
+  if (!(await user.correctPassword(req.body.currentPassword, user.password))) {
+    return next(new AppError("Your current password is wrong.", 401));
+  }
+
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  await user.save();
+
+  createSendToken(user, 200, res);
+});

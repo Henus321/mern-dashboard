@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Form,
   Button,
@@ -10,33 +10,22 @@ import {
   Typography,
 } from "antd";
 import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { register, reset } from "../profileAuthSlice";
 import { IUser } from "../../../models";
 import {
   ERROR_DURATION,
-  DEFAULT_AUTHORIZED_USER_ROUTE,
   MAX_40,
+  PASSWORD_MATCH_MESSAGE,
 } from "../../../constants";
 
 import AppFooter from "../../../components/AppFooter";
 
 const Registration = () => {
-  const { user, isError, isSuccess, isLoading, message } = useAppSelector(
-    (state) => state.auth
-  );
-  const [formData, setFormData] = useState<IUser>({
-    name: "",
-    email: "",
-    password: "",
-    passwordConfirm: "",
-  });
-
-  const { name, email, password, passwordConfirm } = formData;
+  const { isError, isLoading, message } = useAppSelector((state) => state.auth);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (isError) {
@@ -45,38 +34,19 @@ const Registration = () => {
         description: message,
         duration: ERROR_DURATION,
       });
+      dispatch(reset());
     }
+  }, [dispatch, isError, message]);
 
-    if (isSuccess && user) {
-      navigate(DEFAULT_AUTHORIZED_USER_ROUTE);
-    }
-
-    dispatch(reset());
-  }, [user, isError, isSuccess, message, dispatch, navigate]);
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const onSubmit = () => {
-    if (password !== passwordConfirm) {
+  const onFinish = (values: IUser) => {
+    if (values.password !== values.passwordConfirm) {
       notification.error({
         message: "Registration Error!",
-        description: "Passwords do not match...",
+        description: PASSWORD_MATCH_MESSAGE,
         duration: ERROR_DURATION,
       });
     } else {
-      const userData: IUser = {
-        name,
-        email,
-        password,
-        passwordConfirm,
-      };
-
-      dispatch(register(userData));
+      dispatch(register(values));
     }
   };
 
@@ -87,9 +57,8 @@ const Registration = () => {
           <Typography.Title level={1} className="flex justify-center">
             Mern Dashboard
           </Typography.Title>
-
           <Divider style={{ fontSize: "24px" }}>Registration</Divider>
-          <Form layout="vertical" name="login-form" onFinish={onSubmit}>
+          <Form layout="vertical" name="login-form" onFinish={onFinish}>
             <Form.Item
               name="name"
               label="Name"
@@ -102,8 +71,6 @@ const Registration = () => {
                 className="rounded"
                 name="name"
                 size="large"
-                value={name}
-                onChange={onChange}
                 prefix={<UserOutlined />}
               />
             </Form.Item>
@@ -123,8 +90,6 @@ const Registration = () => {
                 className="rounded"
                 name="email"
                 size="large"
-                value={email}
-                onChange={onChange}
                 prefix={<MailOutlined />}
               />
             </Form.Item>
@@ -140,8 +105,6 @@ const Registration = () => {
                 className="rounded"
                 name="password"
                 size="large"
-                value={password}
-                onChange={onChange}
                 prefix={<LockOutlined />}
               />
             </Form.Item>
@@ -157,8 +120,6 @@ const Registration = () => {
                 className="rounded"
                 name="passwordConfirm"
                 size="large"
-                value={passwordConfirm}
-                onChange={onChange}
                 prefix={<LockOutlined />}
               />
             </Form.Item>

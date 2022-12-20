@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col, Card } from "antd";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { fetchUser } from "./profileAuthSlice";
 
 import ProfileMenu from "./ProfileMenu";
+import ProfileHeader from "./ProfileHeader";
+import Spinner from "../../components/Spinner";
 
 interface Props {
   children: React.ReactNode;
 }
 
 const ProfileLayout: React.FC<Props> = ({ children }) => {
+  const { user, isLoading } = useAppSelector((state) => state.auth);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+
   return (
     <Card
       bodyStyle={{
@@ -22,7 +34,13 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
           <ProfileMenu />
         </Col>
         <Col span={20} style={{ padding: "25px" }}>
-          {children}
+          {isLoading && <Spinner />}
+          {!isLoading && user && (
+            <>
+              <ProfileHeader user={user} />
+              {children}
+            </>
+          )}
         </Col>
       </Row>
     </Card>

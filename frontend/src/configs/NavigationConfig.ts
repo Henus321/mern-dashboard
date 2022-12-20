@@ -6,7 +6,8 @@ import {
   UserOutlined,
   CarOutlined,
   UserSwitchOutlined,
-  FileOutlined,
+  IdcardOutlined,
+  LockOutlined,
 } from "@ant-design/icons";
 import { PREFIX } from "../constants";
 
@@ -71,7 +72,14 @@ export const profileMenu = [
     key: "portfolio",
     path: `${PREFIX}/profile/portfolio`,
     title: "Portfolio",
-    icon: FileOutlined,
+    icon: IdcardOutlined,
+    submenu: null,
+  },
+  {
+    key: "password",
+    path: `${PREFIX}/profile/password`,
+    title: "Password",
+    icon: LockOutlined,
     submenu: null,
   },
 ];

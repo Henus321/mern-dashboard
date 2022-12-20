@@ -6,3 +6,4 @@ export const CREATE_MESSAGE = "The order was created successfully.";
 export const EDIT_MESSAGE = "The order was edited successfully.";
 export const DELETE_MESSAGE = "The order was deleted successfully.";
 export const PICK_MESSAGE = "Please pick the Product.";
+export const PASSWORD_MATCH_MESSAGE = "Passwords do not match...";

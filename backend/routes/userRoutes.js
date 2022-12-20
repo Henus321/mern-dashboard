@@ -10,6 +10,7 @@ const {
   registration,
   login,
   logout,
+  passwordChange,
 } = require("../controllers/authController");
 
 const router = express.Router();
@@ -25,5 +26,7 @@ router
   .route("/me")
   .get(getMe)
   .patch(uploadUserPhoto, resizeUserPhoto, updateMe);
+
+router.route("/password-change").patch(passwordChange);
 
 module.exports = router;

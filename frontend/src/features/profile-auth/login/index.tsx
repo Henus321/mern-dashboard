@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Form,
   Button,
@@ -10,34 +10,23 @@ import {
   Typography,
 } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { login, reset } from "../profileAuthSlice";
 import { IUser } from "../../../models";
-import {
-  ERROR_DURATION,
-  DEFAULT_AUTHORIZED_USER_ROUTE,
-  MAX_40,
-} from "../../../constants";
+import { ERROR_DURATION, MAX_40 } from "../../../constants";
 
 import AppFooter from "../../../components/AppFooter";
 
 const Login = () => {
-  const { user, isError, isSuccess, isLoading, message } = useAppSelector(
-    (state) => state.auth
-  );
+  const { isError, isLoading, message } = useAppSelector((state) => state.auth);
 
   const initialCredential: IUser = {
     email: "test@yandex.ru",
     password: "123456",
   };
 
-  const [formData, setFormData] = useState<IUser>(initialCredential);
-
-  const { email, password } = formData;
-
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (isError) {
@@ -46,29 +35,12 @@ const Login = () => {
         description: message,
         duration: ERROR_DURATION,
       });
+      dispatch(reset());
     }
+  }, [dispatch, isError, message]);
 
-    if (isSuccess && user) {
-      navigate(DEFAULT_AUTHORIZED_USER_ROUTE);
-    }
-
-    dispatch(reset());
-  }, [user, isError, isSuccess, message, dispatch, navigate]);
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const onSubmit = () => {
-    const userData: IUser = {
-      email,
-      password,
-    };
-
-    dispatch(login(userData));
+  const onFinish = (values: IUser) => {
+    dispatch(login(values));
   };
 
   return (
@@ -83,7 +55,7 @@ const Login = () => {
             initialValues={initialCredential}
             layout="vertical"
             name="login-form"
-            onFinish={onSubmit}
+            onFinish={onFinish}
           >
             <Form.Item
               name="email"
@@ -101,8 +73,6 @@ const Login = () => {
                 className="rounded"
                 name="email"
                 size="large"
-                value={email}
-                onChange={onChange}
                 prefix={<MailOutlined />}
               />
             </Form.Item>
@@ -118,8 +88,6 @@ const Login = () => {
                 className="rounded"
                 name="password"
                 size="large"
-                value={password}
-                onChange={onChange}
                 prefix={<LockOutlined />}
               />
             </Form.Item>

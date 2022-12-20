@@ -32,12 +32,20 @@ const updateUser = async (userData: Partial<IUser> | FormData) => {
   return response.data.data.data;
 };
 
+const passwordChange = async (userData: Partial<IUser>) => {
+  console.log(userData);
+  const response = await axios.patch(USERS_URL + "/password-change", userData);
+
+  return response.data.data.data;
+};
+
 const authService = {
   register,
   logout,
   login,
   fetchUser,
   updateUser,
+  passwordChange,
 };
 
 export default authService;

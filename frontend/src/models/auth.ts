@@ -18,6 +18,7 @@ export interface IUserState {
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
+  isModified: boolean;
   message: string;
 }
 
