@@ -3,27 +3,30 @@ import { Button, Col, Form, Input, notification, Row } from "antd";
 import { SaveOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import {
+  COMMON_SUCCESS_MESSAGE,
   ERROR_DURATION,
   MAX_40,
   PASSWORD_MATCH_MESSAGE,
+  SUCCESS_DURATION,
 } from "../../../constants";
-import { reset } from "../profileAuthSlice";
+import { IUser } from "../../../models";
+import { passwordChange, reset } from "../profileAuthSlice";
 
 import ProfileLayout from "../ProfileLayout";
-import { IUser } from "../../../models";
 
 const Password = () => {
-  const { isSuccess, isError, message } = useAppSelector((state) => state.auth);
+  const { isModified, isError, message } = useAppSelector(
+    (state) => state.auth
+  );
   const [form] = Form.useForm();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isSuccess || isError) {
+    if (isModified || isError) {
       form.resetFields();
-      console.log("Reset Fields");
     }
-  }, [form, isSuccess, isError]);
+  }, [form, isModified, isError]);
 
   useEffect(() => {
     if (isError) {
@@ -34,9 +37,19 @@ const Password = () => {
       });
       dispatch(reset());
     }
-  }, [dispatch, isError, message]);
 
-  const onFinish = (values: IUser) => {
+    if (isModified) {
+      notification.success({
+        message: "Success!",
+        description: COMMON_SUCCESS_MESSAGE,
+        duration: SUCCESS_DURATION,
+      });
+      dispatch(reset());
+    }
+    // eslint-disable-next-line
+  }, [dispatch, isError, isModified, message]);
+
+  const onFinish = (values: Partial<IUser>) => {
     if (values.password !== values.passwordConfirm) {
       notification.error({
         message: "Registration Error!",
@@ -44,8 +57,7 @@ const Password = () => {
         duration: ERROR_DURATION,
       });
     } else {
-      // dispatch(changePassword(values));
-      console.log("Password Change");
+      dispatch(passwordChange(values));
     }
   };
 
@@ -55,7 +67,7 @@ const Password = () => {
         <Row gutter={12}>
           <Col span={12}>
             <Form.Item
-              name="current"
+              name="currentPassword"
               label="Current Password"
               rules={[
                 {

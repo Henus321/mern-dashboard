@@ -8,14 +8,21 @@ import {
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { reset, updateUser } from "../profileAuthSlice";
 import { IPortfolio } from "../../../models";
-import { ERROR_DURATION, MAX_40 } from "../../../constants";
+import {
+  COMMON_SUCCESS_MESSAGE,
+  ERROR_DURATION,
+  MAX_40,
+  SUCCESS_DURATION,
+} from "../../../constants";
 
 import ProfileLayout from "../ProfileLayout";
 
 const { TextArea } = Input;
 
 const Portfolio = () => {
-  const { user, isError, message } = useAppSelector((state) => state.auth);
+  const { user, isError, isModified, message } = useAppSelector(
+    (state) => state.auth
+  );
   const [form] = Form.useForm();
 
   const dispatch = useAppDispatch();
@@ -36,8 +43,17 @@ const Portfolio = () => {
       form.setFieldsValue(initialValues);
       dispatch(reset());
     }
+
+    if (isModified) {
+      notification.success({
+        message: "Success!",
+        description: COMMON_SUCCESS_MESSAGE,
+        duration: SUCCESS_DURATION,
+      });
+      dispatch(reset());
+    }
     // eslint-disable-next-line
-  }, [dispatch, isError, message]);
+  }, [dispatch, isError, isModified, message]);
 
   const onFinish = (values: IPortfolio) => {
     dispatch(updateUser({ portfolio: values }));

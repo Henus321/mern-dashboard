@@ -4,14 +4,22 @@ import { SaveOutlined, CloseOutlined } from "@ant-design/icons";
 import { updateUser, reset } from "../profileAuthSlice";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { IUser } from "../../../models";
-import { ERROR_DURATION, MAX_100, MAX_40 } from "../../../constants";
+import {
+  COMMON_SUCCESS_MESSAGE,
+  ERROR_DURATION,
+  MAX_100,
+  MAX_40,
+  SUCCESS_DURATION,
+} from "../../../constants";
 
 import ProfileLayout from "../ProfileLayout";
 
 const { TextArea } = Input;
 
 const EditProfile = () => {
-  const { user, isError, message } = useAppSelector((state) => state.auth);
+  const { user, isError, isModified, message } = useAppSelector(
+    (state) => state.auth
+  );
   const [form] = Form.useForm();
 
   const dispatch = useAppDispatch();
@@ -32,8 +40,17 @@ const EditProfile = () => {
       form.setFieldsValue(initialValues);
       dispatch(reset());
     }
+
+    if (isModified) {
+      notification.success({
+        message: "Success!",
+        description: COMMON_SUCCESS_MESSAGE,
+        duration: SUCCESS_DURATION,
+      });
+      dispatch(reset());
+    }
     // eslint-disable-next-line
-  }, [dispatch, isError, message]);
+  }, [dispatch, isError, isModified, message]);
 
   const onSave = (formFields: IUser) => {
     dispatch(updateUser(formFields));
@@ -75,12 +92,17 @@ const EditProfile = () => {
         </Row>
         <Row gutter={12}>
           <Col span={6}>
-            <Form.Item name="phone" label="Phone Number">
-              <Input
-                placeholder="1234567890"
-                addonBefore={"+7"}
-                className="rounded"
-              />
+            <Form.Item
+              rules={[
+                {
+                  len: 11,
+                  message: "A phone number must be exactly 11 characters!",
+                },
+              ]}
+              name="phone"
+              label="Phone Number"
+            >
+              <Input placeholder="89031234567" className="rounded" />
             </Form.Item>
           </Col>
           <Col span={6}>

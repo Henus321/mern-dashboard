@@ -6,6 +6,7 @@ const initialState: IUserState = {
   user: null,
   isError: false,
   isSuccess: false,
+  isModified: false,
   isLoading: false,
   message: "",
 };
@@ -95,6 +96,24 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+export const passwordChange = createAsyncThunk(
+  "profile-auth/passwordChange",
+  async (userData: Partial<IUser>, thunkAPI) => {
+    try {
+      return await profileAuthService.passwordChange(userData);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const profileAuthSlice = createSlice({
   name: "profile-auth",
   initialState,
@@ -103,6 +122,7 @@ export const profileAuthSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
       state.isSuccess = false;
+      state.isModified = false;
       state.message = "";
     },
   },
@@ -163,6 +183,7 @@ export const profileAuthSlice = createSlice({
         (state, action: PayloadAction<IUser>) => {
           state.isLoading = false;
           state.isSuccess = true;
+          state.isModified = false;
           state.user = action.payload;
         }
       )
@@ -182,11 +203,32 @@ export const profileAuthSlice = createSlice({
         (state, action: PayloadAction<IUser>) => {
           state.isLoading = false;
           state.isSuccess = true;
+          state.isModified = true;
           state.user = action.payload;
         }
       )
       .addCase(
         updateUser.rejected.type,
+        (state, action: PayloadAction<string>) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+        }
+      )
+      .addCase(passwordChange.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        passwordChange.fulfilled.type,
+        (state, action: PayloadAction<IUser>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.isModified = true;
+          state.user = action.payload;
+        }
+      )
+      .addCase(
+        passwordChange.rejected.type,
         (state, action: PayloadAction<string>) => {
           state.isLoading = false;
           state.isError = true;
