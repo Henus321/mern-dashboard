@@ -22,7 +22,7 @@ const Login = () => {
   const { isError, isLoading, message } = useAppSelector((state) => state.auth);
 
   const initialCredential: IUser = {
-    email: "test@yandex.ru",
+    email: "user@test.com",
     password: "123456",
   };
 
