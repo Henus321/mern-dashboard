@@ -1,6 +1,5 @@
 import {
   UsergroupAddOutlined,
-  CarryOutOutlined,
   UnorderedListOutlined,
   AppstoreOutlined,
   UserOutlined,
@@ -39,14 +38,6 @@ export const sideMenu = [
         path: `${PREFIX}/customers`,
         title: "Customers",
         icon: UsergroupAddOutlined,
-        submenu: null,
-      },
-      {
-        key: "notes",
-        path: `${PREFIX}/notes`,
-        title: "Notes",
-        type: "group",
-        icon: CarryOutOutlined,
         submenu: null,
       },
       {
