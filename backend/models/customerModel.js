@@ -19,8 +19,11 @@ const customerSchema = new mongoose.Schema({
   phone: {
     type: Number,
     required: [true, "A customer must have a phone"],
-    length: [11, "A phone number must be exactly 11 characters!"],
     trim: true,
+    validate: {
+      validator: (phone) => phone <= 9999999999 && phone > 999999999,
+      message: "A phone number must be exactly 10 characters!",
+    },
   },
   email: {
     type: String,

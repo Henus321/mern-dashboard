@@ -7,11 +7,13 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, "Please tell us your name!"],
+      trim: true,
       maxlength: [40, "A name must have less or equal then 40 characters!"],
     },
     email: {
       type: String,
       required: [true, "Please provide your email"],
+      trim: true,
       maxlength: [40, "An email must have less or equal then 40 characters!"],
       unique: true,
       lowercase: true,
@@ -20,6 +22,7 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Please provide a password"],
+      trim: true,
       minlength: 6,
       maxlength: [40, "A password must have less or equal then 40 characters!"],
       select: false,
@@ -27,6 +30,7 @@ const userSchema = new mongoose.Schema(
     passwordConfirm: {
       type: String,
       required: [true, "Please confirm your password"],
+      trim: true,
       validate: {
         validator: function (el) {
           return el === this.password;
@@ -42,6 +46,7 @@ const userSchema = new mongoose.Schema(
     photo: String,
     username: {
       type: String,
+      trim: true,
       maxlength: [
         40,
         "An username must have less or equal then 40 characters!",
@@ -49,18 +54,25 @@ const userSchema = new mongoose.Schema(
     },
     company: {
       type: String,
+      trim: true,
       maxlength: [40, "A company must have less or equal then 40 characters!"],
     },
     phone: {
       type: Number,
-      length: [10, "A phone number must be exactly 10 characters!"],
+      trim: true,
+      validate: {
+        validator: (phone) => phone <= 9999999999 && phone > 999999999,
+        message: "A phone number must be exactly 10 characters!",
+      },
     },
     website: {
       type: String,
+      trim: true,
       maxlength: [40, "A website must have less or equal then 40 characters!"],
     },
     address: {
       type: String,
+      trim: true,
       maxlength: [
         100,
         "An address must have less or equal then 100 characters!",
@@ -68,11 +80,13 @@ const userSchema = new mongoose.Schema(
     },
     about: {
       type: String,
+      trim: true,
       maxlength: [200, "An about must have less or equal then 200 characters!"],
     },
     portfolio: {
       profession: {
         type: String,
+        trim: true,
         maxlength: [
           40,
           "A profession must have less or equal then 40 characters!",
@@ -80,6 +94,7 @@ const userSchema = new mongoose.Schema(
       },
       description: {
         type: String,
+        trim: true,
         maxlength: [
           200,
           "A description must have less or equal then 200 characters!",
@@ -89,6 +104,7 @@ const userSchema = new mongoose.Schema(
         type: [
           {
             type: String,
+            trim: true,
             maxlength: [
               100,
               "An example must have less or equal then 100 characters!",
