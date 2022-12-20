@@ -40,6 +40,14 @@ const Customers = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    return () => {
+      if (isSuccess || isError) {
+        dispatch(reset());
+      }
+    };
+  }, [dispatch, isSuccess, isError]);
+
+  useEffect(() => {
     if (isError) {
       notification.error({
         message: "Error!",
@@ -56,16 +64,10 @@ const Customers = () => {
       });
     }
 
-    dispatch(fetchCustomers());
+    if (!isError) {
+      dispatch(fetchCustomers());
+    }
   }, [dispatch, isError, isModified, message]);
-
-  useEffect(() => {
-    return () => {
-      if (isSuccess) {
-        dispatch(reset());
-      }
-    };
-  }, [dispatch, isSuccess]);
 
   const isEditing = (record: ICustomer) => record.key === editingKey;
 
@@ -119,7 +121,7 @@ const Customers = () => {
   return (
     <>
       {isLoading && <Spinner />}
-      {!isLoading && customers.length > 0 && (
+      {!isLoading && customers && (
         <Card
           bodyStyle={{
             padding: "0px",
