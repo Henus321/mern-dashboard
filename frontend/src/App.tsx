@@ -16,6 +16,7 @@ import Login from "./features/profile-auth/login";
 import Registration from "./features/profile-auth/registration";
 import EditProfile from "./features/profile-auth/edit-profile";
 import Portfolio from "./features/profile-auth/portfolio";
+import Password from "./features/profile-auth/password";
 
 const App = () => {
   return (
@@ -47,6 +48,7 @@ const App = () => {
               path={`${PREFIX}/profile/portfolio`}
               element={<Portfolio />}
             />
+            <Route path={`${PREFIX}/profile/password`} element={<Password />} />
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
