@@ -10,12 +10,13 @@ import ProductItem from "../ProductItem";
 import Spinner from "../../../components/Spinner";
 
 const Products = () => {
-  const { products, isLoading, isError, message } = useAppSelector(
+  const { products, isLoading, isSuccess, isError, message } = useAppSelector(
     (state) => state.products
   );
   const [searchParams, setSearchParams] = useSearchParams();
   const params = searchParams.get("brand") && searchParams.get("brand");
   const brand = params ? params : "";
+  console.log(products.length);
   const cardHeight = products.length > 0 ? "" : "100%";
   const cardBodyHeight = products.length > 0 ? "" : "calc(100% - 100px)";
 
@@ -35,11 +36,11 @@ const Products = () => {
     }
 
     return () => {
-      if (isError) {
+      if (isSuccess || isError) {
         dispatch(reset());
       }
     };
-  }, [dispatch, isError, message]);
+  }, [dispatch, isSuccess, isError, message]);
 
   const onTabChange = (brand: string) => {
     dispatch(reset());
