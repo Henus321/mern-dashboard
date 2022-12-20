@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Divider, notification, Tabs } from "antd";
+import { Divider, notification, Tabs, Typography } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchProducts, reset } from "../products/productsSlice";
 import { brandTabs } from "../../configs";
@@ -23,6 +23,12 @@ const EditProduct: React.FC<IOrderProps> = ({ order }) => {
         dispatch(reset());
       }
     };
+  }, [dispatch, isSuccess]);
+
+  useEffect(() => {
+    if (!isSuccess) {
+      dispatch(fetchProducts(brand));
+    }
   }, [dispatch, isSuccess, brand]);
 
   useEffect(() => {
@@ -34,9 +40,7 @@ const EditProduct: React.FC<IOrderProps> = ({ order }) => {
       });
       dispatch(reset());
     }
-
-    dispatch(fetchProducts(brand));
-  }, [dispatch, brand, isError, message]);
+  }, [dispatch, isError, message]);
 
   const onTabChange = (brand: string) => {
     setBrand(brand);
@@ -48,8 +52,9 @@ const EditProduct: React.FC<IOrderProps> = ({ order }) => {
       <Divider className="text-center" style={{ fontSize: "20px" }}>
         Pick a Product
       </Divider>
-      {isLoading && <Spinner />}
-      {!isLoading && products.length > 0 && (
+      {isLoading ? (
+        <Spinner />
+      ) : (
         <Tabs
           activeKey={brand}
           tabPosition={"left"}
@@ -58,8 +63,21 @@ const EditProduct: React.FC<IOrderProps> = ({ order }) => {
             return {
               label: brandTab.tab,
               key: brandTab.key,
-              style: { display: "flex", flexWrap: "wrap" },
-              children: <EditProductItem />,
+              style: {
+                display: "flex",
+                flexWrap: "wrap",
+                height: "100%",
+              },
+              children:
+                products.length > 0 ? (
+                  <EditProductItem />
+                ) : (
+                  <div className="m-auto">
+                    <Typography.Paragraph className="text-center">
+                      Woops! No Products Found...
+                    </Typography.Paragraph>
+                  </div>
+                ),
             };
           })}
         />
