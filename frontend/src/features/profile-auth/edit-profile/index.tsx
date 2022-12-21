@@ -27,6 +27,7 @@ const EditProfile = () => {
   const initialValues = useMemo(() => {
     return {
       ...user,
+      phone: user?.phone?.toString(),
     };
   }, [user]);
 
