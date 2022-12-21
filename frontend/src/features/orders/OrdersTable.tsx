@@ -86,13 +86,6 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       key: "payment",
     },
     {
-      title: "Registration",
-      dataIndex: "registration",
-      key: "registration",
-      sorter: (a, b) =>
-        moment(a.registration).unix() - moment(b.registration).unix(),
-    },
-    {
       title: "Delivery",
       dataIndex: "delivery",
       key: "delivery",
@@ -147,8 +140,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
         id: item._id,
         number: index + 1,
         assembly: capitalizeText(item.assembly),
-        payment: item.payment.join("/"),
-        registration: moment(item.registration).format("DD/MM/YYYY"),
+        payment: item.payment.map((pay) => capitalizeText(pay)).join("/"),
         delivery: moment(item.delivery).format("DD/MM/YYYY"),
       };
 

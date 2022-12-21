@@ -20,10 +20,6 @@ const orderSchema = new mongoose.Schema(
       type: [String],
       required: [true, "An order must have a payment type"],
     },
-    registration: {
-      type: Date,
-      required: [true, "An order must have a registration date"],
-    },
     delivery: {
       type: Date,
       required: [true, "An order must have a delivery date"],

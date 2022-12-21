@@ -10,7 +10,6 @@ export interface IOrder {
   number: number;
   payment: string[];
   product: IProduct;
-  registration: Moment;
 }
 
 export interface IOrderState {

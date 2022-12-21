@@ -20,7 +20,6 @@ export interface IOrdersTable {
   assembly: string;
   payment: string;
   cost: number;
-  registration: string;
   delivery: string;
 }
 

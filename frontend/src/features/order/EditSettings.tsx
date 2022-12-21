@@ -39,7 +39,6 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
       value: order.customer._id,
       label: order.customer.name,
     },
-    registration: moment(order.registration),
     delivery: moment(order.delivery),
   };
 
@@ -137,18 +136,6 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
             label="Payment"
           >
             <Cascader options={PAYMENT_OPTIONS} />
-          </Form.Item>
-          <Form.Item
-            rules={[
-              {
-                required: true,
-                message: "Please choose the registration date!",
-              },
-            ]}
-            name="registration"
-            label="Registration"
-          >
-            <DatePicker disabled format={"DD/MM/YYYY"} />
           </Form.Item>
           <Form.Item
             rules={[

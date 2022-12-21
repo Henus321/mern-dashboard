@@ -17,30 +17,48 @@ export const ASSEMBLY_OPTIONS = [
 
 export const PAYMENT_OPTIONS = [
   {
-    value: "leasing",
-    label: "Leasing",
-    children: [
-      {
-        value: "banking",
-        label: "Banking",
-      },
-      {
-        value: "cash",
-        label: "Cash",
-      },
-    ],
-  },
-  {
     value: "immediate",
     label: "Immediate",
     children: [
       {
+        value: "cash",
+        label: "Cash",
+      },
+      {
         value: "banking",
         label: "Banking",
       },
+    ],
+  },
+  {
+    value: "leasing",
+    label: "Leasing",
+    children: [
       {
-        value: "cash",
-        label: "Cash",
+        value: "long",
+        label: "Long",
+      },
+      {
+        value: "medium",
+        label: "Medium",
+      },
+      {
+        value: "short",
+        label: "Short",
+      },
+    ],
+  },
+  {
+    value: "mortgage",
+    label: "Mortgage",
+    children: [
+      {
+        value: "constant",
+        label: "Constant",
+      },
+      {
+        value: "variable",
+        label: "Variable",
       },
     ],
   },

@@ -23,7 +23,6 @@ import { fetchCustomers } from "../customers/customersSlice";
 import { ICustomer } from "../../models";
 import { RangePickerProps } from "antd/lib/date-picker";
 import { createOrder } from "./orderSlice";
-import moment from "moment";
 import dayjs from "dayjs";
 
 const CreateSettings = () => {
@@ -53,8 +52,6 @@ const CreateSettings = () => {
       };
     });
   };
-
-  const getCurrentTime = () => moment(new Date());
 
   const disabledDate: RangePickerProps["disabledDate"] = (current) =>
     current && current < dayjs().endOf("day");
@@ -120,19 +117,6 @@ const CreateSettings = () => {
             label="Payment"
           >
             <Cascader options={PAYMENT_OPTIONS} />
-          </Form.Item>
-          <Form.Item
-            rules={[
-              {
-                required: true,
-                message: "Please choose the registration date!",
-              },
-            ]}
-            initialValue={getCurrentTime()}
-            name="registration"
-            label="Registration"
-          >
-            <DatePicker disabled format={"DD/MM/YYYY"} />
           </Form.Item>
           <Form.Item
             rules={[
