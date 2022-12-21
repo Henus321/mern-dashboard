@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
+const hpp = require("hpp");
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -45,8 +46,8 @@ app.use(mongoSanitize());
 // Data sanitization against XSS
 app.use(xss());
 
-// ADD PARAMETER POLLUTION PREVENTER hpp later
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// Prevent parameter pollution
+app.use(hpp());
 
 // Routes
 app.use("/api/v1/users", userRouter);
