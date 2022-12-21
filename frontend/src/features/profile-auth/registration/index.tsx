@@ -8,8 +8,14 @@ import {
   Col,
   Divider,
   Typography,
+  Space,
 } from "antd";
-import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  MailOutlined,
+  LockOutlined,
+  UserOutlined,
+  DingtalkOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { register, reset } from "../profileAuthSlice";
@@ -53,10 +59,22 @@ const Registration = () => {
   return (
     <>
       <Row justify="center" className="m-auto">
-        <Col className="colored-container">
-          <Typography.Title level={1} className="flex justify-center">
-            Mern Dashboard
-          </Typography.Title>
+        <Col className="auth-container color-secondary">
+          <Space>
+            <DingtalkOutlined
+              style={{
+                display: "block",
+                fontSize: "36px",
+              }}
+            />
+            <Typography.Title
+              level={1}
+              className="flex justify-center"
+              style={{ margin: 0 }}
+            >
+              Mern Dashboard
+            </Typography.Title>
+          </Space>
           <Divider style={{ fontSize: "24px" }}>Registration</Divider>
           <Form layout="vertical" name="login-form" onFinish={onFinish}>
             <Form.Item

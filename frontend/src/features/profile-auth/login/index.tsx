@@ -8,8 +8,13 @@ import {
   Col,
   Divider,
   Typography,
+  Space,
 } from "antd";
-import { MailOutlined, LockOutlined } from "@ant-design/icons";
+import {
+  MailOutlined,
+  LockOutlined,
+  DingtalkOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { login, reset } from "../profileAuthSlice";
@@ -46,10 +51,22 @@ const Login = () => {
   return (
     <>
       <Row justify="center" className="m-auto">
-        <Col className="colored-container">
-          <Typography.Title level={1} className="flex justify-center">
-            Mern Dashboard
-          </Typography.Title>
+        <Col className="auth-container color-secondary">
+          <Space>
+            <DingtalkOutlined
+              style={{
+                display: "block",
+                fontSize: "36px",
+              }}
+            />
+            <Typography.Title
+              level={1}
+              className="flex justify-center"
+              style={{ margin: 0 }}
+            >
+              Mern Dashboard
+            </Typography.Title>
+          </Space>
           <Divider style={{ fontSize: "24px" }}>Login</Divider>
           <Form
             initialValues={initialCredential}

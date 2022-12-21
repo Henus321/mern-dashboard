@@ -7,7 +7,7 @@ import { PHOTO_URL } from "../../constants";
 import { useAppDispatch } from "../../hooks";
 import { reset, updateUser } from "./profileAuthSlice";
 
-import LogoutButton from "../../components/LogoutButton";
+import LogoutButton from "./LogoutButton";
 
 const ProfileHeader: React.FC<IProfileHeaderProps> = ({ user }) => {
   const dispatch = useAppDispatch();
@@ -26,7 +26,7 @@ const ProfileHeader: React.FC<IProfileHeaderProps> = ({ user }) => {
     }, 0);
   };
 
-  const photo = user.photo ? `${PHOTO_URL}${user.photo}` : false;
+  const photo = user.photo ? `${PHOTO_URL}${user.photo}` : undefined;
 
   return (
     <Row gutter={12} style={{ marginBottom: "15px" }}>
