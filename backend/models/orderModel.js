@@ -12,9 +12,9 @@ const orderSchema = new mongoose.Schema(
       ref: "Product",
       required: [true, "An order must contain a product"],
     },
-    assembly: {
+    build: {
       type: String,
-      required: [true, "An order must have an assembly"],
+      required: [true, "An order must have a build"],
     },
     payment: {
       type: [String],

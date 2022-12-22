@@ -14,7 +14,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
   PAYMENT_OPTIONS,
-  ASSEMBLY_OPTIONS,
+  BUILD_OPTIONS,
   ERROR_DURATION,
   PICK_MESSAGE,
   ORDERS_ROUTE,
@@ -103,11 +103,11 @@ const CreateSettings = () => {
             <Select loading={isLoading} options={setOptions(customers)} />
           </Form.Item>
           <Form.Item
-            rules={[{ required: true, message: "Please select an assembly!" }]}
-            name="assembly"
-            label="Assembly"
+            rules={[{ required: true, message: "Please select an build!" }]}
+            name="build"
+            label="Build"
           >
-            <Radio.Group options={ASSEMBLY_OPTIONS} name="assembly" />
+            <Radio.Group options={BUILD_OPTIONS} name="build" />
           </Form.Item>
           <Form.Item
             rules={[

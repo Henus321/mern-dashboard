@@ -1,6 +1,6 @@
 export const BRANDS = ["ferrari", "ford", "lamborghini", "porsche", "bmw"];
 
-export const ASSEMBLY_OPTIONS = [
+export const BUILD_OPTIONS = [
   {
     value: "sport",
     label: " Sport ",
@@ -17,16 +17,16 @@ export const ASSEMBLY_OPTIONS = [
 
 export const PAYMENT_OPTIONS = [
   {
-    value: "immediate",
-    label: "Immediate",
+    value: "instant",
+    label: "Instant",
     children: [
       {
         value: "cash",
         label: "Cash",
       },
       {
-        value: "banking",
-        label: "Banking",
+        value: "bank",
+        label: "Bank",
       },
     ],
   },
@@ -53,12 +53,12 @@ export const PAYMENT_OPTIONS = [
     label: "Mortgage",
     children: [
       {
-        value: "constant",
-        label: "Constant",
+        value: "fixed",
+        label: "Fixed",
       },
       {
-        value: "variable",
-        label: "Variable",
+        value: "extend",
+        label: "Extend",
       },
     ],
   },

@@ -8,8 +8,8 @@ const customerSchema = new mongoose.Schema({
     required: [true, "A customer must have a name"],
     trim: true,
     maxlength: [
-      40,
-      "An customer name must have less or equal then 40 characters!",
+      20,
+      "An customer name must have less or equal then 20 characters!",
     ],
     minlength: [
       4,

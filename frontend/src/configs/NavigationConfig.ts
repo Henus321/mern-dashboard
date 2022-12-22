@@ -1,6 +1,5 @@
 import {
   UsergroupAddOutlined,
-  UnorderedListOutlined,
   AppstoreOutlined,
   UserOutlined,
   CarOutlined,
@@ -14,40 +13,32 @@ export const defaultOpenSideMenuKeys = ["dashboard"];
 
 export const sideMenu = [
   {
-    key: "dashboard",
-    path: `${PREFIX}`,
-    title: "Dashboard",
-    icon: UnorderedListOutlined,
-    submenu: [
-      {
-        key: "orders",
-        path: `${PREFIX}/orders`,
-        title: "Orders",
-        icon: AppstoreOutlined,
-        submenu: null,
-      },
-      {
-        key: "products",
-        path: `${PREFIX}/products`,
-        title: "Products",
-        icon: CarOutlined,
-        submenu: null,
-      },
-      {
-        key: "customers",
-        path: `${PREFIX}/customers`,
-        title: "Customers",
-        icon: UsergroupAddOutlined,
-        submenu: null,
-      },
-      {
-        key: "profile",
-        path: `${PREFIX}/profile/edit-profile`,
-        title: "Profile",
-        icon: UserOutlined,
-        submenu: null,
-      },
-    ],
+    key: "orders",
+    path: `${PREFIX}/orders`,
+    title: "Orders",
+    icon: AppstoreOutlined,
+    submenu: null,
+  },
+  {
+    key: "products",
+    path: `${PREFIX}/products`,
+    title: "Products",
+    icon: CarOutlined,
+    submenu: null,
+  },
+  {
+    key: "customers",
+    path: `${PREFIX}/customers`,
+    title: "Customers",
+    icon: UsergroupAddOutlined,
+    submenu: null,
+  },
+  {
+    key: "profile",
+    path: `${PREFIX}/profile/edit-profile`,
+    title: "Profile",
+    icon: UserOutlined,
+    submenu: null,
   },
 ];
 

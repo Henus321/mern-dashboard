@@ -2,8 +2,10 @@ import React from "react";
 import { Menu, MenuProps } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { profileMenu } from "../../configs";
+import { useLayoutInfo } from "../../hooks/layout";
 
 const ProfileMenu = () => {
+  const { smallScreen } = useLayoutInfo();
   const menuItems: MenuProps["items"] = [...profileMenu].map((menuItem) => {
     return {
       key: menuItem.key,
@@ -23,6 +25,7 @@ const ProfileMenu = () => {
   return (
     <Menu
       mode="inline"
+      inlineCollapsed={smallScreen}
       defaultSelectedKeys={[currentMenuItemKey]}
       style={{
         height: "100%",
