@@ -1,6 +1,7 @@
 import { Layout } from "antd";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PREFIX } from "./constants";
+import CookieConsent from "react-cookie-consent";
 
 import DashboardLayout from "./components/DashboardLayout";
 import PrivateRoute from "./components/PrivateRoute";
@@ -51,6 +52,25 @@ const App = () => {
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <CookieConsent
+        location="bottom"
+        expires={90}
+        style={{
+          backgroundColor: "rgba(0,0,0,0.75",
+          padding: "0 50px",
+          alignItems: "center",
+        }}
+        buttonStyle={{
+          backgroundColor: "#1DA57A",
+          color: "#fff",
+          borderRadius: "5px",
+          padding: "8px 16px",
+        }}
+        buttonText="Accept and close"
+      >
+        We use cookies to make your experience of our websites better. By using
+        and further navigating this website you accept this.
+      </CookieConsent>
     </Layout>
   );
 };
