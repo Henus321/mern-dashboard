@@ -1,13 +1,13 @@
-import { Layout, Menu, MenuProps } from "antd";
+import { Layout, Menu, MenuProps, Grid } from "antd";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { sideMenu, defaultOpenSideMenuKeys } from "../configs";
-import { useLayoutInfo } from "../hooks/layout";
 
+const { useBreakpoint } = Grid;
 const { Sider } = Layout;
 
 const SideMenu = () => {
-  const { menuCollapsed } = useLayoutInfo();
+  const { xl, xxl } = useBreakpoint();
 
   const menuItems: MenuProps["items"] = [...sideMenu].map((menuItem) => {
     return {
@@ -22,7 +22,11 @@ const SideMenu = () => {
   const currentMenuItemKey = location.pathname.split("/").slice(2)[0];
 
   return (
-    <Sider collapsed={menuCollapsed} width={140}>
+    <Sider
+      collapsed={!xl}
+      width={!xxl ? 140 : 180}
+      className="site-layout-background"
+    >
       <Menu
         mode="inline"
         defaultOpenKeys={defaultOpenSideMenuKeys}
