@@ -59,7 +59,11 @@ const AppHeader = () => {
         </Col>
         {user && (
           <Col>
-            <Dropdown placement="bottomRight" menu={{ items }}>
+            <Dropdown
+              placement="bottomRight"
+              trigger={["click"]}
+              menu={{ items }}
+            >
               <a
                 style={{ display: "block", height: "82%" }}
                 onClick={(e) => e.preventDefault()}
