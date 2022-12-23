@@ -44,7 +44,7 @@ const ProfileMenu = () => {
           inlineCollapsed={!lg}
           mode="inline"
           defaultSelectedKeys={[currentMenuItemKey]}
-          className={`h-full ${xs ? "w-full justify-center" : ""}`}
+          className={`h-full`}
           items={menuItems}
         />
       )}

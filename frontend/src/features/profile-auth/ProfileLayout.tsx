@@ -15,7 +15,7 @@ interface Props {
 
 const ProfileLayout: React.FC<Props> = ({ children }) => {
   const { user, isLoading } = useAppSelector((state) => state.auth);
-  const { xs } = useBreakpoint();
+  const { xs, md } = useBreakpoint();
 
   const dispatch = useAppDispatch();
 
@@ -43,7 +43,10 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
             <ProfileMenu />
           </Col>
         )}
-        <Col span={xs ? 24 : 20} className={`${xs ? "p-15" : "p-25"}`}>
+        <Col
+          span={xs ? 24 : 20}
+          className={`${xs ? "p-15" : "p-25"} ${md ? "" : "h-min-60vh"}`}
+        >
           {isLoading && <Spinner />}
           {!isLoading && user && (
             <>

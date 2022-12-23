@@ -18,7 +18,7 @@ const DashboardLayout = () => {
         <SideMenu />
         <Layout className={`${xs ? "py-12" : "py-24"}`}>
           <BreadcrumbMenu />
-          <Content className="site-layout-background transparent">
+          <Content className="site-layout-background transparent flex flex-column">
             <Outlet />
           </Content>
           <AppFooter />

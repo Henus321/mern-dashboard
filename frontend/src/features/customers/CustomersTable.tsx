@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Table, Tag, Tooltip } from "antd";
+import { Button, Grid, Space, Table, Tag, Tooltip, Typography } from "antd";
 import {
   EditOutlined,
   CloseSquareOutlined,
@@ -11,9 +11,13 @@ import { ICustomer, ICustomerTable } from "../../models";
 
 import EditableCell from "./EditableCell";
 
+const { useBreakpoint } = Grid;
+
 const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
   const { isEditing, onEdit, onCancel, onDelete, onCreate, onSave } = handlers;
   const { tableDataSource, editingKey, isCreating } = tableData;
+
+  const { xs, lg, xl } = useBreakpoint();
 
   const cityFilters = Array.from(
     new Set(tableDataSource.map((item) => item.city))
@@ -106,61 +110,45 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
       width: "10%",
       render: (_: any, record: ICustomer) => {
         const editable = isEditing(record);
-        return editable ? (
+        return (
           <div className="flex align-center justify-end">
-            <Button
-              type="primary"
-              ghost
-              className="rounded mr-8"
-              icon={<CheckSquareOutlined />}
-              onClick={() => onSave(record)}
-            />
-            <Button
-              danger
-              className="rounded mr-8"
-              icon={<CloseSquareOutlined />}
-              onClick={() => onCancel()}
-            />
-            <Button
-              disabled
-              danger
-              className="rounded"
-              icon={<DeleteOutlined />}
-              onClick={() => {
-                onDelete(record._id);
-              }}
-            />
-          </div>
-        ) : (
-          <div className="flex align-center justify-end">
-            <Button
-              disabled={editingKey !== ""}
-              type="primary"
-              ghost
-              className="rounded mr-8"
-              icon={<EditOutlined />}
-              onClick={() => onEdit(record)}
-            />
-            <Button
-              disabled
-              danger
-              className="rounded mr-8"
-              icon={<CloseSquareOutlined />}
-              onClick={() => onEdit(record)}
-            />
-            <Button
-              danger
-              className="rounded"
-              icon={<DeleteOutlined />}
-              onClick={() => {
-                onDelete(record._id);
-              }}
-            />
+            <Space direction={xl ? "horizontal" : "vertical"}>
+              <Button
+                disabled={editable && editingKey === ""}
+                type="primary"
+                ghost
+                className={"rounded mr-8"}
+                icon={editable ? <CheckSquareOutlined /> : <EditOutlined />}
+                onClick={() => (editable ? onSave(record) : onEdit(record))}
+              />
+              <Button
+                disabled={!editable}
+                danger
+                className="rounded mr-8"
+                icon={<CloseSquareOutlined />}
+                onClick={() => onCancel()}
+              />
+              <Button
+                disabled={editable}
+                danger
+                className="rounded"
+                icon={<DeleteOutlined />}
+                onClick={() => {
+                  onDelete(record._id);
+                }}
+              />
+            </Space>
           </div>
         );
       },
     },
   ];
+
+  const mobileColumns = columns.filter((column) => {
+    const list = ["phone", "name"];
+    if (!xs) list.push("email");
+    return list.includes(column.dataIndex);
+  });
 
   const mergedColumns = columns.map((col) => {
     if (!col.editable) {
@@ -187,21 +175,28 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
         }}
         bordered
         dataSource={tableDataSource}
-        columns={mergedColumns}
+        columns={lg ? mergedColumns : mobileColumns}
         rowClassName="editable-row"
         pagination={{
           onChange: onCancel,
         }}
       />
-      <Button
-        disabled={isCreating || !!editingKey}
-        type="primary"
-        size="large"
-        className="rounded align-self-end m-submit-button"
-        onClick={() => onCreate()}
-      >
-        Create New Customer <UserAddOutlined />
-      </Button>
+      {lg ? (
+        <Button
+          disabled={isCreating || !!editingKey}
+          type="primary"
+          size="large"
+          className="rounded align-self-end m-submit-button"
+          onClick={() => onCreate()}
+        >
+          Create New Customer <UserAddOutlined />
+        </Button>
+      ) : (
+        <Typography.Paragraph className="text-center py-12">
+          <strong>Reminder:</strong> visit desktop version of the site for full
+          functionality
+        </Typography.Paragraph>
+      )}
     </>
   );
 };
