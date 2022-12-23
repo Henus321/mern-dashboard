@@ -15,10 +15,11 @@ import {
   DownOutlined,
   LogoutOutlined,
   DingtalkOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { PHOTO_URL } from "../constants";
-import { profileMenu } from "../configs";
+import { profileMenu, sideMenu } from "../configs";
 import { Link } from "react-router-dom";
 import { logout } from "../features/profile-auth/profileAuthSlice";
 
@@ -38,7 +39,7 @@ const AppHeader = () => {
   };
 
   const items: MenuProps["items"] = [
-    ...profileMenu.map((item) => {
+    ...(md ? profileMenu : sideMenu).map((item) => {
       return {
         key: `${item.key}-header`,
         label: <Link to={item.path}>{item.title}</Link>,
@@ -85,37 +86,34 @@ const AppHeader = () => {
             )}
           </Space>
         </Col>
-        {user && md ? (
-          <Col>
+        {user && (
+          <Col className="flex">
             <Dropdown
               placement="bottomRight"
               trigger={["click"]}
               menu={{ items }}
             >
-              <a
-                style={{ display: "block", height: "82%" }}
-                onClick={(e) => e.preventDefault()}
-              >
-                <Space>
-                  <Avatar size="large" src={photo} icon={<UserOutlined />} />
-                  <DownOutlined />
-                </Space>
-              </a>
-            </Dropdown>
-          </Col>
-        ) : (
-          <Col>
-            <Dropdown
-              placement="bottomRight"
-              trigger={["click"]}
-              menu={{ items }}
-            >
-              <a
-                style={{ display: "block", height: "82%" }}
-                onClick={(e) => e.preventDefault()}
-              >
-                <Space>!BURGER!</Space>
-              </a>
+              {md ? (
+                <a
+                  style={{ display: "block", height: "82%" }}
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <Space>
+                    <Avatar size="large" src={photo} icon={<UserOutlined />} />
+                    <DownOutlined />
+                  </Space>
+                </a>
+              ) : (
+                <a
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <MenuOutlined style={{ fontSize: "30px" }} />
+                </a>
+              )}
             </Dropdown>
           </Col>
         )}
