@@ -1,19 +1,22 @@
 import AppHeader from "./AppHeader";
 import AppFooter from "./AppFooter";
-import { Layout } from "antd";
+import { Grid, Layout } from "antd";
 import { Outlet } from "react-router-dom";
 import SideMenu from "./SideMenu";
 import BreadcrumbMenu from "./BreadcrumbMenu";
 
 const { Content } = Layout;
+const { useBreakpoint } = Grid;
 
 const DashboardLayout = () => {
+  const { xs } = useBreakpoint();
+
   return (
     <>
       <AppHeader />
       <Layout>
         <SideMenu />
-        <Layout style={{ padding: "0 24px" }}>
+        <Layout className={`${xs ? "py-12" : "py-24"}`}>
           <BreadcrumbMenu />
           <Content className="site-layout-background transparent">
             <Outlet />

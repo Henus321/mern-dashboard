@@ -14,6 +14,7 @@ const store = setupStore();
 
 const persistor = persistStore(store);
 
+// Strict mode removed due unsolvable problems with Ant Design
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
