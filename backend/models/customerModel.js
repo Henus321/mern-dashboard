@@ -31,7 +31,7 @@ const customerSchema = new mongoose.Schema({
     unique: true,
     trim: true,
     lowercase: true,
-    maxlength: [40, "An email must have less or equal then 40 characters!"],
+    maxlength: [20, "An email must have less or equal then 20 characters!"],
     validate: [validator.isEmail, "Please provide a valid email"],
   },
   social: {
@@ -47,7 +47,7 @@ const customerSchema = new mongoose.Schema({
     type: String,
     required: [true, "A customer must have a city"],
     trim: true,
-    maxlength: [40, "A city name must have less or equal then 40 characters!"],
+    maxlength: [20, "A city name must have less or equal then 20 characters!"],
   },
   key: String | Number,
 });
