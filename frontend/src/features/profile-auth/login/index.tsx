@@ -9,6 +9,7 @@ import {
   Divider,
   Typography,
   Space,
+  Grid,
 } from "antd";
 import {
   MailOutlined,
@@ -23,8 +24,12 @@ import { ERROR_DURATION, MAX_40 } from "../../../constants";
 
 import AppFooter from "../../../components/AppFooter";
 
+const { useBreakpoint } = Grid;
+
 const Login = () => {
   const { isError, isLoading, message } = useAppSelector((state) => state.auth);
+
+  const { xs } = useBreakpoint();
 
   const initialCredential: IUser = {
     email: "user@test.com",
@@ -51,19 +56,21 @@ const Login = () => {
   return (
     <>
       <Row justify="center" className="m-auto">
-        <Col className="auth-container color-secondary">
-          <Space>
+        <Col
+          className={`${
+            xs
+              ? "my-15 mt-30"
+              : "px-48 py-80 color-secondary shadow-medium rounded"
+          }`}
+        >
+          <Space className="flex justify-center">
             <DingtalkOutlined
               style={{
                 display: "block",
                 fontSize: "36px",
               }}
             />
-            <Typography.Title
-              level={1}
-              className="flex justify-center"
-              style={{ margin: 0 }}
-            >
+            <Typography.Title level={xs ? 2 : 1} style={{ margin: 0 }}>
               Mern Dashboard
             </Typography.Title>
           </Space>
