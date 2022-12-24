@@ -1,20 +1,24 @@
-import { Card, Typography, Image } from "antd";
+import { Card, Typography, Image, Grid } from "antd";
 import { useSearchParams } from "react-router-dom";
-import { beautifyCost, capitalizeText } from "../../helpers";
+import { beautifyCost, capitalizeText, gridWidth } from "../../helpers";
 import { useAppSelector } from "../../hooks";
 
-const gridStyle: React.CSSProperties = {
-  width: "25%",
-  display: "flex",
-  flexDirection: "column",
-  cursor: "pointer",
-};
+const { useBreakpoint } = Grid;
 
 const CreateProductItem = () => {
   const { products } = useAppSelector((state) => state.products);
   const [searchParams, setSearchParams] = useSearchParams();
   const brand = searchParams.get("brand");
   const product = searchParams.get("product");
+
+  const { xs, sm, lg } = useBreakpoint();
+
+  const gridStyle: React.CSSProperties = {
+    width: gridWidth(xs, sm, lg),
+    display: "flex",
+    flexDirection: "column",
+    cursor: "pointer",
+  };
 
   const isHovered = (curProduct: string) => {
     return curProduct === product

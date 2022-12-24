@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Form, notification } from "antd";
+import { Card, Form, Grid, notification } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import {
   fetchCustomers,
@@ -15,8 +15,11 @@ import {
   SUCCESS_DURATION,
 } from "../../../constants";
 
+import MobileReminder from "../../../components/MobileReminder";
 import CustomersTable from "../CustomersTable";
 import Spinner from "../../../components/Spinner";
+
+const { useBreakpoint } = Grid;
 
 const emptyCustomer: ICustomer = {
   name: "",
@@ -36,6 +39,8 @@ const Customers = () => {
   const [form] = Form.useForm();
   const customersPlusEmptyCell: ICustomer[] = [emptyCustomer, ...customers];
   const tableDataSource = isCreating ? customersPlusEmptyCell : customers;
+
+  const { lg } = useBreakpoint();
 
   const dispatch = useAppDispatch();
 
@@ -122,19 +127,25 @@ const Customers = () => {
     <>
       {isLoading && <Spinner />}
       {!isLoading && customers && (
-        <Card
-          bodyStyle={{
-            padding: "0px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-end",
-          }}
-          className="rounded-card"
-        >
-          <Form form={form} component={false}>
-            <CustomersTable handlers={handlers} tableData={tableData} />
-          </Form>
-        </Card>
+        <>
+          {lg ? (
+            <Card
+              bodyStyle={{
+                padding: "0px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-end",
+              }}
+              className="rounded-card"
+            >
+              <Form form={form} component={false}>
+                <CustomersTable handlers={handlers} tableData={tableData} />
+              </Form>
+            </Card>
+          ) : (
+            <MobileReminder />
+          )}
+        </>
       )}
     </>
   );

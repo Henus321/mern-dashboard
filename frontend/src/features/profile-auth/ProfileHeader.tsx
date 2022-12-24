@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Typography, Avatar, Button, Upload } from "antd";
+import { Row, Col, Typography, Avatar, Button, Upload, Grid } from "antd";
 import { RcFile } from "antd/lib/upload";
 import { IProfileHeaderProps } from "../../models";
 import { UploadOutlined, UserOutlined } from "@ant-design/icons";
@@ -7,9 +7,14 @@ import { PHOTO_URL } from "../../constants";
 import { useAppDispatch } from "../../hooks";
 import { reset, updateUser } from "./profileAuthSlice";
 
-import LogoutButton from "../../components/LogoutButton";
+import LogoutButton from "./LogoutButton";
+
+const { useBreakpoint } = Grid;
 
 const ProfileHeader: React.FC<IProfileHeaderProps> = ({ user }) => {
+  const { xs } = useBreakpoint();
+  const gutter = xs ? 24 : 12;
+
   const dispatch = useAppDispatch();
 
   const onSave = (file: RcFile) => {
@@ -26,10 +31,10 @@ const ProfileHeader: React.FC<IProfileHeaderProps> = ({ user }) => {
     }, 0);
   };
 
-  const photo = user.photo ? `${PHOTO_URL}${user.photo}` : false;
+  const photo = user.photo ? `${PHOTO_URL}${user.photo}` : undefined;
 
   return (
-    <Row gutter={12} style={{ marginBottom: "15px" }}>
+    <Row gutter={gutter} className="mb-15">
       <Col>
         <Avatar size={150} src={photo} icon={<UserOutlined />} />
       </Col>
@@ -44,7 +49,7 @@ const ProfileHeader: React.FC<IProfileHeaderProps> = ({ user }) => {
           customRequest={dummyRequest}
           beforeUpload={(file) => onSave(file)}
         >
-          <Button type="dashed" className="rounded mt-5">
+          <Button type="dashed" className="rounded w-full mt-5">
             Change Avatar
             <UploadOutlined />
           </Button>

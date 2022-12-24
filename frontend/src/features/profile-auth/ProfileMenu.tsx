@@ -1,9 +1,13 @@
 import React from "react";
-import { Menu, MenuProps } from "antd";
+import { Grid, Menu, MenuProps } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { profileMenu } from "../../configs";
 
+const { useBreakpoint } = Grid;
+
 const ProfileMenu = () => {
+  const { xs, lg } = useBreakpoint();
+
   const menuItems: MenuProps["items"] = [...profileMenu].map((menuItem) => {
     return {
       key: menuItem.key,
@@ -11,9 +15,15 @@ const ProfileMenu = () => {
       label: menuItem.submenu ? (
         menuItem.title
       ) : (
-        <Link to={menuItem.path}>{menuItem.title}</Link>
+        <Link to={menuItem.path}>
+          {xs
+            ? React.createElement(menuItem.icon, {
+                style: { fontSize: "24px", padding: "10px" },
+              })
+            : menuItem.title}
+        </Link>
       ),
-      icon: React.createElement(menuItem.icon),
+      icon: xs ? null : React.createElement(menuItem.icon),
     };
   });
 
@@ -21,15 +31,24 @@ const ProfileMenu = () => {
   const currentMenuItemKey = location.pathname.split("/").slice(3)[0];
 
   return (
-    <Menu
-      mode="inline"
-      defaultSelectedKeys={[currentMenuItemKey]}
-      style={{
-        height: "100%",
-        borderRight: "1px solid rgba(0,0,0,0.07)",
-      }}
-      items={menuItems}
-    />
+    <>
+      {xs ? (
+        <Menu
+          mode="horizontal"
+          defaultSelectedKeys={[currentMenuItemKey]}
+          className={`h-full ${xs ? "w-full justify-center" : ""}`}
+          items={menuItems}
+        />
+      ) : (
+        <Menu
+          inlineCollapsed={!lg}
+          mode="inline"
+          defaultSelectedKeys={[currentMenuItemKey]}
+          className={`h-full`}
+          items={menuItems}
+        />
+      )}
+    </>
   );
 };
 

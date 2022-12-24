@@ -6,11 +6,10 @@ export interface IOrder {
   customer: ICustomer;
   delivery: Moment;
   _id: string;
-  assembly: string;
+  build: string;
   number: number;
   payment: string[];
   product: IProduct;
-  registration: Moment;
 }
 
 export interface IOrderState {

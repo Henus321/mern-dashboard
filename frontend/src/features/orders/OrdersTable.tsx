@@ -31,14 +31,14 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       dataIndex: "number",
       key: "number",
       width: "5%",
+      responsive: ["md"],
       sorter: (a, b) => a.number - b.number,
     },
     {
       title: "Customer",
       dataIndex: "customer",
       key: "customer",
-      sorter: (a, b) => a.customer.localeCompare(b.customer),
-      render: (text: string) => <a>{text}</a>,
+      responsive: ["md"],
     },
     {
       title: "Product",
@@ -49,7 +49,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
           key: "photoUrl",
           width: "20%",
           render: (photo) => (
-            <Image src={photo} alt="car" className="w-min-200" />
+            <Image src={photo} alt="car" className="w-min-100" />
           ),
         },
         {
@@ -64,7 +64,6 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
           title: "Model",
           dataIndex: "model",
           key: "model",
-          render: (text: string) => <a>{text}</a>,
         },
         {
           title: "Cost",
@@ -76,56 +75,53 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       ],
     },
     {
-      title: "Assembly",
-      dataIndex: "assembly",
-      key: "assembly",
+      title: "Build",
+      dataIndex: "build",
+      key: "build",
+      responsive: ["xl"],
     },
     {
       title: "Payment",
       dataIndex: "payment",
       key: "payment",
-    },
-    {
-      title: "Registration",
-      dataIndex: "registration",
-      key: "registration",
-      sorter: (a, b) =>
-        moment(a.registration).unix() - moment(b.registration).unix(),
+      responsive: ["xl"],
     },
     {
       title: "Delivery",
       dataIndex: "delivery",
       key: "delivery",
-      sorter: (a, b) => moment(a.delivery).unix() - moment(b.delivery).unix(),
+      responsive: ["xl"],
+      sorter: (a, b) =>
+        moment(a.delivery, ["DD/MM/YYYY"]).unix() -
+        moment(b.delivery, ["DD/MM/YYYY"]).unix(),
     },
     {
       title: "",
       dataIndex: "action",
       key: "action",
       width: "8%",
+      responsive: ["lg"],
       render: (_: any, record) => {
         return (
-          <div className="flex flex-column align-center justify-end">
+          <>
             <Button
-              size="large"
               type="primary"
               ghost
-              className="rounded mr-2 w-full mb-5"
+              className="rounded p-orders-button w-full"
               onClick={() => onEdit(record.id)}
             >
               Edit <EditOutlined />
             </Button>
             <Button
-              size="large"
               type="primary"
               ghost
               danger
-              className="rounded mr-2 w-full"
+              className="rounded p-orders-button mt-5 w-full"
               onClick={() => onDelete(record.id)}
             >
               Delete <DeleteOutlined />
             </Button>
-          </div>
+          </>
         );
       },
     },
@@ -146,9 +142,8 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
         key: item._id,
         id: item._id,
         number: index + 1,
-        assembly: capitalizeText(item.assembly),
-        payment: item.payment.join("/"),
-        registration: moment(item.registration).format("DD/MM/YYYY"),
+        build: capitalizeText(item.build),
+        payment: item.payment.map((pay) => capitalizeText(pay)).join(" "),
         delivery: moment(item.delivery).format("DD/MM/YYYY"),
       };
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { Button, Row, Form, Input, Col, notification } from "antd";
+import { Button, Row, Form, Input, Col, notification, Grid } from "antd";
 import { SaveOutlined, CloseOutlined } from "@ant-design/icons";
 import { updateUser, reset } from "../profileAuthSlice";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
@@ -7,13 +7,16 @@ import { IUser } from "../../../models";
 import {
   COMMON_SUCCESS_MESSAGE,
   ERROR_DURATION,
+  LEN_11,
   MAX_100,
   MAX_40,
+  ONLY_NUMBERS,
   SUCCESS_DURATION,
 } from "../../../constants";
 
 import ProfileLayout from "../ProfileLayout";
 
+const { useBreakpoint } = Grid;
 const { TextArea } = Input;
 
 const EditProfile = () => {
@@ -22,11 +25,16 @@ const EditProfile = () => {
   );
   const [form] = Form.useForm();
 
+  const { lg } = useBreakpoint();
+  const full = lg ? 12 : 24;
+  const half = lg ? 6 : 12;
+
   const dispatch = useAppDispatch();
 
   const initialValues = useMemo(() => {
     return {
       ...user,
+      phone: user?.phone?.toString(),
     };
   }, [user]);
 
@@ -68,8 +76,8 @@ const EditProfile = () => {
         initialValues={initialValues}
         layout="vertical"
       >
-        <Row gutter={12}>
-          <Col span={6}>
+        <Row gutter={full}>
+          <Col span={half}>
             <Form.Item
               name="name"
               label="Name"
@@ -84,28 +92,23 @@ const EditProfile = () => {
               <Input placeholder="Enter name" className="rounded" />
             </Form.Item>
           </Col>
-          <Col span={6}>
+          <Col span={half}>
             <Form.Item name="username" label="Username" rules={[MAX_40]}>
               <Input placeholder="Enter username" className="rounded" />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={12}>
-          <Col span={6}>
+        <Row gutter={full}>
+          <Col span={half}>
             <Form.Item
-              rules={[
-                {
-                  len: 11,
-                  message: "A phone number must be exactly 11 characters!",
-                },
-              ]}
+              rules={[LEN_11, ONLY_NUMBERS]}
               name="phone"
               label="Phone Number"
             >
               <Input placeholder="89031234567" className="rounded" />
             </Form.Item>
           </Col>
-          <Col span={6}>
+          <Col span={half}>
             <Form.Item
               name="website"
               label="Website"
@@ -115,33 +118,33 @@ const EditProfile = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={12}>
-          <Col span={12}>
+        <Row gutter={full}>
+          <Col span={full}>
             <Form.Item name="company" label="Company" rules={[MAX_40]}>
               <Input placeholder="Enter company name" className="rounded" />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={12}>
-          <Col span={12}>
+        <Row gutter={full}>
+          <Col span={full}>
             <Form.Item name="address" label="Address" rules={[MAX_100]}>
               <Input placeholder="Enter your address" className="rounded" />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={12}>
-          <Col span={12}>
+        <Row gutter={full}>
+          <Col span={full}>
             <Form.Item name="about" label="About">
               <TextArea
                 className="rounded"
-                rows={6}
+                rows={half}
                 placeholder="Maximum of 200 characters"
                 maxLength={200}
               />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={12}>
+        <Row gutter={full}>
           <Col>
             <Button onClick={() => onCancel()} size="large" className="rounded">
               Cancel <CloseOutlined />

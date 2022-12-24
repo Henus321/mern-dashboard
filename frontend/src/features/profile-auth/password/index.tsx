@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Col, Form, Input, notification, Row } from "antd";
+import { Button, Col, Form, Grid, Input, notification, Row } from "antd";
 import { SaveOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import {
@@ -14,11 +14,16 @@ import { passwordChange, reset } from "../profileAuthSlice";
 
 import ProfileLayout from "../ProfileLayout";
 
+const { useBreakpoint } = Grid;
+
 const Password = () => {
   const { isModified, isError, message } = useAppSelector(
     (state) => state.auth
   );
   const [form] = Form.useForm();
+
+  const { lg } = useBreakpoint();
+  const full = lg ? 12 : 24;
 
   const dispatch = useAppDispatch();
 
@@ -64,8 +69,8 @@ const Password = () => {
   return (
     <ProfileLayout>
       <Form form={form} onFinish={onFinish} layout="vertical">
-        <Row gutter={12}>
-          <Col span={12}>
+        <Row gutter={full}>
+          <Col span={full}>
             <Form.Item
               name="currentPassword"
               label="Current Password"
@@ -84,8 +89,8 @@ const Password = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={12}>
-          <Col span={12}>
+        <Row gutter={full}>
+          <Col span={full}>
             <Form.Item
               name="password"
               label="Password"
@@ -104,8 +109,8 @@ const Password = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={12}>
-          <Col span={12}>
+        <Row gutter={full}>
+          <Col span={full}>
             <Form.Item
               name="passwordConfirm"
               label="Password Confirm"
@@ -124,7 +129,7 @@ const Password = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={12}>
+        <Row gutter={full}>
           <Col>
             <Button
               size="large"

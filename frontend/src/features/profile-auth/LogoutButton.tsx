@@ -1,9 +1,9 @@
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
-import { logout } from "../features/profile-auth/profileAuthSlice";
+import { logout } from "./profileAuthSlice";
 
-const Logout = () => {
+const LogoutButton = () => {
   const { isLoading } = useAppSelector((state) => state.auth);
 
   const dispatch = useAppDispatch();
@@ -25,4 +25,4 @@ const Logout = () => {
   );
 };
 
-export default Logout;
+export default LogoutButton;

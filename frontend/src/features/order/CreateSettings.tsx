@@ -14,7 +14,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
   PAYMENT_OPTIONS,
-  ASSEMBLY_OPTIONS,
+  BUILD_OPTIONS,
   ERROR_DURATION,
   PICK_MESSAGE,
   ORDERS_ROUTE,
@@ -23,7 +23,6 @@ import { fetchCustomers } from "../customers/customersSlice";
 import { ICustomer } from "../../models";
 import { RangePickerProps } from "antd/lib/date-picker";
 import { createOrder } from "./orderSlice";
-import moment from "moment";
 import dayjs from "dayjs";
 
 const CreateSettings = () => {
@@ -53,8 +52,6 @@ const CreateSettings = () => {
       };
     });
   };
-
-  const getCurrentTime = () => moment(new Date());
 
   const disabledDate: RangePickerProps["disabledDate"] = (current) =>
     current && current < dayjs().endOf("day");
@@ -106,11 +103,11 @@ const CreateSettings = () => {
             <Select loading={isLoading} options={setOptions(customers)} />
           </Form.Item>
           <Form.Item
-            rules={[{ required: true, message: "Please select an assembly!" }]}
-            name="assembly"
-            label="Assembly"
+            rules={[{ required: true, message: "Please select an build!" }]}
+            name="build"
+            label="Build"
           >
-            <Radio.Group options={ASSEMBLY_OPTIONS} name="assembly" />
+            <Radio.Group options={BUILD_OPTIONS} name="build" />
           </Form.Item>
           <Form.Item
             rules={[
@@ -120,19 +117,6 @@ const CreateSettings = () => {
             label="Payment"
           >
             <Cascader options={PAYMENT_OPTIONS} />
-          </Form.Item>
-          <Form.Item
-            rules={[
-              {
-                required: true,
-                message: "Please choose the registration date!",
-              },
-            ]}
-            initialValue={getCurrentTime()}
-            name="registration"
-            label="Registration"
-          >
-            <DatePicker disabled format={"DD/MM/YYYY"} />
           </Form.Item>
           <Form.Item
             rules={[

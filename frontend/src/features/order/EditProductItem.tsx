@@ -1,19 +1,23 @@
-import { Card, Typography, Image } from "antd";
-import { beautifyCost, capitalizeText } from "../../helpers";
+import { Card, Typography, Image, Grid } from "antd";
+import { beautifyCost, capitalizeText, gridWidth } from "../../helpers";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setProduct } from "../products/productsSlice";
 
-const gridStyle: React.CSSProperties = {
-  width: "25%",
-  display: "flex",
-  flexDirection: "column",
-  cursor: "pointer",
-};
+const { useBreakpoint } = Grid;
 
 const EditProductItem = () => {
   const { product, products } = useAppSelector((state) => state.products);
 
   const dispatch = useAppDispatch();
+
+  const { xs, sm, lg } = useBreakpoint();
+
+  const gridStyle: React.CSSProperties = {
+    width: gridWidth(xs, sm, lg),
+    display: "flex",
+    flexDirection: "column",
+    cursor: "pointer",
+  };
 
   const isHovered = (curProduct: string) => {
     return curProduct === product

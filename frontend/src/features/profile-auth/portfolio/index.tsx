@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { Button, Row, Form, Input, Col, notification } from "antd";
+import { Button, Row, Form, Input, Col, notification, Grid } from "antd";
 import {
   SaveOutlined,
   CloseOutlined,
@@ -17,6 +17,7 @@ import {
 
 import ProfileLayout from "../ProfileLayout";
 
+const { useBreakpoint } = Grid;
 const { TextArea } = Input;
 
 const Portfolio = () => {
@@ -24,6 +25,9 @@ const Portfolio = () => {
     (state) => state.auth
   );
   const [form] = Form.useForm();
+
+  const { lg } = useBreakpoint();
+  const full = lg ? 12 : 24;
 
   const dispatch = useAppDispatch();
 
@@ -71,15 +75,15 @@ const Portfolio = () => {
         onFinish={onFinish}
         initialValues={initialValues}
       >
-        <Row gutter={12}>
-          <Col span={12}>
+        <Row gutter={full}>
+          <Col span={full}>
             <Form.Item name="profession" label="Profession" rules={[MAX_40]}>
               <Input placeholder="Enter your profession" className="rounded" />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={12}>
-          <Col span={12}>
+        <Row gutter={full}>
+          <Col span={full}>
             <Form.Item name="description" label="Description">
               <TextArea
                 className="rounded"
@@ -90,8 +94,8 @@ const Portfolio = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={12}>
-          <Col span={12}>
+        <Row gutter={full}>
+          <Col span={full}>
             <Form.List name="examples">
               {(fields, { add, remove }, { errors }) => (
                 <>
@@ -150,7 +154,7 @@ const Portfolio = () => {
             </Form.List>
           </Col>
         </Row>
-        <Row gutter={12}>
+        <Row gutter={full}>
           <Col>
             <Button onClick={() => onCancel()} size="large" className="rounded">
               Cancel <CloseOutlined />

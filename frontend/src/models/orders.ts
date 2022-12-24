@@ -17,10 +17,9 @@ export interface IOrdersTable {
   model: string;
   id: string;
   number: number;
-  assembly: string;
+  build: string;
   payment: string;
   cost: number;
-  registration: string;
   delivery: string;
 }
 
