@@ -12,3 +12,13 @@ export const MAX_100 = {
   max: 100,
   message: "Maximum of 100 characters",
 };
+
+export const LEN_11 = {
+  len: 11,
+  message: "A phone number must be exactly 11 characters!",
+};
+
+export const ONLY_NUMBERS = {
+  pattern: new RegExp("^[0-9]+$"),
+  message: "Only numbers are allowed!",
+};

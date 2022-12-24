@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input } from "antd";
 import { IEditableCellProps } from "../../models";
-import { MAX_100, MAX_20 } from "../../constants";
+import { LEN_11, MAX_100, MAX_20, ONLY_NUMBERS } from "../../constants";
 
 const EditableCell: React.FC<IEditableCellProps> = ({
   editing,
@@ -22,7 +22,8 @@ const EditableCell: React.FC<IEditableCellProps> = ({
               message: `Please Input ${title}!`,
             },
             dataIndex === "social" ? MAX_100 : MAX_20,
-            dataIndex === "phone" ? { len: 11 } : {},
+            dataIndex === "phone" ? LEN_11 : {},
+            dataIndex === "phone" ? ONLY_NUMBERS : {},
             dataIndex === "email"
               ? {
                   type: "email",

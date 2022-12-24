@@ -7,8 +7,10 @@ import { IUser } from "../../../models";
 import {
   COMMON_SUCCESS_MESSAGE,
   ERROR_DURATION,
+  LEN_11,
   MAX_100,
   MAX_40,
+  ONLY_NUMBERS,
   SUCCESS_DURATION,
 } from "../../../constants";
 
@@ -99,16 +101,7 @@ const EditProfile = () => {
         <Row gutter={full}>
           <Col span={half}>
             <Form.Item
-              rules={[
-                {
-                  len: 11,
-                  message: "A phone number must be exactly 11 characters!",
-                },
-                {
-                  pattern: new RegExp("^[0-9]+$"),
-                  message: "Only numbers are allowed!",
-                },
-              ]}
+              rules={[LEN_11, ONLY_NUMBERS]}
               name="phone"
               label="Phone Number"
             >
