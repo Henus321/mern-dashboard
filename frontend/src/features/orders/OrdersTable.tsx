@@ -31,12 +31,14 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       dataIndex: "number",
       key: "number",
       width: "5%",
+      responsive: ["md"],
       sorter: (a, b) => a.number - b.number,
     },
     {
       title: "Customer",
       dataIndex: "customer",
       key: "customer",
+      responsive: ["md"],
     },
     {
       title: "Product",
@@ -73,21 +75,22 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       ],
     },
     {
-      title: "Payment",
-      dataIndex: "payment",
-      key: "payment",
-      responsive: ["xl"],
-    },
-    {
       title: "Build",
       dataIndex: "build",
       key: "build",
       responsive: ["xl"],
     },
     {
+      title: "Payment",
+      dataIndex: "payment",
+      key: "payment",
+      responsive: ["xl"],
+    },
+    {
       title: "Delivery",
       dataIndex: "delivery",
       key: "delivery",
+      responsive: ["xl"],
       sorter: (a, b) =>
         moment(a.delivery, ["DD/MM/YYYY"]).unix() -
         moment(b.delivery, ["DD/MM/YYYY"]).unix(),
@@ -97,6 +100,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       dataIndex: "action",
       key: "action",
       width: "8%",
+      responsive: ["lg"],
       render: (_: any, record) => {
         return (
           <>

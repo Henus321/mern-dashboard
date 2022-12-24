@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Grid, Space, Table, Tag, Tooltip, Typography } from "antd";
+import { Button, Grid, Space, Table, Tag, Tooltip } from "antd";
 import {
   EditOutlined,
   CloseSquareOutlined,
@@ -17,7 +17,7 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
   const { isEditing, onEdit, onCancel, onDelete, onCreate, onSave } = handlers;
   const { tableDataSource, editingKey, isCreating } = tableData;
 
-  const { xs, lg, xl } = useBreakpoint();
+  const { xl } = useBreakpoint();
 
   const cityFilters = Array.from(
     new Set(tableDataSource.map((item) => item.city))
@@ -144,12 +144,6 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
     },
   ];
 
-  const mobileColumns = columns.filter((column) => {
-    const list = ["phone", "name"];
-    if (!xs) list.push("email");
-    return list.includes(column.dataIndex);
-  });
-
   const mergedColumns = columns.map((col) => {
     if (!col.editable) {
       return col;
@@ -175,28 +169,21 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
         }}
         bordered
         dataSource={tableDataSource}
-        columns={lg ? mergedColumns : mobileColumns}
+        columns={mergedColumns}
         rowClassName="editable-row"
         pagination={{
           onChange: onCancel,
         }}
       />
-      {lg ? (
-        <Button
-          disabled={isCreating || !!editingKey}
-          type="primary"
-          size="large"
-          className="rounded align-self-end m-submit-button"
-          onClick={() => onCreate()}
-        >
-          Create New Customer <UserAddOutlined />
-        </Button>
-      ) : (
-        <Typography.Paragraph className="text-center py-12">
-          <strong>Reminder:</strong> visit desktop version of the site for full
-          functionality
-        </Typography.Paragraph>
-      )}
+      <Button
+        disabled={isCreating || !!editingKey}
+        type="primary"
+        size="large"
+        className="rounded align-self-end m-submit-button"
+        onClick={() => onCreate()}
+      >
+        Create New Customer <UserAddOutlined />
+      </Button>
     </>
   );
 };

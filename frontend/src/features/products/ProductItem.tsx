@@ -3,7 +3,7 @@ import { Button, Card, Image, Carousel, Typography, Grid } from "antd";
 import { IdcardOutlined } from "@ant-design/icons";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import { IProduct, IProductItemProps } from "../../models";
-import { beautifyCost } from "../../helpers";
+import { beautifyCost, gridWidth } from "../../helpers";
 import { useAppDispatch } from "../../hooks";
 import { CREATE_ORDER_ROUTE } from "../../constants";
 import { reset } from "./productsSlice";
@@ -12,16 +12,6 @@ const { useBreakpoint } = Grid;
 
 const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
   const { xs, sm, lg } = useBreakpoint();
-
-  const gridWidth = (
-    xs: boolean | undefined,
-    sm: boolean | undefined,
-    lg: boolean | undefined
-  ) => {
-    if (lg) return "33.33333%";
-    if (sm) return "50%";
-    if (xs) return "100%";
-  };
 
   const gridStyle: React.CSSProperties = {
     width: gridWidth(xs, sm, lg),
@@ -88,9 +78,11 @@ const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
       >
         {product.description}
       </Typography.Paragraph>
-      <Button className="rounded mt-auto" onClick={() => onCreate(product)}>
-        Make an Order <IdcardOutlined />
-      </Button>
+      {lg && (
+        <Button className="rounded mt-auto" onClick={() => onCreate(product)}>
+          Make an Order <IdcardOutlined />
+        </Button>
+      )}
     </Card.Grid>
   );
 };
