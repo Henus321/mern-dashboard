@@ -104,11 +104,15 @@ const EditProfile = () => {
                   len: 11,
                   message: "A phone number must be exactly 11 characters!",
                 },
+                {
+                  pattern: new RegExp("^[0-9]+$"),
+                  message: "Only numbers are allowed!",
+                },
               ]}
               name="phone"
               label="Phone Number"
             >
-              <Input placeholder="8903full345half7" className="rounded" />
+              <Input placeholder="89031234567" className="rounded" />
             </Form.Item>
           </Col>
           <Col span={half}>
