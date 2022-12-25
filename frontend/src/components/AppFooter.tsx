@@ -1,12 +1,9 @@
-import { Grid, Layout } from "antd";
+import { Layout } from "antd";
 import CookieConsent from "react-cookie-consent";
 
 const { Footer } = Layout;
-const { useBreakpoint } = Grid;
 
 const AppFooter = () => {
-  const {} = useBreakpoint();
-
   return (
     <>
       <CookieConsent
