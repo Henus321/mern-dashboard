@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import App from "./App";
 
 import { BrowserRouter } from "react-router-dom";
@@ -14,14 +14,16 @@ const store = setupStore();
 
 const persistor = persistStore(store);
 
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 // Strict mode removed due unsolvable problems with Ant Design
-ReactDOM.render(
+root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </PersistGate>
-  </Provider>,
-  document.getElementById("root")
+  </Provider>
 );
