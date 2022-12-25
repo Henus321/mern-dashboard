@@ -1,4 +1,3 @@
-/* eslint-disable-next-line */
+/* eslint-disable */
 /// <reference types="redux-persist" />
-/* eslint-disable-next-line */
 /// <reference types="react-scripts" />

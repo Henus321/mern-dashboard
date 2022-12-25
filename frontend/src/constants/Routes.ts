@@ -7,7 +7,7 @@ export const ORDERS_ROUTE = `${PREFIX}/orders`;
 export const CREATE_ORDER_ROUTE = `${PREFIX}/orders/create-order`;
 export const EDIT_ORDER_ROUTE = `${PREFIX}/orders/edit-order`;
 
-export const PHOTO_URL = "/uploads/";
+export const PHOTO_URL = "/api/v1/uploads/";
 export const USERS_URL = "/api/v1/users";
 export const PORTFOLIO_URL = "/api/v1/portfolio";
 export const CUSTOMERS_URL = "/api/v1/customers";

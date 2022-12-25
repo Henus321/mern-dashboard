@@ -17,7 +17,7 @@ const customerRouter = require("./routes/customerRoutes");
 const app = express();
 
 // Serving static files
-app.use("/uploads", express.static("uploads"));
+app.use("/api/v1/uploads", express.static("uploads"));
 
 // Security HTTP headers
 app.use(helmet());
