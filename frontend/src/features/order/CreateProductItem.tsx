@@ -1,9 +1,7 @@
-import { Card, Typography, Image, Grid } from "antd";
+import { Card, Typography, Image } from "antd";
 import { useSearchParams } from "react-router-dom";
-import { beautifyCost, capitalizeText, gridWidth } from "../../helpers";
+import { beautifyCost, capitalizeText } from "../../helpers";
 import { useAppSelector } from "../../hooks";
-
-const { useBreakpoint } = Grid;
 
 const CreateProductItem = () => {
   const { products } = useAppSelector((state) => state.products);
@@ -11,10 +9,8 @@ const CreateProductItem = () => {
   const brand = searchParams.get("brand");
   const product = searchParams.get("product");
 
-  const { xs, sm, lg } = useBreakpoint();
-
   const gridStyle: React.CSSProperties = {
-    width: gridWidth(xs, sm, lg),
+    width: "33.33333%",
     display: "flex",
     flexDirection: "column",
     cursor: "pointer",

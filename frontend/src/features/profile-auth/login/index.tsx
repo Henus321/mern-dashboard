@@ -59,7 +59,7 @@ const Login = () => {
         <Col
           className={`${
             xs
-              ? "my-15 mt-30"
+              ? "my-15 mx-30"
               : "px-48 py-80 color-secondary shadow-medium rounded"
           }`}
         >

@@ -1,20 +1,16 @@
 import React from "react";
-import { Button, Card, Image, Carousel, Typography, Grid } from "antd";
+import { Button, Card, Image, Carousel, Typography } from "antd";
 import { IdcardOutlined } from "@ant-design/icons";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import { IProduct, IProductItemProps } from "../../models";
-import { beautifyCost, gridWidth } from "../../helpers";
+import { beautifyCost } from "../../helpers";
 import { useAppDispatch } from "../../hooks";
 import { CREATE_ORDER_ROUTE } from "../../constants";
 import { reset } from "./productsSlice";
 
-const { useBreakpoint } = Grid;
-
 const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
-  const { xs, sm, lg } = useBreakpoint();
-
   const gridStyle: React.CSSProperties = {
-    width: gridWidth(xs, sm, lg),
+    width: "33.33333%",
     display: "flex",
     flexDirection: "column",
   };
@@ -46,25 +42,16 @@ const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
       >
         {product.type}
       </Typography.Paragraph>
-      {lg ? (
-        <Carousel style={{ marginBottom: "10px" }}>
-          {product.photoUrl.map((photo) => (
-            <Image
-              key={photo}
-              width="100%"
-              style={{ objectFit: "cover" }}
-              src={photo}
-            />
-          ))}
-        </Carousel>
-      ) : (
-        <Image
-          key={product.photoUrl[0]}
-          width="100%"
-          style={{ objectFit: "cover" }}
-          src={product.photoUrl[0]}
-        />
-      )}
+      <Carousel style={{ marginBottom: "10px" }}>
+        {product.photoUrl.map((photo) => (
+          <Image
+            key={photo}
+            width="100%"
+            style={{ objectFit: "cover" }}
+            src={photo}
+          />
+        ))}
+      </Carousel>
       <Typography.Title
         level={5}
         className="text-center"
@@ -78,11 +65,9 @@ const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
       >
         {product.description}
       </Typography.Paragraph>
-      {lg && (
-        <Button className="rounded mt-auto" onClick={() => onCreate(product)}>
-          Make an Order <IdcardOutlined />
-        </Button>
-      )}
+      <Button className="rounded mt-auto" onClick={() => onCreate(product)}>
+        Make an Order <IdcardOutlined />
+      </Button>
     </Card.Grid>
   );
 };

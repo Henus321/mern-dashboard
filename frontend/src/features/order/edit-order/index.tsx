@@ -23,7 +23,7 @@ const EditOrder = () => {
     useAppSelector((state) => state.order);
   const { orderId } = useParams();
 
-  const { xs } = useBreakpoint();
+  const { lg } = useBreakpoint();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -72,9 +72,7 @@ const EditOrder = () => {
       {!isLoading && isError && !order && <NotFound type="Order" />}
       {!isLoading && !isModified && !isError && order && (
         <>
-          {xs ? (
-            <MobileReminder />
-          ) : (
+          {lg ? (
             <Card
               bodyStyle={{
                 padding: "0",
@@ -87,6 +85,8 @@ const EditOrder = () => {
               <EditProduct order={order} />
               <EditSettings order={order} />
             </Card>
+          ) : (
+            <MobileReminder />
           )}
         </>
       )}

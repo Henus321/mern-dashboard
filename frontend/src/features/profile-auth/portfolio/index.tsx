@@ -26,8 +26,8 @@ const Portfolio = () => {
   );
   const [form] = Form.useForm();
 
-  const { lg } = useBreakpoint();
-  const full = lg ? 12 : 24;
+  const { xl } = useBreakpoint();
+  const full = xl ? 12 : 24;
 
   const dispatch = useAppDispatch();
 

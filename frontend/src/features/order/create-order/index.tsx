@@ -21,7 +21,7 @@ const CreateOrder = () => {
     (state) => state.order
   );
 
-  const { xs } = useBreakpoint();
+  const { lg } = useBreakpoint();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -54,9 +54,7 @@ const CreateOrder = () => {
 
   return (
     <>
-      {xs ? (
-        <MobileReminder />
-      ) : (
+      {lg ? (
         <Card
           bodyStyle={{
             padding: "0",
@@ -69,6 +67,8 @@ const CreateOrder = () => {
           <CreateProduct />
           <CreateSettings />
         </Card>
+      ) : (
+        <MobileReminder />
       )}
     </>
   );

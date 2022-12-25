@@ -8,6 +8,7 @@ import { ERROR_DURATION } from "../../../constants";
 
 import ProductItem from "../ProductItem";
 import Spinner from "../../../components/Spinner";
+import MobileReminder from "../../../components/MobileReminder";
 
 const { useBreakpoint } = Grid;
 
@@ -22,7 +23,7 @@ const Products = () => {
   const cardHeight = products.length > 0 ? "" : "100%";
   const cardBodyHeight = products.length > 0 ? "" : "calc(100% - 100px)";
 
-  const { md } = useBreakpoint();
+  const { lg } = useBreakpoint();
 
   const dispatch = useAppDispatch();
 
@@ -54,39 +55,44 @@ const Products = () => {
   };
 
   return (
-    <Card
-      bodyStyle={{
-        padding: "0",
-        display: "flex",
-        flexWrap: "wrap",
-        height: cardBodyHeight,
-        minHeight: md ? "" : "60vh",
-      }}
-      style={{ height: cardHeight }}
-      className="rounded-card"
-      activeTabKey={brand}
-      tabList={brandTabsWithNoFilter}
-      onTabChange={(brand) => onTabChange(brand)}
-    >
-      {isLoading && <Spinner />}
-      {!isLoading &&
-        products.length > 0 &&
-        products.map((product) => (
-          <ProductItem key={product.name} product={product} />
-        ))}
-      {!isLoading && products.length === 0 && (
-        <div className={`flex w-full h-full ${md ? "" : "h-min-60vh"}`}>
-          <div className="m-auto">
-            <Typography.Title level={2} className="text-center">
-              No Products Found
-            </Typography.Title>
-            <Typography.Paragraph className="text-center">
-              Something went wrong...
-            </Typography.Paragraph>
-          </div>
-        </div>
+    <>
+      {lg ? (
+        <Card
+          bodyStyle={{
+            padding: "0",
+            display: "flex",
+            flexWrap: "wrap",
+            height: cardBodyHeight,
+          }}
+          style={{ height: cardHeight }}
+          className="rounded-card"
+          activeTabKey={brand}
+          tabList={brandTabsWithNoFilter}
+          onTabChange={(brand) => onTabChange(brand)}
+        >
+          {isLoading && <Spinner />}
+          {!isLoading &&
+            products.length > 0 &&
+            products.map((product) => (
+              <ProductItem key={product.name} product={product} />
+            ))}
+          {!isLoading && products.length === 0 && (
+            <div className="flex w-full h-full">
+              <div className="m-auto">
+                <Typography.Title level={2} className="text-center">
+                  No Products Found
+                </Typography.Title>
+                <Typography.Paragraph className="text-center">
+                  Something went wrong...
+                </Typography.Paragraph>
+              </div>
+            </div>
+          )}
+        </Card>
+      ) : (
+        <MobileReminder />
       )}
-    </Card>
+    </>
   );
 };
 

@@ -25,9 +25,9 @@ const EditProfile = () => {
   );
   const [form] = Form.useForm();
 
-  const { lg } = useBreakpoint();
-  const full = lg ? 12 : 24;
-  const half = lg ? 6 : 12;
+  const { xl } = useBreakpoint();
+  const full = xl ? 12 : 24;
+  const half = xl ? 6 : 12;
 
   const dispatch = useAppDispatch();
 
