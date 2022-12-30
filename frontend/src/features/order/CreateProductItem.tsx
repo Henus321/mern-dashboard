@@ -1,6 +1,6 @@
 import { Card, Typography, Image } from "antd";
 import { useSearchParams } from "react-router-dom";
-import { beautifyCost, capitalizeText } from "../../helpers";
+import { beautifyCost, capitalizeText } from "../../utils";
 import { useAppSelector } from "../../hooks";
 
 const CreateProductItem = () => {

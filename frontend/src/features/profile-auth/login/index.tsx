@@ -56,13 +56,7 @@ const Login = () => {
   return (
     <>
       <Row justify="center" className="m-auto">
-        <Col
-          className={`${
-            xs
-              ? "my-15 mx-30"
-              : "px-48 py-80 color-secondary shadow-medium rounded"
-          }`}
-        >
+        <Col className="auth-container rounded">
           <Space className="flex justify-center">
             <DingtalkOutlined
               style={{
@@ -97,6 +91,7 @@ const Login = () => {
                 className="rounded"
                 name="email"
                 size="large"
+                placeholder="Your email"
                 prefix={<MailOutlined />}
               />
             </Form.Item>
@@ -112,6 +107,7 @@ const Login = () => {
                 className="rounded"
                 name="password"
                 size="large"
+                placeholder="Password"
                 prefix={<LockOutlined />}
               />
             </Form.Item>

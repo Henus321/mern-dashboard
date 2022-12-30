@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Button, notification, Grid } from "antd";
+import { Card, Button, notification } from "antd";
 import { AppstoreAddOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { fetchOrders, reset } from "../ordersSlice";
@@ -15,12 +15,9 @@ import OrdersTable from "../OrdersTable";
 import Spinner from "../../../components/Spinner";
 import MobileReminder from "../../../components/MobileReminder";
 
-const { useBreakpoint } = Grid;
-
 const Orders = () => {
   const { orders, isLoading, isSuccess, isError, isModified, message } =
     useAppSelector((state) => state.orders);
-  const { lg } = useBreakpoint();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -64,29 +61,26 @@ const Orders = () => {
       {isLoading && <Spinner />}
       {!isLoading && orders && (
         <>
-          {lg ? (
-            <Card
-              bodyStyle={{
-                padding: "0",
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-              className="rounded-card"
+          <Card
+            bodyStyle={{
+              padding: "0",
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+            }}
+            className="content-container rounded-card"
+          >
+            <OrdersTable orders={orders} />
+            <Button
+              type="primary"
+              size="large"
+              className="rounded align-self-end m-submit-button"
+              onClick={onCreate}
             >
-              <OrdersTable orders={orders} />
-              <Button
-                type="primary"
-                size="large"
-                className="rounded align-self-end m-submit-button"
-                onClick={onCreate}
-              >
-                Create Order <AppstoreAddOutlined />
-              </Button>
-            </Card>
-          ) : (
-            <MobileReminder />
-          )}
+              Create Order <AppstoreAddOutlined />
+            </Button>
+          </Card>
+          <MobileReminder />
         </>
       )}
     </>

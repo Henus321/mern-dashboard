@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Card, Grid, notification, Typography } from "antd";
+import { Card, notification, Typography } from "antd";
 import { reset } from "../orderSlice";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
@@ -14,14 +14,10 @@ import CreateProduct from "../CreateProduct";
 import CreateSettings from "../CreateSettings";
 import MobileReminder from "../../../components/MobileReminder";
 
-const { useBreakpoint } = Grid;
-
 const CreateOrder = () => {
   const { isSuccess, isError, message } = useAppSelector(
     (state) => state.order
   );
-
-  const { lg } = useBreakpoint();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -54,22 +50,19 @@ const CreateOrder = () => {
 
   return (
     <>
-      {lg ? (
-        <Card
-          bodyStyle={{
-            padding: "0",
-          }}
-          className="rounded-card"
-        >
-          <Typography.Title className="mt-15 text-center" level={2}>
-            Create an Order
-          </Typography.Title>
-          <CreateProduct />
-          <CreateSettings />
-        </Card>
-      ) : (
-        <MobileReminder />
-      )}
+      <Card
+        bodyStyle={{
+          padding: "0",
+        }}
+        className="content-container rounded-card"
+      >
+        <Typography.Title className="mt-15 text-center" level={2}>
+          Create an Order
+        </Typography.Title>
+        <CreateProduct />
+        <CreateSettings />
+      </Card>
+      <MobileReminder />
     </>
   );
 };

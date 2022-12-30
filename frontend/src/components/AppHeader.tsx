@@ -28,7 +28,8 @@ const { Header } = Layout;
 
 const AppHeader = () => {
   const { user } = useAppSelector((state) => state.auth);
-  const { xs, sm, md } = useBreakpoint();
+
+  const { sm, md } = useBreakpoint();
 
   const photo = user?.photo ? `${PHOTO_URL}${user.photo}` : undefined;
 
@@ -55,9 +56,7 @@ const AppHeader = () => {
   ];
 
   return (
-    <Header
-      className={`color-secondary flex align-center ${xs ? "py-20" : ""}`}
-    >
+    <Header className={`header-container color-secondary flex align-center`}>
       <Row className="flex justify-between w-full">
         <Col className="flex align-center">
           <Space>
@@ -67,23 +66,9 @@ const AppHeader = () => {
                 fontSize: "36px",
               }}
             />
-            {sm ? (
-              <Typography.Title
-                level={2}
-                className="flex"
-                style={{ margin: 0 }}
-              >
-                Mern Dashboard
-              </Typography.Title>
-            ) : (
-              <Typography.Title
-                level={2}
-                className="flex"
-                style={{ margin: 0 }}
-              >
-                MD
-              </Typography.Title>
-            )}
+            <Typography.Title level={2} className="flex" style={{ margin: 0 }}>
+              {sm ? "Mern Dashboard" : "MD"}
+            </Typography.Title>
           </Space>
         </Col>
         {user && (

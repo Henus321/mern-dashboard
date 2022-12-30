@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { Button, Row, Form, Input, Col, notification, Grid } from "antd";
+import { Button, Row, Form, Input, Col, notification } from "antd";
 import {
   SaveOutlined,
   CloseOutlined,
@@ -17,7 +17,6 @@ import {
 
 import ProfileLayout from "../ProfileLayout";
 
-const { useBreakpoint } = Grid;
 const { TextArea } = Input;
 
 const Portfolio = () => {
@@ -26,8 +25,9 @@ const Portfolio = () => {
   );
   const [form] = Form.useForm();
 
-  const { xl } = useBreakpoint();
-  const full = xl ? 12 : 24;
+  const gutter = { lg: 24, xl: 12 };
+  const lg = { span: 24 };
+  const xl = { span: 12 };
 
   const dispatch = useAppDispatch();
 
@@ -75,15 +75,15 @@ const Portfolio = () => {
         onFinish={onFinish}
         initialValues={initialValues}
       >
-        <Row gutter={full}>
-          <Col span={full}>
+        <Row gutter={gutter}>
+          <Col lg={lg} xl={xl}>
             <Form.Item name="profession" label="Profession" rules={[MAX_40]}>
               <Input placeholder="Enter your profession" className="rounded" />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={full}>
-          <Col span={full}>
+        <Row gutter={gutter}>
+          <Col lg={lg} xl={xl}>
             <Form.Item name="description" label="Description">
               <TextArea
                 className="rounded"
@@ -94,8 +94,8 @@ const Portfolio = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={full}>
-          <Col span={full}>
+        <Row gutter={gutter}>
+          <Col lg={lg} xl={xl}>
             <Form.List name="examples">
               {(fields, { add, remove }, { errors }) => (
                 <>
@@ -154,7 +154,7 @@ const Portfolio = () => {
             </Form.List>
           </Col>
         </Row>
-        <Row gutter={full}>
+        <Row gutter={gutter}>
           <Col>
             <Button onClick={() => onCancel()} size="large" className="rounded">
               Cancel <CloseOutlined />

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Grid, notification, Typography } from "antd";
+import { Card, notification, Typography } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { fetchProducts, reset } from "../productsSlice";
 import { brandTabsWithNoFilter } from "../../../configs";
@@ -9,8 +9,6 @@ import { ERROR_DURATION } from "../../../constants";
 import ProductItem from "../ProductItem";
 import Spinner from "../../../components/Spinner";
 import MobileReminder from "../../../components/MobileReminder";
-
-const { useBreakpoint } = Grid;
 
 const Products = () => {
   const { products, isLoading, isSuccess, isError, message } = useAppSelector(
@@ -22,8 +20,6 @@ const Products = () => {
 
   const cardHeight = products.length > 0 ? "" : "100%";
   const cardBodyHeight = products.length > 0 ? "" : "calc(100% - 100px)";
-
-  const { lg } = useBreakpoint();
 
   const dispatch = useAppDispatch();
 
@@ -56,42 +52,39 @@ const Products = () => {
 
   return (
     <>
-      {lg ? (
-        <Card
-          bodyStyle={{
-            padding: "0",
-            display: "flex",
-            flexWrap: "wrap",
-            height: cardBodyHeight,
-          }}
-          style={{ height: cardHeight }}
-          className="rounded-card"
-          activeTabKey={brand}
-          tabList={brandTabsWithNoFilter}
-          onTabChange={(brand) => onTabChange(brand)}
-        >
-          {isLoading && <Spinner />}
-          {!isLoading &&
-            products.length > 0 &&
-            products.map((product) => (
-              <ProductItem key={product.name} product={product} />
-            ))}
-          {!isLoading && products.length === 0 && (
-            <div className="flex w-full h-full">
-              <div className="m-auto">
-                <Typography.Title level={2} className="text-center">
-                  No Products Found
-                </Typography.Title>
-                <Typography.Paragraph className="text-center">
-                  Something went wrong...
-                </Typography.Paragraph>
-              </div>
+      <Card
+        bodyStyle={{
+          padding: "0",
+          display: "flex",
+          flexWrap: "wrap",
+          height: cardBodyHeight,
+        }}
+        style={{ height: cardHeight }}
+        className="content-container rounded-card"
+        activeTabKey={brand}
+        tabList={brandTabsWithNoFilter}
+        onTabChange={(brand) => onTabChange(brand)}
+      >
+        {isLoading && <Spinner />}
+        {!isLoading &&
+          products.length > 0 &&
+          products.map((product) => (
+            <ProductItem key={product.name} product={product} />
+          ))}
+        {!isLoading && products.length === 0 && (
+          <div className="flex w-full h-full">
+            <div className="m-auto">
+              <Typography.Title level={2} className="text-center">
+                No Products Found
+              </Typography.Title>
+              <Typography.Paragraph className="text-center">
+                Something went wrong...
+              </Typography.Paragraph>
             </div>
-          )}
-        </Card>
-      ) : (
-        <MobileReminder />
-      )}
+          </div>
+        )}
+      </Card>
+      <MobileReminder />
     </>
   );
 };

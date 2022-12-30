@@ -12,13 +12,3 @@ export const capitalizeText = (string: string) => {
 
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
-
-export const gridWidth = (
-  xs: boolean | undefined,
-  sm: boolean | undefined,
-  lg: boolean | undefined
-) => {
-  if (lg) return "33.33333%";
-  if (sm) return "50%";
-  if (xs) return "100%";
-};

@@ -64,13 +64,7 @@ const Registration = () => {
   return (
     <>
       <Row justify="center" className="m-auto">
-        <Col
-          className={`${
-            xs
-              ? "my-15 mx-30"
-              : "px-48 py-80 color-secondary shadow-medium rounded"
-          }`}
-        >
+        <Col className="auth-container rounded">
           <Space className="flex justify-center">
             <DingtalkOutlined
               style={{
@@ -96,6 +90,7 @@ const Registration = () => {
                 className="rounded"
                 name="name"
                 size="large"
+                placeholder="Your name"
                 prefix={<UserOutlined />}
               />
             </Form.Item>
@@ -115,6 +110,7 @@ const Registration = () => {
                 className="rounded"
                 name="email"
                 size="large"
+                placeholder="Your email"
                 prefix={<MailOutlined />}
               />
             </Form.Item>
@@ -130,6 +126,7 @@ const Registration = () => {
                 className="rounded"
                 name="password"
                 size="large"
+                placeholder="Password"
                 prefix={<LockOutlined />}
               />
             </Form.Item>
@@ -145,6 +142,7 @@ const Registration = () => {
                 className="rounded"
                 name="passwordConfirm"
                 size="large"
+                placeholder="Confirm password"
                 prefix={<LockOutlined />}
               />
             </Form.Item>

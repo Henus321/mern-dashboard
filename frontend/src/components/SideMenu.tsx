@@ -7,7 +7,7 @@ const { useBreakpoint } = Grid;
 const { Sider } = Layout;
 
 const SideMenu = () => {
-  const { md, xl, xxl } = useBreakpoint();
+  const { xl, xxl } = useBreakpoint();
 
   const menuItems: MenuProps["items"] = [...sideMenu].map((menuItem) => {
     return {
@@ -23,21 +23,19 @@ const SideMenu = () => {
 
   return (
     <>
-      {md && (
-        <Sider
-          collapsed={!xl}
-          width={!xxl ? 140 : 180}
-          className="site-layout-background"
-        >
-          <Menu
-            mode="inline"
-            defaultOpenKeys={defaultOpenSideMenuKeys}
-            selectedKeys={[currentMenuItemKey]}
-            style={{ height: "100%", borderRight: 0 }}
-            items={menuItems}
-          ></Menu>
-        </Sider>
-      )}
+      <Sider
+        collapsed={!xl}
+        width={!xxl ? 140 : 180}
+        className="sider-container site-layout-background"
+      >
+        <Menu
+          mode="inline"
+          defaultOpenKeys={defaultOpenSideMenuKeys}
+          selectedKeys={[currentMenuItemKey]}
+          style={{ height: "100%", borderRight: 0 }}
+          items={menuItems}
+        ></Menu>
+      </Sider>
     </>
   );
 };
