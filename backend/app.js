@@ -19,10 +19,14 @@ const customerRouter = require("./routes/customerRoutes");
 const app = express();
 
 // Implement CORS
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://mern-dashboard.onrender.com",
+    credentials: true,
+  })
+);
 
 // Access control for complicated methods
-app.options("*", cors());
 
 // Serving static files
 app.use("/api/v1/uploads", express.static("uploads"));
