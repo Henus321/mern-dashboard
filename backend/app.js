@@ -26,8 +26,6 @@ app.use(
   })
 );
 
-// Access control for complicated methods
-
 // Serving static files
 app.use("/api/v1/uploads", express.static("uploads"));
 
