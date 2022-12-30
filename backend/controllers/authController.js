@@ -17,6 +17,7 @@ const createSendToken = (user, statusCode, res) => {
     ),
     httpOnly: true,
     sameSite: "None",
+    secure: true,
   };
   if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
@@ -66,6 +67,7 @@ exports.logout = (req, res) => {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
     sameSite: "None",
+    secure: true,
   });
   res.status(200).json({ status: "success" });
 };
