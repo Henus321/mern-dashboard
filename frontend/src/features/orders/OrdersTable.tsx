@@ -4,7 +4,7 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 import { IOrder, IOrdersTable, IOrdersTableProps } from "../../models";
 import { useNavigate } from "react-router-dom";
-import { beautifyCost, capitalizeText } from "../../helpers";
+import { beautifyCost, capitalizeText } from "../../utils";
 import { brandFilters } from "../../configs";
 import { useAppDispatch } from "../../hooks";
 import { deleteOrder } from "./ordersSlice";

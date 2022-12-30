@@ -1,5 +1,5 @@
 import { Card, Typography, Image } from "antd";
-import { beautifyCost, capitalizeText } from "../../helpers";
+import { beautifyCost, capitalizeText } from "../../utils";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setProduct } from "../products/productsSlice";
 

@@ -3,7 +3,7 @@ import { Button, Card, Image, Carousel, Typography } from "antd";
 import { IdcardOutlined } from "@ant-design/icons";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import { IProduct, IProductItemProps } from "../../models";
-import { beautifyCost } from "../../helpers";
+import { beautifyCost } from "../../utils";
 import { useAppDispatch } from "../../hooks";
 import { CREATE_ORDER_ROUTE } from "../../constants";
 import { reset } from "./productsSlice";
