@@ -1,6 +1,7 @@
 {
   "name": "mern-dashboard",
   "version": "1.0.0",
+  "main": "./backend/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"cd backend && npm run server:dev\" \"cd frontend && npm run start\" ",
@@ -9,6 +10,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Henus321/mern-dashboard.git"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   },
   "keywords": [],
   "author": "Alexander Erkhov",
