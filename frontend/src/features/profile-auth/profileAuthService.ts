@@ -3,19 +3,25 @@ import { IUser } from "../../models";
 import { USERS_URL } from "../../constants";
 
 const register = async (userData: IUser) => {
-  const response = await axios.post(USERS_URL + "/registration", userData);
+  const response = await axios.post(USERS_URL + "/registration", userData, {
+    withCredentials: true,
+  });
 
   return response.data.data.data;
 };
 
 const login = async (userData: IUser) => {
-  const response = await axios.post(USERS_URL + "/login", userData);
+  const response = await axios.post(USERS_URL + "/login", userData, {
+    withCredentials: true,
+  });
 
   return response.data.data.data;
 };
 
 const logout = async () => {
-  const response = await axios.get(USERS_URL + "/logout");
+  const response = await axios.get(USERS_URL + "/logout", {
+    withCredentials: true,
+  });
 
   return response.data;
 };
