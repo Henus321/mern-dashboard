@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Grid, notification, Typography } from "antd";
+import { Card, notification, Typography } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { fetchOrder, reset } from "../orderSlice";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,14 +16,10 @@ import NotFound from "../../../components/NotFound";
 import MobileReminder from "../../../components/MobileReminder";
 import Spinner from "../../../components/Spinner";
 
-const { useBreakpoint } = Grid;
-
 const EditOrder = () => {
   const { order, isLoading, isError, isSuccess, isModified, message } =
     useAppSelector((state) => state.order);
   const { orderId } = useParams();
-
-  const { lg } = useBreakpoint();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -72,22 +68,19 @@ const EditOrder = () => {
       {!isLoading && isError && !order && <NotFound type="Order" />}
       {!isLoading && !isModified && !isError && order && (
         <>
-          {lg ? (
-            <Card
-              bodyStyle={{
-                padding: "0",
-              }}
-              className="rounded-card"
-            >
-              <Typography.Title className="mt-15 text-center" level={2}>
-                Edit the Order
-              </Typography.Title>
-              <EditProduct order={order} />
-              <EditSettings order={order} />
-            </Card>
-          ) : (
-            <MobileReminder />
-          )}
+          <Card
+            bodyStyle={{
+              padding: "0",
+            }}
+            className="content-container rounded-card"
+          >
+            <Typography.Title className="mt-15 text-center" level={2}>
+              Edit the Order
+            </Typography.Title>
+            <EditProduct order={order} />
+            <EditSettings order={order} />
+          </Card>
+          <MobileReminder />
         </>
       )}
     </>

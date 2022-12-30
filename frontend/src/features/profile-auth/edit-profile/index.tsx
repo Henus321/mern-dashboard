@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { Button, Row, Form, Input, Col, notification, Grid } from "antd";
+import { Button, Row, Form, Input, Col, notification } from "antd";
 import { SaveOutlined, CloseOutlined } from "@ant-design/icons";
 import { updateUser, reset } from "../profileAuthSlice";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
@@ -16,7 +16,6 @@ import {
 
 import ProfileLayout from "../ProfileLayout";
 
-const { useBreakpoint } = Grid;
 const { TextArea } = Input;
 
 const EditProfile = () => {
@@ -25,9 +24,11 @@ const EditProfile = () => {
   );
   const [form] = Form.useForm();
 
-  const { xl } = useBreakpoint();
-  const full = xl ? 12 : 24;
-  const half = xl ? 6 : 12;
+  const gutter = { lg: 24, xl: 12 };
+  const lgFull = { span: 24 };
+  const lgHalf = { span: 12 };
+  const xlFull = { span: 12 };
+  const xlHalf = { span: 6 };
 
   const dispatch = useAppDispatch();
 
@@ -76,8 +77,8 @@ const EditProfile = () => {
         initialValues={initialValues}
         layout="vertical"
       >
-        <Row gutter={full}>
-          <Col span={half}>
+        <Row gutter={gutter}>
+          <Col xl={xlHalf} lg={lgHalf}>
             <Form.Item
               name="name"
               label="Name"
@@ -92,14 +93,14 @@ const EditProfile = () => {
               <Input placeholder="Enter name" className="rounded" />
             </Form.Item>
           </Col>
-          <Col span={half}>
+          <Col xl={xlHalf} lg={lgHalf}>
             <Form.Item name="username" label="Username" rules={[MAX_40]}>
               <Input placeholder="Enter username" className="rounded" />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={full}>
-          <Col span={half}>
+        <Row gutter={gutter}>
+          <Col xl={xlHalf} lg={lgHalf}>
             <Form.Item
               rules={[LEN_11, ONLY_NUMBERS]}
               name="phone"
@@ -108,7 +109,7 @@ const EditProfile = () => {
               <Input placeholder="89031234567" className="rounded" />
             </Form.Item>
           </Col>
-          <Col span={half}>
+          <Col xl={xlHalf} lg={lgHalf}>
             <Form.Item
               name="website"
               label="Website"
@@ -118,33 +119,33 @@ const EditProfile = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={full}>
-          <Col span={full}>
+        <Row gutter={gutter}>
+          <Col xl={xlFull} lg={lgFull}>
             <Form.Item name="company" label="Company" rules={[MAX_40]}>
               <Input placeholder="Enter company name" className="rounded" />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={full}>
-          <Col span={full}>
+        <Row gutter={gutter}>
+          <Col xl={xlFull} lg={lgFull}>
             <Form.Item name="address" label="Address" rules={[MAX_100]}>
               <Input placeholder="Enter your address" className="rounded" />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={full}>
-          <Col span={full}>
+        <Row gutter={gutter}>
+          <Col xl={xlFull} lg={lgFull}>
             <Form.Item name="about" label="About">
               <TextArea
                 className="rounded"
-                rows={half}
+                rows={6}
                 placeholder="Maximum of 200 characters"
                 maxLength={200}
               />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={full}>
+        <Row gutter={gutter}>
           <Col>
             <Button onClick={() => onCancel()} size="large" className="rounded">
               Cancel <CloseOutlined />
