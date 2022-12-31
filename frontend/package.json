@@ -5,7 +5,7 @@
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
     "lint": "eslint --ext .ts,.tsx src --fix",
-    "test": "webpack test",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "dependencies": {

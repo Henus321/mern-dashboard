@@ -63,3 +63,7 @@ export const PAYMENT_OPTIONS = [
     ],
   },
 ];
+
+export const WITH_CREDENTIALS = {
+  withCredentials: true,
+};
