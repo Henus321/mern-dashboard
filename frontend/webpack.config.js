@@ -1,6 +1,7 @@
 /* eslint-disable */
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 
 module.exports = {
   entry: { bundle: path.resolve(__dirname, "src/index.tsx") },
@@ -85,6 +86,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "public", "index.html"),
       title: "Mern Dashboard",
+      favicon: "./public/favicon.ico",
     }),
+    new WebpackManifestPlugin(),
   ],
 };
