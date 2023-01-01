@@ -5,7 +5,7 @@
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
     "lint": "eslint --ext .ts,.tsx src --fix",
-    "test": "webpack test",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -71,6 +71,10 @@
     "typescript": "^4.8.4",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
+    "webpack-dev-server": "^4.11.1",
+    "webpack-manifest-plugin": "^5.0.0"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
   }
 }
