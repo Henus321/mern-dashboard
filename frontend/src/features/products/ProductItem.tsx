@@ -1,9 +1,9 @@
 import React from "react";
-import { Button, Card, Image, Carousel, Typography } from "antd";
+import { Button, Card, Image, Typography } from "antd";
 import { IdcardOutlined } from "@ant-design/icons";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import { IProduct, IProductItemProps } from "../../models";
-import { beautifyCost } from "../../utils";
+import { beautifyCost, capitalizeText } from "../../utils";
 import { useAppDispatch } from "../../hooks";
 import { CREATE_ORDER_ROUTE } from "../../constants";
 import { reset } from "./productsSlice";
@@ -34,7 +34,7 @@ const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
         className="text-center"
         style={{ marginBottom: 0 }}
       >
-        {product.name}
+        {`${capitalizeText(product.brand)} ${product.model}`}
       </Typography.Title>
       <Typography.Paragraph
         className="text-center"
@@ -42,20 +42,15 @@ const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
       >
         {product.type}
       </Typography.Paragraph>
-      <Carousel style={{ marginBottom: "10px" }}>
-        {product.photoUrl.map((photo) => (
-          <Image
-            key={photo}
-            width="100%"
-            style={{ objectFit: "cover" }}
-            src={photo}
-          />
-        ))}
-      </Carousel>
+      <Image
+        width="100%"
+        style={{ objectFit: "cover" }}
+        src={product.photoUrl}
+      />
       <Typography.Title
         level={5}
         className="text-center"
-        style={{ marginBottom: 0 }}
+        style={{ marginBottom: 0, marginTop: "10px" }}
       >
         {beautifyCost(product.cost)}
       </Typography.Title>

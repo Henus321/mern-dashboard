@@ -56,10 +56,9 @@ const CreateProductItem = () => {
           </Typography.Paragraph>
           <Image
             preview={false}
-            key={product.photoUrl[0]}
             width="100%"
             style={{ objectFit: "cover" }}
-            src={product.photoUrl[0]}
+            src={product.photoUrl}
           />
           <Typography.Title
             level={5}
