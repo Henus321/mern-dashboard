@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema({
     ],
   },
   photoUrl: {
-    type: [String],
+    type: String,
     required: [true, "A product must have a photo"],
   },
   cost: {
@@ -41,6 +41,15 @@ const productSchema = new mongoose.Schema({
     maxlength: [
       1000,
       "A product description must have less or equal then 1000 characters!",
+    ],
+  },
+  type: {
+    type: String,
+    required: [true, "A product must have a type"],
+    trim: true,
+    maxlength: [
+      20,
+      "A product type must have less or equal then 20 characters!",
     ],
   },
   name: String,
