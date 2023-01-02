@@ -61,7 +61,7 @@ const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
         {product.description}
       </Typography.Paragraph>
       <Button className="rounded mt-auto" onClick={() => onCreate(product)}>
-        Make an Order <IdcardOutlined />
+        Order this Car <IdcardOutlined />
       </Button>
     </Card.Grid>
   );

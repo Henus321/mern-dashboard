@@ -1,10 +1,16 @@
-import React, { useEffect } from "react";
-import { Card, notification, Typography } from "antd";
+import React, { useEffect, useState } from "react";
+import {
+  Card,
+  notification,
+  Typography,
+  Pagination,
+  PaginationProps,
+} from "antd";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { fetchProducts, reset } from "../productsSlice";
 import { brandTabsWithNoFilter } from "../../../configs";
 import { useSearchParams } from "react-router-dom";
-import { ERROR_DURATION } from "../../../constants";
+import { ERROR_DURATION, PAGE_SIZE } from "../../../constants";
 
 import ProductItem from "../ProductItem";
 import Spinner from "../../../components/Spinner";
@@ -18,8 +24,14 @@ const Products = () => {
   const params = searchParams.get("brand") && searchParams.get("brand");
   const brand = params ? params : "";
 
+  const defaultPage = 1;
+  const [pageNumber, setPageNumber] = useState(defaultPage);
+
   const cardHeight = products.length > 0 ? "" : "100%";
   const cardBodyHeight = products.length > 0 ? "" : "calc(100% - 100px)";
+
+  const pageStart = (pageNumber - 1) * PAGE_SIZE;
+  const pageEnd = (pageNumber - 1) * PAGE_SIZE + PAGE_SIZE;
 
   const dispatch = useAppDispatch();
 
@@ -45,9 +57,13 @@ const Products = () => {
 
   const onTabChange = (brand: string) => {
     dispatch(reset());
-
+    setPageNumber(defaultPage);
     const params = brand ? { brand } : "";
     setSearchParams(params);
+  };
+
+  const onPageChange: PaginationProps["onChange"] = (page) => {
+    setPageNumber(page);
   };
 
   return (
@@ -68,9 +84,19 @@ const Products = () => {
         {isLoading && <Spinner />}
         {!isLoading &&
           products.length > 0 &&
-          products.map((product) => (
-            <ProductItem key={product.name} product={product} />
-          ))}
+          products
+            .slice(pageStart, pageEnd)
+            .map((product) => (
+              <ProductItem key={product.name} product={product} />
+            ))}
+        <div className="w-full flex justify-end p-16 border-top">
+          <Pagination
+            current={pageNumber}
+            onChange={onPageChange}
+            pageSize={PAGE_SIZE}
+            total={products.length}
+          />
+        </div>
         {!isLoading && products.length === 0 && (
           <div className="flex w-full h-full">
             <div className="m-auto">
