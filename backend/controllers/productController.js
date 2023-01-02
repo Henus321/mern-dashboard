@@ -4,7 +4,7 @@ const factory = require("../utils/handlerFactory");
 
 exports.getAllProducts = asyncHandler(async (req, res, next) => {
   const products = await Product.find().sort({
-    brand: 1,
+    brand: -1,
   });
 
   res.status(200).json({
