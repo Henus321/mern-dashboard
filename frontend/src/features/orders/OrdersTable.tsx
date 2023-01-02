@@ -133,7 +133,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
         customer: item.customer.name,
       };
       const product = {
-        photoUrl: item.product.photoUrl[0],
+        photoUrl: item.product.photoUrl,
         brand: capitalizeText(item.product.brand),
         model: item.product.model,
         cost: item.product.cost,
