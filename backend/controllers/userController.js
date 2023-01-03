@@ -30,7 +30,7 @@ exports.resizeUserPhoto = asyncHandler(async (req, res, next) => {
     .resize(500, 500)
     .toFormat("jpeg")
     .jpeg({ quality: 90 })
-    .toFile(`uploads/${req.file.filename}`);
+    .toFile(`../frontend/public/uploads/${req.file.filename}`);
 
   next();
 });
