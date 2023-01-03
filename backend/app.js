@@ -5,9 +5,9 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
+const path = require("path");
 const hpp = require("hpp");
 const compression = require("compression");
-const cors = require("cors");
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -18,19 +18,16 @@ const customerRouter = require("./routes/customerRoutes");
 
 const app = express();
 
-// Implement CORS
-app.use(
-  cors({
-    origin: "https://mern-dashboard.onrender.com",
-    credentials: true,
-  })
-);
-
-// Serving static files
-app.use("/api/v1/uploads", express.static("uploads"));
-
 // Security HTTP headers
 app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      "img-src": ["'self'", "*.unsplash.com"],
+    },
+  })
+);
 
 // Logging in development
 if (process.env.NODE_ENV === "development") {
@@ -63,10 +60,19 @@ app.use(hpp());
 app.use(compression());
 
 // Routes
+app.use("/api/v1/uploads", express.static("../frontend/public/uploads"));
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/customers", customerRouter);
+
+if (process.env.NODE_ENV === "production") {
+  // Set static folder up in production
+  app.use(express.static("../frontend/dist"));
+  app.get("/*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"))
+  );
+}
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
