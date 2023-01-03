@@ -51,7 +51,7 @@ const CustomersModal = () => {
   return (
     <>
       <Modal
-        title="Create New Customer"
+        title={customer ? "Edit Customer" : "Create New Customer"}
         open={isModalOpen}
         onOk={form.submit}
         onCancel={handleCancel}
