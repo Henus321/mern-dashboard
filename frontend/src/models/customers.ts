@@ -18,26 +18,5 @@ export interface ICustomerState {
 }
 
 export interface ICustomerTable {
-  handlers: {
-    isEditing: (...args: any) => boolean;
-    onEdit: (...args: any) => void;
-    onCancel: (...args: any) => void;
-    onDelete: (...args: any) => void;
-    onCreate: (...args: any) => void;
-    onSave: (...args: any) => void;
-  };
-  tableData: {
-    tableDataSource: ICustomer[];
-    editingKey: string | number;
-    isCreating: boolean;
-  };
-}
-
-export interface IEditableCellProps extends React.HTMLAttributes<HTMLElement> {
-  editing: boolean;
-  dataIndex: string;
-  title: any;
-  record: ICustomer;
-  index: number;
-  children: React.ReactNode;
+  customers: ICustomer[];
 }

@@ -1,26 +1,11 @@
 import React from "react";
-import { Button, Grid, Space, Table, Tag, Tooltip } from "antd";
-import {
-  EditOutlined,
-  CloseSquareOutlined,
-  CheckSquareOutlined,
-  DeleteOutlined,
-  UserAddOutlined,
-} from "@ant-design/icons";
+import { Button, Table, Tag, Tooltip } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { ICustomer, ICustomerTable } from "../../models";
 
-import EditableCell from "./EditableCell";
-
-const { useBreakpoint } = Grid;
-
-const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
-  const { isEditing, onEdit, onCancel, onDelete, onCreate, onSave } = handlers;
-  const { tableDataSource, editingKey, isCreating } = tableData;
-
-  const { xl } = useBreakpoint();
-
+const CustomersTable: React.FC<ICustomerTable> = ({ customers }) => {
   const cityFilters = Array.from(
-    new Set(tableDataSource.map((item) => item.city))
+    new Set(customers.map((item) => item.city))
   ).map((city) => {
     return {
       text: city,
@@ -55,8 +40,7 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
       dataIndex: "social",
       editable: true,
       width: "20%",
-      render: (link: string | null, record: ICustomer) => {
-        const editable = isEditing(record);
+      render: (link: string | null) => {
         let color = "orange";
         let tag = "unknown";
         if (link?.includes("facebook")) {
@@ -76,21 +60,15 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
           tag = "linkedin";
         }
         return (
-          !editable && (
-            <Tooltip title={link}>
-              {link ? (
-                <Tag color={color} key={link} className="m-3">
-                  <a href={link} target="_blank" rel="noreferrer">
-                    {tag.toUpperCase()}
-                  </a>
-                </Tag>
-              ) : (
-                <Tag color="#dbdbdb" key={link} className="m-3">
-                  <span>NONE</span>
-                </Tag>
-              )}
-            </Tooltip>
-          )
+          <Tooltip title={link}>
+            {link && (
+              <Tag color={color} key={link} className="m-3">
+                <a href={link} target="_blank" rel="noreferrer">
+                  {tag.toUpperCase()}
+                </a>
+              </Tag>
+            )}
+          </Tooltip>
         );
       },
     },
@@ -109,83 +87,32 @@ const CustomersTable: React.FC<ICustomerTable> = ({ handlers, tableData }) => {
       dataIndex: "operation",
       width: "10%",
       render: (_: any, record: ICustomer) => {
-        const editable = isEditing(record);
         return (
-          <div className="flex align-center justify-end">
-            <Space direction={xl ? "horizontal" : "vertical"}>
-              <Button
-                disabled={editable && editingKey === ""}
-                type="primary"
-                ghost
-                className={"rounded mr-8"}
-                icon={editable ? <CheckSquareOutlined /> : <EditOutlined />}
-                onClick={() => (editable ? onSave(record) : onEdit(record))}
-              />
-              <Button
-                disabled={!editable}
-                danger
-                className="rounded mr-8"
-                icon={<CloseSquareOutlined />}
-                onClick={() => onCancel()}
-              />
-              <Button
-                disabled={editable}
-                danger
-                className="rounded"
-                icon={<DeleteOutlined />}
-                onClick={() => {
-                  onDelete(record._id);
-                }}
-              />
-            </Space>
-          </div>
+          <>
+            <Button
+              type="primary"
+              ghost
+              className="rounded p-orders-button w-full"
+              onClick={() => console.log(record)}
+            >
+              Edit <EditOutlined />
+            </Button>
+            <Button
+              type="primary"
+              ghost
+              danger
+              className="rounded p-orders-button mt-5 w-full"
+              onClick={() => console.log(record)}
+            >
+              Delete <DeleteOutlined />
+            </Button>
+          </>
         );
       },
     },
   ];
 
-  const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record: ICustomer) => ({
-        record,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-
-  return (
-    <>
-      <Table
-        components={{
-          body: {
-            cell: EditableCell,
-          },
-        }}
-        bordered
-        dataSource={tableDataSource}
-        columns={mergedColumns}
-        rowClassName="editable-row"
-        pagination={{
-          onChange: onCancel,
-        }}
-      />
-      <Button
-        disabled={isCreating || !!editingKey}
-        type="primary"
-        size="large"
-        className="rounded align-self-end m-submit-button"
-        onClick={() => onCreate()}
-      >
-        Create New Customer <UserAddOutlined />
-      </Button>
-    </>
-  );
+  return <Table columns={columns} dataSource={customers} bordered />;
 };
 
 export default CustomersTable;
