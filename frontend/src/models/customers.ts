@@ -16,7 +16,3 @@ export interface ICustomerState {
   isModified: boolean;
   message: string;
 }
-
-export interface ICustomerTable {
-  customers: ICustomer[];
-}

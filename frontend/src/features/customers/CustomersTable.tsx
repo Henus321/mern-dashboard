@@ -1,9 +1,15 @@
 import React from "react";
 import { Button, Table, Tag, Tooltip } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { ICustomer, ICustomerTable } from "../../models";
+import { ICustomer } from "../../models";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { deleteCustomer } from "./customersSlice";
 
-const CustomersTable: React.FC<ICustomerTable> = ({ customers }) => {
+const CustomersTable = () => {
+  const { customers } = useAppSelector((state) => state.customers);
+
+  const dispatch = useAppDispatch();
+
   const cityFilters = Array.from(
     new Set(customers.map((item) => item.city))
   ).map((city) => {
@@ -12,6 +18,10 @@ const CustomersTable: React.FC<ICustomerTable> = ({ customers }) => {
       value: city,
     };
   });
+
+  const onDelete = (record: ICustomer) => {
+    dispatch(deleteCustomer(record._id));
+  };
 
   const columns = [
     {
@@ -102,7 +112,7 @@ const CustomersTable: React.FC<ICustomerTable> = ({ customers }) => {
               ghost
               danger
               className="rounded p-orders-button mt-5 w-full"
-              onClick={() => console.log(record)}
+              onClick={() => onDelete(record)}
             >
               Delete <DeleteOutlined />
             </Button>

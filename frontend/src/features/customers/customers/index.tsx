@@ -63,7 +63,7 @@ const Customers = () => {
             }}
             className="content-container rounded-card"
           >
-            <CustomersTable customers={customers} />
+            <CustomersTable />
             <CustomersModal />
           </Card>
           <MobileReminder />
