@@ -3,7 +3,7 @@ import { Button, Table, Tag, Tooltip } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { ICustomer } from "../../models";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { deleteCustomer } from "./customersSlice";
+import { deleteCustomer, setCustomer } from "./customersSlice";
 
 const CustomersTable = () => {
   const { customers } = useAppSelector((state) => state.customers);
@@ -21,6 +21,10 @@ const CustomersTable = () => {
 
   const onDelete = (record: ICustomer) => {
     dispatch(deleteCustomer(record._id));
+  };
+
+  const onEdit = (record: ICustomer) => {
+    dispatch(setCustomer(record));
   };
 
   const columns = [
@@ -103,7 +107,7 @@ const CustomersTable = () => {
               type="primary"
               ghost
               className="rounded p-orders-button w-full"
-              onClick={() => console.log(record)}
+              onClick={() => onEdit(record)}
             >
               Edit <EditOutlined />
             </Button>

@@ -1,15 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Modal } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { LEN_11, MAX_100, MAX_20, ONLY_NUMBERS } from "../../constants";
-import { useAppDispatch } from "../../hooks";
-import { createCustomer } from "./customersSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import {
+  clearCustomer,
+  createCustomer,
+  updateCustomer,
+} from "./customersSlice";
 
 const CustomersModal = () => {
+  const { customer } = useAppSelector((state) => state.customers);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (customer) {
+      form.setFieldsValue(customer);
+      setIsModalOpen(true);
+    }
+  }, [customer, form]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -18,11 +31,21 @@ const CustomersModal = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
     form.resetFields();
+    if (customer) {
+      dispatch(clearCustomer());
+    }
   };
 
   const onFinish = () => {
-    const newCustomer = form.getFieldsValue();
-    dispatch(createCustomer(newCustomer));
+    if (customer) {
+      const newCustomer = { ...form.getFieldsValue(), _id: customer._id };
+      dispatch(updateCustomer(newCustomer));
+      dispatch(clearCustomer());
+    }
+    if (!customer) {
+      const newCustomer = form.getFieldsValue();
+      dispatch(createCustomer(newCustomer));
+    }
   };
 
   return (

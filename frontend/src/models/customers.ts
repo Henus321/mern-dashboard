@@ -10,6 +10,7 @@ export interface ICustomer {
 
 export interface ICustomerState {
   customers: ICustomer[];
+  customer: ICustomer | null;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;

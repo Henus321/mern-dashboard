@@ -4,6 +4,7 @@ import customersService from "./customersService";
 
 const initialState: ICustomerState = {
   customers: [],
+  customer: null,
   isError: false,
   isSuccess: false,
   isModified: false,
@@ -88,6 +89,12 @@ export const customersSlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
+    setCustomer: (state, action: PayloadAction<ICustomer>) => {
+      state.customer = action.payload;
+    },
+    clearCustomer: (state) => {
+      state.customer = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -164,5 +171,5 @@ export const customersSlice = createSlice({
   },
 });
 
-export const { reset } = customersSlice.actions;
+export const { reset, setCustomer, clearCustomer } = customersSlice.actions;
 export default customersSlice.reducer;
