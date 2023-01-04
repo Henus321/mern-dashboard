@@ -3,12 +3,12 @@ import { Table, Button, Image } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 import { IOrder, IOrdersTable, IOrdersTableProps } from "../../models";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { beautifyCost, capitalizeText } from "../../utils";
 import { brandFilters } from "../../configs";
 import { useAppDispatch } from "../../hooks";
 import { deleteOrder } from "./ordersSlice";
-import { EDIT_ORDER_ROUTE } from "../../constants";
+import { EDIT_ORDER_ROUTE, PRODUCTS_ROUTE } from "../../constants";
 import { reset } from "../products/productsSlice";
 import moment from "moment";
 
@@ -58,7 +58,11 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
           key: "brand",
           filters: brandFilters,
           onFilter: (value: any, record) => record.brand.includes(value),
-          render: (text: string) => <a>{text}</a>,
+          render: (text: string) => (
+            <Link to={`${PRODUCTS_ROUTE}?brand=${text.toLowerCase()}`}>
+              {text}
+            </Link>
+          ),
         },
         {
           title: "Model",
