@@ -1,4 +1,4 @@
-const user = {
+export const mockUser = {
   portfolio: {
     profession: "Artificial intelligence",
     description: "I make scandals on Artstation",
@@ -22,7 +22,7 @@ const user = {
 
 export const mockState = {
   auth: {
-    user: user,
+    user: mockUser,
     isError: false,
     isSuccess: false,
     isModified: false,
