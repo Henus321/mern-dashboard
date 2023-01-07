@@ -16,7 +16,7 @@ describe("Products", () => {
 
     expect(requestSpy).toHaveBeenCalledTimes(1);
     const cardTitle = screen.getByText(/BMW M2/i);
-    expect(cardTitle);
+    expect(cardTitle).toBeInTheDocument();
   });
 
   it("goes to the second page", async () => {
@@ -27,16 +27,21 @@ describe("Products", () => {
     const paginationButton = screen.getByText("2");
     await act(async () => userEvent.click(paginationButton));
 
-    expect(screen.queryByText(/Ford Mustang Mach 1/i)).toBeInTheDocument();
+    expect(screen.getByText(/Ford Mustang Mach 1/i)).toBeInTheDocument();
   });
 
   it("retrieves new data on tab click", async () => {
     await act(async () => renderTestApp(PRODUCTS_ROUTE, mockState));
     expect(requestSpy).toHaveBeenCalledTimes(1);
 
+    expect(
+      screen.queryByText(/Lamborghini Aventador/i)
+    ).not.toBeInTheDocument();
+
     const lamborghiniTab = screen.getByText("Lamborghini");
     await act(async () => userEvent.click(lamborghiniTab));
 
     expect(requestSpy).toHaveBeenCalledTimes(2);
+    expect(screen.getByText(/Lamborghini Aventador/i)).toBeInTheDocument();
   });
 });
