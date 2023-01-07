@@ -10,3 +10,6 @@ Object.defineProperty(window, "matchMedia", {
     };
   },
 });
+
+// To avoid async-validator spam while testing
+console.warn = () => {};
