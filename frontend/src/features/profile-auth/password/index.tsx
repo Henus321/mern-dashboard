@@ -122,7 +122,7 @@ const Password = () => {
               ]}
             >
               <Input.Password
-                placeholder="Confrim your new password"
+                placeholder="Confirm your new password"
                 className="rounded"
               />
             </Form.Item>

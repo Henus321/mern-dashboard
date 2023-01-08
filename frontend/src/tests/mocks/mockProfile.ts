@@ -1,23 +1,5 @@
-export const unauthorized = {
-  user: null,
-  isError: false,
-  isSuccess: false,
-  isModified: false,
-  isLoading: false,
-  message: "",
-};
-
-export const mockDeleteResponse = {
+export const mockProfile = {
   status: "success",
-  data: null,
-};
-
-export const mockLogoutResponse = { status: "success" };
-
-export const mockAuthResponse = {
-  status: "success",
-  token:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTIxZmM4MjNkMzBiODVjZDE3MDA3MCIsImlhdCI6MTY3MzA5NzEwNiwiZXhwIjoxNjgwODczMTA2fQ.dvrXXfQI-mRM-H01sJxbmoY-0rYVHwd80QNPAVQBoSk",
   data: {
     data: {
       portfolio: {

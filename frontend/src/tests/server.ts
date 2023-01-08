@@ -2,11 +2,13 @@ import { rest } from "msw";
 import { setupServer } from "msw/node";
 import { USERS_URL, ORDERS_URL, PRODUCTS_URL } from "../constants";
 import {
+  mockAuthResponse,
+  mockProfile,
   mockOrders,
   mockLamborghini,
   mockDeleteResponse,
   mockProducts,
-  mockAuthResponse,
+  mockLogoutResponse,
 } from "./mocks";
 
 export const server = setupServer(
@@ -15,6 +17,18 @@ export const server = setupServer(
   }),
   rest.post(`${USERS_URL}/registration`, (req, res, ctx) => {
     return res(ctx.json(mockAuthResponse));
+  }),
+  rest.get(`${USERS_URL}/logout`, (req, res, ctx) => {
+    return res(ctx.json(mockLogoutResponse));
+  }),
+  rest.get(`${USERS_URL}/me`, (req, res, ctx) => {
+    return res(ctx.json(mockProfile));
+  }),
+  rest.patch(`${USERS_URL}/me`, (req, res, ctx) => {
+    return res(ctx.json(mockProfile));
+  }),
+  rest.patch(`${USERS_URL}/password-change`, (req, res, ctx) => {
+    return res(ctx.json(mockProfile));
   }),
   rest.get(`${ORDERS_URL}`, (req, res, ctx) => {
     return res(ctx.json(mockOrders));
