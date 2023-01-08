@@ -12,7 +12,7 @@ export const mockDeleteResponse = {
   data: null,
 };
 
-export const mockLogoutResponse = { status: "success" };
+export const mockSuccessResponse = { status: "success" };
 
 export const mockAuthResponse = {
   status: "success",
