@@ -46,3 +46,5 @@ export const mockCustomers = {
     ],
   },
 };
+
+export const mockCustomerId = "637e4eeb73efdf2fa89cb3ee";

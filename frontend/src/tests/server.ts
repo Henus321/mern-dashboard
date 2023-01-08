@@ -18,6 +18,7 @@ import {
   mockSuccessResponse,
   mockCustomers,
   mockOrderId,
+  mockCustomerId,
 } from "./mocks";
 
 export const server = setupServer(
@@ -57,10 +58,10 @@ export const server = setupServer(
   rest.post(`${CUSTOMERS_URL}`, (req, res, ctx) => {
     return res(ctx.json(mockSuccessResponse));
   }),
-  rest.patch(`${CUSTOMERS_URL}/637e4eeb73efdf2fa89cb3ee`, (req, res, ctx) => {
+  rest.patch(`${CUSTOMERS_URL}/${mockCustomerId}`, (req, res, ctx) => {
     return res(ctx.json(mockSuccessResponse));
   }),
-  rest.delete(`${CUSTOMERS_URL}/637e4eeb73efdf2fa89cb3ee`, (req, res, ctx) => {
+  rest.delete(`${CUSTOMERS_URL}/${mockCustomerId}`, (req, res, ctx) => {
     return res(ctx.json(mockSuccessResponse));
   }),
   rest.get(`${USERS_URL}/logout`, (req, res, ctx) => {
