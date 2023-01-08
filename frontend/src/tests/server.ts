@@ -10,11 +10,14 @@ import {
   mockAuthResponse,
   mockProfile,
   mockOrders,
+  mockOrder,
+  mockFerrari,
   mockLamborghini,
   mockDeleteResponse,
   mockProducts,
   mockSuccessResponse,
   mockCustomers,
+  mockOrderId,
 } from "./mocks";
 
 export const server = setupServer(
@@ -27,11 +30,23 @@ export const server = setupServer(
   rest.get(`${ORDERS_URL}`, (req, res, ctx) => {
     return res(ctx.json(mockOrders));
   }),
-  rest.delete(`${ORDERS_URL}/63a45698897ba4cbeb8331d1`, (req, res, ctx) => {
+  rest.delete(`${ORDERS_URL}/${mockOrderId}`, (req, res, ctx) => {
     return res(ctx.json(mockDeleteResponse));
+  }),
+  rest.get(`${ORDERS_URL}/${mockOrderId}`, (req, res, ctx) => {
+    return res(ctx.json(mockOrder));
+  }),
+  rest.post(`${ORDERS_URL}`, (req, res, ctx) => {
+    return res(ctx.json(mockOrder));
+  }),
+  rest.patch(`${ORDERS_URL}/${mockOrderId}`, (req, res, ctx) => {
+    return res(ctx.json(mockOrder));
   }),
   rest.get(`${PRODUCTS_URL}`, (req, res, ctx) => {
     return res(ctx.json(mockProducts));
+  }),
+  rest.get(`${PRODUCTS_URL}/ferrari`, (req, res, ctx) => {
+    return res(ctx.json(mockFerrari));
   }),
   rest.get(`${PRODUCTS_URL}/lamborghini`, (req, res, ctx) => {
     return res(ctx.json(mockLamborghini));

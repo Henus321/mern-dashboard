@@ -17,3 +17,10 @@ export const renderTestApp = (route: string, initialState?: RootState) => {
     </Provider>
   );
 };
+
+export const getValidDay = () => {
+  const result = new Date();
+  result.setDate(result.getDate() + 3);
+
+  return result.getDate();
+};

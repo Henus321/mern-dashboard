@@ -267,3 +267,82 @@ export const mockLamborghini = {
     ],
   },
 };
+
+export const mockFerrari = {
+  status: "success",
+  results: 5,
+  data: {
+    data: [
+      {
+        _id: "638654571de916c63b7217b2",
+        brand: "ferrari",
+        model: "SF90 Stradale",
+        photoUrl:
+          "https://images.unsplash.com/photo-1632441730372-d8509de481d1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        cost: 259999,
+        description:
+          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis ullam perferendis perspiciatis quod explicabo, saepe recusandae, laudantium error nemo, dolorum ipsa! Repellendus eius nostrum recusandae, nisi exercitationem optio eligendi nesciunt.",
+        name: "Ferrari SF90 Stradale",
+        slug: "ferrari-sf90-stradale",
+        __v: 0,
+        type: "Sport Car",
+      },
+      {
+        _id: "638659828b5dcba2413a734e",
+        brand: "ferrari",
+        model: "Spider",
+        photoUrl:
+          "https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        cost: 299999,
+        description:
+          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis ullam perferendis perspiciatis quod explicabo, saepe recusandae, laudantium error nemo, dolorum ipsa! Repellendus eius nostrum recusandae, nisi exercitationem optio eligendi nesciunt.",
+        name: "Ferrari Spider",
+        slug: "ferrari-spider",
+        __v: 0,
+        type: "Sport Car",
+      },
+      {
+        _id: "63b1a2f5bd961010ad26160e",
+        brand: "ferrari",
+        model: "LaFerrari",
+        photoUrl:
+          "https://images.unsplash.com/photo-1617654116857-a1d5e1ad2bfa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        cost: 339999,
+        description:
+          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis ullam perferendis perspiciatis quod explicabo, saepe recusandae, laudantium error nemo, dolorum ipsa! Repellendus eius nostrum recusandae, nisi exercitationem optio eligendi nesciunt.",
+        name: "Ferrari LaFerrari",
+        slug: "ferrari-laferrari",
+        __v: 0,
+        type: "Sport Car",
+      },
+      {
+        _id: "63b1a76bbd961010ad26165f",
+        brand: "ferrari",
+        model: "Monza SP1",
+        photoUrl:
+          "https://images.unsplash.com/photo-1597934876505-f0c34e11eb95?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        cost: 279999,
+        description:
+          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis ullam perferendis perspiciatis quod explicabo, saepe recusandae, laudantium error nemo, dolorum ipsa! Repellendus eius nostrum recusandae, nisi exercitationem optio eligendi nesciunt.",
+        name: "Ferrari Monza SP1",
+        slug: "ferrari-monza-sp1",
+        __v: 0,
+        type: "Sport Car",
+      },
+      {
+        _id: "63b1aa42969dd46f27700831",
+        brand: "ferrari",
+        model: "308",
+        photoUrl:
+          "https://images.unsplash.com/photo-1632655565086-dc823cdc5de0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        cost: 229999,
+        description:
+          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis ullam perferendis perspiciatis quod explicabo, saepe recusandae, laudantium error nemo, dolorum ipsa! Repellendus eius nostrum recusandae, nisi exercitationem optio eligendi nesciunt.",
+        type: "Sport Car",
+        name: "Ferrari 308",
+        slug: "ferrari-308",
+        __v: 0,
+      },
+    ],
+  },
+};
