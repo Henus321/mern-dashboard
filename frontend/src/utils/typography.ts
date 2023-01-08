@@ -12,3 +12,7 @@ export const capitalizeText = (string: string) => {
 
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
+
+export const slugifyText = (string: string) => {
+  return string.replace(/\s/g, "-").toLowerCase();
+};

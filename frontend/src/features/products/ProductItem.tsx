@@ -3,7 +3,7 @@ import { Button, Card, Image, Typography } from "antd";
 import { IdcardOutlined } from "@ant-design/icons";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import { IProduct, IProductItemProps } from "../../models";
-import { beautifyCost, capitalizeText } from "../../utils";
+import { beautifyCost, capitalizeText, slugifyText } from "../../utils";
 import { useAppDispatch } from "../../hooks";
 import { CREATE_ORDER_ROUTE } from "../../constants";
 import { reset } from "./productsSlice";
@@ -60,7 +60,11 @@ const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
       >
         {product.description}
       </Typography.Paragraph>
-      <Button className="rounded mt-auto" onClick={() => onCreate(product)}>
+      <Button
+        data-testid={`${slugifyText(product.model)}-button`}
+        className="rounded mt-auto"
+        onClick={() => onCreate(product)}
+      >
         Order this Car <IdcardOutlined />
       </Button>
     </Card.Grid>

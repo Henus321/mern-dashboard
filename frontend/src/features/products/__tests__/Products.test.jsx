@@ -11,14 +11,6 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Products", () => {
-  it("render with mock server data", async () => {
-    await act(async () => renderTestApp(PRODUCTS_ROUTE, mockState));
-
-    expect(requestSpy).toHaveBeenCalledTimes(1);
-    const cardTitle = screen.getByText(/BMW M2/i);
-    expect(cardTitle).toBeInTheDocument();
-  });
-
   it("goes to the second page", async () => {
     await act(async () => renderTestApp(PRODUCTS_ROUTE, mockState));
 
@@ -43,5 +35,25 @@ describe("Products", () => {
 
     expect(requestSpy).toHaveBeenCalledTimes(2);
     expect(screen.getByText(/Lamborghini Aventador/i)).toBeInTheDocument();
+  });
+
+  it("navigates to pre-filled create Order on button click", async () => {
+    await act(async () => renderTestApp(PRODUCTS_ROUTE, mockState));
+
+    const pickedCarStyle =
+      "box-shadow: 0 1px 2px -2px rgb(0 0 0 / 22%), 0 3px 6px 0 rgb(0 0 0 / 30%)";
+
+    expect(screen.queryByText("Back to Orders")).not.toBeInTheDocument();
+
+    const ferrariMonzaButton = screen.getByTestId("monza-sp1-button");
+    await act(async () => userEvent.click(ferrariMonzaButton));
+
+    expect(screen.getByText(/Ferrari Monza SP1/i).closest("div")).toHaveStyle(
+      pickedCarStyle
+    );
+    expect(
+      screen.queryByText(/Ferrari LaFerrari/i).closest("div")
+    ).not.toHaveStyle(pickedCarStyle);
+    expect(screen.getByText("Back to Orders")).toBeInTheDocument();
   });
 });
