@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { fetchOrder, reset } from "../orderSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  EDIT_MESSAGE,
+  ORDER_EDIT_MESSAGE,
   ERROR_DURATION,
   SUCCESS_DURATION,
   ORDERS_ROUTE,
@@ -49,7 +49,7 @@ const EditOrder = () => {
     if (isModified) {
       notification.success({
         message: "Success!",
-        description: EDIT_MESSAGE,
+        description: ORDER_EDIT_MESSAGE,
         duration: SUCCESS_DURATION,
       });
       navigate(ORDERS_ROUTE);

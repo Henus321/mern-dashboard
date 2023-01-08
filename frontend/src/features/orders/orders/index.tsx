@@ -6,7 +6,7 @@ import { fetchOrders, reset } from "../ordersSlice";
 import { useNavigate } from "react-router-dom";
 import {
   CREATE_ORDER_ROUTE,
-  DELETE_MESSAGE,
+  ORDER_DELETE_MESSAGE,
   ERROR_DURATION,
   SUCCESS_DURATION,
 } from "../../../constants";
@@ -26,7 +26,7 @@ const Orders = () => {
     if (isModified) {
       notification.success({
         message: "Success!",
-        description: DELETE_MESSAGE,
+        description: ORDER_DELETE_MESSAGE,
         duration: SUCCESS_DURATION,
       });
     }

@@ -1,5 +1,5 @@
 import { act, screen } from "@testing-library/react";
-import { DELETE_MESSAGE, ORDERS_ROUTE } from "../../../constants";
+import { ORDER_DELETE_MESSAGE, ORDERS_ROUTE } from "../../../constants";
 import { renderTestApp, mockState, server } from "../../../tests";
 import userEvent from "@testing-library/user-event";
 
@@ -32,7 +32,7 @@ describe("Orders", () => {
   it("successfully delete an Order", async () => {
     await act(async () => renderTestApp(ORDERS_ROUTE, mockState));
 
-    expect(screen.queryByText(DELETE_MESSAGE)).not.toBeInTheDocument();
+    expect(screen.queryByText(ORDER_DELETE_MESSAGE)).not.toBeInTheDocument();
 
     const deleteButton = screen.getAllByTestId("delete-button")[0];
     await act(async () => userEvent.click(deleteButton));
@@ -41,6 +41,6 @@ describe("Orders", () => {
       method: "DELETE",
     });
     expect(requestSpy).toHaveBeenCalledWith(request);
-    expect(screen.getByText(DELETE_MESSAGE)).toBeInTheDocument();
+    expect(screen.getByText(ORDER_DELETE_MESSAGE)).toBeInTheDocument();
   });
 });
