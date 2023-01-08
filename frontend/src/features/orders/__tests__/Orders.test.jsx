@@ -11,24 +11,6 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Orders", () => {
-  it("render with mock server data", async () => {
-    await act(async () => renderTestApp(ORDERS_ROUTE, mockState));
-
-    expect(requestSpy).toHaveBeenCalledTimes(1);
-    const customerName = screen.getByText(/Maurice Ramos/i);
-    expect(customerName);
-  });
-
-  it("navigate to Products filtered by brand", async () => {
-    await act(async () => renderTestApp(ORDERS_ROUTE, mockState));
-
-    const lamborghiniLink = screen.getByTestId("lamborghini-link");
-    await act(async () => userEvent.click(lamborghiniLink));
-
-    const cardTitle = screen.getByText(/Lamborghini Aventador/i);
-    expect(cardTitle);
-  });
-
   it("successfully delete an Order", async () => {
     await act(async () => renderTestApp(ORDERS_ROUTE, mockState));
 
@@ -42,5 +24,29 @@ describe("Orders", () => {
     });
     expect(requestSpy).toHaveBeenCalledWith(request);
     expect(screen.getByText(ORDER_DELETE_MESSAGE)).toBeInTheDocument();
+  });
+
+  it("navigate to Products filtered by brand", async () => {
+    await act(async () => renderTestApp(ORDERS_ROUTE, mockState));
+
+    expect(
+      screen.queryByText(/Lamborghini Aventador/i)
+    ).not.toBeInTheDocument();
+
+    const lamborghiniLink = screen.getByTestId("lamborghini-link");
+    await act(async () => userEvent.click(lamborghiniLink));
+
+    expect(screen.getByText(/Lamborghini Aventador/i)).toBeInTheDocument();
+  });
+
+  it("navigate to edit Order", async () => {
+    await act(async () => renderTestApp(ORDERS_ROUTE, mockState));
+
+    expect(screen.queryByText(/Specify the Settings/i)).not.toBeInTheDocument();
+
+    const editButton = screen.getAllByText("Edit")[0].closest("button");
+    await act(async () => userEvent.click(editButton));
+
+    expect(screen.getByText(/Specify the Settings/i)).toBeInTheDocument();
   });
 });
