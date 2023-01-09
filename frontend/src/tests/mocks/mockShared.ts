@@ -42,3 +42,5 @@ export const mockAuthResponse = {
     },
   },
 };
+
+export const mockErrorMessage = "Something went wrong...";

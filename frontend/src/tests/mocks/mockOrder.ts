@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const mockOrder = {
   status: "success",
   data: {
@@ -30,3 +32,13 @@ export const mockOrder = {
 };
 
 export const mockOrderId = "63a45698897ba4cbeb8331d1";
+
+export const mockOrderPayload = mockOrder.data.data;
+
+export const mockNewOrder = {
+  customer: "637e4e7773efdf2fa89cb3cf",
+  build: "luxury",
+  payment: ["mortgage", "extend"],
+  delivery: moment("2022-12-28T13:07:32.164Z"),
+  product: "63b1a6cabd961010ad26164d",
+};

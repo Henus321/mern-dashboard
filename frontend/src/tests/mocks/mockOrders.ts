@@ -56,3 +56,5 @@ export const mockOrders = {
     ],
   },
 };
+
+export const mockOrdersPayload = mockOrders.data.data;
