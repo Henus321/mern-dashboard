@@ -20,6 +20,15 @@ export const mockUser = {
   phone: "89031234568",
 };
 
+export const mockAuthStateUnauthorized = {
+  user: null,
+  isError: false,
+  isSuccess: false,
+  isModified: false,
+  isLoading: false,
+  message: "",
+};
+
 export const mockState = {
   auth: {
     user: mockUser,

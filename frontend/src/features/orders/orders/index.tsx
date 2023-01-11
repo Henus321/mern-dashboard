@@ -68,6 +68,7 @@ const Orders = () => {
       {!isLoading && orders && (
         <>
           <Card
+            data-testid="orders-card"
             bodyStyle={{
               padding: "0",
               height: "100%",

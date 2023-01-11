@@ -1,12 +1,3 @@
-export const unauthorized = {
-  user: null,
-  isError: false,
-  isSuccess: false,
-  isModified: false,
-  isLoading: false,
-  message: "",
-};
-
 export const mockDeleteResponse = {
   status: "success",
   data: null,

@@ -1,7 +1,12 @@
 import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { REGISTRATION_ROUTE, PASSWORD_MATCH_MESSAGE } from "../../../constants";
-import { renderTestApp, mockState, server, unauthorized } from "../../../tests";
+import {
+  renderTestApp,
+  mockState,
+  server,
+  mockAuthStateUnauthorized,
+} from "../../../tests";
 
 const requestSpy = jest.fn();
 server.events.on("request:start", requestSpy);
@@ -15,7 +20,7 @@ describe("Registration", () => {
     await act(async () =>
       renderTestApp(REGISTRATION_ROUTE, {
         ...mockState,
-        auth: unauthorized,
+        auth: mockAuthStateUnauthorized,
       })
     );
 
@@ -32,7 +37,7 @@ describe("Registration", () => {
     await act(async () =>
       renderTestApp(REGISTRATION_ROUTE, {
         ...mockState,
-        auth: unauthorized,
+        auth: mockAuthStateUnauthorized,
       })
     );
 
@@ -59,7 +64,7 @@ describe("Registration", () => {
     await act(async () =>
       renderTestApp(REGISTRATION_ROUTE, {
         ...mockState,
-        auth: unauthorized,
+        auth: mockAuthStateUnauthorized,
       })
     );
 

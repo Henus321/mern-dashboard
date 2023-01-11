@@ -1,7 +1,12 @@
 import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { LOGIN_ROUTE } from "../../../constants";
-import { renderTestApp, mockState, server, unauthorized } from "../../../tests";
+import {
+  renderTestApp,
+  mockState,
+  server,
+  mockAuthStateUnauthorized,
+} from "../../../tests";
 
 const requestSpy = jest.fn();
 server.events.on("request:start", requestSpy);
@@ -15,7 +20,7 @@ describe("Login", () => {
     await act(async () =>
       renderTestApp(LOGIN_ROUTE, {
         ...mockState,
-        auth: unauthorized,
+        auth: mockAuthStateUnauthorized,
       })
     );
 
@@ -33,7 +38,7 @@ describe("Login", () => {
     await act(async () =>
       renderTestApp(LOGIN_ROUTE, {
         ...mockState,
-        auth: unauthorized,
+        auth: mockAuthStateUnauthorized,
       })
     );
 
@@ -49,7 +54,7 @@ describe("Login", () => {
     await act(async () =>
       renderTestApp(LOGIN_ROUTE, {
         ...mockState,
-        auth: unauthorized,
+        auth: mockAuthStateUnauthorized,
       })
     );
 

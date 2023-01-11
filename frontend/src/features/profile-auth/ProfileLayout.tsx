@@ -24,6 +24,7 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Card
+        data-testid="profile-card"
         bodyStyle={{
           padding: "0",
           height: "100%",
