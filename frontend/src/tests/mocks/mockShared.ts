@@ -35,3 +35,8 @@ export const mockAuthResponse = {
 };
 
 export const mockErrorMessage = "Something went wrong...";
+
+export const mockAuthPositiveResult = {
+  checkingStatus: false,
+  loggedIn: true,
+};
