@@ -1,4 +1,4 @@
-const mockUser = {
+export const mockUser = {
   portfolio: {
     profession: "Artificial intelligence",
     description: "I make scandals on Artstation",

@@ -28,6 +28,9 @@ export const server = setupServer(
   rest.post(`${USERS_URL}/registration`, (req, res, ctx) => {
     return res(ctx.json(mockAuthResponse));
   }),
+  rest.post(`${USERS_URL}/logout`, (req, res, ctx) => {
+    return res(ctx.json(mockSuccessResponse));
+  }),
   rest.get(`${ORDERS_URL}`, (req, res, ctx) => {
     return res(ctx.json(mockOrders));
   }),
