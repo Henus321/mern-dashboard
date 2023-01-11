@@ -11,7 +11,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Products", () => {
-  it("goes to the second page", async () => {
+  it("should navigate to the second page", async () => {
     await act(async () => renderTestApp(PRODUCTS_ROUTE, mockState));
 
     expect(screen.queryByText(/Ford Mustang Mach 1/i)).not.toBeInTheDocument();
@@ -22,7 +22,7 @@ describe("Products", () => {
     expect(screen.getByText(/Ford Mustang Mach 1/i)).toBeInTheDocument();
   });
 
-  it("retrieves new data on tab click", async () => {
+  it("should retrieve new data on tab click", async () => {
     await act(async () => renderTestApp(PRODUCTS_ROUTE, mockState));
     expect(requestSpy).toHaveBeenCalledTimes(1);
 
@@ -37,7 +37,7 @@ describe("Products", () => {
     expect(screen.getByText(/Lamborghini Aventador/i)).toBeInTheDocument();
   });
 
-  it("navigates to pre-filled create Order on button click", async () => {
+  it("should navigate to pre-filled create Order on button click", async () => {
     await act(async () => renderTestApp(PRODUCTS_ROUTE, mockState));
 
     const pickedCarStyle =

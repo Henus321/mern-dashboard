@@ -16,7 +16,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Registration", () => {
-  it("navigate to Login by link", async () => {
+  it("should navigate to Login page by link", async () => {
     await act(async () =>
       renderTestApp(REGISTRATION_ROUTE, {
         ...mockState,
@@ -33,7 +33,7 @@ describe("Registration", () => {
     expect(loginTitle).toBeInTheDocument();
   });
 
-  it("throws password missmatch error", async () => {
+  it("should get password missmatch notification", async () => {
     await act(async () =>
       renderTestApp(REGISTRATION_ROUTE, {
         ...mockState,
@@ -60,7 +60,7 @@ describe("Registration", () => {
     expect(notification).toBeInTheDocument();
   });
 
-  it("successfully registers the user and redirects to app", async () => {
+  it("should successfully register the user and redirect to app", async () => {
     await act(async () =>
       renderTestApp(REGISTRATION_ROUTE, {
         ...mockState,

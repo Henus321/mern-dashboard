@@ -11,7 +11,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Edit Order", () => {
-  it("retrieves new data on tab click", async () => {
+  it("should retrieve new data on tab click", async () => {
     await act(async () =>
       renderTestApp(EDIT_ORDER_ROUTE + `/${mockOrderId}`, mockState)
     );
@@ -27,7 +27,7 @@ describe("Edit Order", () => {
     expect(screen.getByText(/Ferrari Monza SP1/i)).toBeInTheDocument();
   });
 
-  it("successfully edits the Order", async () => {
+  it("should successfully edit the Order", async () => {
     await act(async () =>
       renderTestApp(EDIT_ORDER_ROUTE + `/${mockOrderId}`, mockState)
     );
@@ -40,7 +40,7 @@ describe("Edit Order", () => {
     expect(screen.getByText(ORDER_EDIT_MESSAGE)).toBeInTheDocument();
   });
 
-  it("navigates back to Orders on button click", async () => {
+  it("should navigate back to Orders on button click", async () => {
     await act(async () =>
       renderTestApp(EDIT_ORDER_ROUTE + `/${mockOrderId}`, mockState)
     );

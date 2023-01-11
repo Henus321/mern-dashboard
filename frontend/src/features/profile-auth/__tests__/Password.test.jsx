@@ -15,7 +15,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Password", () => {
-  it("successfully change password", async () => {
+  it("should successfully change password", async () => {
     await act(async () => renderTestApp(PASSWORD_ROUTE, mockState));
 
     expect(screen.queryByText(COMMON_SUCCESS_MESSAGE)).not.toBeInTheDocument();
@@ -40,7 +40,7 @@ describe("Password", () => {
     expect(screen.getByText(COMMON_SUCCESS_MESSAGE)).toBeInTheDocument();
   });
 
-  it("throws password missmatch error", async () => {
+  it("should get password missmatch notification", async () => {
     await act(async () => renderTestApp(PASSWORD_ROUTE, mockState));
 
     expect(screen.queryByText(PASSWORD_MATCH_MESSAGE)).not.toBeInTheDocument();
@@ -65,7 +65,7 @@ describe("Password", () => {
     expect(screen.getByText(PASSWORD_MATCH_MESSAGE)).toBeInTheDocument();
   });
 
-  it("successfully logging out", async () => {
+  it("should successfully log out", async () => {
     await act(async () => renderTestApp(PASSWORD_ROUTE, mockState));
 
     const logoutButton = screen.getByText("Logout").closest("button");

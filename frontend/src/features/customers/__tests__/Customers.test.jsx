@@ -11,7 +11,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Customers", () => {
-  it("successfully creates a Customer", async () => {
+  it("should successfully create a Customer", async () => {
     await act(async () => renderTestApp(CUSTOMERS_ROUTE, mockState));
 
     expect(screen.queryByText(COMMON_SUCCESS_MESSAGE)).not.toBeInTheDocument();
@@ -41,7 +41,7 @@ describe("Customers", () => {
     expect(screen.getByText(COMMON_SUCCESS_MESSAGE)).toBeInTheDocument();
   });
 
-  it("successfully edits the Customer", async () => {
+  it("should successfully edit the Customer", async () => {
     await act(async () => renderTestApp(CUSTOMERS_ROUTE, mockState));
 
     expect(requestSpy).not.toHaveBeenCalledWith(
@@ -63,7 +63,7 @@ describe("Customers", () => {
     );
   });
 
-  it("successfully deletes the Customer", async () => {
+  it("should successfully delete the Customer", async () => {
     await act(async () => renderTestApp(CUSTOMERS_ROUTE, mockState));
 
     expect(requestSpy).not.toHaveBeenCalledWith(

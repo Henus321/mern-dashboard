@@ -8,7 +8,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Side Menu", () => {
-  it("should navigate through all menu items", async () => {
+  it("should navigate through all menu item", async () => {
     await act(async () =>
       renderTestApp(DEFAULT_AUTHORIZED_USER_ROUTE, mockState)
     );

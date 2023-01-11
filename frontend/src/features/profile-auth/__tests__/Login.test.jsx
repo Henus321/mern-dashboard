@@ -16,7 +16,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Login", () => {
-  it("focus inputs on tab", async () => {
+  it("should focus inputs on tab", async () => {
     await act(async () =>
       renderTestApp(LOGIN_ROUTE, {
         ...mockState,
@@ -34,7 +34,7 @@ describe("Login", () => {
     expect(passwordInput).toHaveFocus();
   });
 
-  it("successfully logs in with pre-filled fields and redirects to app", async () => {
+  it("should successfully log in with pre-filled fields and redirects to app", async () => {
     await act(async () =>
       renderTestApp(LOGIN_ROUTE, {
         ...mockState,
@@ -50,7 +50,7 @@ describe("Login", () => {
     expect(screen.getByText(/Maurice Ramos/i)).toBeInTheDocument();
   });
 
-  it("allows valid fields and warn invalid ones", async () => {
+  it("should allow valid fields and warn invalid ones", async () => {
     await act(async () =>
       renderTestApp(LOGIN_ROUTE, {
         ...mockState,

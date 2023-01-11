@@ -11,7 +11,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Create Order", () => {
-  it("retrieves new data on tab click", async () => {
+  it("should retrieve new data on tab click", async () => {
     await act(async () => renderTestApp(CREATE_ORDER_ROUTE, mockState));
 
     expect(requestSpy).toHaveBeenCalledTimes(1);
@@ -26,7 +26,7 @@ describe("Create Order", () => {
     expect(screen.getByText(/Lamborghini Aventador/i)).toBeInTheDocument();
   });
 
-  it("successfully creates an Order", async () => {
+  it("should successfully create an Order", async () => {
     await act(async () => renderTestApp(CREATE_ORDER_ROUTE, mockState));
 
     expect(screen.queryByText(ORDER_CREATE_MESSAGE)).not.toBeInTheDocument();
@@ -60,7 +60,7 @@ describe("Create Order", () => {
     expect(screen.getByText(ORDER_CREATE_MESSAGE)).toBeInTheDocument();
   });
 
-  it("navigates back to Orders on button click", async () => {
+  it("should navigate back to Orders on button click", async () => {
     await act(async () => renderTestApp(CREATE_ORDER_ROUTE, mockState));
 
     expect(screen.queryByText(/Maurice Ramos/i)).not.toBeInTheDocument();

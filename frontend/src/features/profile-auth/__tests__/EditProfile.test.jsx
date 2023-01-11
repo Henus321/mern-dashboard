@@ -11,7 +11,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Edit Profile", () => {
-  it("successfully edit Profile", async () => {
+  it("should successfully edit Profile", async () => {
     await act(async () => renderTestApp(EDIT_PROFILE_ROUTE, mockState));
 
     expect(screen.queryByText(COMMON_SUCCESS_MESSAGE)).not.toBeInTheDocument();
@@ -22,7 +22,7 @@ describe("Edit Profile", () => {
     expect(screen.getByText(COMMON_SUCCESS_MESSAGE)).toBeInTheDocument();
   });
 
-  it("reset forms on cancel button", async () => {
+  it("should reset forms on cancel button", async () => {
     await act(async () => renderTestApp(EDIT_PROFILE_ROUTE, mockState));
 
     const initialName = "Test";
@@ -47,7 +47,7 @@ describe("Edit Profile", () => {
     );
   });
 
-  it("allows valid fields and warn invalid ones", async () => {
+  it("should allow valid fields and warn invalid ones", async () => {
     await act(async () => renderTestApp(EDIT_PROFILE_ROUTE, mockState));
 
     const nameInput = screen.getByPlaceholderText("Enter name");

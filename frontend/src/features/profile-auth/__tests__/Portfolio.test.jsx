@@ -11,7 +11,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Portfolio", () => {
-  it("successfully edit Portfolio", async () => {
+  it("should successfully edit Portfolio", async () => {
     await act(async () => renderTestApp(PORTFOLIO_ROUTE, mockState));
 
     expect(screen.queryByText(COMMON_SUCCESS_MESSAGE)).not.toBeInTheDocument();
@@ -22,7 +22,7 @@ describe("Portfolio", () => {
     expect(screen.getByText(COMMON_SUCCESS_MESSAGE)).toBeInTheDocument();
   });
 
-  it("hides add button when more then ten examples", async () => {
+  it("should hide add button when more then ten examples", async () => {
     await act(async () => renderTestApp(PORTFOLIO_ROUTE, mockState));
 
     const addExampleButton = screen.getByText("Add Example").closest("button");
@@ -36,7 +36,7 @@ describe("Portfolio", () => {
     expect(screen.queryByText("Add Example")).not.toBeInTheDocument();
   });
 
-  it("allows valid fields and warn invalid ones", async () => {
+  it("should allow valid fields and warn invalid ones", async () => {
     await act(async () => renderTestApp(PORTFOLIO_ROUTE, mockState));
 
     const professionInput = screen.getByPlaceholderText(

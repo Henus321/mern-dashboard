@@ -11,7 +11,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Orders", () => {
-  it("successfully delete an Order", async () => {
+  it("should successfully delete an Order", async () => {
     await act(async () => renderTestApp(ORDERS_ROUTE, mockState));
 
     expect(screen.queryByText(ORDER_DELETE_MESSAGE)).not.toBeInTheDocument();
@@ -26,7 +26,7 @@ describe("Orders", () => {
     expect(screen.getByText(ORDER_DELETE_MESSAGE)).toBeInTheDocument();
   });
 
-  it("navigate to Products filtered by brand", async () => {
+  it("should navigate to Products filtered by brand", async () => {
     await act(async () => renderTestApp(ORDERS_ROUTE, mockState));
 
     expect(
@@ -39,7 +39,7 @@ describe("Orders", () => {
     expect(screen.getByText(/Lamborghini Aventador/i)).toBeInTheDocument();
   });
 
-  it("navigate to edit Order", async () => {
+  it("should navigate to edit Order", async () => {
     await act(async () => renderTestApp(ORDERS_ROUTE, mockState));
 
     expect(screen.queryByText(/Specify the Settings/i)).not.toBeInTheDocument();
