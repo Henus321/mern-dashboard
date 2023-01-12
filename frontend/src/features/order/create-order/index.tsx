@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import {
   ORDERS_ROUTE,
-  CREATE_MESSAGE,
+  ORDER_CREATE_MESSAGE,
   ERROR_DURATION,
   SUCCESS_DURATION,
 } from "../../../constants";
@@ -35,7 +35,7 @@ const CreateOrder = () => {
     if (isSuccess) {
       notification.success({
         message: "Success!",
-        description: CREATE_MESSAGE,
+        description: ORDER_CREATE_MESSAGE,
         duration: SUCCESS_DURATION,
       });
       navigate(ORDERS_ROUTE);

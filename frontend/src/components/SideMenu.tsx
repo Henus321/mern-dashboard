@@ -22,21 +22,19 @@ const SideMenu = () => {
   const currentMenuItemKey = location.pathname.split("/").slice(2)[0];
 
   return (
-    <>
-      <Sider
-        collapsed={!xl}
-        width={!xxl ? 140 : 180}
-        className="sider-container site-layout-background"
-      >
-        <Menu
-          mode="inline"
-          defaultOpenKeys={defaultOpenSideMenuKeys}
-          selectedKeys={[currentMenuItemKey]}
-          style={{ height: "100%", borderRight: 0 }}
-          items={menuItems}
-        ></Menu>
-      </Sider>
-    </>
+    <Sider
+      collapsed={!xl}
+      width={!xxl ? 140 : 180}
+      className="sider-container site-layout-background"
+    >
+      <Menu
+        mode="inline"
+        defaultOpenKeys={defaultOpenSideMenuKeys}
+        selectedKeys={[currentMenuItemKey]}
+        style={{ height: "100%", borderRight: 0 }}
+        items={menuItems}
+      ></Menu>
+    </Sider>
   );
 };
 

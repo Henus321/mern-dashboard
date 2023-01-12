@@ -29,9 +29,10 @@ const rootReducer = combineReducers({
   order: orderSlice,
 });
 
-export const setupStore = () => {
+export const setupStore = (initialState?: RootState) => {
   return configureStore({
     reducer: rootReducer,
+    preloadedState: initialState,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: {

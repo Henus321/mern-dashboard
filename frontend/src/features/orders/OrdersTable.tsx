@@ -31,14 +31,12 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       dataIndex: "number",
       key: "number",
       width: "5%",
-      responsive: ["md"],
       sorter: (a, b) => a.number - b.number,
     },
     {
       title: "Customer",
       dataIndex: "customer",
       key: "customer",
-      responsive: ["md"],
     },
     {
       title: "Product",
@@ -59,7 +57,10 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
           filters: brandFilters,
           onFilter: (value: any, record) => record.brand.includes(value),
           render: (text: string) => (
-            <Link to={`${PRODUCTS_ROUTE}?brand=${text.toLowerCase()}`}>
+            <Link
+              data-testid={`${text.toLowerCase()}-link`}
+              to={`${PRODUCTS_ROUTE}?brand=${text.toLowerCase()}`}
+            >
               {text}
             </Link>
           ),
@@ -104,7 +105,6 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       dataIndex: "action",
       key: "action",
       width: "8%",
-      responsive: ["lg"],
       render: (_: any, record) => {
         return (
           <>
@@ -117,6 +117,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
               Edit <EditOutlined />
             </Button>
             <Button
+              data-testid="delete-button"
               type="primary"
               ghost
               danger

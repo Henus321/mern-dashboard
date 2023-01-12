@@ -69,6 +69,7 @@ const Products = () => {
   return (
     <>
       <Card
+        data-testid="products-card"
         bodyStyle={{
           padding: "0",
           display: "flex",

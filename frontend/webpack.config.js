@@ -1,6 +1,7 @@
 /* eslint-disable */
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 
 module.exports = {
@@ -89,5 +90,6 @@ module.exports = {
       favicon: "./public/favicon.ico",
     }),
     new WebpackManifestPlugin(),
+    new NodePolyfillPlugin(),
   ],
 };

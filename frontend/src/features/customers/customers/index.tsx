@@ -55,6 +55,7 @@ const Customers = () => {
       {!isLoading && customers && (
         <>
           <Card
+            data-testid="customers-card"
             bodyStyle={{
               padding: "0px",
               display: "flex",

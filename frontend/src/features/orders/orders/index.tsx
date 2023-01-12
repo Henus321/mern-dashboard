@@ -6,7 +6,7 @@ import { fetchOrders, reset } from "../ordersSlice";
 import { useNavigate } from "react-router-dom";
 import {
   CREATE_ORDER_ROUTE,
-  DELETE_MESSAGE,
+  ORDER_DELETE_MESSAGE,
   ERROR_DURATION,
   SUCCESS_DURATION,
 } from "../../../constants";
@@ -23,12 +23,24 @@ const Orders = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (isModified) {
+      notification.success({
+        message: "Success!",
+        description: ORDER_DELETE_MESSAGE,
+        duration: SUCCESS_DURATION,
+      });
+    }
+
+    if (!isSuccess) {
+      dispatch(fetchOrders());
+    }
+
     return () => {
-      if (isSuccess || isError) {
+      if (isSuccess) {
         dispatch(reset());
       }
     };
-  }, [dispatch, isSuccess, isError]);
+  }, [dispatch, isSuccess, isModified, isError]);
 
   useEffect(() => {
     if (isError) {
@@ -39,18 +51,12 @@ const Orders = () => {
       });
     }
 
-    if (isModified) {
-      notification.success({
-        message: "Success!",
-        description: DELETE_MESSAGE,
-        duration: SUCCESS_DURATION,
-      });
-    }
-
-    if (!isError) {
-      dispatch(fetchOrders());
-    }
-  }, [dispatch, isError, isModified, message]);
+    return () => {
+      if (isError) {
+        dispatch(reset());
+      }
+    };
+  }, [dispatch, isError, message]);
 
   const onCreate = () => {
     navigate(CREATE_ORDER_ROUTE);
@@ -62,6 +68,7 @@ const Orders = () => {
       {!isLoading && orders && (
         <>
           <Card
+            data-testid="orders-card"
             bodyStyle={{
               padding: "0",
               height: "100%",
