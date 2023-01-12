@@ -73,7 +73,7 @@ describe("Registration", () => {
         method: "POST",
       })
     );
-    expect(screen.queryByText(/Maurice Ramos/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Photo/i)).not.toBeInTheDocument();
 
     const nameInput = screen.getByPlaceholderText("Your name");
     const emailInput = screen.getByPlaceholderText("Your email");
@@ -95,6 +95,6 @@ describe("Registration", () => {
         method: "POST",
       })
     );
-    expect(screen.getByText(/Maurice Ramos/i)).toBeInTheDocument();
+    expect(screen.getByText(/Photo/i)).toBeInTheDocument();
   });
 });

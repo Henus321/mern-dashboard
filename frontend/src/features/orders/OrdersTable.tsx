@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, Image } from "antd";
+import { Table, Button, Image, Space } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 import { IOrder, IOrdersTable, IOrdersTableProps } from "../../models";
@@ -25,7 +25,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
     dispatch(deleteOrder(id));
   };
 
-  const columns: ColumnsType<IOrdersTable> = [
+  const columnsDesktop: ColumnsType<IOrdersTable> = [
     {
       title: "#",
       dataIndex: "number",
@@ -107,7 +107,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       width: "8%",
       render: (_: any, record) => {
         return (
-          <>
+          <Space direction="vertical">
             <Button
               type="primary"
               ghost
@@ -121,14 +121,71 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
               type="primary"
               ghost
               danger
-              className="rounded p-orders-button mt-5 w-full"
+              className="rounded p-orders-button w-full"
               onClick={() => onDelete(record.id)}
             >
               Delete <DeleteOutlined />
             </Button>
-          </>
+          </Space>
         );
       },
+    },
+  ];
+
+  const columnsMobile: ColumnsType<IOrdersTable> = [
+    {
+      title: "Roster of Orders",
+      dataIndex: "number",
+      key: "list",
+      sorter: (a, b) => a.number - b.number,
+      render: (_, record) => (
+        <Space direction="vertical">
+          <Image
+            preview={false}
+            src={record.photoUrl}
+            alt="car"
+            className="w-min-100"
+          />
+          <span>
+            <strong>Customer: </strong>
+            {record.customer}
+          </span>
+          <span>
+            <strong>Brand: </strong>
+            <Link to={`${PRODUCTS_ROUTE}?brand=${record.brand.toLowerCase()}`}>
+              {record.brand}
+            </Link>
+          </span>
+          <span>
+            <strong>Model: </strong>
+            {record.model}
+          </span>
+          <span>
+            <strong>Cost: </strong>
+            {beautifyCost(record.cost)}
+          </span>
+          <Space direction="vertical" className="w-full">
+            <Button
+              type="primary"
+              ghost
+              className="rounded p-orders-button w-full"
+              onClick={() => onEdit(record.id)}
+            >
+              Edit <EditOutlined />
+            </Button>
+            <Button
+              data-testid="delete-button"
+              type="primary"
+              ghost
+              danger
+              className="rounded p-orders-button w-full"
+              onClick={() => onDelete(record.id)}
+            >
+              Delete <DeleteOutlined />
+            </Button>
+          </Space>
+        </Space>
+      ),
     },
   ];
 
@@ -160,12 +217,22 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
     });
 
   return (
-    <Table
-      columns={columns}
-      dataSource={convertToDataSource(orders)}
-      pagination={{ pageSize: 5 }}
-      bordered
-    />
+    <>
+      <Table
+        className="table-desktop"
+        columns={columnsDesktop}
+        dataSource={convertToDataSource(orders)}
+        pagination={{ pageSize: 5 }}
+        bordered
+      />
+      <Table
+        className="table-mobile"
+        columns={columnsMobile}
+        dataSource={convertToDataSource(orders)}
+        pagination={{ pageSize: 5 }}
+        bordered
+      />
+    </>
   );
 };
 

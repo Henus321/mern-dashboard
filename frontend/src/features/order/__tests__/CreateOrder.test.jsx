@@ -63,11 +63,11 @@ describe("Create Order", () => {
   it("should navigate back to Orders on button click", async () => {
     await act(async () => renderTestApp(CREATE_ORDER_ROUTE, mockState));
 
-    expect(screen.queryByText(/Maurice Ramos/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Photo/i)).not.toBeInTheDocument();
 
     const backButton = screen.getByText("Back to Orders").closest("button");
     await act(async () => userEvent.click(backButton));
 
-    expect(screen.getByText(/Maurice Ramos/i)).toBeInTheDocument();
+    expect(screen.getByText(/Photo/i)).toBeInTheDocument();
   });
 });
