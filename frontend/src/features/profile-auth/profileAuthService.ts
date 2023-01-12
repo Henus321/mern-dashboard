@@ -5,13 +5,13 @@ import { USERS_URL } from "../../constants";
 const register = async (userData: IUser) => {
   const response = await axios.post(USERS_URL + "/registration", userData);
 
-  return response.data.data.data;
+  return response.data;
 };
 
 const login = async (userData: IUser) => {
   const response = await axios.post(USERS_URL + "/login", userData);
 
-  return response.data.data.data;
+  return response.data;
 };
 
 const logout = async () => {
@@ -35,7 +35,7 @@ const updateUser = async (userData: Partial<IUser> | FormData) => {
 const passwordChange = async (userData: Partial<IUser>) => {
   const response = await axios.patch(USERS_URL + "/password-change", userData);
 
-  return response.data.data.data;
+  return response.data;
 };
 
 const authService = {

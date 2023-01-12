@@ -15,7 +15,9 @@ export const register = createAsyncThunk(
   "profile-auth/register",
   async (user: IUser, thunkAPI) => {
     try {
-      return await profileAuthService.register(user);
+      await profileAuthService.register(user);
+
+      return await profileAuthService.fetchUser();
     } catch (error: any) {
       const message =
         (error.response &&
@@ -33,7 +35,9 @@ export const login = createAsyncThunk(
   "profile-auth/login",
   async (user: IUser, thunkAPI) => {
     try {
-      return await profileAuthService.login(user);
+      await profileAuthService.login(user);
+
+      return await profileAuthService.fetchUser();
     } catch (error: any) {
       const message =
         (error.response &&
@@ -100,7 +104,9 @@ export const passwordChange = createAsyncThunk(
   "profile-auth/passwordChange",
   async (userData: Partial<IUser>, thunkAPI) => {
     try {
-      return await profileAuthService.passwordChange(userData);
+      await profileAuthService.passwordChange(userData);
+
+      return await profileAuthService.fetchUser();
     } catch (error: any) {
       const message =
         (error.response &&
