@@ -27,9 +27,6 @@ const createSendToken = (user, statusCode, res) => {
   res.status(statusCode).json({
     status: "success",
     token,
-    data: {
-      data: user,
-    },
   });
 };
 
@@ -129,7 +126,10 @@ exports.passwordChange = asyncHandler(async (req, res, next) => {
 
   if (user.email === "user@test.com") {
     return next(
-      new AppError("It is forbidden to change the mail of the test user", 400)
+      new AppError(
+        "It is forbidden to change the password of the test user",
+        400
+      )
     );
   }
 
