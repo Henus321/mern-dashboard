@@ -12,7 +12,6 @@ import {
 
 import CreateProduct from "../CreateProduct";
 import CreateSettings from "../CreateSettings";
-import MobileReminder from "../../../components/MobileReminder";
 
 const CreateOrder = () => {
   const { isSuccess, isError, message } = useAppSelector(
@@ -54,7 +53,7 @@ const CreateOrder = () => {
         bodyStyle={{
           padding: "0",
         }}
-        className="content-container rounded-card"
+        className="rounded-card"
       >
         <Typography.Title className="mt-15 text-center" level={2}>
           Create an Order
@@ -62,7 +61,6 @@ const CreateOrder = () => {
         <CreateProduct />
         <CreateSettings />
       </Card>
-      <MobileReminder />
     </>
   );
 };

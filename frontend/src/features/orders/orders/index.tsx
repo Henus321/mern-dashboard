@@ -13,7 +13,6 @@ import {
 
 import OrdersTable from "../OrdersTable";
 import Spinner from "../../../components/Spinner";
-import MobileReminder from "../../../components/MobileReminder";
 
 const Orders = () => {
   const { orders, isLoading, isSuccess, isError, isModified, message } =
@@ -75,7 +74,7 @@ const Orders = () => {
               display: "flex",
               flexDirection: "column",
             }}
-            className="content-container rounded-card"
+            className="rounded-card"
           >
             <OrdersTable orders={orders} />
             <Button
@@ -87,7 +86,6 @@ const Orders = () => {
               Create Order <AppstoreAddOutlined />
             </Button>
           </Card>
-          <MobileReminder />
         </>
       )}
     </>

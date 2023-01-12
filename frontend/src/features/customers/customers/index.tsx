@@ -8,7 +8,6 @@ import {
   SUCCESS_DURATION,
 } from "../../../constants";
 
-import MobileReminder from "../../../components/MobileReminder";
 import CustomersTable from "../CustomersTable";
 import CustomersModal from "../CustomersModal";
 import Spinner from "../../../components/Spinner";
@@ -62,12 +61,11 @@ const Customers = () => {
               flexDirection: "column",
               justifyContent: "flex-end",
             }}
-            className="content-container rounded-card"
+            className="rounded-card"
           >
             <CustomersTable />
             <CustomersModal />
           </Card>
-          <MobileReminder />
         </>
       )}
     </>

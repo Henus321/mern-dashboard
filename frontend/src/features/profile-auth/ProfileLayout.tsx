@@ -6,7 +6,6 @@ import { fetchUser } from "./profileAuthSlice";
 import ProfileMenu from "./ProfileMenu";
 import ProfileHeader from "./ProfileHeader";
 import Spinner from "../../components/Spinner";
-import MobileReminder from "../../components/MobileReminder";
 
 interface Props {
   children: React.ReactNode;
@@ -29,7 +28,7 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
           padding: "0",
           height: "100%",
         }}
-        className="content-container rounded-card"
+        className="rounded-card"
         style={{ height: "100%" }}
       >
         <Row className="h-full">
@@ -47,7 +46,6 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
           </Col>
         </Row>
       </Card>
-      <MobileReminder />
     </>
   );
 };
