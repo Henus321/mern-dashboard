@@ -42,12 +42,12 @@ describe("Login", () => {
       })
     );
 
-    expect(screen.queryByText(/Maurice Ramos/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Photo/i)).not.toBeInTheDocument();
 
     const submitButton = screen.getByRole("button");
     await act(async () => userEvent.click(submitButton));
 
-    expect(screen.getByText(/Maurice Ramos/i)).toBeInTheDocument();
+    expect(screen.getByText(/Photo/i)).toBeInTheDocument();
   });
 
   it("should allow valid fields and warn invalid ones", async () => {
