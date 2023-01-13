@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Col, Form, Input, notification, Row } from "antd";
+import { Button, Col, Form, Grid, Input, notification, Row } from "antd";
 import { SaveOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import {
@@ -14,15 +14,16 @@ import { passwordChange, reset } from "../profileAuthSlice";
 
 import ProfileLayout from "../ProfileLayout";
 
+const { useBreakpoint } = Grid;
+
 const Password = () => {
   const { isModified, isError, message } = useAppSelector(
     (state) => state.auth
   );
   const [form] = Form.useForm();
 
-  const gutter = { lg: 24, xl: 12 };
-  const lg = { span: 24 };
-  const xl = { span: 12 };
+  const { xl } = useBreakpoint();
+  const spanFull = xl ? 12 : 24;
 
   const dispatch = useAppDispatch();
 
@@ -68,8 +69,8 @@ const Password = () => {
   return (
     <ProfileLayout>
       <Form form={form} onFinish={onFinish} layout="vertical">
-        <Row gutter={gutter}>
-          <Col lg={lg} xl={xl}>
+        <Row>
+          <Col span={spanFull}>
             <Form.Item
               name="currentPassword"
               label="Current Password"
@@ -88,8 +89,8 @@ const Password = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={gutter}>
-          <Col lg={lg} xl={xl}>
+        <Row>
+          <Col span={spanFull}>
             <Form.Item
               name="password"
               label="Password"
@@ -108,8 +109,8 @@ const Password = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={gutter}>
-          <Col lg={lg} xl={xl}>
+        <Row>
+          <Col span={spanFull}>
             <Form.Item
               name="passwordConfirm"
               label="Password Confirm"
@@ -128,18 +129,14 @@ const Password = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={{ lg: 24, xl: 12 }}>
-          <Col>
-            <Button
-              size="large"
-              type="primary"
-              className="rounded"
-              htmlType="submit"
-            >
-              Save <SaveOutlined />
-            </Button>
-          </Col>
-        </Row>
+        <Button
+          size="large"
+          type="primary"
+          className="rounded"
+          htmlType="submit"
+        >
+          Save <SaveOutlined />
+        </Button>
       </Form>
     </ProfileLayout>
   );

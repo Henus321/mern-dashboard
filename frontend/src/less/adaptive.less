@@ -10,3 +10,25 @@
     display: none;
   }
 }
+
+.menu-mobile {
+  display: none;
+  @media only screen and (max-width: 991px) {
+    display: flex;
+  }
+
+  @media only screen and (max-width: 575px) {
+    font-size: 12px;
+  }
+
+  @media only screen and (max-width: 380px) {
+    justify-content: center;
+    font-size: 8px;
+  }
+}
+
+.menu-desktop {
+  @media only screen and (max-width: 991px) {
+    display: none;
+  }
+}

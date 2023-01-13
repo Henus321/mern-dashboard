@@ -17,12 +17,20 @@ const ProfileMenu = () => {
   const currentMenuItemKey = location.pathname.split("/").slice(3)[0];
 
   return (
-    <Menu
-      mode="inline"
-      defaultSelectedKeys={[currentMenuItemKey]}
-      className="h-full"
-      items={menuItems}
-    />
+    <>
+      <Menu
+        className="menu-desktop h-full"
+        mode="inline"
+        defaultSelectedKeys={[currentMenuItemKey]}
+        items={menuItems}
+      />
+      <Menu
+        className="menu-mobile w-full"
+        mode="horizontal"
+        defaultSelectedKeys={[currentMenuItemKey]}
+        items={menuItems}
+      />
+    </>
   );
 };
 
