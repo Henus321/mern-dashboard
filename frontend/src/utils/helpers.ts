@@ -1,6 +1,6 @@
-import moment from "moment";
-import { IOrder, IOrdersTable } from "../models";
+import { ICustomer, IOrder, IOrdersTable } from "../models";
 import { capitalizeText } from "./typography";
+import moment from "moment";
 
 export const convertOrdersToDataSource = (
   ordersArray: IOrder[]
@@ -28,5 +28,13 @@ export const convertOrdersToDataSource = (
       ...customer,
       ...product,
       ...order,
+    };
+  });
+
+export const createCityFilters = (customers: ICustomer[]) =>
+  Array.from(new Set(customers.map((item) => item.city))).map((city) => {
+    return {
+      text: city,
+      value: city,
     };
   });
