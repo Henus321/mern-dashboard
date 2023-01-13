@@ -10,9 +10,6 @@ const CreateProductItem = () => {
   const product = searchParams.get("product");
 
   const gridStyle: React.CSSProperties = {
-    width: "33.33333%",
-    display: "flex",
-    flexDirection: "column",
     cursor: "pointer",
   };
 
@@ -36,6 +33,7 @@ const CreateProductItem = () => {
     <>
       {products.map((product) => (
         <Card.Grid
+          className="card-container flex flex-column"
           onClick={() => onClick(product._id)}
           hoverable
           key={product.name}
