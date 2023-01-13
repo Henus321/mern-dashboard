@@ -107,7 +107,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       width: "8%",
       render: (_: any, record) => {
         return (
-          <Space direction="vertical">
+          <Space className="w-full" direction="vertical">
             <Button
               type="primary"
               ghost

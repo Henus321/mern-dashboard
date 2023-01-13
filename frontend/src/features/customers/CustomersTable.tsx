@@ -64,7 +64,7 @@ const CustomersTable = () => {
       width: "10%",
       render: (_: any, record: ICustomer) => {
         return (
-          <Space direction="vertical">
+          <Space className="w-full" direction="vertical">
             <Button
               type="primary"
               ghost

@@ -7,8 +7,8 @@ interface Props {
 }
 
 const SocialNetworkTag: React.FC<Props> = ({ record }) => {
-  let color = "orange";
-  let tag = "dimgrey";
+  let color = "dimgrey";
+  let tag = "unknown";
   if (record.social?.includes("facebook")) {
     color = "steelblue";
     tag = "facebook";
