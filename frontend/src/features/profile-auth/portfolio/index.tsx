@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { Button, Row, Form, Input, Col, notification } from "antd";
+import { Button, Row, Form, Input, Col, notification, Grid } from "antd";
 import {
   SaveOutlined,
   CloseOutlined,
@@ -18,6 +18,7 @@ import {
 import ProfileLayout from "../ProfileLayout";
 
 const { TextArea } = Input;
+const { useBreakpoint } = Grid;
 
 const Portfolio = () => {
   const { user, isError, isModified, message } = useAppSelector(
@@ -25,9 +26,9 @@ const Portfolio = () => {
   );
   const [form] = Form.useForm();
 
-  const gutter = { lg: 24, xl: 12 };
-  const lg = { span: 24 };
-  const xl = { span: 12 };
+  const { xl } = useBreakpoint();
+  const spanFull = xl ? 12 : 24;
+  const gutter = 12;
 
   const dispatch = useAppDispatch();
 
@@ -76,14 +77,14 @@ const Portfolio = () => {
         initialValues={initialValues}
       >
         <Row gutter={gutter}>
-          <Col lg={lg} xl={xl}>
+          <Col span={spanFull}>
             <Form.Item name="profession" label="Profession" rules={[MAX_40]}>
               <Input placeholder="Enter your profession" className="rounded" />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={gutter}>
-          <Col lg={lg} xl={xl}>
+          <Col span={spanFull}>
             <Form.Item name="description" label="Description">
               <TextArea
                 className="rounded"
@@ -95,7 +96,7 @@ const Portfolio = () => {
           </Col>
         </Row>
         <Row gutter={gutter}>
-          <Col lg={lg} xl={xl}>
+          <Col span={spanFull}>
             <Form.List name="examples">
               {(fields, { add, remove }, { errors }) => (
                 <>

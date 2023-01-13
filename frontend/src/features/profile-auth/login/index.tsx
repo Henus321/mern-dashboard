@@ -58,12 +58,7 @@ const Login = () => {
       <Row justify="center" className="m-auto">
         <Col className="auth-container rounded">
           <Space className="flex justify-center">
-            <DingtalkOutlined
-              style={{
-                display: "block",
-                fontSize: "36px",
-              }}
-            />
+            <DingtalkOutlined className="font-36" />
             <Typography.Title level={xs ? 2 : 1} style={{ margin: 0 }}>
               Mern Dashboard
             </Typography.Title>
@@ -124,7 +119,7 @@ const Login = () => {
               </Button>
             </Form.Item>
           </Form>
-          <Typography.Paragraph>
+          <Typography.Paragraph className="text-center">
             Don&rsquo;t have an account?{" "}
             <Typography.Text underline>
               <Link to="/registration">Sign up and get started!</Link>

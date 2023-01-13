@@ -14,7 +14,6 @@ import { ERROR_DURATION, PAGE_SIZE } from "../../../constants";
 
 import ProductItem from "../ProductItem";
 import Spinner from "../../../components/Spinner";
-import MobileReminder from "../../../components/MobileReminder";
 
 const Products = () => {
   const { products, isLoading, isSuccess, isError, message } = useAppSelector(
@@ -77,7 +76,7 @@ const Products = () => {
           height: cardBodyHeight,
         }}
         style={{ height: cardHeight }}
-        className="content-container rounded-card"
+        className="rounded-card"
         activeTabKey={brand}
         tabList={brandTabsWithNoFilter}
         onTabChange={(brand) => onTabChange(brand)}
@@ -111,7 +110,6 @@ const Products = () => {
           </div>
         )}
       </Card>
-      <MobileReminder />
     </>
   );
 };

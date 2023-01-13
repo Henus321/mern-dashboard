@@ -1,10 +1,10 @@
 import React from "react";
-import { Table, Button, Image } from "antd";
+import { Table, Button, Image, Space } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
-import { IOrder, IOrdersTable, IOrdersTableProps } from "../../models";
+import { IOrdersTable, IOrdersTableProps } from "../../models";
 import { Link, useNavigate } from "react-router-dom";
-import { beautifyCost, capitalizeText } from "../../utils";
+import { beautifyCost, convertOrdersToDataSource } from "../../utils";
 import { brandFilters } from "../../configs";
 import { useAppDispatch } from "../../hooks";
 import { deleteOrder } from "./ordersSlice";
@@ -25,7 +25,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
     dispatch(deleteOrder(id));
   };
 
-  const columns: ColumnsType<IOrdersTable> = [
+  const columnsDesktop: ColumnsType<IOrdersTable> = [
     {
       title: "#",
       dataIndex: "number",
@@ -107,11 +107,11 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
       width: "8%",
       render: (_: any, record) => {
         return (
-          <>
+          <Space className="w-full" direction="vertical">
             <Button
               type="primary"
               ghost
-              className="rounded p-orders-button w-full"
+              className="rounded w-full px-4 py-10"
               onClick={() => onEdit(record.id)}
             >
               Edit <EditOutlined />
@@ -121,51 +121,91 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
               type="primary"
               ghost
               danger
-              className="rounded p-orders-button mt-5 w-full"
+              className="rounded w-full px-4 py-10"
               onClick={() => onDelete(record.id)}
             >
               Delete <DeleteOutlined />
             </Button>
-          </>
+          </Space>
         );
       },
     },
   ];
 
-  const convertToDataSource = (ordersArray: IOrder[]): IOrdersTable[] =>
-    ordersArray.map((item, index) => {
-      const customer = {
-        customer: item.customer.name,
-      };
-      const product = {
-        photoUrl: item.product.photoUrl,
-        brand: capitalizeText(item.product.brand),
-        model: item.product.model,
-        cost: item.product.cost,
-      };
-      const order = {
-        key: item._id,
-        id: item._id,
-        number: index + 1,
-        build: capitalizeText(item.build),
-        payment: item.payment.map((pay) => capitalizeText(pay)).join(" "),
-        delivery: moment(item.delivery).format("DD/MM/YYYY"),
-      };
-
-      return {
-        ...customer,
-        ...product,
-        ...order,
-      };
-    });
+  const columnsMobile: ColumnsType<IOrdersTable> = [
+    {
+      title: "Roster of Orders",
+      dataIndex: "number",
+      key: "list",
+      sorter: (a, b) => a.number - b.number,
+      render: (_, record) => (
+        <Space direction="vertical">
+          <Image
+            preview={false}
+            src={record.photoUrl}
+            alt="car"
+            className="w-min-100"
+          />
+          <span>
+            <strong>Customer: </strong>
+            {record.customer}
+          </span>
+          <span>
+            <strong>Brand: </strong>
+            <Link to={`${PRODUCTS_ROUTE}?brand=${record.brand.toLowerCase()}`}>
+              {record.brand}
+            </Link>
+          </span>
+          <span>
+            <strong>Model: </strong>
+            {record.model}
+          </span>
+          <span>
+            <strong>Cost: </strong>
+            {beautifyCost(record.cost)}
+          </span>
+          <Space direction="vertical" className="w-full">
+            <Button
+              type="primary"
+              ghost
+              className="rounded w-full px-4 py-10"
+              onClick={() => onEdit(record.id)}
+            >
+              Edit <EditOutlined />
+            </Button>
+            <Button
+              data-testid="delete-button"
+              type="primary"
+              ghost
+              danger
+              className="rounded w-full px-4 py-10"
+              onClick={() => onDelete(record.id)}
+            >
+              Delete <DeleteOutlined />
+            </Button>
+          </Space>
+        </Space>
+      ),
+    },
+  ];
 
   return (
-    <Table
-      columns={columns}
-      dataSource={convertToDataSource(orders)}
-      pagination={{ pageSize: 5 }}
-      bordered
-    />
+    <>
+      <Table
+        className="table-desktop"
+        columns={columnsDesktop}
+        dataSource={convertOrdersToDataSource(orders)}
+        pagination={{ pageSize: 5 }}
+        bordered
+      />
+      <Table
+        className="table-mobile"
+        columns={columnsMobile}
+        dataSource={convertOrdersToDataSource(orders)}
+        pagination={{ pageSize: 3 }}
+        bordered
+      />
+    </>
   );
 };
 

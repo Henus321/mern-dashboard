@@ -1,33 +1,23 @@
 import React from "react";
-import { Button, Table, Tag, Tooltip } from "antd";
+import { Button, Space, Table } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { ICustomer } from "../../models";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { deleteCustomer, setCustomer } from "./customersSlice";
+import { createCityFilters } from "../../utils";
+
+import SocialNetworkTag from "../../components/SocialNetworkTag";
 
 const CustomersTable = () => {
   const { customers } = useAppSelector((state) => state.customers);
 
   const dispatch = useAppDispatch();
 
-  const cityFilters = Array.from(
-    new Set(customers.map((item) => item.city))
-  ).map((city) => {
-    return {
-      text: city,
-      value: city,
-    };
-  });
+  const onDelete = (record: ICustomer) => dispatch(deleteCustomer(record._id));
 
-  const onDelete = (record: ICustomer) => {
-    dispatch(deleteCustomer(record._id));
-  };
+  const onEdit = (record: ICustomer) => dispatch(setCustomer(record));
 
-  const onEdit = (record: ICustomer) => {
-    dispatch(setCustomer(record));
-  };
-
-  const columns = [
+  const columnsDesktop = [
     {
       title: "Name",
       dataIndex: "name",
@@ -54,44 +44,16 @@ const CustomersTable = () => {
       dataIndex: "social",
       editable: true,
       width: "20%",
-      render: (link: string | null) => {
-        let color = "orange";
-        let tag = "unknown";
-        if (link?.includes("facebook")) {
-          color = "geekblue";
-          tag = "facebook";
-        }
-        if (link?.includes("instagram")) {
-          color = "pink";
-          tag = "instagram";
-        }
-        if (link?.includes("vk")) {
-          color = "blue";
-          tag = "vk";
-        }
-        if (link?.includes("linkedin")) {
-          color = "green";
-          tag = "linkedin";
-        }
-        return (
-          <Tooltip title={link}>
-            {link && (
-              <Tag color={color} key={link} className="m-3">
-                <a href={link} target="_blank" rel="noreferrer">
-                  {tag.toUpperCase()}
-                </a>
-              </Tag>
-            )}
-          </Tooltip>
-        );
-      },
+      render: (_: any, record: ICustomer) => (
+        <SocialNetworkTag record={record} />
+      ),
     },
     {
       title: "City",
       dataIndex: "city",
       editable: true,
       width: "15%",
-      filters: cityFilters,
+      filters: createCityFilters(customers),
       onFilter: (value: any, record: ICustomer) =>
         record.city.startsWith(value),
       filterSearch: true,
@@ -102,11 +64,11 @@ const CustomersTable = () => {
       width: "10%",
       render: (_: any, record: ICustomer) => {
         return (
-          <>
+          <Space className="w-full" direction="vertical">
             <Button
               type="primary"
               ghost
-              className="rounded p-orders-button w-full"
+              className="rounded w-full px-4 py-10"
               onClick={() => onEdit(record)}
             >
               Edit <EditOutlined />
@@ -115,18 +77,87 @@ const CustomersTable = () => {
               type="primary"
               ghost
               danger
-              className="rounded p-orders-button mt-5 w-full"
+              className="rounded w-full px-4 py-10"
               onClick={() => onDelete(record)}
             >
               Delete <DeleteOutlined />
             </Button>
-          </>
+          </Space>
         );
       },
     },
   ];
 
-  return <Table columns={columns} dataSource={customers} bordered />;
+  const columnsMobile = [
+    {
+      title: "List of Customers",
+      dataIndex: "name",
+      editable: true,
+      width: "100%",
+      sorter: {
+        compare: (a: ICustomer, b: ICustomer) => a.name.localeCompare(b.name),
+      },
+      render: (_: any, record: ICustomer) => (
+        <Space direction="vertical" className="w-full">
+          <span>
+            <strong>Name: </strong>
+            {record.name}
+          </span>
+          <span>
+            <strong>Phone: </strong>
+            {record.phone}
+          </span>
+          <span>
+            <strong>E-mail: </strong>
+            {record.email}
+          </span>
+          <span>
+            <strong>Social Network: </strong>
+            <SocialNetworkTag record={record} />
+          </span>
+          <span>
+            <strong>City: </strong>
+            {record.city}
+          </span>
+          <Button
+            type="primary"
+            ghost
+            className="rounded w-full px-4 py-10"
+            onClick={() => onEdit(record)}
+          >
+            Edit <EditOutlined />
+          </Button>
+          <Button
+            type="primary"
+            ghost
+            danger
+            className="rounded w-full px-4 py-10"
+            onClick={() => onDelete(record)}
+          >
+            Delete <DeleteOutlined />
+          </Button>
+        </Space>
+      ),
+    },
+  ];
+
+  return (
+    <>
+      <Table
+        className="table-desktop"
+        columns={columnsDesktop}
+        dataSource={customers}
+        bordered
+      />
+      <Table
+        className="table-mobile"
+        pagination={{ pageSize: 5 }}
+        columns={columnsMobile}
+        dataSource={customers}
+        bordered
+      />
+    </>
+  );
 };
 
 export default CustomersTable;

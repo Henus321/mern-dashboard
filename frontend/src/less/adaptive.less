@@ -1,0 +1,47 @@
+.table-mobile {
+  display: none;
+  @media only screen and (max-width: 991px) {
+    display: table;
+  }
+}
+
+.table-desktop {
+  @media only screen and (max-width: 991px) {
+    display: none;
+  }
+}
+
+.menu-mobile {
+  display: none;
+  @media only screen and (max-width: 991px) {
+    display: flex;
+  }
+
+  @media only screen and (max-width: 575px) {
+    font-size: 12px;
+  }
+
+  @media only screen and (max-width: 380px) {
+    justify-content: center;
+    font-size: 8px;
+  }
+}
+
+.menu-desktop {
+  @media only screen and (max-width: 991px) {
+    display: none;
+  }
+}
+
+.title-mobile {
+  display: none;
+  @media screen and (max-width: 480px) {
+    display: block;
+  }
+}
+
+.title-desktop {
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
+}

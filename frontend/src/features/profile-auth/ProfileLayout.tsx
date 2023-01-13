@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
-import { Row, Col, Card } from "antd";
+import { Row, Col, Card, Grid } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchUser } from "./profileAuthSlice";
 
 import ProfileMenu from "./ProfileMenu";
 import ProfileHeader from "./ProfileHeader";
 import Spinner from "../../components/Spinner";
-import MobileReminder from "../../components/MobileReminder";
+
+const { useBreakpoint } = Grid;
 
 interface Props {
   children: React.ReactNode;
@@ -14,6 +15,8 @@ interface Props {
 
 const ProfileLayout: React.FC<Props> = ({ children }) => {
   const { user, isLoading } = useAppSelector((state) => state.auth);
+
+  const { xs, lg } = useBreakpoint();
 
   const dispatch = useAppDispatch();
 
@@ -29,14 +32,24 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
           padding: "0",
           height: "100%",
         }}
-        className="content-container rounded-card"
+        className="rounded-card"
         style={{ height: "100%" }}
       >
-        <Row className="h-full">
-          <Col span={4}>
+        {!lg && (
+          <Row className="w-full">
             <ProfileMenu />
-          </Col>
-          <Col span={20} className="p-25">
+          </Row>
+        )}
+        <Row className="h-full">
+          {lg && (
+            <Col span={4}>
+              <ProfileMenu />
+            </Col>
+          )}
+          <Col
+            span={lg ? 20 : 24}
+            className={`${xs ? "p-15" : "p-25"} h-min-60vh`}
+          >
             {isLoading && <Spinner />}
             {!isLoading && user && (
               <>
@@ -47,7 +60,6 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
           </Col>
         </Row>
       </Card>
-      <MobileReminder />
     </>
   );
 };

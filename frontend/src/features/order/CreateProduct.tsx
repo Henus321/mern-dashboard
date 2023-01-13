@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Divider, notification, Tabs, Typography } from "antd";
+import { Divider, notification, Tabs, Typography, Grid } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { reset, fetchProducts } from "../products/productsSlice";
 import { brandTabs } from "../../configs";
@@ -9,10 +9,15 @@ import { useSearchParams } from "react-router-dom";
 import CreateProductItem from "./CreateProductItem";
 import Spinner from "../../components/Spinner";
 
+const { useBreakpoint } = Grid;
+
 const CreateProduct = () => {
   const { products, isLoading, isError, isSuccess, message } = useAppSelector(
     (state) => state.products
   );
+
+  const { lg } = useBreakpoint();
+  const tabPosition = !lg ? "top" : "left";
 
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -68,8 +73,9 @@ const CreateProduct = () => {
         <Spinner />
       ) : (
         <Tabs
+          className="tabs-container"
           activeKey={brand}
-          tabPosition={"left"}
+          tabPosition={tabPosition}
           onChange={(brandTab) => onTabChange(brandTab)}
           items={brandTabs.map((brandTab) => {
             return {

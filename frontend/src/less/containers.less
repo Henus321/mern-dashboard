@@ -9,19 +9,6 @@
   }
 }
 
-.content-container {
-  @media screen and (max-width: 991px) {
-    display: none;
-  }
-}
-
-.reminder-container {
-  display: none;
-  @media screen and (max-width: 991px) {
-    display: flex;
-  }
-}
-
 .dashboard-container {
   padding-left: 24px;
   padding-right: 24px;
@@ -42,8 +29,29 @@
   box-shadow: 0 3px 3px 3px rgba(0, 0, 0, 0.1);
   padding: 48px 80px;
   @media screen and (max-width: 575px) {
-    padding: 25px 15px;
+    padding: 48px 15px;
     background-color: unset;
     box-shadow: unset;
+  }
+}
+
+.card-container {
+  width: 33%;
+
+  @media screen and (max-width: 991px) {
+    width: 50%;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
+}
+
+.tabs-container {
+  padding-left: 24px;
+  padding-right: 24px;
+  @media screen and (max-width: 575px) {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }

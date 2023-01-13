@@ -13,7 +13,6 @@ import {
 import EditProduct from "..//EditProduct";
 import EditSettings from "..//EditSettings";
 import NotFound from "../../../components/NotFound";
-import MobileReminder from "../../../components/MobileReminder";
 import Spinner from "../../../components/Spinner";
 
 const EditOrder = () => {
@@ -72,7 +71,7 @@ const EditOrder = () => {
             bodyStyle={{
               padding: "0",
             }}
-            className="content-container rounded-card"
+            className="rounded-card"
           >
             <Typography.Title className="mt-15 text-center" level={2}>
               Edit the Order
@@ -80,7 +79,6 @@ const EditOrder = () => {
             <EditProduct order={order} />
             <EditSettings order={order} />
           </Card>
-          <MobileReminder />
         </>
       )}
     </>

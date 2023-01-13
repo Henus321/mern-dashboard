@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Divider, notification, Tabs, Typography } from "antd";
+import { Divider, notification, Tabs, Typography, Grid } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchProducts, reset } from "../products/productsSlice";
 import { brandTabs } from "../../configs";
@@ -9,11 +9,16 @@ import { ERROR_DURATION } from "../../constants";
 import EditProductItem from "./EditProductItem";
 import Spinner from "../../components/Spinner";
 
+const { useBreakpoint } = Grid;
+
 const EditProduct: React.FC<IOrderProps> = ({ order }) => {
   const { products, isSuccess, isLoading, isError, message } = useAppSelector(
     (state) => state.products
   );
   const [brand, setBrand] = useState(order.product.brand);
+
+  const { lg } = useBreakpoint();
+  const tabPosition = !lg ? "top" : "left";
 
   const dispatch = useAppDispatch();
 
@@ -56,8 +61,9 @@ const EditProduct: React.FC<IOrderProps> = ({ order }) => {
         <Spinner />
       ) : (
         <Tabs
+          className="tabs-container"
           activeKey={brand}
-          tabPosition={"left"}
+          tabPosition={tabPosition}
           onChange={(brand) => onTabChange(brand)}
           items={brandTabs.map((brandTab) => {
             return {

@@ -9,12 +9,6 @@ import { CREATE_ORDER_ROUTE } from "../../constants";
 import { reset } from "./productsSlice";
 
 const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
-  const gridStyle: React.CSSProperties = {
-    width: "33.33333%",
-    display: "flex",
-    flexDirection: "column",
-  };
-
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -28,7 +22,7 @@ const ProductItem: React.FC<IProductItemProps> = ({ product }) => {
   };
 
   return (
-    <Card.Grid hoverable style={gridStyle}>
+    <Card.Grid hoverable className="card-container flex flex-column">
       <Typography.Title
         level={4}
         className="text-center"
