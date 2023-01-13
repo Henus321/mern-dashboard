@@ -2,7 +2,7 @@
 
 ![App logo](/frontend/public/logo192.png)
 
-Fullstack web app with authentication and ability to create or edit orders based on customers and products from database. You can edit your profile data and change avatar. Authentication provided by JWT and stored in cookies.
+Full-featured web application. You can create or edit orders based on customers and products from the database. Authentication provided by JWT and stored in cookies. User data is editable in the profile settings.
 
 This project deployed on render.com: [https://mern-dashboard.onrender.com/](https://mern-dashboard.onrender.com/)
 
@@ -12,7 +12,7 @@ This project deployed on render.com: [https://mern-dashboard.onrender.com/](http
 - React
 - Redux with RTK
 - Ant Design
-- LESS
+- React Testing Library
 
 ### Backend technology stack:
 
