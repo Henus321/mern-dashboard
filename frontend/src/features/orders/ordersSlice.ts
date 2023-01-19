@@ -123,7 +123,7 @@ export const ordersSlice = createSlice({
         (state, action: PayloadAction<IOrder[]>) => {
           state.isLoading = false;
           state.isError = false;
-          state.orders = action.payload;
+          state.orders = action.payload.reverse();
           state.order = null;
         }
       )
@@ -166,7 +166,7 @@ export const ordersSlice = createSlice({
         (state, action: PayloadAction<IOrder>) => {
           state.isLoading = false;
           state.isSuccess = true;
-          state.orders = state.orders.concat(action.payload);
+          state.orders = [action.payload].concat(state.orders);
         }
       )
       .addCase(

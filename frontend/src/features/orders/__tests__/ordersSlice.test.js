@@ -1,7 +1,7 @@
 import {
   server,
   mockState,
-  mockOrdersPayload,
+  mockFulfilledOrders,
   mockErrorMessage,
 } from "../../../tests";
 import ordersReducer, { fetchOrders } from "../ordersSlice";
@@ -14,10 +14,10 @@ describe("Orders Slice", () => {
   it("should fetch Orders with 'fetchOrders.fulfilled' action", async () => {
     const state = ordersReducer(
       mockState.orders,
-      fetchOrders.fulfilled(mockOrdersPayload)
+      fetchOrders.fulfilled(mockFulfilledOrders)
     );
 
-    expect(state.orders).toStrictEqual(mockOrdersPayload);
+    expect(state.orders).toStrictEqual(mockFulfilledOrders);
   });
 
   it("should receive error message with 'fetchOrders.rejected' action", async () => {

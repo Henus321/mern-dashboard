@@ -52,29 +52,27 @@ const Orders = () => {
     <>
       {isLoading && !orders && <Spinner />}
       {orders && (
-        <>
-          <Card
-            data-testid="orders-card"
-            bodyStyle={{
-              padding: "0",
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-            }}
-            className="rounded-card"
+        <Card
+          data-testid="orders-card"
+          bodyStyle={{
+            padding: "0",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+          className="rounded-card"
+        >
+          <OrdersTable orders={orders} />
+          <Button
+            disabled={isLoading}
+            type="primary"
+            size="large"
+            className="rounded align-self-end m-submit-button"
+            onClick={onCreate}
           >
-            <OrdersTable orders={orders} />
-            <Button
-              disabled={isLoading}
-              type="primary"
-              size="large"
-              className="rounded align-self-end m-submit-button"
-              onClick={onCreate}
-            >
-              Create Order <AppstoreAddOutlined />
-            </Button>
-          </Card>
-        </>
+            Create Order <AppstoreAddOutlined />
+          </Button>
+        </Card>
       )}
     </>
   );
