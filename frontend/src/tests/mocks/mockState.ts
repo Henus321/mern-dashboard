@@ -40,9 +40,9 @@ export const mockState = {
   },
   customers: {
     customers: [],
+    customer: null,
     isError: false,
     isSuccess: false,
-    isModified: false,
     isLoading: false,
     message: "",
   },

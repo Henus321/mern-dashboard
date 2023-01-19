@@ -14,6 +14,5 @@ export interface ICustomerState {
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
-  isModified: boolean;
   message: string;
 }

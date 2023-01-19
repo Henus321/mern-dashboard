@@ -13,18 +13,15 @@ import CustomersModal from "../CustomersModal";
 import Spinner from "../../../components/Spinner";
 
 const Customers = () => {
-  const { customers, message, isError, isSuccess, isModified, isLoading } =
-    useAppSelector((state) => state.customers);
+  const { customers, message, isError, isSuccess, isLoading } = useAppSelector(
+    (state) => state.customers
+  );
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    return () => {
-      if (isSuccess || isError) {
-        dispatch(reset());
-      }
-    };
-  }, [dispatch, isSuccess, isError]);
+    dispatch(fetchCustomers());
+  }, [dispatch]);
 
   useEffect(() => {
     if (isError) {
@@ -33,25 +30,23 @@ const Customers = () => {
         description: message,
         duration: ERROR_DURATION,
       });
+      dispatch(reset());
     }
 
-    if (isModified) {
+    if (isSuccess) {
       notification.success({
         message: "Success!",
         description: COMMON_SUCCESS_MESSAGE,
         duration: SUCCESS_DURATION,
       });
+      dispatch(reset());
     }
-
-    if (!isError) {
-      dispatch(fetchCustomers());
-    }
-  }, [dispatch, isError, isModified, message]);
+  }, [dispatch, isError, isSuccess, message]);
 
   return (
     <>
-      {isLoading && <Spinner />}
-      {!isLoading && customers && (
+      {isLoading && !customers && <Spinner />}
+      {customers && (
         <>
           <Card
             data-testid="customers-card"
