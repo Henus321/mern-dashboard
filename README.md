@@ -26,17 +26,17 @@ This project deployed on render.com: [https://mern-dashboard.onrender.com/](http
 Auth:
 
 ```
-POST /api/v1/users/login
-POST /api/v1/users/registration
-GET /api/v1/users/logout
+POST /api/v1/profile-auth/login
+POST /api/v1/profile-auth/registration
+GET /api/v1/profile-auth/logout
 ```
 
 Profile:
 
 ```
-GET /api/v1/users/me
-PATCH /api/v1/users/me
-PATCH /api/v1/users/password-change
+GET /api/v1/profile-auth/me
+PATCH /api/v1/profile-auth/me
+PATCH /api/v1/profile-auth/password-change
 ```
 
 Orders:
@@ -53,7 +53,6 @@ Products:
 
 ```
 GET /api/v1/products
-POST /api/v1/products
 GET /api/v1/products/{brand}
 ```
 
