@@ -1,6 +1,7 @@
-import { ICustomer, IOrder, IOrdersTable } from "../models";
+import { ICustomer, IOrder, IOrdersTable, IProduct } from "../models";
 import { capitalizeText } from "./typography";
 import { RangePickerProps } from "antd/lib/date-picker";
+import { PAGE_SIZE } from "../constants";
 import dayjs from "dayjs";
 import moment from "moment";
 
@@ -69,4 +70,17 @@ export const setCustomerOptions = (values: ICustomer[]) => {
       label: value.name,
     };
   });
+};
+
+export const getPaginationData = (pageNumber: number) => {
+  const pageStart = (pageNumber - 1) * PAGE_SIZE;
+  const pageEnd = (pageNumber - 1) * PAGE_SIZE + PAGE_SIZE;
+  return { pageStart, pageEnd };
+};
+
+export const getProductsHeight = (isLoading: boolean, products: IProduct[]) => {
+  const cardHeight = isLoading || products.length === 0 ? "100%" : "";
+  const cardBodyHeight =
+    isLoading || products.length === 0 ? "calc(100% - 126px)" : "";
+  return { cardHeight, cardBodyHeight };
 };

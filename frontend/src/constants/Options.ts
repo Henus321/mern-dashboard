@@ -65,3 +65,5 @@ export const PAYMENT_OPTIONS = [
 ];
 
 export const PAGE_SIZE = 6;
+
+export const DEFAULT_PAGE = 1;
