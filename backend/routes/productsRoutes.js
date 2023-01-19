@@ -3,7 +3,7 @@ const { protect } = require("../controllers/authController");
 const {
   getAllProducts,
   getProductsByBrand,
-} = require("../controllers/productController");
+} = require("../controllers/productsController");
 
 const router = express.Router();
 

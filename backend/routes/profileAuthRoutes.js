@@ -4,7 +4,7 @@ const {
   updateMe,
   uploadUserPhoto,
   resizeUserPhoto,
-} = require("../controllers/userController");
+} = require("../controllers/profileController");
 const {
   protect,
   registration,

@@ -16,8 +16,7 @@ export const DEFAULT_UNAUTHORIZED_USER_ROUTE = LOGIN_ROUTE;
 export const DEFAULT_AUTHORIZED_USER_ROUTE = ORDERS_ROUTE;
 
 export const PHOTO_URL = "/uploads/";
-export const USERS_URL = `${API_PREFIX}/users`;
-export const PORTFOLIO_URL = `${API_PREFIX}/portfolio`;
+export const PROFILE_AUTH_URL = `${API_PREFIX}/profile-auth`;
 export const CUSTOMERS_URL = `${API_PREFIX}/customers`;
 export const PRODUCTS_URL = `${API_PREFIX}/products`;
 export const ORDERS_URL = `${API_PREFIX}/orders`;

@@ -6,7 +6,7 @@ const {
   createOrder,
   updateOrder,
   deleteOrder,
-} = require("../controllers/orderController");
+} = require("../controllers/ordersController");
 
 const router = express.Router();
 
