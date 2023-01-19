@@ -6,8 +6,8 @@ import { fetchOrders, reset } from "../ordersSlice";
 import { useNavigate } from "react-router-dom";
 import {
   CREATE_ORDER_ROUTE,
-  ORDER_DELETE_MESSAGE,
   ERROR_DURATION,
+  ORDER_DELETE_MESSAGE,
   SUCCESS_DURATION,
 } from "../../../constants";
 
@@ -15,31 +15,16 @@ import OrdersTable from "../OrdersTable";
 import Spinner from "../../../components/Spinner";
 
 const Orders = () => {
-  const { orders, isLoading, isSuccess, isError, isModified, message } =
-    useAppSelector((state) => state.orders);
+  const { orders, isSuccess, isLoading, isError, message } = useAppSelector(
+    (state) => state.orders
+  );
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isModified) {
-      notification.success({
-        message: "Success!",
-        description: ORDER_DELETE_MESSAGE,
-        duration: SUCCESS_DURATION,
-      });
-    }
-
-    if (!isSuccess) {
-      dispatch(fetchOrders());
-    }
-
-    return () => {
-      if (isSuccess) {
-        dispatch(reset());
-      }
-    };
-  }, [dispatch, isSuccess, isModified, isError]);
+    dispatch(fetchOrders());
+  }, [dispatch]);
 
   useEffect(() => {
     if (isError) {
@@ -48,23 +33,25 @@ const Orders = () => {
         description: message,
         duration: ERROR_DURATION,
       });
+      dispatch(reset());
     }
 
-    return () => {
-      if (isError) {
-        dispatch(reset());
-      }
-    };
-  }, [dispatch, isError, message]);
+    if (isSuccess) {
+      notification.success({
+        message: "Success!",
+        description: ORDER_DELETE_MESSAGE,
+        duration: SUCCESS_DURATION,
+      });
+      dispatch(reset());
+    }
+  }, [dispatch, isSuccess, isError, message]);
 
-  const onCreate = () => {
-    navigate(CREATE_ORDER_ROUTE);
-  };
+  const onCreate = () => navigate(CREATE_ORDER_ROUTE);
 
   return (
     <>
-      {isLoading && <Spinner />}
-      {!isLoading && orders && (
+      {isLoading && !orders && <Spinner />}
+      {orders && (
         <>
           <Card
             data-testid="orders-card"
@@ -78,6 +65,7 @@ const Orders = () => {
           >
             <OrdersTable orders={orders} />
             <Button
+              disabled={isLoading}
               type="primary"
               size="large"
               className="rounded align-self-end m-submit-button"

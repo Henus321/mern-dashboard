@@ -13,7 +13,6 @@ import authSlice from "../features/profile-auth/profileAuthSlice";
 import productsSlice from "../features/products/productsSlice";
 import customersSlice from "../features/customers/customersSlice";
 import ordersSlice from "../features/orders/ordersSlice";
-import orderSlice from "../features/order/orderSlice";
 
 const persistConfig = {
   key: "user",
@@ -26,7 +25,6 @@ const rootReducer = combineReducers({
   customers: customersSlice,
   products: productsSlice,
   orders: ordersSlice,
-  order: orderSlice,
 });
 
 export const setupStore = (initialState?: RootState) => {

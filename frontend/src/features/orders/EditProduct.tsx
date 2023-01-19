@@ -1,50 +1,30 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Divider, notification, Tabs, Typography, Grid } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { reset, fetchProducts } from "../products/productsSlice";
+import { fetchProducts, reset } from "../products/productsSlice";
 import { brandTabs } from "../../configs";
-import { ERROR_DURATION, BRANDS } from "../../constants";
-import { useSearchParams } from "react-router-dom";
+import { IOrder } from "../../models";
+import { ERROR_DURATION } from "../../constants";
 
-import CreateProductItem from "./CreateProductItem";
+import EditProductItems from "./EditProductItems";
 import Spinner from "../../components/Spinner";
 
 const { useBreakpoint } = Grid;
 
-const CreateProduct = () => {
-  const { products, isLoading, isError, isSuccess, message } = useAppSelector(
+const EditProduct = ({ order }: { order: IOrder }) => {
+  const { products, isSuccess, isLoading, isError, message } = useAppSelector(
     (state) => state.products
   );
+  const [brand, setBrand] = useState(order.product.brand);
 
   const { lg } = useBreakpoint();
   const tabPosition = !lg ? "top" : "left";
 
   const dispatch = useAppDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const brandParams = searchParams.get("brand") && searchParams.get("brand");
-  const brand = brandParams ? brandParams : BRANDS[0];
-
-  const productParams = searchParams.get("product");
-  const initialProduct = productParams && { product: productParams };
 
   useEffect(() => {
-    return () => {
-      if (isSuccess) {
-        dispatch(reset());
-      }
-    };
-  }, [dispatch, isSuccess]);
-
-  useEffect(() => {
-    if (!isSuccess) {
-      const params = initialProduct ? { brand, ...initialProduct } : { brand };
-      setSearchParams(params);
-
-      dispatch(fetchProducts(brand));
-    }
-    // eslint-disable-next-line
-  }, [dispatch, brand, isSuccess]);
+    dispatch(fetchProducts(brand));
+  }, [dispatch, brand]);
 
   useEffect(() => {
     if (isError) {
@@ -57,11 +37,16 @@ const CreateProduct = () => {
     }
   }, [dispatch, isError, message]);
 
-  const onTabChange = (brandTab: string) => {
-    dispatch(reset());
+  useEffect(() => {
+    return () => {
+      if (isSuccess) {
+        dispatch(reset());
+      }
+    };
+  }, [dispatch, isSuccess]);
 
-    const params = brandTab ? { brand: brandTab } : "";
-    setSearchParams(params);
+  const onTabChange = (brand: string) => {
+    setBrand(brand);
   };
 
   return (
@@ -76,7 +61,7 @@ const CreateProduct = () => {
           className="tabs-container"
           activeKey={brand}
           tabPosition={tabPosition}
-          onChange={(brandTab) => onTabChange(brandTab)}
+          onChange={(brand) => onTabChange(brand)}
           items={brandTabs.map((brandTab) => {
             return {
               label: brandTab.tab,
@@ -88,7 +73,7 @@ const CreateProduct = () => {
               },
               children:
                 products.length > 0 ? (
-                  <CreateProductItem />
+                  <EditProductItems />
                 ) : (
                   <div className="m-auto">
                     <Typography.Paragraph className="text-center">
@@ -104,4 +89,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default EditProduct;

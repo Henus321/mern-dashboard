@@ -13,7 +13,6 @@ import {
   mockOrder,
   mockFerrari,
   mockLamborghini,
-  mockDeleteResponse,
   mockProducts,
   mockSuccessResponse,
   mockCustomers,
@@ -29,14 +28,14 @@ export const server = setupServer(
   rest.post(`${USERS_URL}/registration`, (req, res, ctx) => {
     return res(ctx.json(mockAuthResponse));
   }),
-  rest.post(`${USERS_URL}/logout`, (req, res, ctx) => {
+  rest.get(`${USERS_URL}/logout`, (req, res, ctx) => {
     return res(ctx.json(mockSuccessResponse));
   }),
   rest.get(`${ORDERS_URL}`, (req, res, ctx) => {
     return res(ctx.json(mockOrders));
   }),
   rest.delete(`${ORDERS_URL}/${mockOrderId}`, (req, res, ctx) => {
-    return res(ctx.json(mockDeleteResponse));
+    return res(ctx.json(mockOrder));
   }),
   rest.get(`${ORDERS_URL}/${mockOrderId}`, (req, res, ctx) => {
     return res(ctx.json(mockOrder));
@@ -67,9 +66,6 @@ export const server = setupServer(
   }),
   rest.delete(`${CUSTOMERS_URL}/${mockCustomerId}`, (req, res, ctx) => {
     return res(ctx.json(mockNewCustomer));
-  }),
-  rest.get(`${USERS_URL}/logout`, (req, res, ctx) => {
-    return res(ctx.json(mockSuccessResponse));
   }),
   rest.get(`${USERS_URL}/me`, (req, res, ctx) => {
     return res(ctx.json(mockProfile));

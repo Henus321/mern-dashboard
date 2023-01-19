@@ -1,29 +1,28 @@
 import { Card, Typography, Image } from "antd";
+import { useSearchParams } from "react-router-dom";
 import { beautifyCost, capitalizeText } from "../../utils";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { setProduct } from "../products/productsSlice";
+import { useAppSelector } from "../../hooks";
 
-const EditProductItem = () => {
-  const { product, products } = useAppSelector((state) => state.products);
-
-  const dispatch = useAppDispatch();
-
-  const gridStyle: React.CSSProperties = {
-    cursor: "pointer",
-  };
+const CreateProductItem = () => {
+  const { products } = useAppSelector((state) => state.products);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const brand = searchParams.get("brand");
+  const product = searchParams.get("product");
 
   const isHovered = (curProduct: string) => {
     return curProduct === product
       ? {
-          ...gridStyle,
+          cursor: "pointer",
           boxShadow:
             "0 1px 2px -2px rgb(0 0 0 / 22%), 0 3px 6px 0 rgb(0 0 0 / 30%)",
         }
-      : { ...gridStyle };
+      : { cursor: "pointer" };
   };
 
-  const onClick = (product: string) => {
-    dispatch(setProduct(product));
+  const onClick = (productId: string) => {
+    const params = brand && productId ? { brand, product: productId } : "";
+
+    setSearchParams(params);
   };
 
   return (
@@ -33,7 +32,7 @@ const EditProductItem = () => {
           className="card-container flex flex-column"
           onClick={() => onClick(product._id)}
           hoverable
-          key={product.name}
+          key={product._id}
           style={isHovered(product._id)}
         >
           <Typography.Title
@@ -68,4 +67,4 @@ const EditProductItem = () => {
   );
 };
 
-export default EditProductItem;
+export default CreateProductItem;

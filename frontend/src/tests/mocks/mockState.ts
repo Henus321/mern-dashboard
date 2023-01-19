@@ -55,19 +55,11 @@ export const mockState = {
     message: "",
   },
   orders: {
-    orders: null,
-    isError: false,
-    isSuccess: false,
-    isLoading: false,
-    isModified: false,
-    message: "",
-  },
-  order: {
+    orders: [],
     order: null,
     isError: false,
     isSuccess: false,
     isLoading: false,
-    isModified: false,
     message: "",
   },
 };

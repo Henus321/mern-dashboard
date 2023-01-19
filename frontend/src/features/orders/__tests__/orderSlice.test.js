@@ -6,7 +6,7 @@ import {
   mockState,
   mockErrorMessage,
 } from "../../../tests";
-import orderReducer, { createOrder, updateOrder } from "../orderSlice";
+import orderReducer, { createOrder, updateOrder } from "../ordersSlice";
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());

@@ -2,23 +2,23 @@ import React from "react";
 import { Table, Button, Image, Space } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
-import { IOrdersTable, IOrdersTableProps } from "../../models";
+import { IOrder, IOrdersTable } from "../../models";
 import { Link, useNavigate } from "react-router-dom";
 import { beautifyCost, convertOrdersToDataSource } from "../../utils";
 import { brandFilters } from "../../configs";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { deleteOrder } from "./ordersSlice";
 import { EDIT_ORDER_ROUTE, PRODUCTS_ROUTE } from "../../constants";
-import { reset } from "../products/productsSlice";
 import moment from "moment";
 
-const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
+const OrdersTable = ({ orders }: { orders: IOrder[] }) => {
+  const { isLoading } = useAppSelector((state) => state.orders);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const onEdit = (id: string) => {
     navigate(`${EDIT_ORDER_ROUTE}/${id}`);
-    dispatch(reset());
   };
 
   const onDelete = (id: string) => {
@@ -109,6 +109,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
         return (
           <Space className="w-full" direction="vertical">
             <Button
+              disabled={isLoading}
               type="primary"
               ghost
               className="rounded w-full px-4 py-10"
@@ -117,6 +118,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
               Edit <EditOutlined />
             </Button>
             <Button
+              disabled={isLoading}
               data-testid="delete-button"
               type="primary"
               ghost
@@ -166,6 +168,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
           </span>
           <Space direction="vertical" className="w-full">
             <Button
+              disabled={isLoading}
               type="primary"
               ghost
               className="rounded w-full px-4 py-10"
@@ -174,6 +177,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({ orders }) => {
               Edit <EditOutlined />
             </Button>
             <Button
+              disabled={isLoading}
               data-testid="delete-button"
               type="primary"
               ghost

@@ -1,32 +1,25 @@
 import { Card, Typography, Image } from "antd";
-import { useSearchParams } from "react-router-dom";
 import { beautifyCost, capitalizeText } from "../../utils";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { setProduct } from "../products/productsSlice";
 
-const CreateProductItem = () => {
-  const { products } = useAppSelector((state) => state.products);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const brand = searchParams.get("brand");
-  const product = searchParams.get("product");
+const EditProductItem = () => {
+  const { product, products } = useAppSelector((state) => state.products);
 
-  const gridStyle: React.CSSProperties = {
-    cursor: "pointer",
-  };
+  const dispatch = useAppDispatch();
 
   const isHovered = (curProduct: string) => {
     return curProduct === product
       ? {
-          ...gridStyle,
+          cursor: "pointer",
           boxShadow:
             "0 1px 2px -2px rgb(0 0 0 / 22%), 0 3px 6px 0 rgb(0 0 0 / 30%)",
         }
-      : { ...gridStyle };
+      : { cursor: "pointer" };
   };
 
-  const onClick = (productId: string) => {
-    const params = brand && productId ? { brand, product: productId } : "";
-
-    setSearchParams(params);
+  const onClick = (product: string) => {
+    dispatch(setProduct(product));
   };
 
   return (
@@ -71,4 +64,4 @@ const CreateProductItem = () => {
   );
 };
 
-export default CreateProductItem;
+export default EditProductItem;

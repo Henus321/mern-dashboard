@@ -1,5 +1,7 @@
 import { ICustomer, IOrder, IOrdersTable } from "../models";
 import { capitalizeText } from "./typography";
+import { RangePickerProps } from "antd/lib/date-picker";
+import dayjs from "dayjs";
 import moment from "moment";
 
 export const convertOrdersToDataSource = (
@@ -38,3 +40,33 @@ export const createCityFilters = (customers: ICustomer[]) =>
       value: city,
     };
   });
+
+export const setSelectOptions = (values: ICustomer[]) => {
+  return values.map((value) => {
+    return {
+      value: value._id,
+      label: value.name,
+    };
+  });
+};
+
+export const disabledDate: RangePickerProps["disabledDate"] = (current) =>
+  current && current < dayjs().endOf("day");
+
+export const createOrderFormValues = (order: IOrder) => ({
+  ...order,
+  customer: {
+    value: order.customer._id,
+    label: order.customer.name,
+  },
+  delivery: moment(order.delivery),
+});
+
+export const setCustomerOptions = (values: ICustomer[]) => {
+  return values.map((value) => {
+    return {
+      value: value._id,
+      label: value.name,
+    };
+  });
+};

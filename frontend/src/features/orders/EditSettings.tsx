@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Form,
   Select,
@@ -9,9 +10,10 @@ import {
   Card,
   notification,
 } from "antd";
-import { CheckOutlined, ArrowLeftOutlined } from "@ant-design/icons";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { ArrowLeftOutlined, CheckOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { IOrder } from "../../models";
 import {
   PAYMENT_OPTIONS,
   BUILD_OPTIONS,
@@ -19,23 +21,28 @@ import {
   PICK_MESSAGE,
   ORDERS_ROUTE,
 } from "../../constants";
+import { updateOrder } from "./ordersSlice";
 import { fetchCustomers } from "../customers/customersSlice";
-import { ICustomer } from "../../models";
-import { RangePickerProps } from "antd/lib/date-picker";
-import { createOrder } from "./orderSlice";
-import dayjs from "dayjs";
+import { setProduct } from "../products/productsSlice";
+import {
+  createOrderFormValues,
+  disabledDate,
+  setCustomerOptions,
+} from "../../utils";
 
-const CreateSettings = () => {
-  const { isLoading: orderIsLoading } = useAppSelector((state) => state.order);
+const EditSettings = ({ order }: { order: IOrder }) => {
+  const { isLoading: orderIsLoading } = useAppSelector((state) => state.orders);
   const { customers, isLoading } = useAppSelector((state) => state.customers);
-
-  const [searchParams] = useSearchParams();
-  const product = searchParams.get("product");
-
+  const { product } = useAppSelector((state) => state.products);
   const [form] = Form.useForm();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const initialProduct = order.product._id;
+    dispatch(setProduct(initialProduct));
+  }, [dispatch, order]);
 
   const onSelect = (e: React.SyntheticEvent<HTMLFormElement, Event>) => {
     const target = e.target as HTMLFormElement;
@@ -44,19 +51,7 @@ const CreateSettings = () => {
     }
   };
 
-  const setOptions = (values: ICustomer[]) => {
-    return values.map((value) => {
-      return {
-        value: value._id,
-        label: value.name,
-      };
-    });
-  };
-
-  const disabledDate: RangePickerProps["disabledDate"] = (current) =>
-    current && current < dayjs().endOf("day");
-
-  const onFinish = (values: any, product: string | null) => {
+  const onFinish = (values: any, product: string) => {
     if (!product) {
       notification.error({
         message: "Error!",
@@ -65,9 +60,12 @@ const CreateSettings = () => {
       });
       return;
     }
+    const customer = values.customer.value
+      ? values.customer.value
+      : values.customer;
+    const newOrder = { ...values, product, customer, _id: order._id };
 
-    const newOrder = { ...values, product };
-    dispatch(createOrder(newOrder));
+    dispatch(updateOrder(newOrder));
   };
 
   const onClick = () => {
@@ -88,6 +86,7 @@ const CreateSettings = () => {
       >
         <Form
           disabled={orderIsLoading}
+          initialValues={createOrderFormValues(order)}
           form={form}
           labelCol={{ span: 7 }}
           wrapperCol={{ span: 14 }}
@@ -100,7 +99,10 @@ const CreateSettings = () => {
             name="customer"
             label="Customer"
           >
-            <Select loading={isLoading} options={setOptions(customers)} />
+            <Select
+              loading={isLoading}
+              options={setCustomerOptions(customers)}
+            />
           </Form.Item>
           <Form.Item
             rules={[{ required: true, message: "Please select an build!" }]}
@@ -154,4 +156,4 @@ const CreateSettings = () => {
   );
 };
 
-export default CreateSettings;
+export default EditSettings;
