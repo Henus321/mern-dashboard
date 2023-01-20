@@ -1,3 +1,9 @@
+export interface IPortfolio {
+  description?: string;
+  profession?: string;
+  examples?: string[];
+}
+
 export interface IUser {
   email: string;
   password: string;
@@ -13,21 +19,10 @@ export interface IUser {
   portfolio?: IPortfolio;
 }
 
-export interface IUserState {
+export interface IProfileAuthState {
   user: IUser | null;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
-  isModified: boolean;
   message: string;
-}
-
-export interface IPortfolio {
-  description?: string;
-  profession?: string;
-  examples?: string[];
-}
-
-export interface IProfileHeaderProps {
-  user: IUser;
 }

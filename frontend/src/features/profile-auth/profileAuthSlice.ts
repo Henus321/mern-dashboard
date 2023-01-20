@@ -1,12 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { IUserState, IUser } from "../../models";
+import { IProfileAuthState, IUser } from "../../models";
 import profileAuthService from "./profileAuthService";
 
-const initialState: IUserState = {
+const initialState: IProfileAuthState = {
   user: null,
   isError: false,
   isSuccess: false,
-  isModified: false,
   isLoading: false,
   message: "",
 };
@@ -128,7 +127,6 @@ export const profileAuthSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
       state.isSuccess = false;
-      state.isModified = false;
       state.message = "";
     },
   },
@@ -141,7 +139,6 @@ export const profileAuthSlice = createSlice({
         register.fulfilled.type,
         (state, action: PayloadAction<IUser>) => {
           state.isLoading = false;
-          state.isSuccess = true;
           state.user = action.payload;
         }
       )
@@ -159,7 +156,6 @@ export const profileAuthSlice = createSlice({
       })
       .addCase(login.fulfilled.type, (state, action: PayloadAction<IUser>) => {
         state.isLoading = false;
-        state.isSuccess = true;
         state.user = action.payload;
       })
       .addCase(login.rejected.type, (state, action: PayloadAction<string>) => {
@@ -173,7 +169,6 @@ export const profileAuthSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
-        state.isSuccess = true;
         state.user = null;
       })
       .addCase(logout.rejected.type, (state, action: PayloadAction<string>) => {
@@ -188,8 +183,6 @@ export const profileAuthSlice = createSlice({
         fetchUser.fulfilled.type,
         (state, action: PayloadAction<IUser>) => {
           state.isLoading = false;
-          state.isSuccess = true;
-          state.isModified = false;
           state.user = action.payload;
         }
       )
@@ -209,7 +202,6 @@ export const profileAuthSlice = createSlice({
         (state, action: PayloadAction<IUser>) => {
           state.isLoading = false;
           state.isSuccess = true;
-          state.isModified = true;
           state.user = action.payload;
         }
       )
@@ -229,7 +221,6 @@ export const profileAuthSlice = createSlice({
         (state, action: PayloadAction<IUser>) => {
           state.isLoading = false;
           state.isSuccess = true;
-          state.isModified = true;
           state.user = action.payload;
         }
       )

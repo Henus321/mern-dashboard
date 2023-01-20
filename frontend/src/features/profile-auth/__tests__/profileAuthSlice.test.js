@@ -29,10 +29,10 @@ describe("Profile Auth Slice", () => {
     expect(end[0].payload).toStrictEqual(mockUser);
   });
 
-  it("should set isModified flag to true with 'updateUser.fulfilled' action", async () => {
+  it("should set isSuccess flag to true with 'updateUser.fulfilled' action", async () => {
     const state = profileAuthReducer(mockState.auth, updateUser.fulfilled());
 
-    expect(state.isModified).toBe(true);
+    expect(state.isSuccess).toBe(true);
   });
 
   it("should set user to null with 'logout.fulfilled' action", async () => {

@@ -24,7 +24,6 @@ export const mockAuthStateUnauthorized = {
   user: null,
   isError: false,
   isSuccess: false,
-  isModified: false,
   isLoading: false,
   message: "",
 };
@@ -34,7 +33,6 @@ export const mockState = {
     user: mockUser,
     isError: false,
     isSuccess: false,
-    isModified: false,
     isLoading: false,
     message: "",
   },
