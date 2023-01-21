@@ -1,7 +1,7 @@
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 import {
-  USERS_URL,
+  PROFILE_AUTH_URL,
   ORDERS_URL,
   PRODUCTS_URL,
   CUSTOMERS_URL,
@@ -13,29 +13,29 @@ import {
   mockOrder,
   mockFerrari,
   mockLamborghini,
-  mockDeleteResponse,
   mockProducts,
   mockSuccessResponse,
   mockCustomers,
   mockOrderId,
   mockCustomerId,
+  mockNewCustomer,
 } from "./mocks";
 
 export const server = setupServer(
-  rest.post(`${USERS_URL}/login`, (req, res, ctx) => {
+  rest.post(`${PROFILE_AUTH_URL}/login`, (req, res, ctx) => {
     return res(ctx.json(mockAuthResponse));
   }),
-  rest.post(`${USERS_URL}/registration`, (req, res, ctx) => {
+  rest.post(`${PROFILE_AUTH_URL}/registration`, (req, res, ctx) => {
     return res(ctx.json(mockAuthResponse));
   }),
-  rest.post(`${USERS_URL}/logout`, (req, res, ctx) => {
+  rest.get(`${PROFILE_AUTH_URL}/logout`, (req, res, ctx) => {
     return res(ctx.json(mockSuccessResponse));
   }),
   rest.get(`${ORDERS_URL}`, (req, res, ctx) => {
     return res(ctx.json(mockOrders));
   }),
   rest.delete(`${ORDERS_URL}/${mockOrderId}`, (req, res, ctx) => {
-    return res(ctx.json(mockDeleteResponse));
+    return res(ctx.json(mockOrder));
   }),
   rest.get(`${ORDERS_URL}/${mockOrderId}`, (req, res, ctx) => {
     return res(ctx.json(mockOrder));
@@ -59,24 +59,21 @@ export const server = setupServer(
     return res(ctx.json(mockCustomers));
   }),
   rest.post(`${CUSTOMERS_URL}`, (req, res, ctx) => {
-    return res(ctx.json(mockSuccessResponse));
+    return res(ctx.json(mockNewCustomer));
   }),
   rest.patch(`${CUSTOMERS_URL}/${mockCustomerId}`, (req, res, ctx) => {
-    return res(ctx.json(mockSuccessResponse));
+    return res(ctx.json({ ...mockNewCustomer, _id: mockCustomerId }));
   }),
   rest.delete(`${CUSTOMERS_URL}/${mockCustomerId}`, (req, res, ctx) => {
-    return res(ctx.json(mockSuccessResponse));
+    return res(ctx.json(mockNewCustomer));
   }),
-  rest.get(`${USERS_URL}/logout`, (req, res, ctx) => {
-    return res(ctx.json(mockSuccessResponse));
-  }),
-  rest.get(`${USERS_URL}/me`, (req, res, ctx) => {
+  rest.get(`${PROFILE_AUTH_URL}/me`, (req, res, ctx) => {
     return res(ctx.json(mockProfile));
   }),
-  rest.patch(`${USERS_URL}/me`, (req, res, ctx) => {
+  rest.patch(`${PROFILE_AUTH_URL}/me`, (req, res, ctx) => {
     return res(ctx.json(mockProfile));
   }),
-  rest.patch(`${USERS_URL}/password-change`, (req, res, ctx) => {
+  rest.patch(`${PROFILE_AUTH_URL}/password-change`, (req, res, ctx) => {
     return res(ctx.json(mockProfile));
   })
 );

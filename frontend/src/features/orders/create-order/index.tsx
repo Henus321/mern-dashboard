@@ -1,21 +1,21 @@
 import { useEffect } from "react";
 import { Card, notification, Typography } from "antd";
-import { reset } from "../orderSlice";
+import { reset } from "../ordersSlice";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import {
   ORDERS_ROUTE,
-  ORDER_CREATE_MESSAGE,
   ERROR_DURATION,
   SUCCESS_DURATION,
+  ORDER_CREATE_MESSAGE,
 } from "../../../constants";
 
-import CreateProduct from "../CreateProduct";
+import OrderProduct from "../OrderProduct";
 import CreateSettings from "../CreateSettings";
 
 const CreateOrder = () => {
   const { isSuccess, isError, message } = useAppSelector(
-    (state) => state.order
+    (state) => state.orders
   );
 
   const dispatch = useAppDispatch();
@@ -38,30 +38,23 @@ const CreateOrder = () => {
         duration: SUCCESS_DURATION,
       });
       navigate(ORDERS_ROUTE);
+      dispatch(reset());
     }
-
-    return () => {
-      if (isSuccess || isError) {
-        dispatch(reset());
-      }
-    };
   }, [dispatch, navigate, isSuccess, isError, message]);
 
   return (
-    <>
-      <Card
-        bodyStyle={{
-          padding: "0",
-        }}
-        className="rounded-card"
-      >
-        <Typography.Title className="mt-15 text-center" level={2}>
-          Create an Order
-        </Typography.Title>
-        <CreateProduct />
-        <CreateSettings />
-      </Card>
-    </>
+    <Card
+      bodyStyle={{
+        padding: "0",
+      }}
+      className="rounded-card"
+    >
+      <Typography.Title className="mt-15 text-center" level={2}>
+        Create an Order
+      </Typography.Title>
+      <OrderProduct />
+      <CreateSettings />
+    </Card>
   );
 };
 

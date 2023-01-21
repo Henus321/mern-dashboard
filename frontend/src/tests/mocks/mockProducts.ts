@@ -348,4 +348,4 @@ export const mockFerrari = {
 };
 
 const productsArray = [...mockProducts.data.data];
-export const mockProductsPayload = productsArray.reverse();
+export const mockProductsPayload = productsArray;

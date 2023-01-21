@@ -21,7 +21,7 @@ const { TextArea } = Input;
 const { useBreakpoint } = Grid;
 
 const Portfolio = () => {
-  const { user, isError, isModified, message } = useAppSelector(
+  const { user, isError, isSuccess, message } = useAppSelector(
     (state) => state.auth
   );
   const [form] = Form.useForm();
@@ -49,7 +49,7 @@ const Portfolio = () => {
       dispatch(reset());
     }
 
-    if (isModified) {
+    if (isSuccess) {
       notification.success({
         message: "Success!",
         description: COMMON_SUCCESS_MESSAGE,
@@ -58,7 +58,7 @@ const Portfolio = () => {
       dispatch(reset());
     }
     // eslint-disable-next-line
-  }, [dispatch, isError, isModified, message]);
+  }, [dispatch, isError, isSuccess, message]);
 
   const onFinish = (values: IPortfolio) => {
     dispatch(updateUser({ portfolio: values }));

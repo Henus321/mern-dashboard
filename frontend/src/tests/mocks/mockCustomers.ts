@@ -47,7 +47,22 @@ export const mockCustomers = {
   },
 };
 
+export const mockNewCustomer = {
+  status: "success",
+  data: {
+    data: {
+      name: "John Doe",
+      phone: "89031234567",
+      email: "user@test.com",
+      social: "www.google.com",
+      city: "Tokyo",
+      _id: "63c94a1d5c4cee86def874f8",
+      key: "ff8755ff-defc-4d4d-848f-b23ace3ca9e7",
+      __v: 0,
+    },
+  },
+};
+
 export const mockCustomerId = "637e4eeb73efdf2fa89cb3ee";
 
-const customersArray = [...mockCustomers.data.data];
-export const mockCustomersPayload = customersArray.reverse();
+export const mockCustomersPayload = mockCustomers.data.data;

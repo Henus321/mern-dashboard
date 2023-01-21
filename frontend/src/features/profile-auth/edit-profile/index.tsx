@@ -20,7 +20,7 @@ const { TextArea } = Input;
 const { useBreakpoint } = Grid;
 
 const EditProfile = () => {
-  const { user, isError, isModified, message } = useAppSelector(
+  const { user, isError, isSuccess, message } = useAppSelector(
     (state) => state.auth
   );
   const [form] = Form.useForm();
@@ -50,7 +50,7 @@ const EditProfile = () => {
       dispatch(reset());
     }
 
-    if (isModified) {
+    if (isSuccess) {
       notification.success({
         message: "Success!",
         description: COMMON_SUCCESS_MESSAGE,
@@ -59,7 +59,7 @@ const EditProfile = () => {
       dispatch(reset());
     }
     // eslint-disable-next-line
-  }, [dispatch, isError, isModified, message]);
+  }, [dispatch, isError, isSuccess, message]);
 
   const onSave = (formFields: IUser) => {
     dispatch(updateUser(formFields));

@@ -7,7 +7,6 @@ const initialState: ICustomerState = {
   customer: null,
   isError: false,
   isSuccess: false,
-  isModified: false,
   isLoading: false,
   message: "",
 };
@@ -88,12 +87,15 @@ export const customersSlice = createSlice({
   name: "customers",
   initialState,
   reducers: {
-    reset: () => initialState,
+    reset: (state) => {
+      state.customer = null;
+      state.isError = false;
+      state.isSuccess = false;
+      state.isLoading = false;
+      state.message = "";
+    },
     setCustomer: (state, action: PayloadAction<ICustomer>) => {
       state.customer = action.payload;
-    },
-    clearCustomer: (state) => {
-      state.customer = null;
     },
   },
   extraReducers: (builder) => {
@@ -105,10 +107,8 @@ export const customersSlice = createSlice({
         fetchCustomers.fulfilled.type,
         (state, action: PayloadAction<ICustomer[]>) => {
           state.isLoading = false;
-          state.isModified = false;
           state.isError = false;
-          state.isSuccess = true;
-          state.customers = action.payload;
+          state.customers = action.payload.reverse();
         }
       )
       .addCase(
@@ -123,11 +123,14 @@ export const customersSlice = createSlice({
       .addCase(createCustomer.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createCustomer.fulfilled.type, (state) => {
-        state.isLoading = false;
-        state.isModified = true;
-        state.isSuccess = true;
-      })
+      .addCase(
+        createCustomer.fulfilled.type,
+        (state, action: PayloadAction<ICustomer>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.customers = [action.payload].concat(state.customers);
+        }
+      )
       .addCase(
         createCustomer.rejected.type,
         (state, action: PayloadAction<string>) => {
@@ -139,11 +142,16 @@ export const customersSlice = createSlice({
       .addCase(updateCustomer.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateCustomer.fulfilled.type, (state) => {
-        state.isLoading = false;
-        state.isModified = true;
-        state.isSuccess = true;
-      })
+      .addCase(
+        updateCustomer.fulfilled.type,
+        (state, action: PayloadAction<ICustomer>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.customers = state.customers.map((customer) =>
+            customer._id === action.payload._id ? action.payload : customer
+          );
+        }
+      )
       .addCase(
         updateCustomer.rejected.type,
         (state, action: PayloadAction<string>) => {
@@ -155,11 +163,16 @@ export const customersSlice = createSlice({
       .addCase(deleteCustomer.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteCustomer.fulfilled.type, (state) => {
-        state.isLoading = false;
-        state.isModified = true;
-        state.isSuccess = true;
-      })
+      .addCase(
+        deleteCustomer.fulfilled,
+        (state, action: PayloadAction<ICustomer>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.customers = state.customers.filter(
+            (customer) => customer._id !== action.payload._id
+          );
+        }
+      )
       .addCase(
         deleteCustomer.rejected.type,
         (state, action: PayloadAction<string>) => {
@@ -171,5 +184,5 @@ export const customersSlice = createSlice({
   },
 });
 
-export const { reset, setCustomer, clearCustomer } = customersSlice.actions;
+export const { reset, setCustomer } = customersSlice.actions;
 export default customersSlice.reducer;

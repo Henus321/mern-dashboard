@@ -11,10 +11,9 @@ import {
   notification,
 } from "antd";
 import { ArrowLeftOutlined, CheckOutlined } from "@ant-design/icons";
-import { RangePickerProps } from "antd/lib/date-picker";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { ICustomer, IOrderProps } from "../../models";
+import { IOrder } from "../../models";
 import {
   PAYMENT_OPTIONS,
   BUILD_OPTIONS,
@@ -22,35 +21,30 @@ import {
   PICK_MESSAGE,
   ORDERS_ROUTE,
 } from "../../constants";
-import { updateOrder } from "./orderSlice";
+import { updateOrder } from "./ordersSlice";
 import { fetchCustomers } from "../customers/customersSlice";
 import { setProduct } from "../products/productsSlice";
-import dayjs from "dayjs";
-import moment from "moment";
+import {
+  createOrderFormValues,
+  disabledDate,
+  setCustomerOptions,
+} from "../../utils";
 
-const EditSettings: React.FC<IOrderProps> = ({ order }) => {
-  const { isLoading: orderIsLoading } = useAppSelector((state) => state.order);
+const EditSettings = ({ order }: { order: IOrder }) => {
+  const { isLoading: ordersIsLoading } = useAppSelector(
+    (state) => state.orders
+  );
   const { customers, isLoading } = useAppSelector((state) => state.customers);
   const { product } = useAppSelector((state) => state.products);
   const [form] = Form.useForm();
-  const initialFormValues = {
-    ...order,
-    customer: {
-      value: order.customer._id,
-      label: order.customer.name,
-    },
-    delivery: moment(order.delivery),
-  };
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     const initialProduct = order.product._id;
-
     dispatch(setProduct(initialProduct));
-    // eslint-disable-next-line
-  }, [dispatch]);
+  }, [dispatch, order]);
 
   const onSelect = (e: React.SyntheticEvent<HTMLFormElement, Event>) => {
     const target = e.target as HTMLFormElement;
@@ -58,18 +52,6 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
       dispatch(fetchCustomers());
     }
   };
-
-  const setOptions = (values: ICustomer[]) => {
-    return values.map((value) => {
-      return {
-        value: value._id,
-        label: value.name,
-      };
-    });
-  };
-
-  const disabledDate: RangePickerProps["disabledDate"] = (current) =>
-    current && current < dayjs().endOf("day");
 
   const onFinish = (values: any, product: string) => {
     if (!product) {
@@ -105,8 +87,8 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
         }}
       >
         <Form
-          disabled={orderIsLoading}
-          initialValues={initialFormValues}
+          disabled={ordersIsLoading}
+          initialValues={createOrderFormValues(order)}
           form={form}
           labelCol={{ span: 7 }}
           wrapperCol={{ span: 14 }}
@@ -119,7 +101,10 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
             name="customer"
             label="Customer"
           >
-            <Select loading={isLoading} options={setOptions(customers)} />
+            <Select
+              loading={isLoading}
+              options={setCustomerOptions(customers)}
+            />
           </Form.Item>
           <Form.Item
             rules={[{ required: true, message: "Please select an build!" }]}
@@ -148,7 +133,7 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
           </Form.Item>
           <div className="flex justify-between">
             <Button
-              loading={orderIsLoading}
+              disabled={ordersIsLoading}
               size="large"
               danger
               ghost
@@ -158,7 +143,7 @@ const EditSettings: React.FC<IOrderProps> = ({ order }) => {
               <ArrowLeftOutlined /> Back to Orders
             </Button>
             <Button
-              loading={orderIsLoading}
+              disabled={ordersIsLoading}
               htmlType="submit"
               size="large"
               type="primary"

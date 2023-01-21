@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Card, notification, Typography } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { fetchOrder, reset } from "../orderSlice";
+import { fetchOrder, reset } from "../ordersSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   ORDER_EDIT_MESSAGE,
@@ -10,30 +10,25 @@ import {
   ORDERS_ROUTE,
 } from "../../../constants";
 
-import EditProduct from "..//EditProduct";
-import EditSettings from "..//EditSettings";
+import OrderProduct from "../OrderProduct";
+import EditSettings from "../EditSettings";
 import NotFound from "../../../components/NotFound";
 import Spinner from "../../../components/Spinner";
 
 const EditOrder = () => {
-  const { order, isLoading, isError, isSuccess, isModified, message } =
-    useAppSelector((state) => state.order);
+  const { order, isLoading, isError, isSuccess, message } = useAppSelector(
+    (state) => state.orders
+  );
   const { orderId } = useParams();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (orderId && !isSuccess) {
+    if (orderId) {
       dispatch(fetchOrder(orderId));
     }
-
-    return () => {
-      if (isSuccess) {
-        dispatch(reset());
-      }
-    };
-  }, [dispatch, orderId, isSuccess]);
+  }, [dispatch, orderId]);
 
   useEffect(() => {
     if (isError) {
@@ -45,27 +40,22 @@ const EditOrder = () => {
       if (order) dispatch(reset());
     }
 
-    if (isModified) {
+    if (isSuccess) {
       notification.success({
         message: "Success!",
         description: ORDER_EDIT_MESSAGE,
         duration: SUCCESS_DURATION,
       });
       navigate(ORDERS_ROUTE);
+      dispatch(reset());
     }
-
-    return () => {
-      if (isError && !order) {
-        dispatch(reset());
-      }
-    };
-  }, [dispatch, navigate, order, isModified, isError, message]);
+  }, [dispatch, navigate, order, isError, isSuccess, message]);
 
   return (
     <>
-      {isLoading && <Spinner />}
-      {!isLoading && isError && !order && <NotFound type="Order" />}
-      {!isLoading && !isModified && !isError && order && (
+      {isLoading && !order && <Spinner />}
+      {!isLoading && !order && isError && <NotFound type="Order" />}
+      {!isError && order && (
         <>
           <Card
             bodyStyle={{
@@ -76,7 +66,7 @@ const EditOrder = () => {
             <Typography.Title className="mt-15 text-center" level={2}>
               Edit the Order
             </Typography.Title>
-            <EditProduct order={order} />
+            <OrderProduct order={order} />
             <EditSettings order={order} />
           </Card>
         </>

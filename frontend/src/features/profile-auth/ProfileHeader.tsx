@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Typography, Avatar, Button, Upload } from "antd";
 import { RcFile } from "antd/lib/upload";
-import { IProfileHeaderProps } from "../../models";
+import { IUser } from "../../models";
 import { UploadOutlined, UserOutlined } from "@ant-design/icons";
 import { PHOTO_URL } from "../../constants";
 import { useAppDispatch } from "../../hooks";
@@ -9,7 +9,7 @@ import { reset, updateUser } from "./profileAuthSlice";
 
 import LogoutButton from "./LogoutButton";
 
-const ProfileHeader: React.FC<IProfileHeaderProps> = ({ user }) => {
+const ProfileHeader = ({ user }: { user: IUser }) => {
   const dispatch = useAppDispatch();
 
   const onSave = (file: RcFile) => {

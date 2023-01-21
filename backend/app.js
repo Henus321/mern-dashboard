@@ -10,11 +10,11 @@ const hpp = require("hpp");
 const compression = require("compression");
 
 const AppError = require("./utils/appError");
-const globalErrorHandler = require("./controllers/errorController");
-const userRouter = require("./routes/userRoutes");
-const orderRouter = require("./routes/orderRoutes");
-const productRouter = require("./routes/productRoutes");
-const customerRouter = require("./routes/customerRoutes");
+const globalErrorHandler = require("./controllers/errorsController");
+const profileAuthRouter = require("./routes/profileAuthRoutes");
+const ordersRouter = require("./routes/ordersRoutes");
+const productsRouter = require("./routes/productsRoutes");
+const customersRouter = require("./routes/customersRoutes");
 
 const app = express();
 
@@ -60,10 +60,10 @@ app.use(hpp());
 app.use(compression());
 
 // Routes
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/orders", orderRouter);
-app.use("/api/v1/products", productRouter);
-app.use("/api/v1/customers", customerRouter);
+app.use("/api/v1/profile-auth", profileAuthRouter);
+app.use("/api/v1/orders", ordersRouter);
+app.use("/api/v1/products", productsRouter);
+app.use("/api/v1/customers", customersRouter);
 
 // Static files
 app.use("/uploads", express.static("../frontend/public/uploads"));

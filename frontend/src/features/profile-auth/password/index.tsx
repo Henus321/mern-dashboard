@@ -17,9 +17,7 @@ import ProfileLayout from "../ProfileLayout";
 const { useBreakpoint } = Grid;
 
 const Password = () => {
-  const { isModified, isError, message } = useAppSelector(
-    (state) => state.auth
-  );
+  const { isSuccess, isError, message } = useAppSelector((state) => state.auth);
   const [form] = Form.useForm();
 
   const { xl } = useBreakpoint();
@@ -28,10 +26,10 @@ const Password = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isModified || isError) {
+    if (isSuccess || isError) {
       form.resetFields();
     }
-  }, [form, isModified, isError]);
+  }, [form, isSuccess, isError]);
 
   useEffect(() => {
     if (isError) {
@@ -43,7 +41,7 @@ const Password = () => {
       dispatch(reset());
     }
 
-    if (isModified) {
+    if (isSuccess) {
       notification.success({
         message: "Success!",
         description: COMMON_SUCCESS_MESSAGE,
@@ -51,8 +49,7 @@ const Password = () => {
       });
       dispatch(reset());
     }
-    // eslint-disable-next-line
-  }, [dispatch, isError, isModified, message]);
+  }, [dispatch, isError, isSuccess, message]);
 
   const onFinish = (values: Partial<IUser>) => {
     if (values.password !== values.passwordConfirm) {

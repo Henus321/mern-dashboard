@@ -9,7 +9,7 @@ import { createCityFilters } from "../../utils";
 import SocialNetworkTag from "../../components/SocialNetworkTag";
 
 const CustomersTable = () => {
-  const { customers } = useAppSelector((state) => state.customers);
+  const { customers, isLoading } = useAppSelector((state) => state.customers);
 
   const dispatch = useAppDispatch();
 
@@ -66,6 +66,7 @@ const CustomersTable = () => {
         return (
           <Space className="w-full" direction="vertical">
             <Button
+              disabled={isLoading}
               type="primary"
               ghost
               className="rounded w-full px-4 py-10"
@@ -74,6 +75,7 @@ const CustomersTable = () => {
               Edit <EditOutlined />
             </Button>
             <Button
+              disabled={isLoading}
               type="primary"
               ghost
               danger
@@ -120,6 +122,7 @@ const CustomersTable = () => {
             {record.city}
           </span>
           <Button
+            disabled={isLoading}
             type="primary"
             ghost
             className="rounded w-full px-4 py-10"
@@ -128,6 +131,7 @@ const CustomersTable = () => {
             Edit <EditOutlined />
           </Button>
           <Button
+            disabled={isLoading}
             type="primary"
             ghost
             danger

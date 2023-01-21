@@ -1,6 +1,5 @@
 const Product = require("../models/productModel");
 const asyncHandler = require("express-async-handler");
-const factory = require("../utils/handlerFactory");
 
 exports.getAllProducts = asyncHandler(async (req, res, next) => {
   const products = await Product.find().sort({
@@ -15,8 +14,6 @@ exports.getAllProducts = asyncHandler(async (req, res, next) => {
     },
   });
 });
-
-exports.createProduct = factory.createOne(Product);
 
 exports.getProductsByBrand = asyncHandler(async (req, res, next) => {
   const query = {

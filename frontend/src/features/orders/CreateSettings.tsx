@@ -20,19 +20,17 @@ import {
   ORDERS_ROUTE,
 } from "../../constants";
 import { fetchCustomers } from "../customers/customersSlice";
-import { ICustomer } from "../../models";
-import { RangePickerProps } from "antd/lib/date-picker";
-import { createOrder } from "./orderSlice";
-import dayjs from "dayjs";
+import { createOrder } from "./ordersSlice";
+import { disabledDate, setSelectOptions } from "../../utils";
 
 const CreateSettings = () => {
-  const { isLoading: orderIsLoading } = useAppSelector((state) => state.order);
+  const { isLoading: ordersIsLoading } = useAppSelector(
+    (state) => state.orders
+  );
   const { customers, isLoading } = useAppSelector((state) => state.customers);
-
+  const [form] = Form.useForm();
   const [searchParams] = useSearchParams();
   const product = searchParams.get("product");
-
-  const [form] = Form.useForm();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -43,18 +41,6 @@ const CreateSettings = () => {
       dispatch(fetchCustomers());
     }
   };
-
-  const setOptions = (values: ICustomer[]) => {
-    return values.map((value) => {
-      return {
-        value: value._id,
-        label: value.name,
-      };
-    });
-  };
-
-  const disabledDate: RangePickerProps["disabledDate"] = (current) =>
-    current && current < dayjs().endOf("day");
 
   const onFinish = (values: any, product: string | null) => {
     if (!product) {
@@ -87,7 +73,7 @@ const CreateSettings = () => {
         }}
       >
         <Form
-          disabled={orderIsLoading}
+          disabled={ordersIsLoading}
           form={form}
           labelCol={{ span: 7 }}
           wrapperCol={{ span: 14 }}
@@ -100,7 +86,7 @@ const CreateSettings = () => {
             name="customer"
             label="Customer"
           >
-            <Select loading={isLoading} options={setOptions(customers)} />
+            <Select loading={isLoading} options={setSelectOptions(customers)} />
           </Form.Item>
           <Form.Item
             rules={[{ required: true, message: "Please select an build!" }]}
@@ -129,7 +115,7 @@ const CreateSettings = () => {
           </Form.Item>
           <div className="flex justify-between">
             <Button
-              loading={orderIsLoading}
+              disabled={ordersIsLoading}
               size="large"
               danger
               ghost
@@ -139,7 +125,7 @@ const CreateSettings = () => {
               <ArrowLeftOutlined /> Back to Orders
             </Button>
             <Button
-              loading={orderIsLoading}
+              disabled={ordersIsLoading}
               htmlType="submit"
               size="large"
               type="primary"

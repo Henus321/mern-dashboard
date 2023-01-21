@@ -7,8 +7,8 @@ import PrivateRoute from "./PrivateRoute";
 import LoggedInRedirect from "./LoggedInRedirect";
 
 import Orders from "../features/orders/orders";
-import CreateOrder from "../features/order/create-order";
-import EditOrder from "../features/order/edit-order";
+import CreateOrder from "../features/orders/create-order";
+import EditOrder from "../features/orders/edit-order";
 import Products from "../features/products/products";
 import Customers from "../features/customers/customers";
 import Login from "../features/profile-auth/login";

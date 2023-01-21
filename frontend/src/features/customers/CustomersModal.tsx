@@ -3,14 +3,10 @@ import { Button, Form, Input, Modal } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { LEN_11, MAX_100, MAX_20, ONLY_NUMBERS } from "../../constants";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import {
-  clearCustomer,
-  createCustomer,
-  updateCustomer,
-} from "./customersSlice";
+import { createCustomer, updateCustomer, reset } from "./customersSlice";
 
 const CustomersModal = () => {
-  const { customer } = useAppSelector((state) => state.customers);
+  const { customer, isLoading } = useAppSelector((state) => state.customers);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
@@ -31,21 +27,20 @@ const CustomersModal = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
     form.resetFields();
-    if (customer) {
-      dispatch(clearCustomer());
-    }
+    dispatch(reset());
   };
 
   const onFinish = () => {
     if (customer) {
       const newCustomer = { ...form.getFieldsValue(), _id: customer._id };
       dispatch(updateCustomer(newCustomer));
-      dispatch(clearCustomer());
     }
     if (!customer) {
       const newCustomer = form.getFieldsValue();
       dispatch(createCustomer(newCustomer));
     }
+    setIsModalOpen(false);
+    form.resetFields();
   };
 
   return (
@@ -123,6 +118,7 @@ const CustomersModal = () => {
         </Form>
       </Modal>
       <Button
+        disabled={isLoading}
         type="primary"
         size="large"
         className="rounded align-self-end m-submit-button"

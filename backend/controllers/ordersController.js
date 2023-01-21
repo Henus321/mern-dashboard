@@ -24,6 +24,18 @@ exports.createOrder = asyncHandler(async (req, res, next) => {
   };
   const doc = await Order.create(query);
 
+  if (doc) {
+    await doc.populate({
+      path: "customer",
+      select: "name",
+    });
+
+    await doc.populate({
+      path: "product",
+      select: "brand model name photoUrl cost description",
+    });
+  }
+
   res.status(201).json({
     status: "success",
     data: {
@@ -96,8 +108,10 @@ exports.deleteOrder = asyncHandler(async (req, res, next) => {
     );
   }
 
-  res.status(204).json({
+  res.status(200).json({
     status: "success",
-    data: null,
+    data: {
+      data: doc,
+    },
   });
 });

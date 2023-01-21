@@ -1,6 +1,12 @@
 import { act, screen } from "@testing-library/react";
 import { CREATE_ORDER_ROUTE, ORDER_CREATE_MESSAGE } from "../../../constants";
-import { renderTestApp, mockState, server, getValidDay } from "../../../tests";
+import {
+  renderTestApp,
+  mockState,
+  server,
+  getValidDay,
+  mockCreateOrderParams,
+} from "../../../tests";
 import userEvent from "@testing-library/user-event";
 
 const requestSpy = jest.fn();
@@ -12,7 +18,9 @@ afterAll(() => server.close());
 
 describe("Create Order", () => {
   it("should retrieve new data on tab click", async () => {
-    await act(async () => renderTestApp(CREATE_ORDER_ROUTE, mockState));
+    await act(async () =>
+      renderTestApp(CREATE_ORDER_ROUTE + mockCreateOrderParams, mockState)
+    );
 
     expect(requestSpy).toHaveBeenCalledTimes(1);
     expect(
@@ -27,7 +35,9 @@ describe("Create Order", () => {
   });
 
   it("should successfully create an Order", async () => {
-    await act(async () => renderTestApp(CREATE_ORDER_ROUTE, mockState));
+    await act(async () =>
+      renderTestApp(CREATE_ORDER_ROUTE + mockCreateOrderParams, mockState)
+    );
 
     expect(screen.queryByText(ORDER_CREATE_MESSAGE)).not.toBeInTheDocument();
 
@@ -61,7 +71,9 @@ describe("Create Order", () => {
   });
 
   it("should navigate back to Orders on button click", async () => {
-    await act(async () => renderTestApp(CREATE_ORDER_ROUTE, mockState));
+    await act(async () =>
+      renderTestApp(CREATE_ORDER_ROUTE + mockCreateOrderParams, mockState)
+    );
 
     expect(screen.queryByText(/Photo/i)).not.toBeInTheDocument();
 
