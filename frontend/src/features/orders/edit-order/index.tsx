@@ -10,7 +10,7 @@ import {
   ORDERS_ROUTE,
 } from "../../../constants";
 
-import EditProduct from "../EditProduct";
+import OrderProduct from "../OrderProduct";
 import EditSettings from "../EditSettings";
 import NotFound from "../../../components/NotFound";
 import Spinner from "../../../components/Spinner";
@@ -66,7 +66,7 @@ const EditOrder = () => {
             <Typography.Title className="mt-15 text-center" level={2}>
               Edit the Order
             </Typography.Title>
-            <EditProduct order={order} />
+            <OrderProduct order={order} />
             <EditSettings order={order} />
           </Card>
         </>

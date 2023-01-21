@@ -31,7 +31,9 @@ import {
 } from "../../utils";
 
 const EditSettings = ({ order }: { order: IOrder }) => {
-  const { isLoading: orderIsLoading } = useAppSelector((state) => state.orders);
+  const { isLoading: ordersIsLoading } = useAppSelector(
+    (state) => state.orders
+  );
   const { customers, isLoading } = useAppSelector((state) => state.customers);
   const { product } = useAppSelector((state) => state.products);
   const [form] = Form.useForm();
@@ -85,7 +87,7 @@ const EditSettings = ({ order }: { order: IOrder }) => {
         }}
       >
         <Form
-          disabled={orderIsLoading}
+          disabled={ordersIsLoading}
           initialValues={createOrderFormValues(order)}
           form={form}
           labelCol={{ span: 7 }}
@@ -131,7 +133,7 @@ const EditSettings = ({ order }: { order: IOrder }) => {
           </Form.Item>
           <div className="flex justify-between">
             <Button
-              loading={orderIsLoading}
+              disabled={ordersIsLoading}
               size="large"
               danger
               ghost
@@ -141,7 +143,7 @@ const EditSettings = ({ order }: { order: IOrder }) => {
               <ArrowLeftOutlined /> Back to Orders
             </Button>
             <Button
-              loading={orderIsLoading}
+              disabled={ordersIsLoading}
               htmlType="submit"
               size="large"
               type="primary"

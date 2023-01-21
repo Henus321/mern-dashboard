@@ -115,7 +115,7 @@ const CreateSettings = () => {
           </Form.Item>
           <div className="flex justify-between">
             <Button
-              loading={ordersIsLoading}
+              disabled={ordersIsLoading}
               size="large"
               danger
               ghost
@@ -125,7 +125,7 @@ const CreateSettings = () => {
               <ArrowLeftOutlined /> Back to Orders
             </Button>
             <Button
-              loading={ordersIsLoading}
+              disabled={ordersIsLoading}
               htmlType="submit"
               size="large"
               type="primary"

@@ -10,7 +10,7 @@ import {
   ORDER_CREATE_MESSAGE,
 } from "../../../constants";
 
-import CreateProduct from "../CreateProduct";
+import OrderProduct from "../OrderProduct";
 import CreateSettings from "../CreateSettings";
 
 const CreateOrder = () => {
@@ -43,20 +43,18 @@ const CreateOrder = () => {
   }, [dispatch, navigate, isSuccess, isError, message]);
 
   return (
-    <>
-      <Card
-        bodyStyle={{
-          padding: "0",
-        }}
-        className="rounded-card"
-      >
-        <Typography.Title className="mt-15 text-center" level={2}>
-          Create an Order
-        </Typography.Title>
-        <CreateProduct />
-        <CreateSettings />
-      </Card>
-    </>
+    <Card
+      bodyStyle={{
+        padding: "0",
+      }}
+      className="rounded-card"
+    >
+      <Typography.Title className="mt-15 text-center" level={2}>
+        Create an Order
+      </Typography.Title>
+      <OrderProduct />
+      <CreateSettings />
+    </Card>
   );
 };
 

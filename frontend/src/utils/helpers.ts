@@ -1,7 +1,7 @@
 import { ICustomer, IOrder, IOrdersTable, IProduct } from "../models";
 import { capitalizeText } from "./typography";
 import { RangePickerProps } from "antd/lib/date-picker";
-import { PAGE_SIZE } from "../constants";
+import { BRANDS, PAGE_SIZE } from "../constants";
 import dayjs from "dayjs";
 import moment from "moment";
 
@@ -83,4 +83,28 @@ export const getProductsHeight = (isLoading: boolean, products: IProduct[]) => {
   const cardBodyHeight =
     isLoading || products.length === 0 ? "calc(100% - 126px)" : "";
   return { cardHeight, cardBodyHeight };
+};
+
+export const isCardActive = (
+  currentProductId: string,
+  activeProductId: string | null
+) =>
+  currentProductId === activeProductId
+    ? {
+        boxShadow:
+          "0 1px 2px -2px rgb(0 0 0 / 22%), 0 3px 6px 0 rgb(0 0 0 / 30%)",
+      }
+    : {};
+
+export const getOrderProductBrand = (
+  brandParams: string | null,
+  prefilledBrand: string | undefined
+) => {
+  // create-order case
+  if (brandParams) return brandParams;
+  // edit-order case
+  if (prefilledBrand) return prefilledBrand;
+
+  // create-order with product prefill case
+  return BRANDS[0];
 };

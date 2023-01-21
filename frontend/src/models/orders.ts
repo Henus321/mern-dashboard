@@ -34,3 +34,12 @@ export interface IOrdersTable {
   cost: number;
   delivery: string;
 }
+
+export interface IOrderProduct {
+  order?: IOrder;
+}
+
+export interface IOrderProductItem {
+  currentProduct: IProduct;
+  prefilledActiveProductId: string;
+}

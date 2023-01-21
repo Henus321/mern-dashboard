@@ -1,3 +1,4 @@
+import { BRANDS } from "../../constants";
 import moment from "moment";
 
 export const mockOrders = {
@@ -103,3 +104,5 @@ export const mockNewOrder = {
   delivery: moment("2022-12-28T13:07:32.164Z"),
   product: "63b1a6cabd961010ad26164d",
 };
+
+export const mockCreateOrderParams = `?brand=${BRANDS[0]}`;
