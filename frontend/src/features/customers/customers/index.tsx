@@ -45,8 +45,9 @@ const Customers = () => {
 
   return (
     <>
-      {isLoading && !customers && <Spinner />}
-      {customers && (
+      {isLoading && customers.length === 0 ? (
+        <Spinner />
+      ) : (
         <>
           <Card
             data-testid="customers-card"
