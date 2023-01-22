@@ -57,8 +57,9 @@ const Orders = () => {
 
   return (
     <>
-      {isLoading && !orders && <Spinner />}
-      {orders && (
+      {isLoading && orders.length === 0 ? (
+        <Spinner />
+      ) : (
         <Card
           data-testid="orders-card"
           bodyStyle={{
