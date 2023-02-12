@@ -1,6 +1,7 @@
 import { Moment } from "moment";
 import { ICustomer } from "./customers";
 import { IProduct } from "./products";
+import { IState } from "./shared";
 
 export interface IOrder {
   customer: ICustomer;
@@ -12,13 +13,9 @@ export interface IOrder {
   product: IProduct;
 }
 
-export interface IOrdersState {
+export interface IOrdersState extends IState {
   orders: IOrder[];
   order: IOrder | null;
-  isError: boolean;
-  isSuccess: boolean;
-  isLoading: boolean;
-  message: string;
 }
 
 export interface IOrdersTable {
@@ -33,13 +30,4 @@ export interface IOrdersTable {
   payment: string;
   cost: number;
   delivery: string;
-}
-
-export interface IOrderProduct {
-  order?: IOrder;
-}
-
-export interface IOrderProductItem {
-  currentProduct: IProduct;
-  prefilledActiveProductId: string;
 }

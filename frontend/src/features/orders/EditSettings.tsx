@@ -30,7 +30,11 @@ import {
   setCustomerOptions,
 } from "../../utils";
 
-const EditSettings = ({ order }: { order: IOrder }) => {
+interface Props {
+  order: IOrder;
+}
+
+const EditSettings: React.FC<Props> = ({ order }) => {
   const { isLoading: ordersIsLoading } = useAppSelector(
     (state) => state.orders
   );

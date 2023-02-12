@@ -11,7 +11,11 @@ import { deleteOrder } from "./ordersSlice";
 import { EDIT_ORDER_ROUTE, PRODUCTS_ROUTE } from "../../constants";
 import moment from "moment";
 
-const OrdersTable = ({ orders }: { orders: IOrder[] }) => {
+interface Props {
+  orders: IOrder[];
+}
+
+const OrdersTable: React.FC<Props> = ({ orders }) => {
   const { isLoading } = useAppSelector((state) => state.orders);
 
   const navigate = useNavigate();

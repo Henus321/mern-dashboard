@@ -1,3 +1,5 @@
+import { IState } from "./shared";
+
 export interface ICustomer {
   key: React.Key;
   name: string;
@@ -8,11 +10,7 @@ export interface ICustomer {
   _id: string;
 }
 
-export interface ICustomerState {
+export interface ICustomerState extends IState {
   customers: ICustomer[];
   customer: ICustomer | null;
-  isError: boolean;
-  isSuccess: boolean;
-  isLoading: boolean;
-  message: string;
 }

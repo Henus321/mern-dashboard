@@ -1,3 +1,5 @@
+import { IState } from "./shared";
+
 export interface IPortfolio {
   description?: string;
   profession?: string;
@@ -19,10 +21,6 @@ export interface IUser {
   portfolio?: IPortfolio;
 }
 
-export interface IProfileAuthState {
+export interface IProfileAuthState extends IState {
   user: IUser | null;
-  isError: boolean;
-  isSuccess: boolean;
-  isLoading: boolean;
-  message: string;
 }
