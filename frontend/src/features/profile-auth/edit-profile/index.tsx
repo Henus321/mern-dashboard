@@ -90,12 +90,20 @@ const EditProfile = () => {
                 MAX_40,
               ]}
             >
-              <Input placeholder="Enter name" className="rounded" />
+              <Input
+                size="large"
+                placeholder="Enter name"
+                className="rounded"
+              />
             </Form.Item>
           </Col>
           <Col span={spanHalf}>
             <Form.Item name="username" label="Username" rules={[MAX_40]}>
-              <Input placeholder="Enter username" className="rounded" />
+              <Input
+                size="large"
+                placeholder="Enter username"
+                className="rounded"
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -106,7 +114,11 @@ const EditProfile = () => {
               name="phone"
               label="Phone Number"
             >
-              <Input placeholder="89031234567" className="rounded" />
+              <Input
+                size="large"
+                placeholder="89031234567"
+                className="rounded"
+              />
             </Form.Item>
           </Col>
           <Col span={spanHalf}>
@@ -115,21 +127,33 @@ const EditProfile = () => {
               label="Website"
               rules={[{ type: "url" }, { type: "string", max: 40 }]}
             >
-              <Input placeholder="www.website.com" className="rounded" />
+              <Input
+                size="large"
+                placeholder="www.website.com"
+                className="rounded"
+              />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={gutter}>
           <Col span={spanFull}>
             <Form.Item name="company" label="Company" rules={[MAX_40]}>
-              <Input placeholder="Enter company name" className="rounded" />
+              <Input
+                size="large"
+                placeholder="Enter company name"
+                className="rounded"
+              />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={gutter}>
           <Col span={spanFull}>
             <Form.Item name="address" label="Address" rules={[MAX_100]}>
-              <Input placeholder="Enter your address" className="rounded" />
+              <Input
+                size="large"
+                placeholder="Enter your address"
+                className="rounded"
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -137,6 +161,7 @@ const EditProfile = () => {
           <Col span={spanFull}>
             <Form.Item name="about" label="About">
               <TextArea
+                size="large"
                 className="rounded"
                 rows={6}
                 placeholder="Maximum of 200 characters"

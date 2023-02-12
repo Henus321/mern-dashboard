@@ -79,7 +79,11 @@ const Portfolio = () => {
         <Row gutter={gutter}>
           <Col span={spanFull}>
             <Form.Item name="profession" label="Profession" rules={[MAX_40]}>
-              <Input placeholder="Enter your profession" className="rounded" />
+              <Input
+                size="large"
+                placeholder="Enter your profession"
+                className="rounded"
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -87,6 +91,7 @@ const Portfolio = () => {
           <Col span={spanFull}>
             <Form.Item name="description" label="Description">
               <TextArea
+                size="large"
                 className="rounded"
                 rows={8}
                 placeholder="Maximum of 200 characters"
@@ -125,6 +130,7 @@ const Portfolio = () => {
                         noStyle
                       >
                         <Input
+                          size="large"
                           addonBefore="https://"
                           addonAfter={
                             <MinusCircleOutlined

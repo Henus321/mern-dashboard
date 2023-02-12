@@ -80,6 +80,7 @@ const Password = () => {
               ]}
             >
               <Input.Password
+                size="large"
                 placeholder="Your current password"
                 className="rounded"
               />
@@ -100,6 +101,7 @@ const Password = () => {
               ]}
             >
               <Input.Password
+                size="large"
                 placeholder="Your new password"
                 className="rounded"
               />
@@ -120,6 +122,7 @@ const Password = () => {
               ]}
             >
               <Input.Password
+                size="large"
                 placeholder="Confirm your new password"
                 className="rounded"
               />
