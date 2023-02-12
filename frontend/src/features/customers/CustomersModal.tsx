@@ -73,7 +73,7 @@ const CustomersModal = () => {
             name="phone"
             label="Phone Number"
           >
-            <Input placeholder="89031234567" className="rounded" />
+            <Input className="rounded" size="large" placeholder="89031234567" />
           </Form.Item>
           <Form.Item
             name="email"

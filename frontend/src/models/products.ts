@@ -1,3 +1,5 @@
+import { IState } from "./shared";
+
 export interface IProduct {
   brand: string;
   model: string;
@@ -10,15 +12,7 @@ export interface IProduct {
   _id: string;
 }
 
-export interface IProductState {
+export interface IProductState extends IState {
   products: IProduct[];
   product: string;
-  isError: boolean;
-  isSuccess: boolean;
-  isLoading: boolean;
-  message: string;
-}
-
-export interface IProductItemProps {
-  product: IProduct;
 }

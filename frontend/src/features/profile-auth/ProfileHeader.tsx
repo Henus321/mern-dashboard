@@ -9,7 +9,11 @@ import { reset, updateUser } from "./profileAuthSlice";
 
 import LogoutButton from "./LogoutButton";
 
-const ProfileHeader = ({ user }: { user: IUser }) => {
+interface Props {
+  user: IUser;
+}
+
+const ProfileHeader: React.FC<Props> = ({ user }) => {
   const dispatch = useAppDispatch();
 
   const onSave = (file: RcFile) => {

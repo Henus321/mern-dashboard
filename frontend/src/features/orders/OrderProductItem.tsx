@@ -1,11 +1,16 @@
 import { Card, Typography, Image } from "antd";
 import { useSearchParams } from "react-router-dom";
 import { beautifyCost, capitalizeText, isCardActive } from "../../utils";
-import { IOrderProductItem } from "../../models";
+import { IProduct } from "../../models";
 import { useAppDispatch } from "../../hooks";
 import { setProduct } from "../products/productsSlice";
 
-const OrderProductItem: React.FC<IOrderProductItem> = ({
+interface Props {
+  currentProduct: IProduct;
+  prefilledActiveProductId: string;
+}
+
+const OrderProductItem: React.FC<Props> = ({
   currentProduct,
   prefilledActiveProductId,
 }) => {

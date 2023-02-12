@@ -4,14 +4,18 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useSearchParams } from "react-router-dom";
 import { fetchProducts, reset } from "../products/productsSlice";
 import { brandTabs } from "../../configs";
-import { IOrderProduct } from "../../models";
 import { ERROR_DURATION } from "../../constants";
 import { getOrderProductBrand } from "../../utils";
+import { IOrder } from "../../models";
 
 import OrderProductItem from "./OrderProductItem";
 import Spinner from "../../components/Spinner";
 
-const OrderProduct: React.FC<IOrderProduct> = ({ order }) => {
+interface Props {
+  order?: IOrder;
+}
+
+const OrderProduct: React.FC<Props> = ({ order }) => {
   const { product, products, isSuccess, isLoading, isError, message } =
     useAppSelector((state) => state.products);
   const [prefilledBrand, setPrefilledBrand] = useState(order?.product.brand);
