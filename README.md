@@ -12,6 +12,7 @@ This project deployed on render.com: [https://mern-dashboard.onrender.com/](http
 - React
 - Redux with RTK
 - Ant Design
+- Webpack
 - React Testing Library
 
 ### Backend technology stack:

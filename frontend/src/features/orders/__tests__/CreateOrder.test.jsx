@@ -49,21 +49,15 @@ describe("Create Order", () => {
     const validDay = getValidDay();
     const submitButton = screen.getByText("Submit").closest("button");
 
-    await act(async () => userEvent.click(carPick));
-
+    userEvent.click(carPick);
     await act(async () => userEvent.click(customerInput));
     await act(async () => userEvent.click(screen.getByText("Diane Chavez")));
-
-    await act(async () => userEvent.click(buildInput));
-
-    await act(async () => userEvent.click(paymentInput));
-    await act(async () => userEvent.click(screen.getByText(/instant/i)));
-    await act(async () => userEvent.click(screen.getByText(/cash/i)));
-
-    await act(async () => userEvent.click(deliveryInput));
-    await act(async () =>
-      userEvent.click(screen.getAllByText(validDay)[0].closest("td"))
-    );
+    userEvent.click(buildInput);
+    userEvent.click(paymentInput);
+    userEvent.click(screen.getByText(/instant/i));
+    userEvent.click(screen.getByText(/cash/i));
+    userEvent.click(deliveryInput);
+    userEvent.click(screen.getAllByText(validDay)[0].closest("td"));
 
     await act(async () => userEvent.click(submitButton));
 

@@ -19,7 +19,7 @@ describe("Customers", () => {
     const createButton = screen
       .getByText("Create New Customer")
       .closest("button");
-    await act(async () => userEvent.click(createButton));
+    userEvent.click(createButton);
 
     const nameInput = screen.getByPlaceholderText("Enter name");
     const phoneInput = screen.getByPlaceholderText("89031234567");
@@ -27,13 +27,11 @@ describe("Customers", () => {
     const socialInput = screen.getByPlaceholderText("www.website.com");
     const cityInput = screen.getByPlaceholderText("Enter city name");
 
-    await act(async () => {
-      userEvent.type(nameInput, "John Doe");
-      userEvent.type(phoneInput, "89031234567");
-      userEvent.type(emailInput, "user@test.com");
-      userEvent.type(socialInput, "www.google.com");
-      userEvent.type(cityInput, "Tokyo");
-    });
+    userEvent.type(nameInput, "John Doe");
+    userEvent.type(phoneInput, "89031234567");
+    userEvent.type(emailInput, "user@test.com");
+    userEvent.type(socialInput, "www.google.com");
+    userEvent.type(cityInput, "Tokyo");
 
     const okButton = screen.getByText("OK").closest("button");
     await act(async () => userEvent.click(okButton));

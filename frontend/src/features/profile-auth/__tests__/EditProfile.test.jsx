@@ -29,15 +29,12 @@ describe("Edit Profile", () => {
     const newName = "John Doe";
     const nameInput = screen.getByPlaceholderText("Enter name");
 
-    await act(async () => {
-      userEvent.clear(nameInput);
-      userEvent.type(nameInput, newName);
-    });
+    userEvent.clear(nameInput);
+    userEvent.type(nameInput, newName);
 
     expect(screen.getByPlaceholderText("Enter name").value).toEqual(newName);
 
     const cancelButton = screen.getByText("Cancel").closest("button");
-
     await act(async () => {
       userEvent.click(cancelButton);
     });
@@ -54,11 +51,11 @@ describe("Edit Profile", () => {
     const phoneInput = screen.getByPlaceholderText("89031234567");
     const websiteInput = screen.getByPlaceholderText("www.website.com");
 
-    await act(async () => {
-      userEvent.clear(nameInput);
-      userEvent.clear(phoneInput);
-      userEvent.clear(websiteInput);
+    userEvent.clear(nameInput);
+    userEvent.clear(phoneInput);
+    userEvent.clear(websiteInput);
 
+    await act(async () => {
       userEvent.type(nameInput, "Test");
       userEvent.type(phoneInput, "89031234567");
       userEvent.type(websiteInput, "www.google.com");
@@ -68,11 +65,11 @@ describe("Edit Profile", () => {
     expect(phoneInput).toBeValid();
     expect(websiteInput).toBeValid();
 
-    await act(async () => {
-      userEvent.clear(nameInput);
-      userEvent.clear(phoneInput);
-      userEvent.clear(websiteInput);
+    userEvent.clear(nameInput);
+    userEvent.clear(phoneInput);
+    userEvent.clear(websiteInput);
 
+    await act(async () => {
       userEvent.type(nameInput, "MoreThen40SymbolsTextThatWillBreakDownLayout");
       userEvent.type(phoneInput, "8903123456a");
       userEvent.type(websiteInput, "www.googlecom");

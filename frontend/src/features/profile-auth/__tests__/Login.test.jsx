@@ -61,10 +61,10 @@ describe("Login", () => {
     const emailInput = screen.getByPlaceholderText("Your email");
     const passwordInput = screen.getByPlaceholderText("Password");
 
-    await act(async () => {
-      userEvent.clear(emailInput);
-      userEvent.clear(passwordInput);
+    userEvent.clear(emailInput);
+    userEvent.clear(passwordInput);
 
+    await act(async () => {
       userEvent.type(emailInput, "user@test.com");
       userEvent.type(passwordInput, "123456");
     });
@@ -72,10 +72,10 @@ describe("Login", () => {
     expect(emailInput).toBeValid();
     expect(passwordInput).toBeValid();
 
-    await act(async () => {
-      userEvent.clear(emailInput);
-      userEvent.clear(passwordInput);
+    userEvent.clear(emailInput);
+    userEvent.clear(passwordInput);
 
+    await act(async () => {
       userEvent.type(emailInput, "usertestcom");
       userEvent.type(
         passwordInput,

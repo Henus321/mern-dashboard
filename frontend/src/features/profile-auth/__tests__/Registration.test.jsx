@@ -46,12 +46,10 @@ describe("Registration", () => {
     const passwordInput = screen.getByPlaceholderText("Password");
     const confirmInput = screen.getByPlaceholderText("Confirm password");
 
-    await act(async () => {
-      userEvent.type(nameInput, "John Doe");
-      userEvent.type(emailInput, "user@test.com");
-      userEvent.type(passwordInput, "123456");
-      userEvent.type(confirmInput, "1234567");
-    });
+    userEvent.type(nameInput, "John Doe");
+    userEvent.type(emailInput, "user@test.com");
+    userEvent.type(passwordInput, "123456");
+    userEvent.type(confirmInput, "1234567");
 
     const submitButton = screen.getByRole("button");
     await act(async () => userEvent.click(submitButton));
@@ -80,12 +78,10 @@ describe("Registration", () => {
     const passwordInput = screen.getByPlaceholderText("Password");
     const confirmInput = screen.getByPlaceholderText("Confirm password");
 
-    await act(async () => {
-      userEvent.type(nameInput, "John Doe");
-      userEvent.type(emailInput, "user2@test.com");
-      userEvent.type(passwordInput, "123456");
-      userEvent.type(confirmInput, "123456");
-    });
+    userEvent.type(nameInput, "John Doe");
+    userEvent.type(emailInput, "user2@test.com");
+    userEvent.type(passwordInput, "123456");
+    userEvent.type(confirmInput, "123456");
 
     const submitButton = screen.getByRole("button");
     await act(async () => userEvent.click(submitButton));

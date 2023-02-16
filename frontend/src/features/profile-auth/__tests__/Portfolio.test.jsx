@@ -44,10 +44,10 @@ describe("Portfolio", () => {
     );
     const exampleInput = screen.getAllByPlaceholderText("www.website.com")[0];
 
-    await act(async () => {
-      userEvent.clear(professionInput);
-      userEvent.clear(exampleInput);
+    userEvent.clear(professionInput);
+    userEvent.clear(exampleInput);
 
+    await act(async () => {
       userEvent.type(
         professionInput,
         "4444444444444444444444444444444444444444"
@@ -58,10 +58,10 @@ describe("Portfolio", () => {
     expect(professionInput).toBeValid();
     expect(exampleInput).toBeValid();
 
-    await act(async () => {
-      userEvent.clear(professionInput);
-      userEvent.clear(exampleInput);
+    userEvent.clear(professionInput);
+    userEvent.clear(exampleInput);
 
+    await act(async () => {
       userEvent.type(
         professionInput,
         "44444444444444444444444444444444444444444"
