@@ -28,11 +28,9 @@ describe("Password", () => {
       "Confirm your new password"
     );
 
-    await act(async () => {
-      userEvent.type(currentPassword, "123456");
-      userEvent.type(newPassword, "1234567");
-      userEvent.type(confirmPassword, "1234567");
-    });
+    userEvent.type(currentPassword, "123456");
+    userEvent.type(newPassword, "1234567");
+    userEvent.type(confirmPassword, "1234567");
 
     const saveButton = screen.getByText("Save").closest("button");
     await act(async () => userEvent.click(saveButton));
@@ -53,11 +51,9 @@ describe("Password", () => {
       "Confirm your new password"
     );
 
-    await act(async () => {
-      userEvent.type(currentPassword, "123456");
-      userEvent.type(newPassword, "1234567");
-      userEvent.type(confirmPassword, "12345678");
-    });
+    userEvent.type(currentPassword, "123456");
+    userEvent.type(newPassword, "1234567");
+    userEvent.type(confirmPassword, "12345678");
 
     const saveButton = screen.getByText("Save").closest("button");
     await act(async () => userEvent.click(saveButton));
