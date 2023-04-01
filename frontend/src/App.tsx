@@ -1,8 +1,6 @@
 import { Layout } from "antd";
 
-import ScrollToTop from "./components/ScrollToTop";
-import AppRouter from "./components/AppRouter";
-import CookieReminder from "./components/CookieReminder";
+import { ScrollToTop, CookieReminder, AppRouter } from "@/components";
 
 const App = () => {
   return (

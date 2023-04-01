@@ -1,12 +1,12 @@
 import { act, screen } from "@testing-library/react";
-import { CREATE_ORDER_ROUTE, ORDER_CREATE_MESSAGE } from "../../../constants";
+import { CREATE_ORDER_ROUTE, ORDER_CREATE_MESSAGE } from "@/constants";
 import {
   renderTestApp,
   mockState,
   server,
   getValidDay,
   mockCreateOrderParams,
-} from "../../../tests";
+} from "@/tests";
 import userEvent from "@testing-library/user-event";
 
 const requestSpy = jest.fn();

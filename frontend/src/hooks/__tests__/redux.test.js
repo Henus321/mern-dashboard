@@ -1,8 +1,8 @@
 import { renderHook } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { setupStore } from "../../store";
-import { mockState } from "../../tests";
-import { useAppSelector } from "..";
+import { setupStore } from "@/store";
+import { mockState } from "@/tests";
+import { useAppSelector } from "@/hooks";
 
 const store = setupStore(mockState);
 const wrapper = ({ children }) => <Provider store={store}>{children}</Provider>;

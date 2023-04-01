@@ -11,19 +11,19 @@ import {
 } from "antd";
 import { CheckOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import {
   PAYMENT_OPTIONS,
   BUILD_OPTIONS,
   ERROR_DURATION,
   PICK_MESSAGE,
   ORDERS_ROUTE,
-} from "../../constants";
-import { fetchCustomers } from "../customers/customersSlice";
-import { createOrder } from "./ordersSlice";
-import { disabledDate, setSelectOptions } from "../../utils";
+} from "@/constants";
+import { fetchCustomers } from "@/store/customers/customersSlice";
+import { createOrder } from "@/store/orders/ordersSlice";
+import { disabledDate, setSelectOptions } from "@/utils";
 
-const CreateSettings = () => {
+export const CreateSettings = () => {
   const { isLoading: ordersIsLoading } = useAppSelector(
     (state) => state.orders
   );
@@ -139,5 +139,3 @@ const CreateSettings = () => {
     </>
   );
 };
-
-export default CreateSettings;

@@ -4,8 +4,8 @@ import {
   COMMON_SUCCESS_MESSAGE,
   PASSWORD_MATCH_MESSAGE,
   PASSWORD_ROUTE,
-} from "../../../constants";
-import { renderTestApp, mockState, server } from "../../../tests";
+} from "@/constants";
+import { renderTestApp, mockState, server } from "@/tests";
 
 const requestSpy = jest.fn();
 server.events.on("request:start", requestSpy);

@@ -1,13 +1,13 @@
 import React from "react";
 import { Card, Divider, Image } from "antd";
 
-import pageNotFound from "../assets/page-not-found.png";
+import pageNotFound from "@/assets/page-not-found.png";
 
 interface Props {
   type: string;
 }
 
-const NotFound: React.FC<Props> = ({ type }) => {
+export const NotFound: React.FC<Props> = ({ type }) => {
   return (
     <Card
       bodyStyle={{
@@ -36,5 +36,3 @@ const NotFound: React.FC<Props> = ({ type }) => {
     </Card>
   );
 };
-
-export default NotFound;

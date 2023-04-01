@@ -1,7 +1,8 @@
-import { ICustomer, IOrder, IOrdersTable, IProduct } from "../models";
+import { ICustomer, IOrder, IOrdersTable, IProduct } from "@/models";
 import { capitalizeText } from "./typography";
 import { RangePickerProps } from "antd/lib/date-picker";
-import { BRANDS, PAGE_SIZE } from "../constants";
+import { BRANDS, PAGE_SIZE } from "@/constants";
+
 import dayjs from "dayjs";
 import moment from "moment";
 

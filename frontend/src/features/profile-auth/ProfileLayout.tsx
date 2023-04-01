@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { Row, Col, Card, Grid } from "antd";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { fetchUser } from "./profileAuthSlice";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { fetchUser } from "@/store/profile-auth/profileAuthSlice";
 
-import ProfileMenu from "./ProfileMenu";
-import ProfileHeader from "./ProfileHeader";
-import Spinner from "../../components/Spinner";
+import { ProfileMenu, ProfileHeader } from "./";
+import { Spinner } from "@/components";
 
 const { useBreakpoint } = Grid;
 
@@ -13,7 +12,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const ProfileLayout: React.FC<Props> = ({ children }) => {
+export const ProfileLayout: React.FC<Props> = ({ children }) => {
   const { user, isLoading } = useAppSelector((state) => state.auth);
 
   const { xs, lg } = useBreakpoint();
@@ -63,5 +62,3 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
     </>
   );
 };
-
-export default ProfileLayout;

@@ -1,7 +1,6 @@
 import { Spin } from "antd";
-import React from "react";
 
-const Spinner = () => {
+export const Spinner = () => {
   return (
     <Spin
       tip="Loading..."
@@ -10,5 +9,3 @@ const Spinner = () => {
     />
   );
 };
-
-export default Spinner;

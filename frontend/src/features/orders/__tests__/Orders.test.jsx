@@ -1,6 +1,6 @@
 import { act, screen } from "@testing-library/react";
-import { ORDER_DELETE_MESSAGE, ORDERS_ROUTE } from "../../../constants";
-import { renderTestApp, mockState, server } from "../../../tests";
+import { ORDER_DELETE_MESSAGE, ORDERS_ROUTE } from "@/constants";
+import { renderTestApp, mockState, server } from "@/tests";
 import userEvent from "@testing-library/user-event";
 
 const requestSpy = jest.fn();

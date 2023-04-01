@@ -1,4 +1,4 @@
-import { BRANDS } from "../../constants";
+import { BRANDS } from "@/constants";
 import moment from "moment";
 
 export const mockOrders = {

@@ -1,7 +1,6 @@
-import React from "react";
 import CookieConsent from "react-cookie-consent";
 
-const CookieReminder = () => {
+export const CookieReminder = () => {
   return (
     <CookieConsent
       location="bottom"
@@ -26,5 +25,3 @@ const CookieReminder = () => {
     </CookieConsent>
   );
 };
-
-export default CookieReminder;

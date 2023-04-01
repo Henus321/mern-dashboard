@@ -1,16 +1,16 @@
 import { Card, Typography, Image } from "antd";
 import { useSearchParams } from "react-router-dom";
-import { beautifyCost, capitalizeText, isCardActive } from "../../utils";
-import { IProduct } from "../../models";
-import { useAppDispatch } from "../../hooks";
-import { setProduct } from "../products/productsSlice";
+import { beautifyCost, capitalizeText, isCardActive } from "@/utils";
+import { IProduct } from "@/models";
+import { useAppDispatch } from "@/hooks";
+import { setProduct } from "@/store/products/productsSlice";
 
 interface Props {
   currentProduct: IProduct;
   prefilledActiveProductId: string;
 }
 
-const OrderProductItem: React.FC<Props> = ({
+export const OrderProductItem: React.FC<Props> = ({
   currentProduct,
   prefilledActiveProductId,
 }) => {
@@ -73,5 +73,3 @@ const OrderProductItem: React.FC<Props> = ({
     </Card.Grid>
   );
 };
-
-export default OrderProductItem;

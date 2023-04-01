@@ -1,7 +1,7 @@
 import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { COMMON_SUCCESS_MESSAGE, PORTFOLIO_ROUTE } from "../../../constants";
-import { renderTestApp, mockState, server } from "../../../tests";
+import { COMMON_SUCCESS_MESSAGE, PORTFOLIO_ROUTE } from "@/constants";
+import { renderTestApp, mockState, server } from "@/tests";
 
 const requestSpy = jest.fn();
 server.events.on("request:start", requestSpy);

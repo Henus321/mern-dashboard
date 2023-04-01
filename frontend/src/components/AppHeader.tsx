@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Layout,
   Typography,
@@ -17,16 +18,15 @@ import {
   DingtalkOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { PHOTO_URL } from "../constants";
-import { profileMenu, sideMenu } from "../configs";
-import { Link } from "react-router-dom";
-import { logout } from "../features/profile-auth/profileAuthSlice";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { PHOTO_URL } from "@/constants";
+import { profileMenu, sideMenu } from "@/configs";
+import { logout } from "@/store/profile-auth/profileAuthSlice";
 
 const { useBreakpoint } = Grid;
 const { Header } = Layout;
 
-const AppHeader = () => {
+export const AppHeader = () => {
   const { user } = useAppSelector((state) => state.auth);
 
   const { md } = useBreakpoint();
@@ -110,5 +110,3 @@ const AppHeader = () => {
     </Header>
   );
 };
-
-export default AppHeader;

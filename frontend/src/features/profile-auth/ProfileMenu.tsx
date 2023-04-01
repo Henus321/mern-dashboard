@@ -1,9 +1,9 @@
 import React from "react";
 import { Menu, MenuProps } from "antd";
 import { Link, useLocation } from "react-router-dom";
-import { profileMenu } from "../../configs";
+import { profileMenu } from "@/configs";
 
-const ProfileMenu = () => {
+export const ProfileMenu = () => {
   const menuItems: MenuProps["items"] = [...profileMenu].map((menuItem) => {
     return {
       key: menuItem.key,
@@ -33,5 +33,3 @@ const ProfileMenu = () => {
     </>
   );
 };
-
-export default ProfileMenu;

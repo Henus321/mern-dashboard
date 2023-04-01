@@ -1,12 +1,12 @@
-import { Layout, Menu, MenuProps, Grid } from "antd";
 import React from "react";
+import { Layout, Menu, MenuProps, Grid } from "antd";
 import { Link, useLocation } from "react-router-dom";
-import { sideMenu, defaultOpenSideMenuKeys } from "../configs";
+import { sideMenu, defaultOpenSideMenuKeys } from "@/configs";
 
 const { useBreakpoint } = Grid;
 const { Sider } = Layout;
 
-const SideMenu = () => {
+export const SideMenu = () => {
   const { xl, xxl } = useBreakpoint();
 
   const menuItems: MenuProps["items"] = [...sideMenu].map((menuItem) => {
@@ -37,5 +37,3 @@ const SideMenu = () => {
     </Sider>
   );
 };
-
-export default SideMenu;
