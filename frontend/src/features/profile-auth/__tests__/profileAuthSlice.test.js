@@ -1,4 +1,4 @@
-import { mockState, mockUser, server } from "../../../tests";
+import { mockState, mockUser, server } from "@/tests";
 import profileAuthReducer, {
   logout,
   updateUser,
@@ -6,7 +6,7 @@ import profileAuthReducer, {
   passwordChange,
   login,
   register,
-} from "../profileAuthSlice";
+} from "@/store/profile-auth/profileAuthSlice";
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());

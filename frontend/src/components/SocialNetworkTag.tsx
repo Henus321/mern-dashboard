@@ -1,12 +1,12 @@
 import React from "react";
 import { Tag, Tooltip } from "antd";
-import { ICustomer } from "../models";
+import { ICustomer } from "@/models";
 
 interface Props {
   record: ICustomer;
 }
 
-const SocialNetworkTag: React.FC<Props> = ({ record }) => {
+export const SocialNetworkTag: React.FC<Props> = ({ record }) => {
   let color = "dimgrey";
   let tag = "unknown";
   if (record.social?.includes("facebook")) {
@@ -42,5 +42,3 @@ const SocialNetworkTag: React.FC<Props> = ({ record }) => {
     </Tooltip>
   );
 };
-
-export default SocialNetworkTag;

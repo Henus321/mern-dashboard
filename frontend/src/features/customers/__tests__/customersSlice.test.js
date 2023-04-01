@@ -3,8 +3,10 @@ import {
   mockCustomersPayload,
   mockState,
   mockErrorMessage,
-} from "../../../tests";
-import customersReducer, { fetchCustomers } from "../customersSlice";
+} from "@/tests";
+import customersReducer, {
+  fetchCustomers,
+} from "@/store/customers/customersSlice";
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());

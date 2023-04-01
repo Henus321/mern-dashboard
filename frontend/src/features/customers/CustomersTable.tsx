@@ -1,14 +1,13 @@
-import React from "react";
 import { Button, Space, Table } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { ICustomer } from "../../models";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { deleteCustomer, setCustomer } from "./customersSlice";
-import { createCityFilters } from "../../utils";
+import { ICustomer } from "@/models";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { deleteCustomer, setCustomer } from "@/store/customers/customersSlice";
+import { createCityFilters } from "@/utils";
 
-import SocialNetworkTag from "../../components/SocialNetworkTag";
+import { SocialNetworkTag } from "@/components";
 
-const CustomersTable = () => {
+export const CustomersTable = () => {
   const { customers, isLoading } = useAppSelector((state) => state.customers);
 
   const dispatch = useAppDispatch();
@@ -163,5 +162,3 @@ const CustomersTable = () => {
     </>
   );
 };
-
-export default CustomersTable;

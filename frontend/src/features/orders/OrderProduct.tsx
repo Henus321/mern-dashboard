@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react";
 import { Divider, notification, Typography, Card } from "antd";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { useSearchParams } from "react-router-dom";
-import { fetchProducts, reset } from "../products/productsSlice";
-import { brandTabs } from "../../configs";
-import { ERROR_DURATION } from "../../constants";
-import { getOrderProductBrand } from "../../utils";
-import { IOrder } from "../../models";
+import { fetchProducts, reset } from "@/store/products/productsSlice";
+import { brandTabs } from "@/configs";
+import { ERROR_DURATION } from "@/constants";
+import { getOrderProductBrand } from "@/utils";
+import { IOrder } from "@/models";
 
-import OrderProductItem from "./OrderProductItem";
-import Spinner from "../../components/Spinner";
+import { OrderProductItem } from "./";
+import { Spinner } from "@/components";
 
 interface Props {
   order?: IOrder;
 }
 
-const OrderProduct: React.FC<Props> = ({ order }) => {
+export const OrderProduct: React.FC<Props> = ({ order }) => {
   const { product, products, isSuccess, isLoading, isError, message } =
     useAppSelector((state) => state.products);
   const [prefilledBrand, setPrefilledBrand] = useState(order?.product.brand);
@@ -97,5 +97,3 @@ const OrderProduct: React.FC<Props> = ({ order }) => {
     </>
   );
 };
-
-export default OrderProduct;

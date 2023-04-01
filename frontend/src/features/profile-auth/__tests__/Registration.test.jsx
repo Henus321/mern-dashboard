@@ -1,12 +1,12 @@
 import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { REGISTRATION_ROUTE, PASSWORD_MATCH_MESSAGE } from "../../../constants";
+import { REGISTRATION_ROUTE, PASSWORD_MATCH_MESSAGE } from "@/constants";
 import {
   renderTestApp,
   mockState,
   server,
   mockAuthStateUnauthorized,
-} from "../../../tests";
+} from "@/tests";
 
 const requestSpy = jest.fn();
 server.events.on("request:start", requestSpy);

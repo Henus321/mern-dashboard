@@ -1,13 +1,11 @@
-import AppHeader from "./AppHeader";
-import AppFooter from "./AppFooter";
 import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
-import SideMenu from "./SideMenu";
-import BreadcrumbMenu from "./BreadcrumbMenu";
+
+import { AppHeader, AppFooter, SideMenu, BreadcrumbMenu } from "./";
 
 const { Content } = Layout;
 
-const DashboardLayout = () => {
+export const DashboardLayout = () => {
   return (
     <>
       <AppHeader />
@@ -24,5 +22,3 @@ const DashboardLayout = () => {
     </>
   );
 };
-
-export default DashboardLayout;

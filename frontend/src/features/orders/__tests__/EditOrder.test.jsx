@@ -1,6 +1,6 @@
 import { act, screen } from "@testing-library/react";
-import { EDIT_ORDER_ROUTE, ORDER_EDIT_MESSAGE } from "../../../constants";
-import { renderTestApp, mockState, server, mockOrderId } from "../../../tests";
+import { EDIT_ORDER_ROUTE, ORDER_EDIT_MESSAGE } from "@/constants";
+import { renderTestApp, mockState, server, mockOrderId } from "@/tests";
 import userEvent from "@testing-library/user-event";
 
 const requestSpy = jest.fn();

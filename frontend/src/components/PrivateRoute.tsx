@@ -1,9 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "../constants";
-import { useAuthStatus } from "../hooks";
-import Spinner from "./Spinner";
+import { DEFAULT_UNAUTHORIZED_USER_ROUTE } from "@/constants";
+import { useAuthStatus } from "@/hooks";
 
-const PrivateRoute = () => {
+import { Spinner } from "./";
+
+export const PrivateRoute = () => {
   const { loggedIn, checkingStatus } = useAuthStatus();
 
   if (checkingStatus) {
@@ -16,5 +17,3 @@ const PrivateRoute = () => {
     <Navigate to={DEFAULT_UNAUTHORIZED_USER_ROUTE} />
   );
 };
-
-export default PrivateRoute;

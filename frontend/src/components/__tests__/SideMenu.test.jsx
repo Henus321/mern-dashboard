@@ -1,6 +1,6 @@
 import { act, screen } from "@testing-library/react";
-import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../../constants";
-import { renderTestApp, mockState, server } from "../../tests";
+import { DEFAULT_AUTHORIZED_USER_ROUTE } from "@/constants";
+import { renderTestApp, mockState, server } from "@/tests";
 import userEvent from "@testing-library/user-event";
 
 beforeAll(() => server.listen());

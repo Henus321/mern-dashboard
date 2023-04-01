@@ -1,5 +1,5 @@
-import { BRANDS } from "../constants";
-import { capitalizeText } from "../utils";
+import { BRANDS } from "@/constants";
+import { capitalizeText } from "@/utils";
 
 export const brandFilters = [
   ...BRANDS.map((brand) => {

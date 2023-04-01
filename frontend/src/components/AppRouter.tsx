@@ -1,23 +1,20 @@
-import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { PREFIX } from "../constants";
+import { PREFIX } from "@/constants";
 
-import DashboardLayout from "./DashboardLayout";
-import PrivateRoute from "./PrivateRoute";
-import LoggedInRedirect from "./LoggedInRedirect";
+import { DashboardLayout, LoggedInRedirect, PrivateRoute } from "./";
 
-import Orders from "../features/orders/orders";
-import CreateOrder from "../features/orders/create-order";
-import EditOrder from "../features/orders/edit-order";
-import Products from "../features/products/products";
-import Customers from "../features/customers/customers";
-import Login from "../features/profile-auth/login";
-import Registration from "../features/profile-auth/registration";
-import EditProfile from "../features/profile-auth/edit-profile";
-import Portfolio from "../features/profile-auth/portfolio";
-import Password from "../features/profile-auth/password";
+import Orders from "@/pages/dashboard/orders";
+import CreateOrder from "@/pages/dashboard/orders/create-order";
+import EditOrder from "@/pages/dashboard/orders/edit-order";
+import Products from "@/pages/dashboard/products";
+import Customers from "@/pages/dashboard/customers";
+import Login from "@/pages/login";
+import Registration from "@/pages/registration";
+import EditProfile from "@/pages/dashboard/profile/edit-profile";
+import Portfolio from "@/pages/dashboard/profile/portfolio";
+import Password from "@/pages/dashboard/profile/password";
 
-const AppRouter = () => {
+export const AppRouter = () => {
   return (
     <Routes>
       <Route element={<LoggedInRedirect />}>
@@ -49,5 +46,3 @@ const AppRouter = () => {
     </Routes>
   );
 };
-
-export default AppRouter;

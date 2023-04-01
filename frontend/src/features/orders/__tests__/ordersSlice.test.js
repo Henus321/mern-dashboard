@@ -6,12 +6,12 @@ import {
   mockOrderId,
   mockNewOrder,
   mockOrderPayload,
-} from "../../../tests";
+} from "@/tests";
 import ordersReducer, {
   fetchOrders,
   createOrder,
   updateOrder,
-} from "../ordersSlice";
+} from "@/store/orders/ordersSlice";
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());

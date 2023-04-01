@@ -2,17 +2,17 @@ import React from "react";
 import { Button, Card, Image, Typography } from "antd";
 import { IdcardOutlined } from "@ant-design/icons";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { IProduct } from "../../models";
-import { beautifyCost, capitalizeText, slugifyText } from "../../utils";
-import { useAppDispatch } from "../../hooks";
-import { CREATE_ORDER_ROUTE } from "../../constants";
-import { reset } from "./productsSlice";
+import { IProduct } from "@/models";
+import { beautifyCost, capitalizeText, slugifyText } from "@/utils";
+import { useAppDispatch } from "@/hooks";
+import { CREATE_ORDER_ROUTE } from "@/constants";
+import { reset } from "@/store/products/productsSlice";
 
 interface Props {
   product: IProduct;
 }
 
-const ProductItem: React.FC<Props> = ({ product }) => {
+export const ProductItem: React.FC<Props> = ({ product }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -68,5 +68,3 @@ const ProductItem: React.FC<Props> = ({ product }) => {
     </Card.Grid>
   );
 };
-
-export default ProductItem;

@@ -7,7 +7,7 @@ import {
   IdcardOutlined,
   LockOutlined,
 } from "@ant-design/icons";
-import { PREFIX } from "../constants";
+import { PREFIX } from "@/constants";
 
 export const defaultOpenSideMenuKeys = ["dashboard"];
 

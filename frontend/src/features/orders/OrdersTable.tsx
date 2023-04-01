@@ -2,20 +2,20 @@ import React from "react";
 import { Table, Button, Image, Space } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
-import { IOrder, IOrdersTable } from "../../models";
+import { IOrder, IOrdersTable } from "@/models";
 import { Link, useNavigate } from "react-router-dom";
-import { beautifyCost, convertOrdersToDataSource } from "../../utils";
-import { brandFilters } from "../../configs";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { deleteOrder } from "./ordersSlice";
-import { EDIT_ORDER_ROUTE, PRODUCTS_ROUTE } from "../../constants";
+import { beautifyCost, convertOrdersToDataSource } from "@/utils";
+import { brandFilters } from "@/configs";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { deleteOrder } from "@/store/orders/ordersSlice";
+import { EDIT_ORDER_ROUTE, PRODUCTS_ROUTE } from "@/constants";
 import moment from "moment";
 
 interface Props {
   orders: IOrder[];
 }
 
-const OrdersTable: React.FC<Props> = ({ orders }) => {
+export const OrdersTable: React.FC<Props> = ({ orders }) => {
   const { isLoading } = useAppSelector((state) => state.orders);
 
   const navigate = useNavigate();
@@ -216,5 +216,3 @@ const OrdersTable: React.FC<Props> = ({ orders }) => {
     </>
   );
 };
-
-export default OrdersTable;

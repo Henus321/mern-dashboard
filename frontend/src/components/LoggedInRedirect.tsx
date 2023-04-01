@@ -1,9 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { DEFAULT_AUTHORIZED_USER_ROUTE } from "../constants";
-import { useAuthStatus } from "../hooks";
-import Spinner from "./Spinner";
+import { DEFAULT_AUTHORIZED_USER_ROUTE } from "@/constants";
+import { useAuthStatus } from "@/hooks";
 
-const LoggedInRedirect = () => {
+import { Spinner } from "./";
+
+export const LoggedInRedirect = () => {
   const { loggedIn, checkingStatus } = useAuthStatus();
 
   if (checkingStatus) {
@@ -16,5 +17,3 @@ const LoggedInRedirect = () => {
     <Outlet />
   );
 };
-
-export default LoggedInRedirect;

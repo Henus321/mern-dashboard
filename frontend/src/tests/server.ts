@@ -5,7 +5,7 @@ import {
   ORDERS_URL,
   PRODUCTS_URL,
   CUSTOMERS_URL,
-} from "../constants";
+} from "@/constants";
 import {
   mockAuthResponse,
   mockProfile,

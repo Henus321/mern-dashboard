@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Modal } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
-import { LEN_11, MAX_100, MAX_20, ONLY_NUMBERS } from "../../constants";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { createCustomer, updateCustomer, reset } from "./customersSlice";
+import { LEN_11, MAX_100, MAX_20, ONLY_NUMBERS } from "@/constants";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import {
+  createCustomer,
+  updateCustomer,
+  reset,
+} from "@/store/customers/customersSlice";
 
-const CustomersModal = () => {
+export const CustomersModal = () => {
   const { customer, isLoading } = useAppSelector((state) => state.customers);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -129,5 +133,3 @@ const CustomersModal = () => {
     </>
   );
 };
-
-export default CustomersModal;

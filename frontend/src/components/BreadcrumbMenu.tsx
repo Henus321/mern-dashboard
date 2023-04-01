@@ -1,7 +1,7 @@
 import { Breadcrumb } from "antd";
 import { useLocation, useParams } from "react-router-dom";
 
-const BreadcrumbMenu = () => {
+export const BreadcrumbMenu = () => {
   const location = useLocation();
   const params = useParams();
 
@@ -25,5 +25,3 @@ const BreadcrumbMenu = () => {
     </Breadcrumb>
   );
 };
-
-export default BreadcrumbMenu;

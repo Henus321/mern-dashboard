@@ -12,29 +12,29 @@ import {
 } from "antd";
 import { ArrowLeftOutlined, CheckOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { IOrder } from "../../models";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { IOrder } from "@/models";
 import {
   PAYMENT_OPTIONS,
   BUILD_OPTIONS,
   ERROR_DURATION,
   PICK_MESSAGE,
   ORDERS_ROUTE,
-} from "../../constants";
-import { updateOrder } from "./ordersSlice";
-import { fetchCustomers } from "../customers/customersSlice";
-import { setProduct } from "../products/productsSlice";
+} from "@/constants";
+import { updateOrder } from "@/store/orders/ordersSlice";
+import { fetchCustomers } from "@/store/customers/customersSlice";
+import { setProduct } from "@/store/products/productsSlice";
 import {
   createOrderFormValues,
   disabledDate,
   setCustomerOptions,
-} from "../../utils";
+} from "@/utils";
 
 interface Props {
   order: IOrder;
 }
 
-const EditSettings: React.FC<Props> = ({ order }) => {
+export const EditSettings: React.FC<Props> = ({ order }) => {
   const { isLoading: ordersIsLoading } = useAppSelector(
     (state) => state.orders
   );
@@ -161,5 +161,3 @@ const EditSettings: React.FC<Props> = ({ order }) => {
     </>
   );
 };
-
-export default EditSettings;
