@@ -27,7 +27,7 @@ const { useBreakpoint } = Grid;
 const { Header } = Layout;
 
 export const AppHeader = () => {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, isSuccess } = useAppSelector((state) => state.auth);
 
   const { md } = useBreakpoint();
 
@@ -75,7 +75,7 @@ export const AppHeader = () => {
             Mern Dashboard
           </Typography.Title>
         </Col>
-        {user && (
+        {user && !isSuccess && (
           <Col className="flex">
             <Dropdown
               placement="bottomRight"

@@ -4,7 +4,7 @@ import { IUser } from "@/models";
 import { UploadOutlined, UserOutlined } from "@ant-design/icons";
 import { PHOTO_URL } from "@/constants";
 import { useAppDispatch } from "@/hooks";
-import { reset, updateUser } from "@/store/profile-auth/profileAuthSlice";
+import { updateUser } from "@/store/profile-auth/profileAuthSlice";
 
 import { LogoutButton } from "./";
 
@@ -20,7 +20,6 @@ export const ProfileHeader: React.FC<Props> = ({ user }) => {
     formData.append("photo", file);
 
     dispatch(updateUser(formData));
-    dispatch(reset());
   };
 
   const dummyRequest = ({ onSuccess }: any) => {
