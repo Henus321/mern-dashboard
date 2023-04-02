@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Row, Col, Card, Grid } from "antd";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { fetchUser } from "@/store/profile-auth/profileAuthSlice";
+import { fetchUser, reset } from "@/store/profile-auth/profileAuthSlice";
 
 import { ProfileMenu, ProfileHeader } from "./";
 import { Spinner } from "@/components";
@@ -13,15 +13,16 @@ interface Props {
 }
 
 export const ProfileLayout: React.FC<Props> = ({ children }) => {
-  const { user, isLoading } = useAppSelector((state) => state.auth);
+  const { user, isLoading, isSuccess } = useAppSelector((state) => state.auth);
 
   const { xs, lg } = useBreakpoint();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
+    if (!isSuccess) dispatch(fetchUser());
+    if (isSuccess) dispatch(reset());
+  }, [dispatch, isSuccess]);
 
   return (
     <>
